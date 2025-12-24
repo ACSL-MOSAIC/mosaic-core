@@ -1,0 +1,10 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# 의존성이 있다면 여기서 찾기
+# find_dependency(SomeDependency)
+
+include("${CMAKE_CURRENT_LIST_DIR}/BA_GCS_rtc_sender_targets.cmake")
+
+check_required_components(BA_GCS_rtc_sender)

@@ -26,7 +26,8 @@ add_library(logging STATIC
         src/logger/log_service.cpp
 )
 target_include_directories(logging PUBLIC
-        include
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
 )
 
 add_library(signaling_server STATIC
@@ -39,7 +40,8 @@ target_link_libraries(signaling_server PRIVATE
         cpprestsdk::cpprest
 )
 target_include_directories(signaling_server PUBLIC
-        include
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
         ${CPPREST_INCLUDE_DIRS}
 )
 
@@ -76,7 +78,8 @@ target_link_libraries(BA_GCS_rtc_sender PUBLIC
 )
 
 target_include_directories(BA_GCS_rtc_sender PUBLIC
-        include
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
         ${JSONCPP_INCLUDE_DIRS}
 )
 
@@ -103,13 +106,13 @@ if (BUILD_TESTS)
 
     # 테스트 실행 파일에 라이브러리 링크
     target_link_libraries(websocket_client_tests
-            rtc_sender                  # 메인 라이브러리
+            BA_GCS_rtc_sender          # 메인 라이브러리
             third_party_lib
             GTest::GTest               # Google Test
             GTest::Main                # Google Test main 함수
     )
     target_link_libraries(logger_tests
-            rtc_sender
+            BA_GCS_rtc_sender
             GTest::GTest               # Google Test
             GTest::Main                # Google Test main 함수
     )
@@ -139,12 +142,46 @@ endif ()
 ################################################################################
 # 설치 설정
 ################################################################################
-install(TARGETS
-        BA_GCS_rtc_sender
-        DESTINATION lib/${PROJECT_NAME})
+# 설치 규칙
+include(GNUInstallDirs)
+
+# 라이브러리 설치
+install(TARGETS BA_GCS_rtc_sender third_party_lib signaling_server logging
+        EXPORT BA_GCS_rtc_sender_targets
+        LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+        RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
 
 # 헤더 파일 설치
 install(DIRECTORY include/
-        DESTINATION include/
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
+# CMake config 파일 생성 및 설치
+install(EXPORT BA_GCS_rtc_sender_targets
+        FILE BA_GCS_rtc_sender_targets.cmake
+        NAMESPACE rtc_sender::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BA_GCS_rtc_sender
+)
+
+# Config 파일 생성
+include(CMakePackageConfigHelpers)
+
+configure_package_config_file(
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/BA_GCS_rtc_sender_config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BA_GCS_rtc_sender
+)
+
+write_basic_package_version_file(
+        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config_version.cmake
+        VERSION ${PROJECT_VERSION}
+        COMPATIBILITY AnyNewerVersion
+)
+
+install(FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config_version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BA_GCS_rtc_sender
+)

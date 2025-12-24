@@ -105,9 +105,9 @@ function(create_third_party_target)
     endif ()
 
     target_include_directories(third_party_lib SYSTEM INTERFACE
-            ${WEBRTC_INCLUDE_PATH}
-            ${WEBRTC_INCLUDE_PATH}/third_party/abseil-cpp
-            ${WEBRTC_INCLUDE_PATH}/third_party/libyuv/include
+            $<BUILD_INTERFACE:${WEBRTC_INCLUDE_PATH}>
+            $<BUILD_INTERFACE:${WEBRTC_INCLUDE_PATH}/third_party/abseil-cpp>
+            $<BUILD_INTERFACE:${WEBRTC_INCLUDE_PATH}/third_party/libyuv/include>
             ${OpenCV_INCLUDE_DIRS}
             ${FMT_INCLUDE_DIRS}
             ${JSONCPP_INCLUDE_DIRS}
