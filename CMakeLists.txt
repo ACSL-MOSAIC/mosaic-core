@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(BA_GCS_rtc_sender)
+project(BA_GCS_rtc_sender VERSION 1.0.0)
 
 if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
     add_compile_options(-Wall -Wextra -Wpedantic)
