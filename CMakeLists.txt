@@ -147,7 +147,7 @@ include(GNUInstallDirs)
 
 # 라이브러리 설치
 install(TARGETS BA_GCS_rtc_sender third_party_lib signaling_server logging
-        EXPORT BA_GCS_rtc_sender_targets
+        EXPORT ba_gcs_rtc_sender_targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -159,29 +159,29 @@ install(DIRECTORY include/
 )
 
 # CMake config 파일 생성 및 설치
-install(EXPORT BA_GCS_rtc_sender_targets
-        FILE BA_GCS_rtc_sender_targets.cmake
-        NAMESPACE rtc_sender::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BA_GCS_rtc_sender
+install(EXPORT ba_gcs_rtc_sender_targets
+        FILE ba_gcs_rtc_sender_targets.cmake
+        NAMESPACE ba_gcs::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
 )
 
 # Config 파일 생성
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/BA_GCS_rtc_sender_config.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BA_GCS_rtc_sender
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ba_gcs_rtc_sender-config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config_version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config-version.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/BA_GCS_rtc_sender_config_version.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/BA_GCS_rtc_sender
+        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
 )
