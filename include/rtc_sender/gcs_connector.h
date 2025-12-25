@@ -75,7 +75,7 @@ namespace rtc_sender {
         std::shared_ptr<ClientStateManager> GetStateManager() const;
 
         // Friends to access pImpl
-        friend class RobotWebRTCClientFactory;
+        friend class GCSConnectorFactory;
         friend class PeerConnectionManager;
         friend class SignalingClient;
         friend class observers::PeerConnectionObserver;
