@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 26.
 //
 
-#ifndef BA_GCS_RTC_SENDER_CLIENT_STATE_MANAGER_H
-#define BA_GCS_RTC_SENDER_CLIENT_STATE_MANAGER_H
+#ifndef BA_GCS_RTC_SENDER_CONNECTOR_STATE_MANAGER_H
+#define BA_GCS_RTC_SENDER_CONNECTOR_STATE_MANAGER_H
 
 #include <memory>
 #include <shared_mutex>
@@ -12,11 +12,11 @@
 #include "rtc_sender/signaling/i_signaling_client.h"
 
 namespace rtc_sender {
-  class ClientStateManager final {
+  class ConnectorStateManager final {
   public:
     enum State { INITIALIZING, READY_TO_CONNECT, CONNECTING, CONNECTED, DISCONNECTING, FAILED, SHUTTING_DOWN };
 
-    explicit ClientStateManager(const std::shared_ptr<signaling::ISignalingClient> &signaling_client);
+    explicit ConnectorStateManager(const std::shared_ptr<signaling::ISignalingClient> &signaling_client);
 
     void SetState(State new_state);
 
@@ -39,4 +39,4 @@ namespace rtc_sender {
   };
 } // namespace rtc_sender
 
-#endif  // BA_GCS_RTC_SENDER_CLIENT_STATE_MANAGER_H
+#endif  // BA_GCS_RTC_SENDER_CONNECTOR_STATE_MANAGER_H

@@ -2,7 +2,7 @@
 // Created by yhkim on 25. 6. 3.
 //
 
-#include <rtc_sender/client_state_manager.h>
+#include <rtc_sender/connector_state_manager.h>
 #include <rtc_sender/handlers/data_channel/i_data_channel_receivable.h>
 #include <rtc_sender/logger/log.h>
 #include <rtc_sender/observers/peer_connection_observer.h>
@@ -16,7 +16,7 @@ class rtc_sender::GCSConnector::Impl {
 public:
     explicit Impl(const std::string &robot_id,
                   const std::string &user_id,
-                  const std::shared_ptr<ClientStateManager> &state_manager)
+                  const std::shared_ptr<ConnectorStateManager> &state_manager)
         : state_manager_(state_manager), robot_id_(robot_id), user_id_(user_id) {
     }
 
@@ -75,7 +75,7 @@ public:
     }
 
     void ShuttingDown() const {
-        state_manager_->SetState(ClientStateManager::SHUTTING_DOWN);
+        state_manager_->SetState(ConnectorStateManager::SHUTTING_DOWN);
         RTC_SENDER_LOG_INFO("Shutting down RobotWebRTCClient...");
         peer_connection_manager_->StopSignalingServer();
         peer_connection_manager_->ClosePeerConnection();
@@ -84,7 +84,7 @@ public:
     }
 
     std::shared_ptr<PeerConnectionManager> peer_connection_manager_ = nullptr;
-    std::shared_ptr<ClientStateManager> state_manager_;
+    std::shared_ptr<ConnectorStateManager> state_manager_;
 
 private:
     std::string robot_id_;
@@ -162,7 +162,7 @@ private:
 
 rtc_sender::GCSConnector::GCSConnector(const std::string &robot_id,
                                        const std::string &user_id,
-                                       const std::shared_ptr<ClientStateManager> &state_manager)
+                                       const std::shared_ptr<ConnectorStateManager> &state_manager)
     : pImpl(std::make_unique<Impl>(robot_id, user_id, state_manager)) {
 }
 
@@ -230,6 +230,6 @@ void rtc_sender::GCSConnector::OnDataChannel(
     pImpl->OnDataChannel(data_channel);
 }
 
-std::shared_ptr<rtc_sender::ClientStateManager> rtc_sender::GCSConnector::GetStateManager() const {
+std::shared_ptr<rtc_sender::ConnectorStateManager> rtc_sender::GCSConnector::GetStateManager() const {
     return pImpl->state_manager_;
 }

@@ -2,7 +2,7 @@
 // Created by yhkim on 25. 6. 26.
 //
 
-#include "rtc_sender/client_state_manager.h"
+#include "rtc_sender/connector_state_manager.h"
 
 #include <mutex>
 
@@ -10,33 +10,33 @@
 
 using namespace rtc_sender;
 
-ClientStateManager::ClientStateManager(const std::shared_ptr<signaling::ISignalingClient> &signaling_client)
+ConnectorStateManager::ConnectorStateManager(const std::shared_ptr<signaling::ISignalingClient> &signaling_client)
     : state_(INITIALIZING), signaling_client_(signaling_client) {
 }
 
-void ClientStateManager::SetState(const State new_state) {
+void ConnectorStateManager::SetState(const State new_state) {
     std::unique_lock lock(mutex_);
     LogState(state_, new_state);
     state_ = new_state;
     SendStateToSignalingServer();
 }
 
-ClientStateManager::State ClientStateManager::GetState() const {
+ConnectorStateManager::State ConnectorStateManager::GetState() const {
     std::shared_lock lock(mutex_);
     return state_;
 }
 
-std::string ClientStateManager::GetStateString() const {
+std::string ConnectorStateManager::GetStateString() const {
     std::shared_lock lock(mutex_);
     return StateToString(state_);
 }
 
-bool ClientStateManager::IsState(const State expected_state) const {
+bool ConnectorStateManager::IsState(const State expected_state) const {
     std::shared_lock lock(mutex_);
     return state_ == expected_state;
 }
 
-void ClientStateManager::SendStateToSignalingServer() const {
+void ConnectorStateManager::SendStateToSignalingServer() const {
     if (signaling_client_) {
         signaling_client_->SendState(StateToString(state_));
     } else {
@@ -44,11 +44,11 @@ void ClientStateManager::SendStateToSignalingServer() const {
     }
 }
 
-void ClientStateManager::LogState(const State old_state, const State new_state) {
+void ConnectorStateManager::LogState(const State old_state, const State new_state) {
     RTC_SENDER_LOG_INFO("Changing state from {} to {}", StateToString(old_state), StateToString(new_state));
 }
 
-std::string ClientStateManager::StateToString(const State state) {
+std::string ConnectorStateManager::StateToString(const State state) {
     switch (state) {
         case INITIALIZING:
             return "INITIALIZING";

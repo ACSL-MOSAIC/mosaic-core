@@ -36,7 +36,7 @@ std::shared_ptr<GCSConnector> GCSConnectorFactory::Create() {
     auto signaling_server = std::make_shared<signaling::SignalingClient>(signaling_config_->GetSignalingUrl());
     signaling_server->Start();
 
-    auto client_state_manager = std::make_shared<ClientStateManager>(signaling_server);
+    auto client_state_manager = std::make_shared<ConnectorStateManager>(signaling_server);
 
     auto gcs_connector = std::make_shared<GCSConnector>(robot_id_, user_id_, client_state_manager);
     signaling_server->SetGCSConnector(gcs_connector);

@@ -7,7 +7,7 @@
 #include <memory>
 #include <string>
 
-#include "client_state_manager.h"
+#include "connector_state_manager.h"
 #include "handlers/data_channel/a_data_channel_handler.h"
 #include "handlers/media_track/media_track_handler.h"
 #include "peer_connection_manager.h"
@@ -26,7 +26,7 @@ namespace rtc_sender {
     public:
         explicit GCSConnector(const std::string &robot_id,
                               const std::string &user_id,
-                              const std::shared_ptr<ClientStateManager> &state_manager);
+                              const std::shared_ptr<ConnectorStateManager> &state_manager);
 
         ~GCSConnector();
 
@@ -72,7 +72,7 @@ namespace rtc_sender {
 
         void OnDataChannel(webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) const;
 
-        std::shared_ptr<ClientStateManager> GetStateManager() const;
+        std::shared_ptr<ConnectorStateManager> GetStateManager() const;
 
         // Friends to access pImpl
         friend class GCSConnectorFactory;

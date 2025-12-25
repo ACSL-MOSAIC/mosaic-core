@@ -81,7 +81,7 @@ target_include_directories(observers PUBLIC
 add_library(BA_GCS_rtc_sender STATIC
         src/gcs_connector.cpp
         src/gcs_connector_factory.cpp
-        src/client_state_manager.cpp
+        src/connector_state_manager.cpp
         src/peer_connection_manager.cpp
 )
 target_link_libraries(BA_GCS_rtc_sender PRIVATE

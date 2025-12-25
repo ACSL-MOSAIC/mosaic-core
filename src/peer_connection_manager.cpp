@@ -6,7 +6,7 @@
 
 #include <api/create_peerconnection_factory.h>
 #include <api/task_queue/default_task_queue_factory.h>
-#include <rtc_sender/client_state_manager.h>
+#include <rtc_sender/connector_state_manager.h>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/audio_codecs/builtin_audio_encoder_factory.h"
@@ -35,7 +35,7 @@ webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<Ic
 class PeerConnectionManager::Impl {
 public:
     Impl(const std::shared_ptr<GCSConnector> &client,
-         const std::shared_ptr<ClientStateManager> &state_manager,
+         const std::shared_ptr<ConnectorStateManager> &state_manager,
          const std::shared_ptr<signaling::ISignalingClient> &signaling_client,
          const std::shared_ptr<IceConfig> &ice_config)
         : client_(client),
@@ -82,7 +82,7 @@ public:
             RTC_SENDER_LOG_ERROR("Failed to create PeerConnectionFactory");
         }
 
-        state_manager_->SetState(ClientStateManager::READY_TO_CONNECT);
+        state_manager_->SetState(ConnectorStateManager::READY_TO_CONNECT);
         RTC_SENDER_LOG_DEBUG("WebRTC Client initialized successfully");
     }
 
@@ -116,19 +116,19 @@ public:
             ClosePeerConnection();
         }
 
-        if (!state_manager_->IsState(ClientStateManager::READY_TO_CONNECT)) {
+        if (!state_manager_->IsState(ConnectorStateManager::READY_TO_CONNECT)) {
             RTC_SENDER_LOG_ERROR("Cannot handle SDP offer in current state: {}", state_manager_->GetStateString());
             return;
         }
 
-        state_manager_->SetState(ClientStateManager::CONNECTING);
+        state_manager_->SetState(ConnectorStateManager::CONNECTING);
         // Create a new PeerConnection
         CreatePeerConnection(outer_this_);
         RTC_SENDER_LOG_DEBUG("Peer Connection created successfully");
 
         if (!peer_connection_) {
             RTC_SENDER_LOG_ERROR("Peer connection is null, cannot handle SDP offer");
-            state_manager_->SetState(ClientStateManager::FAILED);
+            state_manager_->SetState(ConnectorStateManager::FAILED);
             return;
         }
 
@@ -191,13 +191,13 @@ public:
     void OnConnectionConnected() const {
         RTC_SENDER_LOG_DEBUG("PeerConnectionManager::OnConnectionConnected()");
         // state manager will automatically notify signaling server about connected state
-        state_manager_->SetState(ClientStateManager::CONNECTED);
+        state_manager_->SetState(ConnectorStateManager::CONNECTED);
     }
 
     void OnConnectionDisconnected() const {
         RTC_SENDER_LOG_DEBUG("PeerConnectionManager::OnConnectionDisconnected()");
         // state manager will automatically notify signaling server about disconnected state
-        state_manager_->SetState(ClientStateManager::READY_TO_CONNECT);
+        state_manager_->SetState(ConnectorStateManager::READY_TO_CONNECT);
     }
 
     void SendIceCandidate(const webrtc::IceCandidateInterface *candidate) const {
@@ -212,11 +212,11 @@ public:
     }
 
     void ClosePeerConnection() {
-        if (!state_manager_->IsState(ClientStateManager::CONNECTED)) {
+        if (!state_manager_->IsState(ConnectorStateManager::CONNECTED)) {
             return; // 연결 중이 아닌 경우 종료하지 않습니다.
         }
 
-        state_manager_->SetState(ClientStateManager::DISCONNECTING);
+        state_manager_->SetState(ConnectorStateManager::DISCONNECTING);
         try {
             RTC_SENDER_LOG_INFO("Closing Media Tracks and Data Channels...");
             client_->CloseAllMediaTracks();
@@ -262,7 +262,7 @@ public:
 
 private:
     std::shared_ptr<GCSConnector> client_;
-    std::shared_ptr<ClientStateManager> state_manager_;
+    std::shared_ptr<ConnectorStateManager> state_manager_;
     std::shared_ptr<IceConfig> ice_config_;
     std::shared_ptr<signaling::ISignalingClient> signaling_client_;
 
@@ -298,7 +298,7 @@ private:
 };
 
 PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<GCSConnector> &client,
-                                             const std::shared_ptr<ClientStateManager> &state_manager,
+                                             const std::shared_ptr<ConnectorStateManager> &state_manager,
                                              const std::shared_ptr<signaling::ISignalingClient> &signaling_client,
                                              const std::shared_ptr<IceConfig> &ice_config) {
     pImpl = std::make_shared<Impl>(client, state_manager, signaling_client, ice_config);

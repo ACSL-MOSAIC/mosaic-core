@@ -15,14 +15,14 @@ using namespace rtc_sender::signaling;
 
 namespace rtc_sender {
     // Forward declarations to avoid circular dependencies
-    class ClientStateManager;
+    class ConnectorStateManager;
     struct IceConfig;
     class GCSConnector;
 
     class PeerConnectionManager : public std::enable_shared_from_this<PeerConnectionManager> {
     public:
         PeerConnectionManager(const std::shared_ptr<GCSConnector> &client,
-                              const std::shared_ptr<ClientStateManager> &state_manager,
+                              const std::shared_ptr<ConnectorStateManager> &state_manager,
                               const std::shared_ptr<ISignalingClient> &signaling_client,
                               const std::shared_ptr<IceConfig> &ice_config);
 
