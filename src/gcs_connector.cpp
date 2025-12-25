@@ -7,7 +7,7 @@
 #include <rtc_sender/logger/log.h>
 #include <rtc_sender/observers/peer_connection_observer.h>
 #include <rtc_sender/gcs_connector.h>
-#include <rtc_sender/signaling_client.h>
+#include <rtc_sender/signaling/signaling_client.h>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/video_codecs/video_decoder_factory_template.h"

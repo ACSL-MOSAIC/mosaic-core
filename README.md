@@ -159,3 +159,12 @@ For ROS1/ROS2 integration examples, see the [examples](../examples/README.md) di
 ## License
 
 This project follows the same license as the parent BA-GCS-Robot repository.
+
+## Install
+
+```shell
+mkdir build && cd build
+cmake ..
+make
+sudo make install
+```

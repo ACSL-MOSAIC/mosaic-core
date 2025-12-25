@@ -24,6 +24,6 @@
 #include "rtc_sender/peer_connection_manager.h"
 #include "rtc_sender/gcs_connector.h"
 #include "rtc_sender/robot_webrtc_client_factory.h"
-#include "rtc_sender/signaling_config.h"
+#include "rtc_sender/signaling/signaling_config.h"
 
 #endif  // BA_GCS_RTC_SENDER_H

@@ -24,6 +24,10 @@ endif ()
 ################################################################################
 add_library(logging STATIC
         src/logger/log_service.cpp
+        src/logger/webrtc_log.cpp
+)
+target_link_libraries(logging PRIVATE
+        third_party_lib
 )
 target_include_directories(logging PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -31,13 +35,15 @@ target_include_directories(logging PUBLIC
 )
 
 add_library(signaling_server STATIC
-        src/websocket/websocket_client.cpp
+        src/signaling/websocket_client.cpp
+        src/signaling/signaling_client.cpp
 )
 target_link_libraries(signaling_server PRIVATE
         OpenSSL::SSL
         OpenSSL::Crypto
         logging
         cpprestsdk::cpprest
+        third_party_lib
 )
 target_include_directories(signaling_server PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -46,12 +52,10 @@ target_include_directories(signaling_server PUBLIC
 )
 
 add_library(BA_GCS_rtc_sender STATIC
-        src/signaling_client.cpp
         src/gcs_connector.cpp
         src/robot_webrtc_client_factory.cpp
         src/client_state_manager.cpp
         src/peer_connection_manager.cpp
-        src/logger/webrtc_log.cpp
         src/handlers/data_channel/a_data_channel_handler.cpp
         src/handlers/data_channel/data_channel_sendable.cpp
         src/handlers/data_channel/i_data_channel_receivable.cpp

@@ -9,22 +9,24 @@
 
 #include "gcs_connector.h"
 #include "webrtc_forward_decl.h"
+#include "signaling/i_signaling_client.h"
+
+using namespace rtc_sender::signaling;
 
 namespace rtc_sender {
     // Forward declarations to avoid circular dependencies
     class ClientStateManager;
     struct IceConfig;
-    class SignalingClient;
     class GCSConnector;
 
     class PeerConnectionManager : public std::enable_shared_from_this<PeerConnectionManager> {
     public:
         PeerConnectionManager(const std::shared_ptr<GCSConnector> &client,
                               const std::shared_ptr<ClientStateManager> &state_manager,
-                              const std::shared_ptr<SignalingClient> &signaling_server,
+                              const std::shared_ptr<ISignalingClient> &signaling_client,
                               const std::shared_ptr<IceConfig> &ice_config);
 
-        void InitializeWebRTC();
+        void InitializeWebRTC() const;
 
         void CreatePeerConnection();
 
@@ -44,11 +46,11 @@ namespace rtc_sender {
 
         void SendIceCandidate(const webrtc::IceCandidateInterface *candidate) const;
 
-        void StopSignalingServer();
+        void StopSignalingServer() const;
 
-        void ClosePeerConnection();
+        void ClosePeerConnection() const;
 
-        void DestroyPeerConnectionManager();
+        void DestroyPeerConnectionManager() const;
 
     private:
         class Impl;
@@ -57,14 +59,14 @@ namespace rtc_sender {
         friend class GCSConnector;
 
         webrtc::scoped_refptr<webrtc::VideoTrackInterface> CreateVideoTrack(
-            webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> source,
-            std::string label);
+            const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> &source,
+            const std::string &label) const;
 
         webrtc::scoped_refptr<webrtc::RtpSenderInterface> AddTrack(
-            webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> track,
-            const std::vector<std::string> &stream_ids);
+            const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> &track,
+            const std::vector<std::string> &stream_ids) const;
 
-        webrtc::scoped_refptr<webrtc::PeerConnectionInterface> GetPeerConnection();
+        webrtc::scoped_refptr<webrtc::PeerConnectionInterface> GetPeerConnection() const;
 
         Impl *GetImpl() const {
             return pImpl.get();

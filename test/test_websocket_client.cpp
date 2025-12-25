@@ -3,10 +3,12 @@
 //
 
 #include <gtest/gtest.h>
-#include "rtc_sender/websocket/websocket_client.h"
+#include "rtc_sender/signaling/websocket_client.h"
 #include <memory>
 #include <chrono>
 #include <thread>
+
+using namespace rtc_sender::signaling;
 
 class WebSocketClientTest : public ::testing::Test {
 protected:

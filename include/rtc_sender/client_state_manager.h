@@ -9,17 +9,14 @@
 #include <shared_mutex>
 #include <string>
 
-namespace rtc_sender {
-  // Forward declarations for avoid circular dependencies
-  class SignalingClient;
-} // namespace rtc_sender
+#include "rtc_sender/signaling/i_signaling_client.h"
 
 namespace rtc_sender {
   class ClientStateManager final {
   public:
     enum State { INITIALIZING, READY_TO_CONNECT, CONNECTING, CONNECTED, DISCONNECTING, FAILED, SHUTTING_DOWN };
 
-    explicit ClientStateManager(const std::shared_ptr<SignalingClient> &signaling_server);
+    explicit ClientStateManager(const std::shared_ptr<signaling::ISignalingClient> &signaling_client);
 
     void SetState(State new_state);
 
@@ -31,7 +28,7 @@ namespace rtc_sender {
 
   private:
     State state_;
-    std::shared_ptr<SignalingClient> signaling_server_;
+    std::shared_ptr<signaling::ISignalingClient> signaling_client_;
     mutable std::shared_mutex mutex_;
 
     void SendStateToSignalingServer() const;

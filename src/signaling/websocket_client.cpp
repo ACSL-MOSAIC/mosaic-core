@@ -2,7 +2,7 @@
 // Created by yhkim on 25. 7. 16.
 //
 
-#include "rtc_sender/websocket/websocket_client.h"
+#include "rtc_sender/signaling/websocket_client.h"
 
 #include <iostream>
 #include <utility>
@@ -12,6 +12,8 @@
 #define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
 #include <cpprest/json.h>
 #include <cpprest/ws_client.h>
+
+using namespace rtc_sender::signaling;
 
 WebSocketClient::WebSocketClient() : m_connected(false) {
 }

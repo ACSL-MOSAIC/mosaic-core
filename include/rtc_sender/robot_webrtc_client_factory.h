@@ -7,14 +7,14 @@
 #include <memory>
 
 #include "gcs_connector.h"
-#include "signaling_config.h"
+#include "signaling/signaling_config.h"
 
 namespace rtc_sender {
     class RobotWebRTCClientFactory {
     public:
         RobotWebRTCClientFactory(const std::string &robot_id,
                                  const std::string &user_id,
-                                 const std::shared_ptr<SignalingConfig> &signaling_config,
+                                 const std::shared_ptr<signaling::SignalingConfig> &signaling_config,
                                  const std::shared_ptr<IceConfig> &ice_config);
 
         RobotWebRTCClientFactory(const std::string &robot_id,
@@ -37,7 +37,7 @@ namespace rtc_sender {
         std::string robot_id_;
         std::string user_id_;
         std::shared_ptr<IceConfig> ice_config_;
-        std::shared_ptr<SignalingConfig> signaling_config_;
+        std::shared_ptr<signaling::SignalingConfig> signaling_config_;
     };
 } // namespace rtc_sender
 

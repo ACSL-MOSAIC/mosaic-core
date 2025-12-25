@@ -7,12 +7,11 @@
 #include <mutex>
 
 #include "rtc_sender/logger/log.h"
-#include "rtc_sender/signaling_client.h"
 
 using namespace rtc_sender;
 
-ClientStateManager::ClientStateManager(const std::shared_ptr<SignalingClient> &signaling_server)
-    : state_(INITIALIZING), signaling_server_(signaling_server) {
+ClientStateManager::ClientStateManager(const std::shared_ptr<signaling::ISignalingClient> &signaling_client)
+    : state_(INITIALIZING), signaling_client_(signaling_client) {
 }
 
 void ClientStateManager::SetState(const State new_state) {
@@ -38,8 +37,8 @@ bool ClientStateManager::IsState(const State expected_state) const {
 }
 
 void ClientStateManager::SendStateToSignalingServer() const {
-    if (signaling_server_) {
-        signaling_server_->SendState(StateToString(state_));
+    if (signaling_client_) {
+        signaling_client_->SendState(StateToString(state_));
     } else {
         RTC_SENDER_LOG_ERROR("Signaling server is not set, cannot send state change");
     }

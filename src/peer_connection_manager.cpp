@@ -26,7 +26,7 @@
 #include "rtc_sender/observers/peer_connection_observer.h"
 #include "rtc_sender/observers/simple_set_local_description_observer.h"
 #include "rtc_sender/observers/simple_set_remote_description_observer.h"
-#include "rtc_sender/signaling_client.h"
+#include "rtc_sender/signaling/i_signaling_client.h"
 
 using namespace rtc_sender;
 
@@ -36,12 +36,12 @@ class PeerConnectionManager::Impl {
 public:
     Impl(const std::shared_ptr<GCSConnector> &client,
          const std::shared_ptr<ClientStateManager> &state_manager,
-         const std::shared_ptr<SignalingClient> &signaling_server,
+         const std::shared_ptr<signaling::ISignalingClient> &signaling_client,
          const std::shared_ptr<IceConfig> &ice_config)
         : client_(client),
           state_manager_(state_manager),
           ice_config_(ice_config),
-          signaling_server_(signaling_server) {
+          signaling_client_(signaling_client) {
     }
 
     void InitializeWebRTC() {
@@ -141,7 +141,7 @@ public:
         RTC_SENDER_LOG_DEBUG("Set remote description with SDP offer");
     }
 
-    void AfterSetSessionDescription(const std::shared_ptr<PeerConnectionManager> &outer_this_) {
+    void AfterSetSessionDescription(const std::shared_ptr<PeerConnectionManager> &outer_this_) const {
         // TODO: Need to delete
         client_->CreateAllMediaTracks();
 
@@ -156,7 +156,7 @@ public:
     }
 
     void AfterCreateSdpAnswer(webrtc::SessionDescriptionInterface *desc,
-                              const std::shared_ptr<PeerConnectionManager> &outer_this_) {
+                              const std::shared_ptr<PeerConnectionManager> &outer_this_) const {
         RTC_SENDER_LOG_DEBUG("Sdp Answer Created");
         // Create observer for SetLocalDescription
         const auto set_local_observer = webrtc::scoped_refptr<observers::SimpleSetLocalDescriptionObserver>(
@@ -168,7 +168,7 @@ public:
 
     void AfterSetLocalDescription(const webrtc::SessionDescriptionInterface *desc) const {
         RTC_SENDER_LOG_DEBUG("Set local description with SDP answer");
-        signaling_server_->SendSdpAnswer(desc);
+        signaling_client_->SendSdpAnswer(desc);
     }
 
     void HandleIceCandidateFromSignaling(const webrtc::IceCandidateInterface *candidate) const {
@@ -201,13 +201,13 @@ public:
     }
 
     void SendIceCandidate(const webrtc::IceCandidateInterface *candidate) const {
-        signaling_server_->SendIceCandidate(candidate);
+        signaling_client_->SendIceCandidate(candidate);
     }
 
     void StopSignalingServer() {
-        if (signaling_server_) {
-            signaling_server_->Stop();
-            signaling_server_ = nullptr;
+        if (signaling_client_) {
+            signaling_client_->Stop();
+            signaling_client_ = nullptr;
         }
     }
 
@@ -264,7 +264,7 @@ private:
     std::shared_ptr<GCSConnector> client_;
     std::shared_ptr<ClientStateManager> state_manager_;
     std::shared_ptr<IceConfig> ice_config_;
-    std::shared_ptr<SignalingClient> signaling_server_;
+    std::shared_ptr<signaling::ISignalingClient> signaling_client_;
 
     webrtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> peer_connection_factory_ = nullptr;
     webrtc::scoped_refptr<webrtc::PeerConnectionInterface> peer_connection_ = nullptr;
@@ -276,14 +276,14 @@ private:
     std::unique_ptr<rtc::Thread> signaling_thread_ = nullptr;
 
     webrtc::scoped_refptr<webrtc::VideoTrackInterface> CreateVideoTrack(
-        webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> source,
-        std::string label) {
+        const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> &source,
+        const std::string &label) const {
         return peer_connection_factory_->CreateVideoTrack(source, label);
     }
 
     webrtc::scoped_refptr<webrtc::RtpSenderInterface> AddTrack(
-        webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> track,
-        const std::vector<std::string> &stream_ids) {
+        const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> &track,
+        const std::vector<std::string> &stream_ids) const {
         auto add_track_result = peer_connection_->AddTrack(track, stream_ids);
         if (!add_track_result.ok()) {
             RTC_SENDER_LOG_ERROR("Failed to add track: {}", add_track_result.error().message());
@@ -299,12 +299,12 @@ private:
 
 PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<GCSConnector> &client,
                                              const std::shared_ptr<ClientStateManager> &state_manager,
-                                             const std::shared_ptr<SignalingClient> &signaling_server,
+                                             const std::shared_ptr<signaling::ISignalingClient> &signaling_client,
                                              const std::shared_ptr<IceConfig> &ice_config) {
-    pImpl = std::make_shared<Impl>(client, state_manager, signaling_server, ice_config);
+    pImpl = std::make_shared<Impl>(client, state_manager, signaling_client, ice_config);
 }
 
-void PeerConnectionManager::InitializeWebRTC() {
+void PeerConnectionManager::InitializeWebRTC() const {
     pImpl->InitializeWebRTC();
 }
 
@@ -344,31 +344,31 @@ void PeerConnectionManager::SendIceCandidate(const webrtc::IceCandidateInterface
     pImpl->SendIceCandidate(candidate);
 }
 
-void PeerConnectionManager::StopSignalingServer() {
+void PeerConnectionManager::StopSignalingServer() const {
     pImpl->StopSignalingServer();
 }
 
-void PeerConnectionManager::ClosePeerConnection() {
+void PeerConnectionManager::ClosePeerConnection() const {
     pImpl->ClosePeerConnection();
 }
 
-void PeerConnectionManager::DestroyPeerConnectionManager() {
+void PeerConnectionManager::DestroyPeerConnectionManager() const {
     pImpl->DestroyPeerConnectionManager();
 }
 
 webrtc::scoped_refptr<webrtc::VideoTrackInterface> PeerConnectionManager::CreateVideoTrack(
-    webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> source,
-    std::string label) {
+    const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> &source,
+    const std::string &label) const {
     return pImpl->CreateVideoTrack(source, label);
 }
 
 webrtc::scoped_refptr<webrtc::RtpSenderInterface> PeerConnectionManager::AddTrack(
-    webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> track,
-    const std::vector<std::string> &stream_ids) {
+    const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> &track,
+    const std::vector<std::string> &stream_ids) const {
     return pImpl->AddTrack(track, stream_ids);
 }
 
-webrtc::scoped_refptr<webrtc::PeerConnectionInterface> PeerConnectionManager::GetPeerConnection() {
+webrtc::scoped_refptr<webrtc::PeerConnectionInterface> PeerConnectionManager::GetPeerConnection() const {
     return pImpl->peer_connection_;
 }
 

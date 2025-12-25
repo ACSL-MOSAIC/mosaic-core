@@ -2,14 +2,13 @@
 // Created by yhkim on 25. 6. 2.
 //
 
-#include "rtc_sender/signaling_client.h"
-
 #include "api/jsep.h"
 #include "rtc_sender/logger/log.h"
 #include "rtc_sender/gcs_connector.h"
-#include "rtc_sender/websocket/websocket_client.h"
+#include "rtc_sender/signaling/websocket_client.h"
+#include "rtc_sender/signaling/signaling_client.h"
 
-using namespace rtc_sender;
+using namespace rtc_sender::signaling;
 
 webrtc::IceCandidateInterface *ResolveIceCandidate(json::value const &ice_candidate);
 
@@ -18,10 +17,6 @@ webrtc::SessionDescriptionInterface *ResolveSdpOffer(std::string const &sdp_offe
 class SignalingClient::Impl {
 public:
     Impl(const std::string &ws_uri) : ws_uri_(ws_uri) {
-    }
-
-    void SetRobotWebRTCClient(const std::shared_ptr<GCSConnector> &robot_webrtc_client) {
-        robot_webrtc_client_ = robot_webrtc_client;
     }
 
     void Start() {
@@ -86,6 +81,18 @@ public:
         message["state"] = json::value::string(latest_state_);
 
         SendWsMessage(message);
+    }
+
+    void SetGCSConnector(const std::shared_ptr<GCSConnector> &robot_webrtc_client) {
+        robot_webrtc_client_ = robot_webrtc_client;
+    }
+
+    void SetAuthenticator(const std::shared_ptr<security::IGCSAuthenticator> &authenticator) {
+        authenticator_ = authenticator;
+    }
+
+    bool IsAuthenticated() const {
+        return authenticator_->IsAuthenticated();
     }
 
 private:
@@ -188,6 +195,7 @@ private:
     }
 
     std::shared_ptr<GCSConnector> robot_webrtc_client_;
+    std::shared_ptr<security::IGCSAuthenticator> authenticator_;
     bool is_connected_ = false;
     std::string ws_uri_;
     std::unique_ptr<WebSocketClient> ws_client_ = nullptr;
@@ -199,10 +207,6 @@ SignalingClient::SignalingClient(const std::string &ws_uri) : pImpl(std::make_un
 
 SignalingClient::~SignalingClient() {
     pImpl->Stop();
-}
-
-void SignalingClient::SetRobotWebRTCClient(const std::shared_ptr<GCSConnector> &robot_webrtc_client) const {
-    pImpl->SetRobotWebRTCClient(robot_webrtc_client);
 }
 
 void SignalingClient::Start() {
@@ -223,6 +227,18 @@ void SignalingClient::SendIceCandidate(const webrtc::IceCandidateInterface *cand
 
 void SignalingClient::SendState(const std::string &state) const {
     pImpl->SendState(state);
+}
+
+void SignalingClient::SetGCSConnector(const std::shared_ptr<GCSConnector> &gcs_connector) const {
+    pImpl->SetGCSConnector(gcs_connector);
+}
+
+void SignalingClient::SetAuthenticator(const std::shared_ptr<security::IGCSAuthenticator> &authenticator) const {
+    pImpl->SetAuthenticator(authenticator);
+}
+
+bool SignalingClient::IsAuthenticated() const {
+    return pImpl->IsAuthenticated();
 }
 
 webrtc::IceCandidateInterface *ResolveIceCandidate(json::value const &ice_candidate) {
