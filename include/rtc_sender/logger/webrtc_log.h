@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 3.
 //
 
-#ifndef WEBRTC_LOG_H
-#define WEBRTC_LOG_H
+#ifndef BA_GCS_RTC_SENDER_WEBRTC_LOG_H
+#define BA_GCS_RTC_SENDER_WEBRTC_LOG_H
 
 namespace rtc_sender::log {
     enum WebRTCLogLevel {
@@ -21,4 +21,4 @@ namespace rtc_sender::log {
     void SetWebRTCLogThreads(bool enable);
 } // namespace rtc_sender::log
 
-#endif  // WEBRTC_LOG_H
+#endif  // BA_GCS_RTC_SENDER_WEBRTC_LOG_H

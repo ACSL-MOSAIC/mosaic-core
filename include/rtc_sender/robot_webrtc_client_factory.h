@@ -2,11 +2,11 @@
 // Created by yhkim on 25. 7. 7.
 //
 
-#ifndef ROBOT_WEBRTC_CLIENT_FACTORY_H
-#define ROBOT_WEBRTC_CLIENT_FACTORY_H
+#ifndef BA_GCS_RTC_SENDER_ROBOT_WEBRTC_CLIENT_FACTORY_H
+#define BA_GCS_RTC_SENDER_ROBOT_WEBRTC_CLIENT_FACTORY_H
 #include <memory>
 
-#include "robot_webrtc_client.h"
+#include "gcs_connector.h"
 #include "signaling_config.h"
 
 namespace rtc_sender {
@@ -31,7 +31,7 @@ namespace rtc_sender {
          *
          * @return std::shared_ptr<RobotWebRTCClient> Pointer to the created RobotWebRTCClient instance
          */
-        std::shared_ptr<RobotWebRTCClient> Create();
+        std::shared_ptr<GCSConnector> Create();
 
     private:
         std::string robot_id_;
@@ -41,4 +41,4 @@ namespace rtc_sender {
     };
 } // namespace rtc_sender
 
-#endif  // ROBOT_WEBRTC_CLIENT_FACTORY_H
+#endif  // BA_GCS_RTC_SENDER_ROBOT_WEBRTC_CLIENT_FACTORY_H

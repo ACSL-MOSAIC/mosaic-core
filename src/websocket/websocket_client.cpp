@@ -1,5 +1,5 @@
 //
-// Created by 김연혁 on 2025. 7. 16..
+// Created by yhkim on 25. 7. 16.
 //
 
 #include "rtc_sender/websocket/websocket_client.h"

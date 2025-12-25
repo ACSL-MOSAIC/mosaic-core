@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 3.
 //
 
-#ifndef ROBOT_WEBRTC_CLIENT_H
-#define ROBOT_WEBRTC_CLIENT_H
+#ifndef BA_GCS_RTC_SENDER_GCS_CONNECTOR_H
+#define BA_GCS_RTC_SENDER_GCS_CONNECTOR_H
 #include <memory>
 #include <string>
 
@@ -15,30 +15,30 @@
 
 namespace rtc_sender {
     // Forward declarations for avoid circular dependencies
-    class SignalingServer;
+    class SignalingClient;
     class PeerConnectionManager;
 
     namespace observers {
         class PeerConnectionObserver;
     }
 
-    class RobotWebRTCClient {
+    class GCSConnector {
     public:
-        explicit RobotWebRTCClient(const std::string &robot_id,
-                                   const std::string &user_id,
-                                   const std::shared_ptr<ClientStateManager> &state_manager);
+        explicit GCSConnector(const std::string &robot_id,
+                              const std::string &user_id,
+                              const std::shared_ptr<ClientStateManager> &state_manager);
 
-        ~RobotWebRTCClient();
+        ~GCSConnector();
 
         // Disable copy constructor and assignment operator
-        RobotWebRTCClient(const RobotWebRTCClient &) = delete;
+        GCSConnector(const GCSConnector &) = delete;
 
-        RobotWebRTCClient &operator=(const RobotWebRTCClient &) = delete;
+        GCSConnector &operator=(const GCSConnector &) = delete;
 
         // Enable move constructor and assignment operator
-        RobotWebRTCClient(RobotWebRTCClient &&) noexcept = default;
+        GCSConnector(GCSConnector &&) noexcept = default;
 
-        RobotWebRTCClient &operator=(RobotWebRTCClient &&) noexcept = default;
+        GCSConnector &operator=(GCSConnector &&) noexcept = default;
 
         std::string GetRobotId() const;
 
@@ -66,8 +66,6 @@ namespace rtc_sender {
 
         void CreateAllMediaTracks() const;
 
-        void CreateAllDataChannels() const;
-
         void CloseAllMediaTracks() const;
 
         void CloseAllDataChannels() const;
@@ -79,13 +77,13 @@ namespace rtc_sender {
         // Friends to access pImpl
         friend class RobotWebRTCClientFactory;
         friend class PeerConnectionManager;
-        friend class SignalingServer;
+        friend class SignalingClient;
         friend class observers::PeerConnectionObserver;
 
-        Impl *getImpl() const {
+        Impl *GetImpl() const {
             return pImpl.get();
         }
     };
 } // namespace rtc_sender
 
-#endif  // ROBOT_WEBRTC_CLIENT_H
+#endif  // BA_GCS_RTC_SENDER_GCS_CONNECTOR_H

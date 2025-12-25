@@ -2,16 +2,12 @@
 // Created by yhkim on 7/29/25.
 //
 
-#ifndef VIDEO_RECORDER_H
-#define VIDEO_RECORDER_H
+#ifndef BA_GCS_RTC_SENDER_VIDEO_RECORDER_H
+#define BA_GCS_RTC_SENDER_VIDEO_RECORDER_H
 
 #include <memory>
 #include <string>
-
-namespace cv {
-  class Mat;
-  class VideoWriter;
-} // namespace cv
+#include "opencv_forward_decl.h"
 
 namespace rtc_sender {
   namespace handlers {
@@ -38,4 +34,4 @@ namespace rtc_sender {
   } // namespace handlers
 } // namespace rtc_sender
 
-#endif  // VIDEO_RECORDER_H
+#endif  // BA_GCS_RTC_SENDER_VIDEO_RECORDER_H

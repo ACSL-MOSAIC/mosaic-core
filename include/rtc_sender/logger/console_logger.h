@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 2.
 //
 
-#ifndef CONSOLE_LOGGER_H
-#define CONSOLE_LOGGER_H
+#ifndef BA_GCS_RTC_SENDER_CONSOLE_LOGGER_H
+#define BA_GCS_RTC_SENDER_CONSOLE_LOGGER_H
 
 #include <chrono>
 #include <iomanip>
@@ -26,4 +26,4 @@ namespace rtc_sender::log {
     };
 } // namespace rtc_sender::log
 
-#endif  // CONSOLE_LOGGER_H
+#endif  // BA_GCS_RTC_SENDER_CONSOLE_LOGGER_H

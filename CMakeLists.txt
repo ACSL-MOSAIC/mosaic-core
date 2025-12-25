@@ -46,8 +46,8 @@ target_include_directories(signaling_server PUBLIC
 )
 
 add_library(BA_GCS_rtc_sender STATIC
-        src/signaling_server.cpp
-        src/robot_webrtc_client.cpp
+        src/signaling_client.cpp
+        src/gcs_connector.cpp
         src/robot_webrtc_client_factory.cpp
         src/client_state_manager.cpp
         src/peer_connection_manager.cpp

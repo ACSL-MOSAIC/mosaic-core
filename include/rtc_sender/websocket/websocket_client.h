@@ -2,8 +2,8 @@
 // Created by 김연혁 on 2025. 7. 16..
 //
 
-#ifndef WEBSOCKET_CLIENT_H
-#define WEBSOCKET_CLIENT_H
+#ifndef BA_GCS_RTC_SENDER_WEBSOCKET_CLIENT_H
+#define BA_GCS_RTC_SENDER_WEBSOCKET_CLIENT_H
 
 #include <atomic>
 #include <functional>
@@ -73,4 +73,4 @@ private:
   void setupEventHandlers();
 };
 
-#endif  // WEBSOCKET_CLIENT_H
+#endif  // BA_GCS_RTC_SENDER_WEBSOCKET_CLIENT_H

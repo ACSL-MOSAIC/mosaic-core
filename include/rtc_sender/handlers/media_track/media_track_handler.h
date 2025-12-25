@@ -2,8 +2,8 @@
 // Created by yhkim on 7/17/25.
 //
 
-#ifndef N_MEDIA_TRACK_HANDLER_H
-#define N_MEDIA_TRACK_HANDLER_H
+#ifndef BA_GCS_RTC_SENDER_MEDIA_TRACK_HANDLER_H
+#define BA_GCS_RTC_SENDER_MEDIA_TRACK_HANDLER_H
 
 #include <chrono>
 #include <memory>
@@ -12,45 +12,40 @@
 #include "i_media_track_handler.h"
 #include "rtc_sender/webrtc_forward_decl.h"
 #include "recordable.h"
+#include "opencv_forward_decl.h"
 
-namespace cv {
-  class Mat;
-}
+namespace rtc_sender::handlers {
+  class MediaTrackHandler : public IMediaTrackHandler, public Recordable {
+  public:
+    explicit MediaTrackHandler(const std::string &track_name, bool recordable);
 
-namespace rtc_sender {
-  namespace handlers {
-    class MediaTrackHandler : public IMediaTrackHandler, public Recordable {
-    public:
-      explicit MediaTrackHandler(const std::string &track_name, bool recordable);
+    ~MediaTrackHandler() override;
 
-      ~MediaTrackHandler() override;
+    virtual void Start() = 0;
 
-      virtual void Start() = 0;
+    virtual void Stop() = 0;
 
-      virtual void Stop() = 0;
+    void SendFrame(const webrtc::VideoFrame &frame);
 
-      void SendFrame(const webrtc::VideoFrame &frame);
+    void SendFrame(const cv::Mat &frame, std::chrono::steady_clock::time_point start_time);
 
-      void SendFrame(const cv::Mat &frame, std::chrono::steady_clock::time_point start_time);
+    bool IsRunning() const;
 
-      bool IsRunning() const;
+    webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> CreateVideoTrackSource() override;
 
-      webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> CreateVideoTrackSource() override;
+    void Close() override;
 
-      void Close() override;
+  protected:
+    void SetRunning(bool running);
 
-    protected:
-      void SetRunning(bool running);
+    bool GetStopFlag() const;
 
-      bool GetStopFlag() const;
+    void SetStopFlag(bool stop_flag);
 
-      void SetStopFlag(bool stop_flag);
+  private:
+    class Impl;
+    std::unique_ptr<Impl> pImpl;
+  };
+} // namespace rtc_sender::handlers
 
-    private:
-      class Impl;
-      std::unique_ptr<Impl> pImpl;
-    };
-  } // namespace handlers
-} // namespace rtc_sender
-
-#endif  // N_MEDIA_TRACK_HANDLER_H
+#endif  // BA_GCS_RTC_SENDER_MEDIA_TRACK_HANDLER_H

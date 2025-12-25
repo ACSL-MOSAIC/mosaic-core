@@ -5,13 +5,13 @@
 #include "rtc_sender/observers/peer_connection_observer.h"
 
 #include "rtc_sender/logger/log.h"
-#include "rtc_sender/robot_webrtc_client.h"
-#include "rtc_sender/signaling_server.h"
+#include "rtc_sender/gcs_connector.h"
+#include "rtc_sender/signaling_client.h"
 
 using namespace rtc_sender::observers;
 
 void PeerConnectionObserver::OnDataChannel(webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) {
-    robot_webrtc_client_->OnDataChannel(data_channel);
+    gcs_connector_->OnDataChannel(data_channel);
 }
 
 void PeerConnectionObserver::OnIceCandidate(const webrtc::IceCandidateInterface *candidate) {
@@ -21,7 +21,7 @@ void PeerConnectionObserver::OnIceCandidate(const webrtc::IceCandidateInterface 
     }
     RTC_SENDER_LOG_DEBUG("Gathered candidate: {} {}", candidate->sdp_mid(), candidate->sdp_mline_index());
 
-    peer_connection_manager_->SendIceCandidate(candidate);
+    pc_manager_->SendIceCandidate(candidate);
 }
 
 void PeerConnectionObserver::OnStandardizedIceConnectionChange(
@@ -51,16 +51,16 @@ void PeerConnectionObserver::OnConnectionChange(webrtc::PeerConnectionInterface:
             break;
         case webrtc::PeerConnectionInterface::PeerConnectionState::kConnected:
             RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Connected");
-            peer_connection_manager_->OnConnectionConnected();
+            pc_manager_->OnConnectionConnected();
             break;
         case webrtc::PeerConnectionInterface::PeerConnectionState::kFailed:
             RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Failed");
-            peer_connection_manager_->ClosePeerConnection();
+            pc_manager_->ClosePeerConnection();
             break;
         case webrtc::PeerConnectionInterface::PeerConnectionState::kDisconnected:
         case webrtc::PeerConnectionInterface::PeerConnectionState::kClosed:
             RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Disconnected");
-            peer_connection_manager_->ClosePeerConnection();
+            pc_manager_->ClosePeerConnection();
             break;
     }
 }

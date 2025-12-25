@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 2.
 //
 
-#ifndef LOGGER_MACROS_H
-#define LOGGER_MACROS_H
+#ifndef BA_GCS_RTC_SENDER_LOGGER_MACROS_H
+#define BA_GCS_RTC_SENDER_LOGGER_MACROS_H
 
 #include "i_logger.h"
 #include "log_service.h"
@@ -18,4 +18,4 @@ namespace rtc_sender::log {
 #define RTC_SENDER_LOG_ERROR(...) rtc_sender::log::GetLogger()->LOG_ERROR(__VA_ARGS__)
 } // namespace rtc_sender::log
 
-#endif  // LOGGER_MACROS_H
+#endif  // BA_GCS_RTC_SENDER_LOGGER_MACROS_H

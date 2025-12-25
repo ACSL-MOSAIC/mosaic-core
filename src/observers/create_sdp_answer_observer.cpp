@@ -7,13 +7,13 @@
 #include <iostream>
 
 #include "rtc_sender/logger/log.h"
-#include "rtc_sender/robot_webrtc_client.h"
-#include "rtc_sender/signaling_server.h"
+#include "rtc_sender/gcs_connector.h"
+#include "rtc_sender/signaling_client.h"
 
 using namespace rtc_sender::observers;
 
 void CreateSdpAnswerObserver::OnSuccess(webrtc::SessionDescriptionInterface *desc) {
-    peer_connection_manager_->AfterCreateSdpAnswer(desc);
+    pc_manager_->AfterCreateSdpAnswer(desc);
 }
 
 void CreateSdpAnswerObserver::OnFailure(webrtc::RTCError error) {

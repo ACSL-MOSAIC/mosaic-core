@@ -2,11 +2,11 @@
 // Created by yhkim on 25. 6. 2.
 //
 
-#include "rtc_sender/signaling_server.h"
+#include "rtc_sender/signaling_client.h"
 
 #include "api/jsep.h"
 #include "rtc_sender/logger/log.h"
-#include "rtc_sender/robot_webrtc_client.h"
+#include "rtc_sender/gcs_connector.h"
 #include "rtc_sender/websocket/websocket_client.h"
 
 using namespace rtc_sender;
@@ -15,12 +15,12 @@ webrtc::IceCandidateInterface *ResolveIceCandidate(json::value const &ice_candid
 
 webrtc::SessionDescriptionInterface *ResolveSdpOffer(std::string const &sdp_offer);
 
-class SignalingServer::Impl {
+class SignalingClient::Impl {
 public:
     Impl(const std::string &ws_uri) : ws_uri_(ws_uri) {
     }
 
-    void SetRobotWebRTCClient(const std::shared_ptr<RobotWebRTCClient> &robot_webrtc_client) {
+    void SetRobotWebRTCClient(const std::shared_ptr<GCSConnector> &robot_webrtc_client) {
         robot_webrtc_client_ = robot_webrtc_client;
     }
 
@@ -187,41 +187,41 @@ private:
         }
     }
 
-    std::shared_ptr<RobotWebRTCClient> robot_webrtc_client_;
+    std::shared_ptr<GCSConnector> robot_webrtc_client_;
     bool is_connected_ = false;
     std::string ws_uri_;
     std::unique_ptr<WebSocketClient> ws_client_ = nullptr;
     std::string latest_state_ = "";
 };
 
-SignalingServer::SignalingServer(const std::string &ws_uri) : pImpl(std::make_unique<Impl>(ws_uri)) {
+SignalingClient::SignalingClient(const std::string &ws_uri) : pImpl(std::make_unique<Impl>(ws_uri)) {
 }
 
-SignalingServer::~SignalingServer() {
+SignalingClient::~SignalingClient() {
     pImpl->Stop();
 }
 
-void SignalingServer::SetRobotWebRTCClient(const std::shared_ptr<RobotWebRTCClient> &robot_webrtc_client) const {
+void SignalingClient::SetRobotWebRTCClient(const std::shared_ptr<GCSConnector> &robot_webrtc_client) const {
     pImpl->SetRobotWebRTCClient(robot_webrtc_client);
 }
 
-void SignalingServer::Start() {
+void SignalingClient::Start() {
     pImpl->Start();
 }
 
-void SignalingServer::Stop() {
+void SignalingClient::Stop() {
     pImpl->Stop();
 }
 
-void SignalingServer::SendSdpAnswer(const webrtc::SessionDescriptionInterface *sdp) const {
+void SignalingClient::SendSdpAnswer(const webrtc::SessionDescriptionInterface *sdp) const {
     pImpl->SendSdpAnswer(sdp);
 }
 
-void SignalingServer::SendIceCandidate(const webrtc::IceCandidateInterface *candidate) const {
+void SignalingClient::SendIceCandidate(const webrtc::IceCandidateInterface *candidate) const {
     pImpl->SendIceCandidate(candidate);
 }
 
-void SignalingServer::SendState(const std::string &state) const {
+void SignalingClient::SendState(const std::string &state) const {
     pImpl->SendState(state);
 }
 

@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 3.
 //
 
-#ifndef LOG_LEVEL_H
-#define LOG_LEVEL_H
+#ifndef BA_GCS_RTC_SENDER_LOG_LEVEL_H
+#define BA_GCS_RTC_SENDER_LOG_LEVEL_H
 
 namespace rtc_sender::log {
     enum LogLevel {
@@ -14,4 +14,4 @@ namespace rtc_sender::log {
     };
 }
 
-#endif  // LOG_LEVEL_H
+#endif  // BA_GCS_RTC_SENDER_LOG_LEVEL_H

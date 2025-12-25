@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 7.
 //
 
-#ifndef WEBRTC_FORWARD_DECL_H
-#define WEBRTC_FORWARD_DECL_H
+#ifndef BA_GCS_RTC_SENDER_WEBRTC_FORWARD_DECL_H
+#define BA_GCS_RTC_SENDER_WEBRTC_FORWARD_DECL_H
 
 // Forward declarations for PIMPL
 namespace webrtc {
@@ -30,4 +30,4 @@ namespace rtc {
     class AdaptedVideoTrackSource;
 }
 
-#endif  // WEBRTC_FORWARD_DECL_H
+#endif  // BA_GCS_RTC_SENDER_WEBRTC_FORWARD_DECL_H

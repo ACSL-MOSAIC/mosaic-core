@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 26.
 //
 
-#ifndef CLIENT_STATE_MANAGER_H
-#define CLIENT_STATE_MANAGER_H
+#ifndef BA_GCS_RTC_SENDER_CLIENT_STATE_MANAGER_H
+#define BA_GCS_RTC_SENDER_CLIENT_STATE_MANAGER_H
 
 #include <memory>
 #include <shared_mutex>
@@ -11,7 +11,7 @@
 
 namespace rtc_sender {
   // Forward declarations for avoid circular dependencies
-  class SignalingServer;
+  class SignalingClient;
 } // namespace rtc_sender
 
 namespace rtc_sender {
@@ -19,7 +19,7 @@ namespace rtc_sender {
   public:
     enum State { INITIALIZING, READY_TO_CONNECT, CONNECTING, CONNECTED, DISCONNECTING, FAILED, SHUTTING_DOWN };
 
-    explicit ClientStateManager(const std::shared_ptr<SignalingServer> &signaling_server);
+    explicit ClientStateManager(const std::shared_ptr<SignalingClient> &signaling_server);
 
     void SetState(State new_state);
 
@@ -31,7 +31,7 @@ namespace rtc_sender {
 
   private:
     State state_;
-    std::shared_ptr<SignalingServer> signaling_server_;
+    std::shared_ptr<SignalingClient> signaling_server_;
     mutable std::shared_mutex mutex_;
 
     void SendStateToSignalingServer() const;
@@ -42,4 +42,4 @@ namespace rtc_sender {
   };
 } // namespace rtc_sender
 
-#endif  // CLIENT_STATE_MANAGER_H
+#endif  // BA_GCS_RTC_SENDER_CLIENT_STATE_MANAGER_H

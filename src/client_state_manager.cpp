@@ -7,11 +7,11 @@
 #include <mutex>
 
 #include "rtc_sender/logger/log.h"
-#include "rtc_sender/signaling_server.h"
+#include "rtc_sender/signaling_client.h"
 
 using namespace rtc_sender;
 
-ClientStateManager::ClientStateManager(const std::shared_ptr<SignalingServer> &signaling_server)
+ClientStateManager::ClientStateManager(const std::shared_ptr<SignalingClient> &signaling_server)
     : state_(INITIALIZING), signaling_server_(signaling_server) {
 }
 

@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 2.
 //
 
-#ifndef LOG_SERVICE_H
-#define LOG_SERVICE_H
+#ifndef BA_GCS_RTC_SENDER_LOG_SERVICE_H
+#define BA_GCS_RTC_SENDER_LOG_SERVICE_H
 
 #include <memory>
 #include <type_traits>
@@ -58,4 +58,4 @@ namespace rtc_sender::log {
     }
 } // namespace rtc_sender::log
 
-#endif  // LOG_SERVICE_H
+#endif  // BA_GCS_RTC_SENDER_LOG_SERVICE_H

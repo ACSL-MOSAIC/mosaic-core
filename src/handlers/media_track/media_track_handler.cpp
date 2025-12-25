@@ -1,6 +1,7 @@
 //
 // Created by yhkim on 7/17/25.
 //
+
 #include "rtc_sender/handlers/media_track/media_track_handler.h"
 
 #include <api/video/i420_buffer.h>
@@ -13,42 +14,40 @@
 
 using namespace rtc_sender::handlers;
 
-namespace rtc_sender {
-    namespace handlers {
-        class ActualVideoTrackSource : public rtc::AdaptedVideoTrackSource {
-        public:
-            ActualVideoTrackSource() {
-            }
+namespace rtc_sender::handlers {
+    class ActualVideoTrackSource : public rtc::AdaptedVideoTrackSource {
+    public:
+        ActualVideoTrackSource() {
+        }
 
-            // rtc::AdaptedVideoTrackSource 인터페이스 구현
-            SourceState state() const override {
-                return is_running_ ? kLive : kEnded;
-            }
+        // rtc::AdaptedVideoTrackSource 인터페이스 구현
+        SourceState state() const override {
+            return is_running_ ? kLive : kEnded;
+        }
 
-            bool remote() const override {
-                return false;
-            }
+        bool remote() const override {
+            return false;
+        }
 
-            bool is_screencast() const override {
-                return false;
-            }
+        bool is_screencast() const override {
+            return false;
+        }
 
-            std::optional<bool> needs_denoising() const override {
-                return false;
-            }
+        std::optional<bool> needs_denoising() const override {
+            return false;
+        }
 
-            void SendFrame(const webrtc::VideoFrame &frame) {
-                if (is_running_ && !stop_flag_) {
-                    OnFrame(frame);
-                } else {
-                }
+        void SendFrame(const webrtc::VideoFrame &frame) {
+            if (is_running_ && !stop_flag_) {
+                OnFrame(frame);
+            } else {
             }
+        }
 
-            std::atomic<bool> is_running_ = false;
-            std::atomic<bool> stop_flag_ = false;
-        };
-    } // namespace handlers
-} // namespace rtc_sender
+        std::atomic<bool> is_running_ = false;
+        std::atomic<bool> stop_flag_ = false;
+    };
+} // namespace rtc_sender::handlers
 
 class MediaTrackHandler::Impl {
 public:

@@ -10,7 +10,7 @@ using namespace rtc_sender::observers;
 
 void SimpleSetRemoteDescriptionObserver::OnSuccess() {
     RTC_SENDER_LOG_INFO("Set remote description with SDP offer Success");
-    peer_connection_manager_->AfterSetSessionDescription();
+    pc_manager_->AfterSetSessionDescription();
 }
 
 void SimpleSetRemoteDescriptionObserver::OnFailure(webrtc::RTCError error) {

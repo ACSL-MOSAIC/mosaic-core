@@ -2,13 +2,13 @@
 // Created by yhkim on 25. 6. 2.
 //
 
-#ifndef SIGNALING_SERVER_H
-#define SIGNALING_SERVER_H
+#ifndef BA_GCS_RTC_SENDER_SIGNALING_CLIENT_H
+#define BA_GCS_RTC_SENDER_SIGNALING_CLIENT_H
 
 #include <memory>
 #include <string>
 
-#include "robot_webrtc_client.h"
+#include "gcs_connector.h"
 
 // Forward declarations for PIMPL
 namespace webrtc {
@@ -17,13 +17,13 @@ namespace webrtc {
 } // namespace webrtc
 
 namespace rtc_sender {
-  class SignalingServer {
+  class SignalingClient {
   public:
-    explicit SignalingServer(const std::string &ws_uri);
+    explicit SignalingClient(const std::string &ws_uri);
 
-    ~SignalingServer();
+    ~SignalingClient();
 
-    void SetRobotWebRTCClient(const std::shared_ptr<RobotWebRTCClient> &robot_webrtc_client) const;
+    void SetRobotWebRTCClient(const std::shared_ptr<GCSConnector> &robot_webrtc_client) const;
 
     void Start();
 
@@ -40,4 +40,4 @@ namespace rtc_sender {
     std::unique_ptr<Impl> pImpl;
   };
 } // namespace rtc_sender
-#endif  // SIGNALING_SERVER_H
+#endif  // BA_GCS_RTC_SENDER_SIGNALING_CLIENT_H

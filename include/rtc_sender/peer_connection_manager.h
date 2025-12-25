@@ -2,26 +2,26 @@
 // Created by yhkim on 25. 7. 2.
 //
 
-#ifndef PEER_CONNECTION_MANAGER_H
-#define PEER_CONNECTION_MANAGER_H
+#ifndef BA_GCS_RTC_SENDER_PEER_CONNECTION_MANAGER_H
+#define BA_GCS_RTC_SENDER_PEER_CONNECTION_MANAGER_H
 
 #include <vector>
 
-#include "robot_webrtc_client.h"
+#include "gcs_connector.h"
 #include "webrtc_forward_decl.h"
 
 namespace rtc_sender {
     // Forward declarations to avoid circular dependencies
     class ClientStateManager;
     struct IceConfig;
-    class SignalingServer;
-    class RobotWebRTCClient;
+    class SignalingClient;
+    class GCSConnector;
 
     class PeerConnectionManager : public std::enable_shared_from_this<PeerConnectionManager> {
     public:
-        PeerConnectionManager(const std::shared_ptr<RobotWebRTCClient> &client,
+        PeerConnectionManager(const std::shared_ptr<GCSConnector> &client,
                               const std::shared_ptr<ClientStateManager> &state_manager,
-                              const std::shared_ptr<SignalingServer> &signaling_server,
+                              const std::shared_ptr<SignalingClient> &signaling_server,
                               const std::shared_ptr<IceConfig> &ice_config);
 
         void InitializeWebRTC();
@@ -54,7 +54,7 @@ namespace rtc_sender {
         class Impl;
         std::shared_ptr<Impl> pImpl;
 
-        friend class RobotWebRTCClient;
+        friend class GCSConnector;
 
         webrtc::scoped_refptr<webrtc::VideoTrackInterface> CreateVideoTrack(
             webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> source,
@@ -66,10 +66,10 @@ namespace rtc_sender {
 
         webrtc::scoped_refptr<webrtc::PeerConnectionInterface> GetPeerConnection();
 
-        Impl *getImpl() const {
+        Impl *GetImpl() const {
             return pImpl.get();
         }
     };
 } // namespace rtc_sender
 
-#endif  // PEER_CONNECTION_MANAGER_H
+#endif  // BA_GCS_RTC_SENDER_PEER_CONNECTION_MANAGER_H

@@ -13,7 +13,7 @@ void SimpleSetLocalDescriptionObserver::OnSuccess() {
         RTC_SENDER_LOG_ERROR("No session description set for local description observer.");
         return;
     }
-    peer_connection_manager_->AfterSetLocalDescription(desc_);
+    pc_manager_->AfterSetLocalDescription(desc_);
 }
 
 void SimpleSetLocalDescriptionObserver::OnFailure(webrtc::RTCError error) {

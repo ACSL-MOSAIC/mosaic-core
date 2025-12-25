@@ -15,17 +15,13 @@ using namespace rtc_sender::handlers;
 
 class ADataChannelHandler::Impl {
 public:
-    explicit Impl(const std::string &label, bool need_to_create) : label_(label), need_to_create_(need_to_create) {
+    explicit Impl(const std::string &label) : label_(label) {
     }
 
     virtual ~Impl() = default;
 
     std::string GetLabel() const {
         return label_;
-    }
-
-    bool NeedToCreate() const {
-        return need_to_create_;
     }
 
     webrtc::scoped_refptr<webrtc::DataChannelInterface> CreateDataChannel(
@@ -118,7 +114,6 @@ public:
 
 private:
     std::string label_;
-    bool need_to_create_;
     mutable webrtc::scoped_refptr<webrtc::DataChannelInterface> dc_interface_;
     mutable std::shared_ptr<observers::DataChannelObserver> observer_;
 
@@ -130,16 +125,12 @@ private:
     friend class DataChannelSendable;
 };
 
-ADataChannelHandler::ADataChannelHandler(const std::string &label, bool need_to_create) {
-    pImpl = std::make_shared<Impl>(label, need_to_create);
+ADataChannelHandler::ADataChannelHandler(const std::string &label) {
+    pImpl = std::make_shared<Impl>(label);
 }
 
 std::string ADataChannelHandler::GetLabel() const {
     return pImpl->GetLabel();
-}
-
-bool ADataChannelHandler::NeedToCreate() const {
-    return pImpl->NeedToCreate();
 }
 
 webrtc::scoped_refptr<webrtc::DataChannelInterface> ADataChannelHandler::CreateDataChannel(

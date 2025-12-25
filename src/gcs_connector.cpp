@@ -6,13 +6,13 @@
 #include <rtc_sender/handlers/data_channel/i_data_channel_receivable.h>
 #include <rtc_sender/logger/log.h>
 #include <rtc_sender/observers/peer_connection_observer.h>
-#include <rtc_sender/robot_webrtc_client.h>
-#include <rtc_sender/signaling_server.h>
+#include <rtc_sender/gcs_connector.h>
+#include <rtc_sender/signaling_client.h>
 
 #include "api/audio_codecs/builtin_audio_decoder_factory.h"
 #include "api/video_codecs/video_decoder_factory_template.h"
 
-class rtc_sender::RobotWebRTCClient::Impl {
+class rtc_sender::GCSConnector::Impl {
 public:
     explicit Impl(const std::string &robot_id,
                   const std::string &user_id,
@@ -144,19 +144,6 @@ private:
     }
 
     // called by PeerConnectionManager
-    void CreateAllDataChannels() {
-        // 데이터 채널 핸들러를 추가합니다.
-        for (const auto &[label, handler]: data_channel_handlers_dict_) {
-            // 데이터 채널을 생성하고 핸들러를 등록합니다.
-            if (handler->NeedToCreate()) {
-                RTC_SENDER_LOG_INFO("Creating DataChannel with label: {}", label);
-                auto data_channel = handler->CreateDataChannel(peer_connection_manager_->GetPeerConnection());
-                handler->AfterCreate();
-            }
-        }
-    }
-
-    // called by PeerConnectionManager
     void CloseAllMediaTracks() {
         for (const auto &[track_name, media_track_handler]: media_track_handlers_dict_) {
             media_track_handler->Close();
@@ -170,83 +157,79 @@ private:
         }
     }
 
-    friend class RobotWebRTCClient;
+    friend class GCSConnector;
 };
 
-rtc_sender::RobotWebRTCClient::RobotWebRTCClient(const std::string &robot_id,
-                                                 const std::string &user_id,
-                                                 const std::shared_ptr<ClientStateManager> &state_manager)
+rtc_sender::GCSConnector::GCSConnector(const std::string &robot_id,
+                                       const std::string &user_id,
+                                       const std::shared_ptr<ClientStateManager> &state_manager)
     : pImpl(std::make_unique<Impl>(robot_id, user_id, state_manager)) {
 }
 
-std::string rtc_sender::RobotWebRTCClient::GetRobotId() const {
+std::string rtc_sender::GCSConnector::GetRobotId() const {
     return pImpl->GetRobotId();
 }
 
-std::string rtc_sender::RobotWebRTCClient::GetUserId() const {
+std::string rtc_sender::GCSConnector::GetUserId() const {
     return pImpl->GetUserId();
 }
 
-void rtc_sender::RobotWebRTCClient::SetPeerConnectionManager(
+void rtc_sender::GCSConnector::SetPeerConnectionManager(
     const std::shared_ptr<PeerConnectionManager> &peer_connection_manager) const {
     pImpl->SetPeerConnectionManager(peer_connection_manager);
 }
 
-void rtc_sender::RobotWebRTCClient::InitializeWebRTC() const {
+void rtc_sender::GCSConnector::InitializeWebRTC() const {
     pImpl->InitializeWebRTC();
 }
 
-void rtc_sender::RobotWebRTCClient::AddDataChannelHandler(
+void rtc_sender::GCSConnector::AddDataChannelHandler(
     const std::shared_ptr<handlers::ADataChannelHandler> &data_channel_handler) const {
     pImpl->AddDataChannelHandler(data_channel_handler);
 }
 
-void rtc_sender::RobotWebRTCClient::AddMediaTrackHandler(
+void rtc_sender::GCSConnector::AddMediaTrackHandler(
     const std::shared_ptr<handlers::IMediaTrackHandler> &media_track_handler) const {
     pImpl->AddMediaTrackHandler(media_track_handler);
 }
 
-void rtc_sender::RobotWebRTCClient::HandleSdpOffer(webrtc::SessionDescriptionInterface *sdp_offer) const {
+void rtc_sender::GCSConnector::HandleSdpOffer(webrtc::SessionDescriptionInterface *sdp_offer) const {
     pImpl->HandleSdpOffer(sdp_offer);
 }
 
-void rtc_sender::RobotWebRTCClient::HandleIceCandidateFromSignaling(webrtc::IceCandidateInterface *candidate) const {
+void rtc_sender::GCSConnector::HandleIceCandidateFromSignaling(webrtc::IceCandidateInterface *candidate) const {
     pImpl->HandleIceCandidateFromSignaling(candidate);
 }
 
-void rtc_sender::RobotWebRTCClient::ClosePeerConnection() const {
+void rtc_sender::GCSConnector::ClosePeerConnection() const {
     pImpl->ClosePeerConnection();
 }
 
-void rtc_sender::RobotWebRTCClient::ShuttingDown() const {
+void rtc_sender::GCSConnector::ShuttingDown() const {
     pImpl->ShuttingDown();
 }
 
-rtc_sender::RobotWebRTCClient::~RobotWebRTCClient() {
+rtc_sender::GCSConnector::~GCSConnector() {
     ShuttingDown();
 }
 
-void rtc_sender::RobotWebRTCClient::CreateAllMediaTracks() const {
+void rtc_sender::GCSConnector::CreateAllMediaTracks() const {
     pImpl->CreateAllMediaTracks();
 }
 
-void rtc_sender::RobotWebRTCClient::CreateAllDataChannels() const {
-    pImpl->CreateAllDataChannels();
-}
-
-void rtc_sender::RobotWebRTCClient::CloseAllMediaTracks() const {
+void rtc_sender::GCSConnector::CloseAllMediaTracks() const {
     pImpl->CloseAllMediaTracks();
 }
 
-void rtc_sender::RobotWebRTCClient::CloseAllDataChannels() const {
+void rtc_sender::GCSConnector::CloseAllDataChannels() const {
     pImpl->CloseAllDataChannels();
 }
 
-void rtc_sender::RobotWebRTCClient::OnDataChannel(
+void rtc_sender::GCSConnector::OnDataChannel(
     webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) const {
     pImpl->OnDataChannel(data_channel);
 }
 
-std::shared_ptr<rtc_sender::ClientStateManager> rtc_sender::RobotWebRTCClient::GetStateManager() const {
+std::shared_ptr<rtc_sender::ClientStateManager> rtc_sender::GCSConnector::GetStateManager() const {
     return pImpl->state_manager_;
 }

@@ -2,31 +2,29 @@
 // Created by yhkim on 25. 6. 4.
 //
 
-#ifndef DATACHANNELOBSERVER_H
-#define DATACHANNELOBSERVER_H
+#ifndef BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H
+#define BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H
 
 #include "api/data_channel_interface.h"
 
-namespace rtc_sender {
-    namespace observers {
-        class DataChannelObserver final : public webrtc::DataChannelObserver {
-        public:
-            explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer &)> onMessageCallback);
+namespace rtc_sender::observers {
+    class DataChannelObserver final : public webrtc::DataChannelObserver {
+    public:
+        explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer &)> onMessageCallback);
 
-            void OnStateChange() override;
+        void OnStateChange() override;
 
-            void OnMessage(const webrtc::DataBuffer &buffer) override;
+        void OnMessage(const webrtc::DataBuffer &buffer) override;
 
-            void OnBufferedAmountChange(uint64_t sent_data_size) override;
+        void OnBufferedAmountChange(uint64_t sent_data_size) override;
 
-            bool IsOkToCallOnTheNetworkThread() override {
-                return true; // Allow callbacks on the network thread
-            }
+        bool IsOkToCallOnTheNetworkThread() override {
+            return true; // Allow callbacks on the network thread
+        }
 
-        private:
-            std::function<void(const webrtc::DataBuffer &)> onMessageCallback_;
-        };
-    } // namespace observers
-} // namespace rtc_sender
+    private:
+        std::function<void(const webrtc::DataBuffer &)> onMessageCallback_;
+    };
+} // namespace rtc_sender::observers
 
-#endif  // DATACHANNELOBSERVER_H
+#endif  // BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H

@@ -2,30 +2,28 @@
 // Created by yhkim on 25. 6. 5.
 //
 
-#ifndef CREATE_SDP_ANSWER_OBSERVER_H
-#define CREATE_SDP_ANSWER_OBSERVER_H
+#ifndef BA_GCS_RTC_SENDER_CREATE_SDP_ANSWER_OBSERVER_H
+#define BA_GCS_RTC_SENDER_CREATE_SDP_ANSWER_OBSERVER_H
 
 #include <memory>
 
 #include "api/jsep.h"
-#include "rtc_sender/robot_webrtc_client.h"
+#include "rtc_sender/gcs_connector.h"
 
-namespace rtc_sender {
-    namespace observers {
-        class CreateSdpAnswerObserver : public webrtc::CreateSessionDescriptionObserver {
-        public:
-            explicit CreateSdpAnswerObserver(const std::shared_ptr<PeerConnectionManager> &peer_connection_manager)
-                : peer_connection_manager_(peer_connection_manager) {
-            }
+namespace rtc_sender::observers {
+    class CreateSdpAnswerObserver : public webrtc::CreateSessionDescriptionObserver {
+    public:
+        explicit CreateSdpAnswerObserver(const std::shared_ptr<PeerConnectionManager> &pc_manager)
+            : pc_manager_(pc_manager) {
+        }
 
-            void OnSuccess(webrtc::SessionDescriptionInterface *desc) override;
+        void OnSuccess(webrtc::SessionDescriptionInterface *desc) override;
 
-            void OnFailure(webrtc::RTCError error) override;
+        void OnFailure(webrtc::RTCError error) override;
 
-        private:
-            std::shared_ptr<PeerConnectionManager> peer_connection_manager_;
-        };
-    } // namespace observers
-} // namespace rtc_sender
+    private:
+        std::shared_ptr<PeerConnectionManager> pc_manager_;
+    };
+} // namespace rtc_sender::observers
 
-#endif  // CREATE_SDP_ANSWER_OBSERVER_H
+#endif  // BA_GCS_RTC_SENDER_CREATE_SDP_ANSWER_OBSERVER_H

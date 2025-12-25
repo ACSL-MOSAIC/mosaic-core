@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 2.
 //
 
-#ifndef I_LOGGER_H
-#define I_LOGGER_H
+#ifndef BA_GCS_RTC_SENDER_I_LOGGER_H
+#define BA_GCS_RTC_SENDER_I_LOGGER_H
 
 #include <string>
 
@@ -102,4 +102,4 @@ namespace rtc_sender::log {
     };
 } // namespace rtc_sender::log
 
-#endif  // I_LOGGER_H
+#endif  // BA_GCS_RTC_SENDER_I_LOGGER_H

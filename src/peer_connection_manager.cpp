@@ -26,7 +26,7 @@
 #include "rtc_sender/observers/peer_connection_observer.h"
 #include "rtc_sender/observers/simple_set_local_description_observer.h"
 #include "rtc_sender/observers/simple_set_remote_description_observer.h"
-#include "rtc_sender/signaling_server.h"
+#include "rtc_sender/signaling_client.h"
 
 using namespace rtc_sender;
 
@@ -34,9 +34,9 @@ webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<Ic
 
 class PeerConnectionManager::Impl {
 public:
-    Impl(const std::shared_ptr<RobotWebRTCClient> &client,
+    Impl(const std::shared_ptr<GCSConnector> &client,
          const std::shared_ptr<ClientStateManager> &state_manager,
-         const std::shared_ptr<SignalingServer> &signaling_server,
+         const std::shared_ptr<SignalingClient> &signaling_server,
          const std::shared_ptr<IceConfig> &ice_config)
         : client_(client),
           state_manager_(state_manager),
@@ -142,8 +142,8 @@ public:
     }
 
     void AfterSetSessionDescription(const std::shared_ptr<PeerConnectionManager> &outer_this_) {
+        // TODO: Need to delete
         client_->CreateAllMediaTracks();
-        client_->CreateAllDataChannels();
 
         // Create and set answer
         const auto create_answer_observer = webrtc::scoped_refptr<observers::CreateSdpAnswerObserver>(
@@ -261,10 +261,10 @@ public:
     }
 
 private:
-    std::shared_ptr<RobotWebRTCClient> client_;
+    std::shared_ptr<GCSConnector> client_;
     std::shared_ptr<ClientStateManager> state_manager_;
     std::shared_ptr<IceConfig> ice_config_;
-    std::shared_ptr<SignalingServer> signaling_server_;
+    std::shared_ptr<SignalingClient> signaling_server_;
 
     webrtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> peer_connection_factory_ = nullptr;
     webrtc::scoped_refptr<webrtc::PeerConnectionInterface> peer_connection_ = nullptr;
@@ -294,12 +294,12 @@ private:
     }
 
     friend class PeerConnectionManager;
-    friend class RobotWebRTCClient;
+    friend class GCSConnector;
 };
 
-PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<RobotWebRTCClient> &client,
+PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<GCSConnector> &client,
                                              const std::shared_ptr<ClientStateManager> &state_manager,
-                                             const std::shared_ptr<SignalingServer> &signaling_server,
+                                             const std::shared_ptr<SignalingClient> &signaling_server,
                                              const std::shared_ptr<IceConfig> &ice_config) {
     pImpl = std::make_shared<Impl>(client, state_manager, signaling_server, ice_config);
 }

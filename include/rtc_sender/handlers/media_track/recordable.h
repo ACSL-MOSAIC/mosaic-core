@@ -2,45 +2,40 @@
 // Created by yhkim on 7/29/25.
 //
 
-#ifndef RECORDABLE_H
-#define RECORDABLE_H
+#ifndef BA_GCS_RTC_SENDER_RECORDABLE_H
+#define BA_GCS_RTC_SENDER_RECORDABLE_H
 
 #include <memory>
 #include <string>
+#include "opencv_forward_decl.h"
 
-namespace cv {
-  class Mat;
-}
+namespace rtc_sender::handlers {
+  enum RecordState { NotRecording, Recording, Paused };
 
-namespace rtc_sender {
-  namespace handlers {
-    enum RecordState { NotRecording, Recording, Paused };
+  class Recordable {
+  public:
+    explicit Recordable(bool recordable);
 
-    class Recordable {
-    public:
-      explicit Recordable(bool recordable);
+    ~Recordable();
 
-      ~Recordable();
+    void SetRecordFilePath(const std::string &record_file_path);
 
-      void SetRecordFilePath(const std::string &record_file_path);
+    void SetVideoParameters(double fps, int width, int height);
 
-      void SetVideoParameters(double fps, int width, int height);
+    void StartRecording();
 
-      void StartRecording();
+    void PauseRecording();
 
-      void PauseRecording();
+    void ResumeRecording();
 
-      void ResumeRecording();
+    void StopRecording();
 
-      void StopRecording();
+    void RecordFrame(const cv::Mat &frame);
 
-      void RecordFrame(const cv::Mat &frame);
+  private:
+    class Impl;
+    std::unique_ptr<Impl> pImpl;
+  };
+} // namespace rtc_sender::handlers
 
-    private:
-      class Impl;
-      std::unique_ptr<Impl> pImpl;
-    };
-  } // namespace handlers
-} // namespace rtc_sender
-
-#endif  // RECORDABLE_H
+#endif  // BA_GCS_RTC_SENDER_RECORDABLE_H
