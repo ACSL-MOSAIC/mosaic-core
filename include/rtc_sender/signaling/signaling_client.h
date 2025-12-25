@@ -8,8 +8,8 @@
 #include <memory>
 #include <string>
 
-#include "i_signaling_client.h"
-#include "rtc_sender/gcs_connector.h"
+#include <rtc_sender/gcs_connector.h>
+#include <rtc_sender/signaling/i_signaling_client.h>
 
 namespace rtc_sender::signaling {
   class SignalingClient : public ISignalingClient {
@@ -32,7 +32,7 @@ namespace rtc_sender::signaling {
 
     void SetAuthenticator(const std::shared_ptr<security::IGCSAuthenticator> &authenticator) const override;
 
-    bool IsAuthenticated() const override;
+    [[nodiscard]] bool IsAuthenticated() const override;
 
   private:
     class Impl;

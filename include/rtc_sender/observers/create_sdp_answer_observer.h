@@ -7,8 +7,9 @@
 
 #include <memory>
 
-#include "api/jsep.h"
-#include "rtc_sender/gcs_connector.h"
+#include <api/jsep.h>
+
+#include <rtc_sender/gcs_connector.h>
 
 namespace rtc_sender::observers {
     class CreateSdpAnswerObserver : public webrtc::CreateSessionDescriptionObserver {

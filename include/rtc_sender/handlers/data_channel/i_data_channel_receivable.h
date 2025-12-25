@@ -21,7 +21,7 @@ namespace rtc_sender::handlers {
 
         ~IDataChannelReceivable() override = default;
 
-        Json::Value ConvertDataBufferToJson(const webrtc::DataBuffer &buffer);
+        static Json::Value ConvertDataBufferToJson(const webrtc::DataBuffer &buffer);
 
         void OnMessage(const webrtc::DataBuffer &buffer) override = 0;
     };

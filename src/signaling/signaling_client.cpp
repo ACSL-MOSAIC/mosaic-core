@@ -2,11 +2,14 @@
 // Created by yhkim on 25. 6. 2.
 //
 
-#include "api/jsep.h"
-#include "rtc_sender/logger/log.h"
-#include "rtc_sender/gcs_connector.h"
-#include "rtc_sender/signaling/websocket_client.h"
-#include "rtc_sender/signaling/signaling_client.h"
+#include <rtc_sender/logger/log.h>
+#include <rtc_sender/gcs_connector.h>
+#include <rtc_sender/signaling/websocket_client.h>
+#include <rtc_sender/signaling/signaling_client.h>
+
+#include <utility>
+
+#include <api/jsep.h>
 
 using namespace rtc_sender::signaling;
 
@@ -16,7 +19,7 @@ webrtc::SessionDescriptionInterface *ResolveSdpOffer(std::string const &sdp_offe
 
 class SignalingClient::Impl {
 public:
-    Impl(const std::string &ws_uri) : ws_uri_(ws_uri) {
+    explicit Impl(std::string ws_uri) : ws_uri_(std::move(ws_uri)) {
     }
 
     void Start() {
@@ -91,7 +94,7 @@ public:
         authenticator_ = authenticator;
     }
 
-    bool IsAuthenticated() const {
+    [[nodiscard]] bool IsAuthenticated() const {
         return authenticator_->IsAuthenticated();
     }
 
@@ -102,7 +105,7 @@ private:
         ws_client_->setOnConnected([this]() {
             RTC_SENDER_LOG_INFO("Connected to WebSocket server.");
             is_connected_ = true;
-            if (latest_state_ != "")
+            if (!latest_state_.empty())
                 SendState(latest_state_);
         });
 
@@ -199,7 +202,7 @@ private:
     bool is_connected_ = false;
     std::string ws_uri_;
     std::unique_ptr<WebSocketClient> ws_client_ = nullptr;
-    std::string latest_state_ = "";
+    std::string latest_state_;
 };
 
 SignalingClient::SignalingClient(const std::string &ws_uri) : pImpl(std::make_unique<Impl>(ws_uri)) {
@@ -243,8 +246,8 @@ bool SignalingClient::IsAuthenticated() const {
 
 webrtc::IceCandidateInterface *ResolveIceCandidate(json::value const &ice_candidate) {
     std::string candidate_str = ice_candidate.at("candidate").as_string();
-    std::string sdp_mid = ice_candidate.at("sdpMid").as_string();
-    int sdp_mline_index = ice_candidate.at("sdpMLineIndex").as_integer();
+    const std::string sdp_mid = ice_candidate.at("sdpMid").as_string();
+    const int sdp_mline_index = ice_candidate.at("sdpMLineIndex").as_integer();
 
     webrtc::SdpParseError error;
     webrtc::IceCandidateInterface *candidate =

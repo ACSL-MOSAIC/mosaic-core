@@ -2,31 +2,32 @@
 // Created by yhkim on 25. 7. 2.
 //
 
-#include "rtc_sender/peer_connection_manager.h"
-
 #include <api/create_peerconnection_factory.h>
 #include <api/task_queue/default_task_queue_factory.h>
-#include <rtc_sender/connector_state_manager.h>
 
-#include "api/audio_codecs/builtin_audio_decoder_factory.h"
-#include "api/audio_codecs/builtin_audio_encoder_factory.h"
-#include "api/video_codecs/video_decoder_factory_template.h"
-#include "api/video_codecs/video_decoder_factory_template_dav1d_adapter.h"
-#include "api/video_codecs/video_decoder_factory_template_libvpx_vp8_adapter.h"
-#include "api/video_codecs/video_decoder_factory_template_libvpx_vp9_adapter.h"
-#include "api/video_codecs/video_decoder_factory_template_open_h264_adapter.h"
-#include "api/video_codecs/video_encoder_factory_template.h"
-#include "api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h"
-#include "api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h"
-#include "api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h"
-#include "api/video_codecs/video_encoder_factory_template_open_h264_adapter.h"
-#include "rtc_sender/ice_config.h"
-#include "rtc_sender/logger/log.h"
-#include "rtc_sender/observers/create_sdp_answer_observer.h"
-#include "rtc_sender/observers/peer_connection_observer.h"
-#include "rtc_sender/observers/simple_set_local_description_observer.h"
-#include "rtc_sender/observers/simple_set_remote_description_observer.h"
-#include "rtc_sender/signaling/i_signaling_client.h"
+#include <api/audio_codecs/builtin_audio_decoder_factory.h>
+#include <api/audio_codecs/builtin_audio_encoder_factory.h>
+
+#include <api/video_codecs/video_decoder_factory_template.h>
+#include <api/video_codecs/video_decoder_factory_template_dav1d_adapter.h>
+#include <api/video_codecs/video_decoder_factory_template_libvpx_vp8_adapter.h>
+#include <api/video_codecs/video_decoder_factory_template_libvpx_vp9_adapter.h>
+#include <api/video_codecs/video_decoder_factory_template_open_h264_adapter.h>
+#include <api/video_codecs/video_encoder_factory_template.h>
+#include <api/video_codecs/video_encoder_factory_template_libaom_av1_adapter.h>
+#include <api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h>
+#include <api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h>
+#include <api/video_codecs/video_encoder_factory_template_open_h264_adapter.h>
+
+#include <rtc_sender/ice_config.h>
+#include <rtc_sender/logger/log.h>
+#include <rtc_sender/peer_connection_manager.h>
+#include <rtc_sender/connector_state_manager.h>
+#include <rtc_sender/signaling/i_signaling_client.h>
+#include <rtc_sender/observers/peer_connection_observer.h>
+#include <rtc_sender/observers/create_sdp_answer_observer.h>
+#include <rtc_sender/observers/simple_set_local_description_observer.h>
+#include <rtc_sender/observers/simple_set_remote_description_observer.h>
 
 using namespace rtc_sender;
 
@@ -86,7 +87,7 @@ public:
         RTC_SENDER_LOG_DEBUG("WebRTC Client initialized successfully");
     }
 
-    void CreatePeerConnection(std::shared_ptr<PeerConnectionManager> outer_this_) {
+    void CreatePeerConnection(const std::shared_ptr<PeerConnectionManager> &outer_this_) {
         RTC_SENDER_LOG_DEBUG("RobotWebRTCClient::CreatePeerConnection()");
         webrtc::PeerConnectionInterface::RTCConfiguration configuration;
         configuration.ice_connection_receiving_timeout = 30000;
@@ -178,7 +179,7 @@ public:
                 const_cast<webrtc::IceCandidateInterface *>(candidate));
 
             // Add ice candidate with callback for error handling
-            peer_connection_->AddIceCandidate(std::move(candidate_unique_ptr), [](webrtc::RTCError error) {
+            peer_connection_->AddIceCandidate(std::move(candidate_unique_ptr), [](const webrtc::RTCError &error) {
                 if (!error.ok()) {
                     RTC_SENDER_LOG_ERROR("Failed to add ICE candidate: ", error.message());
                 } else {
@@ -275,13 +276,13 @@ private:
     std::unique_ptr<rtc::Thread> worker_thread_ = nullptr;
     std::unique_ptr<rtc::Thread> signaling_thread_ = nullptr;
 
-    webrtc::scoped_refptr<webrtc::VideoTrackInterface> CreateVideoTrack(
+    [[nodiscard]] webrtc::scoped_refptr<webrtc::VideoTrackInterface> CreateVideoTrack(
         const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> &source,
         const std::string &label) const {
         return peer_connection_factory_->CreateVideoTrack(source, label);
     }
 
-    webrtc::scoped_refptr<webrtc::RtpSenderInterface> AddTrack(
+    [[nodiscard]] webrtc::scoped_refptr<webrtc::RtpSenderInterface> AddTrack(
         const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> &track,
         const std::vector<std::string> &stream_ids) const {
         auto add_track_result = peer_connection_->AddTrack(track, stream_ids);

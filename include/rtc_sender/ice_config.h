@@ -6,6 +6,7 @@
 #define BA_GCS_RTC_SENDER_ICE_CONFIG_H
 
 #include <string>
+#include <utility>
 
 namespace rtc_sender {
     struct IceConfig {
@@ -13,8 +14,8 @@ namespace rtc_sender {
         std::string turn_username;
         std::string turn_credential;
 
-        IceConfig(const std::string &url, const std::string &username, const std::string &credential)
-            : turn_url(url), turn_username(username), turn_credential(credential) {
+        IceConfig(std::string url, std::string username, std::string credential)
+            : turn_url(std::move(url)), turn_username(std::move(username)), turn_credential(std::move(credential)) {
         }
     };
 } // namespace rtc_sender

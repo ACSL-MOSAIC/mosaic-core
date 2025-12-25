@@ -2,45 +2,25 @@
 // Created by yhkim on 25. 7. 1.
 //
 
-#include "rtc_sender/handlers/data_channel/a_data_channel_handler.h"
+#include <rtc_sender/handlers/data_channel/a_data_channel_handler.h>
+#include <rtc_sender/handlers/data_channel/i_data_channel_receivable.h>
+#include <rtc_sender/logger/log.h>
+#include <rtc_sender/observers/data_channel_observer.h>
 
-#include <rtc_sender/handlers/data_channel/data_channel_receivable.h>
-
-#include "api/peer_connection_interface.h"
-#include "rtc_sender/handlers/data_channel/i_data_channel_receivable.h"
-#include "rtc_sender/logger/log.h"
-#include "rtc_sender/observers/data_channel_observer.h"
+#include <utility>
+#include <api/peer_connection_interface.h>
 
 using namespace rtc_sender::handlers;
 
 class ADataChannelHandler::Impl {
 public:
-    explicit Impl(const std::string &label) : label_(label) {
+    explicit Impl(std::string label) : label_(std::move(label)) {
     }
 
     virtual ~Impl() = default;
 
     std::string GetLabel() const {
         return label_;
-    }
-
-    webrtc::scoped_refptr<webrtc::DataChannelInterface> CreateDataChannel(
-        const webrtc::scoped_refptr<webrtc::PeerConnectionInterface> &peer_connection) {
-        webrtc::DataChannelInit config;
-        config.ordered = true;
-
-        auto error_or_dc = peer_connection->CreateDataChannelOrError(label_, &config);
-        if (!error_or_dc.ok()) {
-            RTC_SENDER_LOG_ERROR(
-                "Failed to create DataChannel with label: {}, error: {}", label_, error_or_dc.error().message());
-            throw std::runtime_error("DataChannel creation failed: " + std::string(error_or_dc.error().message()));
-        }
-
-        auto dc = error_or_dc.value();
-        SetDataChannelInterface(dc);
-        RegisterDataChannelObserver();
-
-        return dc;
     }
 
     void SetDataChannelInterface(const webrtc::scoped_refptr<webrtc::DataChannelInterface> &dc_interface) {
@@ -51,19 +31,7 @@ public:
         dc_interface_ = dc_interface;
     }
 
-    void RegisterDataChannelObserver() {
-        if (!dc_interface_) {
-            RTC_SENDER_LOG_ERROR("DataChannelInterface cannot be set for label: {}", label_);
-            throw std::runtime_error("DataChannelInterface is not set");
-        }
-
-        observer_ = std::make_shared<observers::DataChannelObserver>([this](const webrtc::DataBuffer &) {
-        });
-        dc_interface_->RegisterObserver(observer_.get());
-        RTC_SENDER_LOG_INFO("DataChannelObserver registered for label (Sendable): {}", label_);
-    }
-
-    void RegisterDataChannelObserver(ADataChannelHandler *dc_handler) {
+    void RegisterDataChannelObserver(IDataChannelHandler *dc_handler) {
         if (!dc_interface_) {
             RTC_SENDER_LOG_ERROR("DataChannelInterface cannot be set for label: {}", label_);
             throw std::runtime_error("DataChannelInterface is not set");
@@ -133,21 +101,12 @@ std::string ADataChannelHandler::GetLabel() const {
     return pImpl->GetLabel();
 }
 
-webrtc::scoped_refptr<webrtc::DataChannelInterface> ADataChannelHandler::CreateDataChannel(
-    const webrtc::scoped_refptr<webrtc::PeerConnectionInterface> &peer_connection) const {
-    return pImpl->CreateDataChannel(peer_connection);
-}
-
 void ADataChannelHandler::SetDataChannelInterface(
     const webrtc::scoped_refptr<webrtc::DataChannelInterface> &dc_interface) const {
     return pImpl->SetDataChannelInterface(dc_interface);
 }
 
-void ADataChannelHandler::RegisterDataChannelObserver() const {
-    pImpl->RegisterDataChannelObserver();
-}
-
-void ADataChannelHandler::RegisterDataChannelObserver(ADataChannelHandler *dc_handler) const {
+void ADataChannelHandler::RegisterDataChannelObserver(IDataChannelHandler *dc_handler) const {
     pImpl->RegisterDataChannelObserver(dc_handler);
 }
 

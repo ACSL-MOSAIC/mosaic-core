@@ -7,6 +7,7 @@
 
 #include <memory>
 #include <string>
+
 #include "opencv_forward_decl.h"
 
 namespace rtc_sender::handlers {
@@ -16,7 +17,7 @@ namespace rtc_sender::handlers {
   public:
     explicit Recordable(bool recordable);
 
-    ~Recordable();
+    virtual ~Recordable();
 
     void SetRecordFilePath(const std::string &record_file_path);
 

@@ -25,7 +25,7 @@ namespace rtc_sender::handlers {
 
         bool Sendable() const;
 
-        void Send(const webrtc::DataBuffer &buffer) const;
+        void Send(const webrtc::DataBuffer &buffer) const override;
 
         void SendString(const std::string &string) const;
 

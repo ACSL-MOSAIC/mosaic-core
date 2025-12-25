@@ -2,14 +2,12 @@
 // Created by yhkim on 25. 7. 16.
 //
 
-#include "rtc_sender/signaling/websocket_client.h"
+#include <rtc_sender/logger/log.h>
+#include <rtc_sender/signaling/websocket_client.h>
 
-#include <iostream>
 #include <utility>
 
-#include "rtc_sender/logger/log.h"
-
-#define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
+#define TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
 #include <cpprest/json.h>
 #include <cpprest/ws_client.h>
 
@@ -64,8 +62,8 @@ void WebSocketClient::connectInternal() {
 
     try {
         // 연결 시도
-        auto res = m_client->connect(m_uri)
-                .then([this]() {
+        const auto res = m_client->connect(m_uri)
+                .then([this] {
                     m_connected = true;
                     RTC_SENDER_LOG_INFO("WebSocket connected to {}", m_uri);
 
@@ -89,9 +87,9 @@ void WebSocketClient::disconnect() {
 
     m_connected = false;
 
-    auto res = m_client->close()
-            .then([this]() {
-                std::cout << "WebSocket disconnected" << std::endl;
+    const auto res = m_client->close()
+            .then([this] {
+                RTC_SENDER_LOG_INFO("WebSocket disconnected");
 
                 if (m_onDisconnected) {
                     m_onDisconnected();
@@ -103,7 +101,7 @@ void WebSocketClient::disconnect() {
     }
 }
 
-void WebSocketClient::send(const std::string &message) {
+void WebSocketClient::send(const std::string &message) const {
     if (!m_connected) {
         RTC_SENDER_LOG_ERROR("Failed to send message; not connected to WebSocket server.");
         return;
@@ -112,14 +110,13 @@ void WebSocketClient::send(const std::string &message) {
     websocket_outgoing_message msg;
     msg.set_utf8_message(message);
 
-    auto res = m_client->send(msg).wait();
-    if (res != pplx::task_status::completed) {
+    if (const auto res = m_client->send(msg).wait(); res != pplx::task_status::completed) {
         RTC_SENDER_LOG_ERROR("Failed to send message: {}", message);
         throw std::runtime_error("Failed to send message");
     }
 }
 
-void WebSocketClient::sendJson(const json::value &jsonMessage) {
+void WebSocketClient::sendJson(const json::value &jsonMessage) const {
     send(jsonMessage.serialize());
 }
 
@@ -132,14 +129,14 @@ void WebSocketClient::setupEventHandlers() {
     m_client->set_message_handler([this](const websocket_incoming_message &message) { handleMessage(message); });
 
     // 연결 종료 핸들러
-    m_client->set_close_handler([this](websocket_close_status close_status,
+    m_client->set_close_handler([this](const websocket_close_status close_status,
                                        const std::string &reason,
                                        const std::error_code &error) {
         handleClose(close_status, reason, error);
     });
 }
 
-void WebSocketClient::handleMessage(const websocket_incoming_message &message) {
+void WebSocketClient::handleMessage(const websocket_incoming_message &message) const {
     try {
         if (message.message_type() == websocket_message_type::ping) {
             RTC_SENDER_LOG_DEBUG("Received ping message");
@@ -170,7 +167,7 @@ void WebSocketClient::handleMessage(const websocket_incoming_message &message) {
             }
         }
     } catch (const std::exception &e) {
-        std::string error = "Message handling error: " + std::string(e.what());
+        const std::string error = "Message handling error: " + std::string(e.what());
         if (m_onError) {
             m_onError(error);
         }

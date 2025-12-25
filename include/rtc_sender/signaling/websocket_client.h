@@ -9,9 +9,8 @@
 #include <functional>
 #include <memory>
 #include <string>
-#include <thread>
 
-#define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
+#define TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
 #include <cpprest/json.h>
 #include <cpprest/ws_client.h>
 
@@ -43,11 +42,11 @@ namespace rtc_sender::signaling {
 
         void disconnect();
 
-        void send(const std::string &message);
+        void send(const std::string &message) const;
 
-        void sendJson(const json::value &jsonMessage);
+        void sendJson(const json::value &jsonMessage) const;
 
-        bool isConnected() const;
+        [[nodiscard]] bool isConnected() const;
 
     private:
         std::shared_ptr<websocket_callback_client> m_client = nullptr;
@@ -61,7 +60,7 @@ namespace rtc_sender::signaling {
 
         void connectInternal();
 
-        void handleMessage(const websocket_incoming_message &message);
+        void handleMessage(const websocket_incoming_message &message) const;
 
         void handleClose(websocket_close_status close_status, const std::string &reason, const std::error_code &);
 

@@ -7,9 +7,8 @@
 
 #include <vector>
 
-#include "gcs_connector.h"
-#include "webrtc_forward_decl.h"
-#include "signaling/i_signaling_client.h"
+#include <rtc_sender/gcs_connector.h>
+#include <rtc_sender/signaling/i_signaling_client.h>
 
 using namespace rtc_sender::signaling;
 

@@ -5,7 +5,7 @@
 #ifndef BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H
 #define BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H
 
-#include "api/data_channel_interface.h"
+#include <api/data_channel_interface.h>
 
 namespace rtc_sender::observers {
     class DataChannelObserver final : public webrtc::DataChannelObserver {

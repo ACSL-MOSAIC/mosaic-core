@@ -5,51 +5,39 @@
 #ifndef BA_GCS_RTC_SENDER_A_DATA_CHANNEL_HANDLER_H
 #define BA_GCS_RTC_SENDER_A_DATA_CHANNEL_HANDLER_H
 
-#include <string>
-
-#include "rtc_sender/logger/log.h"
-#include "rtc_sender/webrtc_forward_decl.h"
+#include "rtc_sender/handlers/data_channel/i_data_channel_handler.h"
 
 namespace rtc_sender::handlers {
-    class ADataChannelHandler {
+    class ADataChannelHandler : public IDataChannelHandler {
     public:
-        enum ChannelState { kConnecting, kOpen, kClosing, kClosed, kUnknown };
-
         explicit ADataChannelHandler(const std::string &label);
 
-        virtual ~ADataChannelHandler() = default;
+        ~ADataChannelHandler() override = default;
 
-        std::string GetLabel() const;
+        [[nodiscard]] std::string GetLabel() const override;
 
-        virtual void AfterCreate() {
-        }
-
-        virtual void OnMessage(const webrtc::DataBuffer &) {
+        void OnMessage(const webrtc::DataBuffer &) override {
             RTC_SENDER_LOG_ERROR("This DataChannel Handler is not Receivable!");
         }
 
-        webrtc::scoped_refptr<webrtc::DataChannelInterface> CreateDataChannel(
-            const webrtc::scoped_refptr<webrtc::PeerConnectionInterface> &peer_connection) const;
+        void SetDataChannelInterface(
+            const webrtc::scoped_refptr<webrtc::DataChannelInterface> &dc_interface) const override;
 
-        void SetDataChannelInterface(const webrtc::scoped_refptr<webrtc::DataChannelInterface> &dc_interface) const;
+        void RegisterDataChannelObserver(IDataChannelHandler *dc_handler) const override;
 
-        void RegisterDataChannelObserver() const;
+        [[nodiscard]] ChannelState GetState() const override;
 
-        void RegisterDataChannelObserver(ADataChannelHandler *dc_handler) const;
-
-        ChannelState GetState() const;
-
-        void CloseDataChannel() const;
+        void CloseDataChannel() const override;
 
     private:
         class Impl;
         std::shared_ptr<Impl> pImpl;
 
-        void Send(const webrtc::DataBuffer &buffer) const;
+        void Send(const webrtc::DataBuffer &buffer) const override;
 
         friend class DataChannelSendable;
 
-        Impl *GetImpl() const {
+        [[nodiscard]] Impl *GetImpl() const {
             return pImpl.get();
         }
     };

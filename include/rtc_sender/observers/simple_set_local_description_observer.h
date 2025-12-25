@@ -5,8 +5,9 @@
 #ifndef BA_GCS_RTC_SENDER_SIMPLE_SET_LOCAL_DESCRIPTION_OBSERVER_H
 #define BA_GCS_RTC_SENDER_SIMPLE_SET_LOCAL_DESCRIPTION_OBSERVER_H
 
-#include "api/jsep.h"
-#include "rtc_sender/gcs_connector.h"
+#include <api/jsep.h>
+
+#include <rtc_sender/gcs_connector.h>
 
 namespace rtc_sender::observers {
     class SimpleSetLocalDescriptionObserver : public webrtc::SetSessionDescriptionObserver {

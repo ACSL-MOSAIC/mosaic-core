@@ -2,14 +2,14 @@
 // Created by yhkim on 7/17/25.
 //
 
-#include "rtc_sender/handlers/media_track/media_track_handler.h"
+#include <rtc_sender/handlers/media_track/a_media_track_handler.h>
+#include <rtc_sender/logger/log.h>
 
 #include <api/video/i420_buffer.h>
 #include <api/video/video_frame.h>
-#include <libyuv/convert.h>
 #include <media/base/adapted_video_track_source.h>
-#include <rtc_sender/logger/log.h>
 
+#include <libyuv/convert.h>
 #include <opencv2/core/mat.hpp>
 
 using namespace rtc_sender::handlers;
@@ -49,15 +49,15 @@ namespace rtc_sender::handlers {
     };
 } // namespace rtc_sender::handlers
 
-class MediaTrackHandler::Impl {
+class AMediaTrackHandler::Impl {
 public:
-    void SendFrame(const webrtc::VideoFrame &frame) {
+    void SendFrame(const webrtc::VideoFrame &frame) const {
         if (actual_video_track_source_) {
             actual_video_track_source_->SendFrame(frame);
         }
     }
 
-    void SendFrame(const cv::Mat &frame, std::chrono::steady_clock::time_point start_time) {
+    void SendFrame(const cv::Mat &frame, const std::chrono::steady_clock::time_point start_time) const {
         if (actual_video_track_source_) {
             actual_video_track_source_->SendFrame(CvMat2VideoFrame(frame, start_time));
         }
@@ -70,6 +70,7 @@ public:
     webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> CreateVideoTrackSource() {
         if (!actual_video_track_source_) {
             // Create a new ActualVideoTrackSource instance if it doesn't exist
+            // TODO: check if memory leak
             actual_video_track_source_ =
                     webrtc::scoped_refptr<ActualVideoTrackSource>(
                         new webrtc::RefCountedObject<ActualVideoTrackSource>());
@@ -81,7 +82,7 @@ public:
         actual_video_track_source_ = nullptr;
     }
 
-    void SetRunning(bool running) {
+    void SetRunning(const bool running) const {
         if (actual_video_track_source_) {
             actual_video_track_source_->is_running_ = running;
         }
@@ -91,7 +92,7 @@ public:
         return actual_video_track_source_ && actual_video_track_source_->stop_flag_;
     }
 
-    void SetStopFlag(bool stop_flag) {
+    void SetStopFlag(const bool stop_flag) const {
         if (actual_video_track_source_) {
             actual_video_track_source_->stop_flag_ = stop_flag;
         }
@@ -117,23 +118,23 @@ private:
                             frame.rows);
 
         // Calculate timestamp
-        auto now = std::chrono::steady_clock::now();
-        auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - start_time);
-        int64_t timestamp_us = elapsed.count();
+        const auto now = std::chrono::steady_clock::now();
+        const auto elapsed = std::chrono::duration_cast<std::chrono::microseconds>(now - start_time);
+        const int64_t timestamp_us = elapsed.count();
 
         return webrtc::VideoFrame::Builder().set_video_frame_buffer(buffer).set_timestamp_us(timestamp_us).build();
     }
 
     static cv::Mat VideoFrame2CvMat(const webrtc::VideoFrame &frame) {
-        webrtc::scoped_refptr<webrtc::VideoFrameBuffer> buffer = frame.video_frame_buffer();
-        webrtc::scoped_refptr<webrtc::I420BufferInterface> i420_buffer = buffer->ToI420();
+        const auto buffer = frame.video_frame_buffer();
+        const auto i420_buffer = buffer->ToI420();
 
         // Get frame dimensions
-        int width = i420_buffer->width();
-        int height = i420_buffer->height();
+        const int width = i420_buffer->width();
+        const int height = i420_buffer->height();
 
         // Create temporary RGB buffer
-        std::unique_ptr<uint8_t[]> rgb_data(new uint8_t[width * height * 3]);
+        const std::unique_ptr<uint8_t[]> rgb_data(new uint8_t[width * height * 3]);
 
         // Convert I420 to RGB24
         libyuv::I420ToRGB24(i420_buffer->DataY(),
@@ -148,7 +149,7 @@ private:
                             height);
 
         // Create OpenCV Mat from RGB data
-        cv::Mat rgb_mat(height, width, CV_8UC3, rgb_data.get());
+        const cv::Mat rgb_mat(height, width, CV_8UC3, rgb_data.get());
 
         // Clone the data to ensure it persists after rgb_data goes out of scope
         cv::Mat result;
@@ -157,52 +158,52 @@ private:
         return result;
     }
 
-    friend class MediaTrackHandler;
+    friend class AMediaTrackHandler;
 };
 
-MediaTrackHandler::MediaTrackHandler(const std::string &track_name, const bool recordable)
+AMediaTrackHandler::AMediaTrackHandler(const std::string &track_name, const bool recordable)
     : IMediaTrackHandler(track_name), Recordable(recordable) {
     pImpl = std::make_unique<Impl>();
 }
 
-MediaTrackHandler::~MediaTrackHandler() {
-    MediaTrackHandler::Close();
+AMediaTrackHandler::~AMediaTrackHandler() {
+    AMediaTrackHandler::Close();
 }
 
-void MediaTrackHandler::SendFrame(const webrtc::VideoFrame &frame) {
+void AMediaTrackHandler::SendFrame(const webrtc::VideoFrame &frame) {
     pImpl->SendFrame(frame);
     RecordFrame(Impl::VideoFrame2CvMat(frame));
 }
 
-void MediaTrackHandler::SendFrame(const cv::Mat &frame, std::chrono::steady_clock::time_point start_time) {
+void AMediaTrackHandler::SendFrame(const cv::Mat &frame, const std::chrono::steady_clock::time_point start_time) {
     pImpl->SendFrame(frame, start_time);
     RecordFrame(frame);
 }
 
-bool MediaTrackHandler::IsRunning() const {
+bool AMediaTrackHandler::IsRunning() const {
     return pImpl->IsRunning();
 }
 
-webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> MediaTrackHandler::CreateVideoTrackSource() {
+webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> AMediaTrackHandler::CreateVideoTrackSource() {
     auto video_source = pImpl->CreateVideoTrackSource();
     Start();
     return video_source;
 }
 
-void MediaTrackHandler::Close() {
+void AMediaTrackHandler::Close() {
     Stop();
     StopRecording();
     pImpl->Close();
 }
 
-void MediaTrackHandler::SetRunning(bool running) {
+void AMediaTrackHandler::SetRunning(const bool running) const {
     pImpl->SetRunning(running);
 }
 
-bool MediaTrackHandler::GetStopFlag() const {
+bool AMediaTrackHandler::GetStopFlag() const {
     return pImpl->GetStopFlag();
 }
 
-void MediaTrackHandler::SetStopFlag(bool stop_flag) {
+void AMediaTrackHandler::SetStopFlag(const bool stop_flag) const {
     pImpl->SetStopFlag(stop_flag);
 }

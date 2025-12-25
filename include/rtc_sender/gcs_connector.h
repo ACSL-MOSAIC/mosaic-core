@@ -4,14 +4,15 @@
 
 #ifndef BA_GCS_RTC_SENDER_GCS_CONNECTOR_H
 #define BA_GCS_RTC_SENDER_GCS_CONNECTOR_H
+
 #include <memory>
 #include <string>
 
-#include "connector_state_manager.h"
-#include "handlers/data_channel/a_data_channel_handler.h"
-#include "handlers/media_track/media_track_handler.h"
-#include "peer_connection_manager.h"
-#include "webrtc_forward_decl.h"
+#include <rtc_sender/connector_state_manager.h>
+#include <rtc_sender/peer_connection_manager.h>
+#include <rtc_sender/webrtc_forward_decl.h>
+#include <rtc_sender/handlers/media_track/i_media_track_handler.h>
+#include <rtc_sender/handlers/data_channel/i_data_channel_handler.h>
 
 namespace rtc_sender {
     // Forward declarations for avoid circular dependencies
@@ -40,15 +41,15 @@ namespace rtc_sender {
 
         GCSConnector &operator=(GCSConnector &&) noexcept = default;
 
-        std::string GetRobotId() const;
+        [[nodiscard]] std::string GetRobotId() const;
 
-        std::string GetUserId() const;
+        [[nodiscard]] std::string GetUserId() const;
 
         void SetPeerConnectionManager(const std::shared_ptr<PeerConnectionManager> &peer_connection_manager) const;
 
         void InitializeWebRTC() const;
 
-        void AddDataChannelHandler(const std::shared_ptr<handlers::ADataChannelHandler> &data_channel_handler) const;
+        void AddDataChannelHandler(const std::shared_ptr<handlers::IDataChannelHandler> &data_channel_handler) const;
 
         void AddMediaTrackHandler(const std::shared_ptr<handlers::IMediaTrackHandler> &media_track_handler) const;
 
@@ -70,9 +71,9 @@ namespace rtc_sender {
 
         void CloseAllDataChannels() const;
 
-        void OnDataChannel(webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) const;
+        void OnDataChannel(const webrtc::scoped_refptr<webrtc::DataChannelInterface> &data_channel) const;
 
-        std::shared_ptr<ConnectorStateManager> GetStateManager() const;
+        [[nodiscard]] std::shared_ptr<ConnectorStateManager> GetStateManager() const;
 
         // Friends to access pImpl
         friend class GCSConnectorFactory;
@@ -80,7 +81,7 @@ namespace rtc_sender {
         friend class SignalingClient;
         friend class observers::PeerConnectionObserver;
 
-        Impl *GetImpl() const {
+        [[nodiscard]] Impl *GetImpl() const {
             return pImpl.get();
         }
     };

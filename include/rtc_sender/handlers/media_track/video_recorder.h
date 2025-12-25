@@ -7,31 +7,30 @@
 
 #include <memory>
 #include <string>
+
 #include "opencv_forward_decl.h"
 
-namespace rtc_sender {
-  namespace handlers {
+namespace rtc_sender::handlers {
     class VideoRecorder {
     public:
-      explicit VideoRecorder(const std::string &record_file_path);
+        explicit VideoRecorder(const std::string &record_file_path);
 
-      ~VideoRecorder();
+        ~VideoRecorder();
 
-      void SetRecordFilePath(const std::string &record_file_path);
+        void SetRecordFilePath(const std::string &record_file_path) const;
 
-      void SetVideoParameters(double fps, int width, int height);
+        void SetVideoParameters(double fps, int width, int height) const;
 
-      void Start();
+        void Start() const;
 
-      void Stop();
+        void Stop() const;
 
-      void SaveFrame(const cv::Mat &frame);
+        void SaveFrame(const cv::Mat &frame) const;
 
     private:
-      class Impl;
-      std::unique_ptr<Impl> pImpl;
+        class Impl;
+        std::unique_ptr<Impl> pImpl;
     };
-  } // namespace handlers
-} // namespace rtc_sender
+} // namespace rtc_sender::handlers
 
 #endif  // BA_GCS_RTC_SENDER_VIDEO_RECORDER_H

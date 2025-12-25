@@ -8,9 +8,9 @@
 
 #include <gtest/gtest.h>
 
-#include "rtc_sender/logger/i_logger.h"
-#include "rtc_sender/logger/log.h"
-#include "rtc_sender/signaling/websocket_client.h"
+#include <rtc_sender/logger/log.h>
+#include <rtc_sender/logger/i_logger.h>
+#include <rtc_sender/signaling/websocket_client.h>
 
 class LoggingLevelTester : public rtc_sender::log::ILogger {
 public:

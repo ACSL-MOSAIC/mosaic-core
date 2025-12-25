@@ -29,7 +29,7 @@ public:
         height_ = height;
     }
 
-    void Start() {
+    void Start() const {
         if (!video_writer_->isOpened()) {
             const auto file_name = GetFilename();
             video_writer_->open(
@@ -40,13 +40,13 @@ public:
         }
     }
 
-    void Stop() {
+    void Stop() const {
         if (video_writer_->isOpened()) {
             video_writer_->release();
         }
     }
 
-    void SaveFrame(const cv::Mat &frame) {
+    void SaveFrame(const cv::Mat &frame) const {
         if (video_writer_->isOpened()) {
             video_writer_->write(frame);
         } else {
@@ -61,7 +61,7 @@ private:
     int height_ = 480; // Default height
     std::unique_ptr<cv::VideoWriter> video_writer_;
 
-    std::string GetFilename() {
+    std::string GetFilename() const {
         // record file name format: "recording_file_path/recording_YYYYDDMM_HHMMSS.avi"
 
         const auto now = std::chrono::system_clock::now();
@@ -83,22 +83,22 @@ VideoRecorder::~VideoRecorder() {
     Stop();
 }
 
-void VideoRecorder::SetRecordFilePath(const std::string &record_file_path) {
+void VideoRecorder::SetRecordFilePath(const std::string &record_file_path) const {
     pImpl->SetRecordFilePath(record_file_path);
 }
 
-void VideoRecorder::SetVideoParameters(const double fps, const int width, const int height) {
+void VideoRecorder::SetVideoParameters(const double fps, const int width, const int height) const {
     pImpl->SetVideoParameters(fps, width, height);
 }
 
-void VideoRecorder::Start() {
+void VideoRecorder::Start() const {
     pImpl->Start();
 }
 
-void VideoRecorder::Stop() {
+void VideoRecorder::Stop() const {
     pImpl->Stop();
 }
 
-void VideoRecorder::SaveFrame(const cv::Mat &frame) {
+void VideoRecorder::SaveFrame(const cv::Mat &frame) const {
     pImpl->SaveFrame(frame);
 }

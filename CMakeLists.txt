@@ -48,7 +48,7 @@ add_library(handlers STATIC
         src/handlers/data_channel/a_data_channel_handler.cpp
         src/handlers/data_channel/data_channel_sendable.cpp
         src/handlers/data_channel/i_data_channel_receivable.cpp
-        src/handlers/media_track/media_track_handler.cpp
+        src/handlers/media_track/a_media_track_handler.cpp
         src/handlers/media_track/recordable.cpp
         src/handlers/media_track/video_recorder.cpp
 )

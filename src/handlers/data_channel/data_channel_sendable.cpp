@@ -2,12 +2,12 @@
 // Created by yhkim on 25. 7. 1.
 //
 
-#include "rtc_sender/handlers/data_channel/data_channel_sendable.h"
+#include <rtc_sender/handlers/data_channel/data_channel_sendable.h>
+#include <rtc_sender/logger/log.h>
 
 #include <json/json.h>
 
-#include "api/data_channel_interface.h"
-#include "rtc_sender/logger/log.h"
+#include <api/data_channel_interface.h>
 
 using namespace rtc_sender::handlers;
 
@@ -28,7 +28,7 @@ void DataChannelSendable::SendString(const std::string &string) const {
         RTC_SENDER_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
-    webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), false);
+    const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), false);
     Send(buffer);
 }
 
@@ -37,7 +37,7 @@ void DataChannelSendable::SendStringAsByte(const std::string &string) const {
         RTC_SENDER_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
-    webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), true);
+    const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), true);
     Send(buffer);
 }
 

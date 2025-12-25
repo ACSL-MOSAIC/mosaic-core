@@ -7,8 +7,8 @@
 
 #include <memory>
 
-#include "gcs_connector.h"
-#include "signaling/signaling_config.h"
+#include <rtc_sender/gcs_connector.h>
+#include <rtc_sender/signaling/signaling_config.h>
 
 namespace rtc_sender {
     class GCSConnectorFactory {

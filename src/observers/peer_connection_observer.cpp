@@ -2,15 +2,13 @@
 // Created by yhkim on 25. 6. 5.
 //
 
-#include "rtc_sender/observers/peer_connection_observer.h"
-
-#include "rtc_sender/logger/log.h"
-#include "rtc_sender/gcs_connector.h"
-#include "rtc_sender/signaling/signaling_client.h"
+#include <rtc_sender/logger/log.h>
+#include <rtc_sender/gcs_connector.h>
+#include <rtc_sender/observers/peer_connection_observer.h>
 
 using namespace rtc_sender::observers;
 
-void PeerConnectionObserver::OnDataChannel(webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) {
+void PeerConnectionObserver::OnDataChannel(const webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) {
     gcs_connector_->OnDataChannel(data_channel);
 }
 
@@ -25,23 +23,23 @@ void PeerConnectionObserver::OnIceCandidate(const webrtc::IceCandidateInterface 
 }
 
 void PeerConnectionObserver::OnStandardizedIceConnectionChange(
-    webrtc::PeerConnectionInterface::IceConnectionState new_state) {
+    const webrtc::PeerConnectionInterface::IceConnectionState new_state) {
     RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnStandardizedIceConnectionChange: {}",
                         webrtc::PeerConnectionInterface::AsString(new_state));
 }
 
-void PeerConnectionObserver::OnIceGatheringChange(webrtc::PeerConnectionInterface::IceGatheringState new_state) {
+void PeerConnectionObserver::OnIceGatheringChange(const webrtc::PeerConnectionInterface::IceGatheringState new_state) {
     if (new_state == webrtc::PeerConnectionInterface::IceGatheringState::kIceGatheringComplete) {
         RTC_SENDER_LOG_INFO("ICE Gathering Complete");
     }
 }
 
-void PeerConnectionObserver::OnSignalingChange(webrtc::PeerConnectionInterface::SignalingState new_state) {
+void PeerConnectionObserver::OnSignalingChange(const webrtc::PeerConnectionInterface::SignalingState new_state) {
     RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnSignalingChange: {}",
                         webrtc::PeerConnectionInterface::AsString(new_state));
 }
 
-void PeerConnectionObserver::OnConnectionChange(webrtc::PeerConnectionInterface::PeerConnectionState new_state) {
+void PeerConnectionObserver::OnConnectionChange(const webrtc::PeerConnectionInterface::PeerConnectionState new_state) {
     switch (new_state) {
         case webrtc::PeerConnectionInterface::PeerConnectionState::kNew:
             RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: New");

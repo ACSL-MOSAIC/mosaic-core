@@ -13,7 +13,7 @@ namespace rtc_sender::handlers {
     template<typename ReceiveT>
     class DataChannelReceivable : public IDataChannelReceivable {
     public:
-        DataChannelReceivable(const std::string &label)
+        explicit DataChannelReceivable(const std::string &label)
             : IDataChannelReceivable(label) {
         }
 
@@ -21,7 +21,7 @@ namespace rtc_sender::handlers {
 
         void OnMessage(const webrtc::DataBuffer &buffer) override {
             try {
-                auto json_data = ConvertDataBufferToJson(buffer);
+                const auto json_data = ConvertDataBufferToJson(buffer);
                 auto data = ConvertJsonToData(json_data);
                 HandleData(data);
             } catch (const std::exception &e) {

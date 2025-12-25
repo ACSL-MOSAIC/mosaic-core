@@ -3,10 +3,11 @@
 //
 
 #include <gtest/gtest.h>
-#include "rtc_sender/signaling/websocket_client.h"
 #include <memory>
 #include <chrono>
 #include <thread>
+
+#include <rtc_sender/signaling/websocket_client.h>
 
 using namespace rtc_sender::signaling;
 

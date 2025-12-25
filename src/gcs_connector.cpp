@@ -2,29 +2,28 @@
 // Created by yhkim on 25. 6. 3.
 //
 
-#include <rtc_sender/connector_state_manager.h>
-#include <rtc_sender/handlers/data_channel/i_data_channel_receivable.h>
 #include <rtc_sender/logger/log.h>
-#include <rtc_sender/observers/peer_connection_observer.h>
 #include <rtc_sender/gcs_connector.h>
-#include <rtc_sender/signaling/signaling_client.h>
+#include <rtc_sender/observers/peer_connection_observer.h>
 
-#include "api/audio_codecs/builtin_audio_decoder_factory.h"
-#include "api/video_codecs/video_decoder_factory_template.h"
+#include <utility>
+
+#include <api/audio_codecs/builtin_audio_decoder_factory.h>
+#include <api/video_codecs/video_decoder_factory_template.h>
 
 class rtc_sender::GCSConnector::Impl {
 public:
-    explicit Impl(const std::string &robot_id,
-                  const std::string &user_id,
+    explicit Impl(std::string robot_id,
+                  std::string user_id,
                   const std::shared_ptr<ConnectorStateManager> &state_manager)
-        : state_manager_(state_manager), robot_id_(robot_id), user_id_(user_id) {
+        : state_manager_(state_manager), robot_id_(std::move(robot_id)), user_id_(std::move(user_id)) {
     }
 
-    std::string GetRobotId() const {
+    [[nodiscard]] std::string GetRobotId() const {
         return robot_id_;
     }
 
-    std::string GetUserId() const {
+    [[nodiscard]] std::string GetUserId() const {
         return user_id_;
     }
 
@@ -36,7 +35,7 @@ public:
         peer_connection_manager_->InitializeWebRTC();
     }
 
-    void AddDataChannelHandler(const std::shared_ptr<handlers::ADataChannelHandler> &data_channel_handler) {
+    void AddDataChannelHandler(const std::shared_ptr<handlers::IDataChannelHandler> &data_channel_handler) {
         std::string label = data_channel_handler->GetLabel();
         if (data_channel_handlers_dict_.find(label) != data_channel_handlers_dict_.end()) {
             // If the label already exists, we can either throw an error or log a warning.
@@ -66,7 +65,7 @@ public:
         peer_connection_manager_->HandleSdpOffer(sdp_offer);
     }
 
-    void HandleIceCandidateFromSignaling(webrtc::IceCandidateInterface *candidate) const {
+    void HandleIceCandidateFromSignaling(const webrtc::IceCandidateInterface *candidate) const {
         peer_connection_manager_->HandleIceCandidateFromSignaling(candidate);
     }
 
@@ -91,23 +90,23 @@ private:
     std::string user_id_;
 
     // 데이터 채널 핸들러를 label 과 함께 저장합니다.
-    std::map<std::string, std::shared_ptr<handlers::ADataChannelHandler> > data_channel_handlers_dict_ = {};
+    std::map<std::string, std::shared_ptr<handlers::IDataChannelHandler> > data_channel_handlers_dict_ = {};
     // 미디어 트랙 핸들러를 track name 과 함께 저장합니다.
     std::map<std::string, std::shared_ptr<handlers::IMediaTrackHandler> > media_track_handlers_dict_ = {};
 
     // called by PeerConnectionObserver
-    void OnDataChannel(webrtc::scoped_refptr<webrtc::DataChannelInterface> &data_channel) {
+    void OnDataChannel(const webrtc::scoped_refptr<webrtc::DataChannelInterface> &data_channel) {
         std::string label = data_channel->label();
         RTC_SENDER_LOG_INFO("Data channel created with label: {}", label);
         // Check if the label exists in the data channel handlers dictionary
-        auto it = data_channel_handlers_dict_.find(label);
+        const auto it = data_channel_handlers_dict_.find(label);
         if (it == data_channel_handlers_dict_.end()) {
             // If it does exists, return
             return;
         }
-        const std::shared_ptr<handlers::ADataChannelHandler> data_channel_handler = it->second;
+        const std::shared_ptr<handlers::IDataChannelHandler> data_channel_handler = it->second;
 
-        if (data_channel_handler->GetState() == handlers::ADataChannelHandler::kOpen) {
+        if (data_channel_handler->GetState() == handlers::IDataChannelHandler::kOpen) {
             RTC_SENDER_LOG_INFO("Data channel with label '{}' is already open.", label);
             return;
         }
@@ -184,7 +183,7 @@ void rtc_sender::GCSConnector::InitializeWebRTC() const {
 }
 
 void rtc_sender::GCSConnector::AddDataChannelHandler(
-    const std::shared_ptr<handlers::ADataChannelHandler> &data_channel_handler) const {
+    const std::shared_ptr<handlers::IDataChannelHandler> &data_channel_handler) const {
     pImpl->AddDataChannelHandler(data_channel_handler);
 }
 
@@ -226,7 +225,7 @@ void rtc_sender::GCSConnector::CloseAllDataChannels() const {
 }
 
 void rtc_sender::GCSConnector::OnDataChannel(
-    webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) const {
+    const webrtc::scoped_refptr<webrtc::DataChannelInterface> &data_channel) const {
     pImpl->OnDataChannel(data_channel);
 }
 
