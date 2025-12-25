@@ -6,10 +6,7 @@
 #include <rtc_sender/signaling/websocket_client.h>
 
 #include <utility>
-
-#define TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
-#include <cpprest/json.h>
-#include <cpprest/ws_client.h>
+#include <thread>
 
 using namespace rtc_sender::signaling;
 
@@ -204,7 +201,7 @@ void WebSocketClient::handleClose(websocket_close_status close_status,
     }
 
     // Reconnection logic start
-    std::thread reconnect_thread([this]() {
+    std::thread reconnect_thread([this] {
         RTC_SENDER_LOG_ERROR("Reconnecting to WebSocket server in 5 seconds...");
 
         std::this_thread::sleep_for(std::chrono::seconds(5)); // Wait before reconnecting

@@ -10,7 +10,7 @@
 #include <memory>
 #include <string>
 
-#define TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
+#define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
 #include <cpprest/json.h>
 #include <cpprest/ws_client.h>
 

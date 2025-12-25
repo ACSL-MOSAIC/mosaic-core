@@ -3,7 +3,6 @@
 //
 
 #include <rtc_sender/logger/log.h>
-#include <rtc_sender/gcs_connector.h>
 #include <rtc_sender/signaling/websocket_client.h>
 #include <rtc_sender/signaling/signaling_client.h>
 
