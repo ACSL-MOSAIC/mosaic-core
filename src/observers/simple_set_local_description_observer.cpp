@@ -5,16 +5,16 @@
 #include <mosaic_rtc_core/logger/log.h>
 #include <mosaic_rtc_core/observers/simple_set_local_description_observer.h>
 
-using namespace rtc_sender::observers;
+using namespace mosaic::core_observers;
 
 void SimpleSetLocalDescriptionObserver::OnSuccess() {
     if (!desc_) {
-        RTC_SENDER_LOG_ERROR("No session description set for local description observer.");
+        MOSAIC_LOG_ERROR("No session description set for local description observer.");
         return;
     }
     pc_manager_->AfterSetLocalDescription(desc_);
 }
 
 void SimpleSetLocalDescriptionObserver::OnFailure(const webrtc::RTCError error) {
-    RTC_SENDER_LOG_ERROR("Failed to set local description: {}", error.message());
+    MOSAIC_LOG_ERROR("Failed to set local description: {}", error.message());
 }

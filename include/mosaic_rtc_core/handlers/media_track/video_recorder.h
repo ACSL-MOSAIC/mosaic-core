@@ -2,35 +2,35 @@
 // Created by yhkim on 7/29/25.
 //
 
-#ifndef BA_GCS_RTC_SENDER_VIDEO_RECORDER_H
-#define BA_GCS_RTC_SENDER_VIDEO_RECORDER_H
+#ifndef MOSAIC_RTC_CORE_VIDEO_RECORDER_H
+#define MOSAIC_RTC_CORE_VIDEO_RECORDER_H
 
 #include <memory>
 #include <string>
 
 #include "opencv_forward_decl.h"
 
-namespace rtc_sender::handlers {
-    class VideoRecorder {
-    public:
-        explicit VideoRecorder(const std::string &record_file_path);
+namespace mosaic::handlers {
+class VideoRecorder {
+  public:
+    explicit VideoRecorder(const std::string& record_file_path);
 
-        ~VideoRecorder();
+    ~VideoRecorder();
 
-        void SetRecordFilePath(const std::string &record_file_path) const;
+    void SetRecordFilePath(const std::string& record_file_path) const;
 
-        void SetVideoParameters(double fps, int width, int height) const;
+    void SetVideoParameters(double fps, int width, int height) const;
 
-        void Start() const;
+    void Start() const;
 
-        void Stop() const;
+    void Stop() const;
 
-        void SaveFrame(const cv::Mat &frame) const;
+    void SaveFrame(const cv::Mat& frame) const;
 
-    private:
-        class Impl;
-        std::unique_ptr<Impl> pImpl;
-    };
-} // namespace rtc_sender::handlers
+  private:
+    class Impl;
+    std::unique_ptr<Impl> pImpl;
+};
+}  // namespace mosaic::handlers
 
-#endif  // BA_GCS_RTC_SENDER_VIDEO_RECORDER_H
+#endif  // MOSAIC_RTC_CORE_VIDEO_RECORDER_H

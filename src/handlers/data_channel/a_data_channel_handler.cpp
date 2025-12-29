@@ -10,12 +10,11 @@
 #include <mosaic_rtc_core/logger/log.h>
 #include <mosaic_rtc_core/observers/data_channel_observer.h>
 
-using namespace rtc_sender::handlers;
+using namespace mosaic::handlers;
 
 class ADataChannelHandler::Impl {
-public:
-    explicit Impl(std::string label) : label_(std::move(label)) {
-    }
+  public:
+    explicit Impl(std::string label) : label_(std::move(label)) {}
 
     virtual ~Impl() = default;
 
@@ -23,33 +22,32 @@ public:
         return label_;
     }
 
-    void SetDataChannelInterface(const webrtc::scoped_refptr<webrtc::DataChannelInterface> &dc_interface) {
+    void SetDataChannelInterface(const webrtc::scoped_refptr<webrtc::DataChannelInterface>& dc_interface) {
         if (!dc_interface) {
-            RTC_SENDER_LOG_ERROR("Attempted to set a null DataChannelInterface for label: {}", label_);
+            MOSAIC_LOG_ERROR("Attempted to set a null DataChannelInterface for label: {}", label_);
             throw std::runtime_error("DataChannelInterface cannot be null");
         }
         dc_interface_ = dc_interface;
     }
 
-    void RegisterDataChannelObserver(IDataChannelHandler *dc_handler) {
+    void RegisterDataChannelObserver(IDataChannelHandler* dc_handler) {
         if (!dc_interface_) {
-            RTC_SENDER_LOG_ERROR("DataChannelInterface cannot be set for label: {}", label_);
+            MOSAIC_LOG_ERROR("DataChannelInterface cannot be set for label: {}", label_);
             throw std::runtime_error("DataChannelInterface is not set");
         }
 
-        std::function<void(const webrtc::DataBuffer &)> onMessageLambda;
+        std::function<void(const webrtc::DataBuffer&)> onMessageLambda;
 
-        if (auto receivable_ptr = static_cast<IDataChannelReceivable *>(dc_handler)) {
-            RTC_SENDER_LOG_DEBUG("Receivable DataChannel Detected!");
-            onMessageLambda = [receivable_ptr](const webrtc::DataBuffer &buffer) { receivable_ptr->OnMessage(buffer); };
+        if (auto receivable_ptr = static_cast<IDataChannelReceivable*>(dc_handler)) {
+            MOSAIC_LOG_DEBUG("Receivable DataChannel Detected!");
+            onMessageLambda = [receivable_ptr](const webrtc::DataBuffer& buffer) { receivable_ptr->OnMessage(buffer); };
         } else {
-            onMessageLambda = [this](const webrtc::DataBuffer &) {
-            };
+            onMessageLambda = [this](const webrtc::DataBuffer&) {};
         }
 
-        observer_ = std::make_shared<observers::DataChannelObserver>(onMessageLambda);
+        observer_ = std::make_shared<core_observers::DataChannelObserver>(onMessageLambda);
         dc_interface_->RegisterObserver(observer_.get());
-        RTC_SENDER_LOG_INFO("DataChannelObserver registered for label (Receivable): {}", label_);
+        MOSAIC_LOG_INFO("DataChannelObserver registered for label (Receivable): {}", label_);
     }
 
     ChannelState GetState() const {
@@ -76,16 +74,16 @@ public:
             dc_interface_->Close();
             dc_interface_ = nullptr;
         } else {
-            RTC_SENDER_LOG_WARNING("Attempted to close a null DataChannelInterface for label: {}", label_);
+            MOSAIC_LOG_WARNING("Attempted to close a null DataChannelInterface for label: {}", label_);
         }
     }
 
-private:
+  private:
     std::string label_;
     mutable webrtc::scoped_refptr<webrtc::DataChannelInterface> dc_interface_;
-    mutable std::shared_ptr<observers::DataChannelObserver> observer_;
+    mutable std::shared_ptr<core_observers::DataChannelObserver> observer_;
 
-    void Send(const webrtc::DataBuffer &buffer) const {
+    void Send(const webrtc::DataBuffer& buffer) const {
         dc_interface_->Send(buffer);
     }
 
@@ -93,7 +91,7 @@ private:
     friend class DataChannelSendable;
 };
 
-ADataChannelHandler::ADataChannelHandler(const std::string &label) {
+ADataChannelHandler::ADataChannelHandler(const std::string& label) {
     pImpl = std::make_shared<Impl>(label);
 }
 
@@ -102,11 +100,11 @@ std::string ADataChannelHandler::GetLabel() const {
 }
 
 void ADataChannelHandler::SetDataChannelInterface(
-    const webrtc::scoped_refptr<webrtc::DataChannelInterface> &dc_interface) const {
+    const webrtc::scoped_refptr<webrtc::DataChannelInterface>& dc_interface) const {
     return pImpl->SetDataChannelInterface(dc_interface);
 }
 
-void ADataChannelHandler::RegisterDataChannelObserver(IDataChannelHandler *dc_handler) const {
+void ADataChannelHandler::RegisterDataChannelObserver(IDataChannelHandler* dc_handler) const {
     pImpl->RegisterDataChannelObserver(dc_handler);
 }
 
@@ -118,6 +116,6 @@ void ADataChannelHandler::CloseDataChannel() const {
     pImpl->CloseDataChannel();
 }
 
-void ADataChannelHandler::Send(const webrtc::DataBuffer &buffer) const {
+void ADataChannelHandler::Send(const webrtc::DataBuffer& buffer) const {
     pImpl->Send(buffer);
 }

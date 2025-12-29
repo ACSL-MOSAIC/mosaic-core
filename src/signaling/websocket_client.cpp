@@ -8,10 +8,9 @@
 #include <mosaic_rtc_core/logger/log.h>
 #include <mosaic_rtc_core/signaling/websocket_client.h>
 
-using namespace rtc_sender::signaling;
+using namespace mosaic::core_signaling;
 
-WebSocketClient::WebSocketClient() : m_connected(false) {
-}
+WebSocketClient::WebSocketClient() : m_connected(false) {}
 
 WebSocketClient::~WebSocketClient() {
     if (m_connected) {
@@ -35,7 +34,7 @@ void WebSocketClient::setOnError(OnErrorCallback callback) {
     m_onError = std::move(callback);
 }
 
-void WebSocketClient::connect(const std::string &uri) {
+void WebSocketClient::connect(const std::string& uri) {
     m_uri = uri;
     m_connected = false;
 
@@ -48,7 +47,7 @@ void WebSocketClient::connectInternal() {
 
     // WSS 연결을 위한 SSL 설정
     if (m_uri.find("wss://") == 0) {
-        config.set_validate_certificates(false); // 개발용 - 실제 환경에서는 true로 설정
+        config.set_validate_certificates(false);  // 개발용 - 실제 환경에서는 true로 설정
     }
 
     // 새로운 클라이언트 생성
@@ -60,20 +59,20 @@ void WebSocketClient::connectInternal() {
     try {
         // 연결 시도
         const auto res = m_client->connect(m_uri)
-                .then([this] {
-                    m_connected = true;
-                    RTC_SENDER_LOG_INFO("WebSocket connected to {}", m_uri);
+                             .then([this] {
+                                 m_connected = true;
+                                 MOSAIC_LOG_INFO("WebSocket connected to {}", m_uri);
 
-                    if (m_onConnected) {
-                        m_onConnected();
-                    }
-                })
-                .wait();
+                                 if (m_onConnected) {
+                                     m_onConnected();
+                                 }
+                             })
+                             .wait();
         if (res != pplx::task_status::completed) {
             throw std::runtime_error("Failed to connect to WebSocket server");
         }
-    } catch (const std::exception &e) {
-        RTC_SENDER_LOG_ERROR("Connection failed: {}", e.what());
+    } catch (const std::exception& e) {
+        MOSAIC_LOG_ERROR("Connection failed: {}", e.what());
     }
 }
 
@@ -85,22 +84,22 @@ void WebSocketClient::disconnect() {
     m_connected = false;
 
     const auto res = m_client->close()
-            .then([this] {
-                RTC_SENDER_LOG_INFO("WebSocket disconnected");
+                         .then([this] {
+                             MOSAIC_LOG_INFO("WebSocket disconnected");
 
-                if (m_onDisconnected) {
-                    m_onDisconnected();
-                }
-            })
-            .wait();
+                             if (m_onDisconnected) {
+                                 m_onDisconnected();
+                             }
+                         })
+                         .wait();
     if (res != pplx::task_status::completed) {
-        RTC_SENDER_LOG_ERROR("Failed to disconnect WebSocket client");
+        MOSAIC_LOG_ERROR("Failed to disconnect WebSocket client");
     }
 }
 
-void WebSocketClient::send(const std::string &message) const {
+void WebSocketClient::send(const std::string& message) const {
     if (!m_connected) {
-        RTC_SENDER_LOG_ERROR("Failed to send message; not connected to WebSocket server.");
+        MOSAIC_LOG_ERROR("Failed to send message; not connected to WebSocket server.");
         return;
     }
 
@@ -108,12 +107,12 @@ void WebSocketClient::send(const std::string &message) const {
     msg.set_utf8_message(message);
 
     if (const auto res = m_client->send(msg).wait(); res != pplx::task_status::completed) {
-        RTC_SENDER_LOG_ERROR("Failed to send message: {}", message);
+        MOSAIC_LOG_ERROR("Failed to send message: {}", message);
         throw std::runtime_error("Failed to send message");
     }
 }
 
-void WebSocketClient::sendJson(const json::value &jsonMessage) const {
+void WebSocketClient::sendJson(const json::value& jsonMessage) const {
     send(jsonMessage.serialize());
 }
 
@@ -123,47 +122,45 @@ bool WebSocketClient::isConnected() const {
 
 void WebSocketClient::setupEventHandlers() {
     // 메시지 수신 핸들러
-    m_client->set_message_handler([this](const websocket_incoming_message &message) { handleMessage(message); });
+    m_client->set_message_handler([this](const websocket_incoming_message& message) { handleMessage(message); });
 
     // 연결 종료 핸들러
     m_client->set_close_handler([this](const websocket_close_status close_status,
-                                       const std::string &reason,
-                                       const std::error_code &error) {
-        handleClose(close_status, reason, error);
-    });
+                                       const std::string& reason,
+                                       const std::error_code& error) { handleClose(close_status, reason, error); });
 }
 
-void WebSocketClient::handleMessage(const websocket_incoming_message &message) const {
+void WebSocketClient::handleMessage(const websocket_incoming_message& message) const {
     try {
         if (message.message_type() == websocket_message_type::ping) {
-            RTC_SENDER_LOG_DEBUG("Received ping message");
+            MOSAIC_LOG_DEBUG("Received ping message");
             auto pong_message = websocket_outgoing_message();
             pong_message.set_pong_message("pong");
             m_client->send(pong_message).wait();
-            return; // Ping 메시지는 Pong으로 응답하고 무시
+            return;  // Ping 메시지는 Pong으로 응답하고 무시
         }
         if (message.message_type() == websocket_message_type::pong) {
-            RTC_SENDER_LOG_DEBUG("Received pong message");
-            return; // Pong 메시지는 무시
+            MOSAIC_LOG_DEBUG("Received pong message");
+            return;  // Pong 메시지는 무시
         }
         if (message.message_type() == websocket_message_type::close) {
             m_client->close().wait();
-            RTC_SENDER_LOG_DEBUG("Received close message from server");
+            MOSAIC_LOG_DEBUG("Received close message from server");
             return;
         }
         if (message.message_type() == websocket_message_type::text_message) {
             auto ts = message.extract_string()
-                    .then([this](const std::string &body) {
-                        if (m_onMessage) {
-                            m_onMessage(body);
-                        }
-                    })
-                    .wait();
+                          .then([this](const std::string& body) {
+                              if (m_onMessage) {
+                                  m_onMessage(body);
+                              }
+                          })
+                          .wait();
             if (ts != pplx::task_status::completed) {
                 m_onError("Task did not complete successfully while handling message.");
             }
         }
-    } catch (const std::exception &e) {
+    } catch (const std::exception& e) {
         const std::string error = "Message handling error: " + std::string(e.what());
         if (m_onError) {
             m_onError(error);
@@ -172,8 +169,8 @@ void WebSocketClient::handleMessage(const websocket_incoming_message &message) c
 }
 
 void WebSocketClient::handleClose(websocket_close_status close_status,
-                                  const std::string &reason,
-                                  const std::error_code &) {
+                                  const std::string& reason,
+                                  const std::error_code&) {
     m_connected = false;
 
     /*
@@ -191,7 +188,7 @@ void WebSocketClient::handleClose(websocket_close_status close_status,
         server_terminate = 1011,
     };
      */
-    RTC_SENDER_LOG_INFO("WebSocket closed. Status: {} Reason: {} Error Code: {}",
+    MOSAIC_LOG_INFO("WebSocket closed. Status: {} Reason: {} Error Code: {}",
                         static_cast<int>(close_status),
                         reason,
                         std::error_code().message());
@@ -202,9 +199,9 @@ void WebSocketClient::handleClose(websocket_close_status close_status,
 
     // Reconnection logic start
     std::thread reconnect_thread([this] {
-        RTC_SENDER_LOG_ERROR("Reconnecting to WebSocket server in 5 seconds...");
+        MOSAIC_LOG_ERROR("Reconnecting to WebSocket server in 5 seconds...");
 
-        std::this_thread::sleep_for(std::chrono::seconds(5)); // Wait before reconnecting
+        std::this_thread::sleep_for(std::chrono::seconds(5));  // Wait before reconnecting
         this->connectInternal();
     });
     reconnect_thread.detach();

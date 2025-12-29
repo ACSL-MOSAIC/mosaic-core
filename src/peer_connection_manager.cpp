@@ -26,21 +26,20 @@
 #include <mosaic_rtc_core/peer_connection_manager.h>
 #include <mosaic_rtc_core/signaling/i_signaling_client.h>
 
-using namespace rtc_sender;
+using namespace mosaic::core;
 
-webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<IceConfig> &ice_config);
+webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<IceConfig>& ice_config);
 
 class PeerConnectionManager::Impl {
-public:
-    Impl(const std::shared_ptr<GCSConnector> &client,
-         const std::shared_ptr<ConnectorStateManager> &state_manager,
-         const std::shared_ptr<signaling::ISignalingClient> &signaling_client,
-         const std::shared_ptr<IceConfig> &ice_config)
+  public:
+    Impl(const std::shared_ptr<MosaicConnector>& client,
+         const std::shared_ptr<ConnectorStateManager>& state_manager,
+         const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client,
+         const std::shared_ptr<IceConfig>& ice_config)
         : client_(client),
           state_manager_(state_manager),
           ice_config_(ice_config),
-          signaling_client_(signaling_client) {
-    }
+          signaling_client_(signaling_client) {}
 
     void InitializeWebRTC() {
         // Initialize WebRTC components, such as threads and factory.
@@ -54,7 +53,7 @@ public:
 
         task_queue_factory_ = webrtc::CreateDefaultTaskQueueFactory();
         const auto dummy_adm =
-                webrtc::AudioDeviceModule::Create(webrtc::AudioDeviceModule::kDummyAudio, task_queue_factory_.get());
+            webrtc::AudioDeviceModule::Create(webrtc::AudioDeviceModule::kDummyAudio, task_queue_factory_.get());
 
         // Set the threads for the PeerConnectionFactory.
         peer_connection_factory_ = webrtc::CreatePeerConnectionFactory(
@@ -65,33 +64,33 @@ public:
             webrtc::CreateBuiltinAudioEncoderFactory(),
             webrtc::CreateBuiltinAudioDecoderFactory(),
             std::make_unique<webrtc::VideoEncoderFactoryTemplate<webrtc::LibvpxVp8EncoderTemplateAdapter,
-                webrtc::LibvpxVp9EncoderTemplateAdapter,
-                webrtc::OpenH264EncoderTemplateAdapter,
-                webrtc::LibaomAv1EncoderTemplateAdapter> >(),
+                                                                 webrtc::LibvpxVp9EncoderTemplateAdapter,
+                                                                 webrtc::OpenH264EncoderTemplateAdapter,
+                                                                 webrtc::LibaomAv1EncoderTemplateAdapter>>(),
             std::make_unique<webrtc::VideoDecoderFactoryTemplate<webrtc::LibvpxVp8DecoderTemplateAdapter,
-                webrtc::LibvpxVp9DecoderTemplateAdapter,
-                webrtc::OpenH264DecoderTemplateAdapter,
-                webrtc::Dav1dDecoderTemplateAdapter> >(),
-            nullptr, // audio_mixer
-            nullptr // audio_processing
+                                                                 webrtc::LibvpxVp9DecoderTemplateAdapter,
+                                                                 webrtc::OpenH264DecoderTemplateAdapter,
+                                                                 webrtc::Dav1dDecoderTemplateAdapter>>(),
+            nullptr,  // audio_mixer
+            nullptr   // audio_processing
         );
 
         if (!peer_connection_factory_) {
-            RTC_SENDER_LOG_ERROR("Failed to create PeerConnectionFactory");
+            MOSAIC_LOG_ERROR("Failed to create PeerConnectionFactory");
         }
 
         state_manager_->SetState(ConnectorStateManager::READY_TO_CONNECT);
-        RTC_SENDER_LOG_DEBUG("WebRTC Client initialized successfully");
+        MOSAIC_LOG_DEBUG("WebRTC Client initialized successfully");
     }
 
-    void CreatePeerConnection(const std::shared_ptr<PeerConnectionManager> &outer_this_) {
-        RTC_SENDER_LOG_DEBUG("RobotWebRTCClient::CreatePeerConnection()");
+    void CreatePeerConnection(const std::shared_ptr<PeerConnectionManager>& outer_this_) {
+        MOSAIC_LOG_DEBUG("RobotWebRTCClient::CreatePeerConnection()");
         webrtc::PeerConnectionInterface::RTCConfiguration configuration;
         configuration.ice_connection_receiving_timeout = 30000;
         configuration.servers.push_back(GetIceServer(ice_config_));
 
         // Observer 생성
-        peer_connection_observer_ = std::make_shared<observers::PeerConnectionObserver>(client_, outer_this_);
+        peer_connection_observer_ = std::make_shared<core_observers::PeerConnectionObserver>(client_, outer_this_);
 
         // PeerConnection 생성
         auto c = peer_connection_factory_->CreatePeerConnectionOrError(
@@ -100,105 +99,105 @@ public:
             peer_connection_ = c.value();
         } else {
             // Handle error
-            RTC_SENDER_LOG_ERROR("Failed to create PeerConnection: {}", c.error().message());
+            MOSAIC_LOG_ERROR("Failed to create PeerConnection: {}", c.error().message());
             // TODO
             return;
         }
     }
 
-    void HandleSdpOffer(webrtc::SessionDescriptionInterface *sdp_offer,
-                        const std::shared_ptr<PeerConnectionManager> &outer_this_) {
-        RTC_SENDER_LOG_DEBUG("Handle SDP offer");
+    void HandleSdpOffer(webrtc::SessionDescriptionInterface* sdp_offer,
+                        const std::shared_ptr<PeerConnectionManager>& outer_this_) {
+        MOSAIC_LOG_DEBUG("Handle SDP offer");
         // Close existing connection if exists
         if (peer_connection_) {
             ClosePeerConnection();
         }
 
         if (!state_manager_->IsState(ConnectorStateManager::READY_TO_CONNECT)) {
-            RTC_SENDER_LOG_ERROR("Cannot handle SDP offer in current state: {}", state_manager_->GetStateString());
+            MOSAIC_LOG_ERROR("Cannot handle SDP offer in current state: {}", state_manager_->GetStateString());
             return;
         }
 
         state_manager_->SetState(ConnectorStateManager::CONNECTING);
         // Create a new PeerConnection
         CreatePeerConnection(outer_this_);
-        RTC_SENDER_LOG_DEBUG("Peer Connection created successfully");
+        MOSAIC_LOG_DEBUG("Peer Connection created successfully");
 
         if (!peer_connection_) {
-            RTC_SENDER_LOG_ERROR("Peer connection is null, cannot handle SDP offer");
+            MOSAIC_LOG_ERROR("Peer connection is null, cannot handle SDP offer");
             state_manager_->SetState(ConnectorStateManager::FAILED);
             return;
         }
 
         // Set remote description (SDP offer)
-        const auto set_remote_observer = webrtc::scoped_refptr<observers::SimpleSetRemoteDescriptionObserver>(
-            new webrtc::RefCountedObject<observers::SimpleSetRemoteDescriptionObserver>(outer_this_));
+        const auto set_remote_observer = webrtc::scoped_refptr<core_observers::SimpleSetRemoteDescriptionObserver>(
+            new webrtc::RefCountedObject<core_observers::SimpleSetRemoteDescriptionObserver>(outer_this_));
 
         // Go to AfterSetSessionDescription after setting remote description
         peer_connection_->SetRemoteDescription(set_remote_observer.get(), sdp_offer);
-        RTC_SENDER_LOG_DEBUG("Set remote description with SDP offer");
+        MOSAIC_LOG_DEBUG("Set remote description with SDP offer");
     }
 
-    void AfterSetSessionDescription(const std::shared_ptr<PeerConnectionManager> &outer_this_) const {
+    void AfterSetSessionDescription(const std::shared_ptr<PeerConnectionManager>& outer_this_) const {
         // TODO: Need to delete
         client_->CreateAllMediaTracks();
 
         // Create and set answer
-        const auto create_answer_observer = webrtc::scoped_refptr<observers::CreateSdpAnswerObserver>(
-            new webrtc::RefCountedObject<observers::CreateSdpAnswerObserver>(outer_this_));
+        const auto create_answer_observer = webrtc::scoped_refptr<core_observers::CreateSdpAnswerObserver>(
+            new webrtc::RefCountedObject<core_observers::CreateSdpAnswerObserver>(outer_this_));
 
         // 생성된 응답을 시그널링 서버로 전송하는 부분은 create_answer_observer 에서 진행
         peer_connection_->CreateAnswer(create_answer_observer.get(),
                                        webrtc::PeerConnectionInterface::RTCOfferAnswerOptions());
-        RTC_SENDER_LOG_DEBUG("Created SDP answer observer and called CreateAnswer");
+        MOSAIC_LOG_DEBUG("Created SDP answer observer and called CreateAnswer");
     }
 
-    void AfterCreateSdpAnswer(webrtc::SessionDescriptionInterface *desc,
-                              const std::shared_ptr<PeerConnectionManager> &outer_this_) const {
-        RTC_SENDER_LOG_DEBUG("Sdp Answer Created");
+    void AfterCreateSdpAnswer(webrtc::SessionDescriptionInterface* desc,
+                              const std::shared_ptr<PeerConnectionManager>& outer_this_) const {
+        MOSAIC_LOG_DEBUG("Sdp Answer Created");
         // Create observer for SetLocalDescription
-        const auto set_local_observer = webrtc::scoped_refptr<observers::SimpleSetLocalDescriptionObserver>(
-            new webrtc::RefCountedObject<observers::SimpleSetLocalDescriptionObserver>(outer_this_, desc));
+        const auto set_local_observer = webrtc::scoped_refptr<core_observers::SimpleSetLocalDescriptionObserver>(
+            new webrtc::RefCountedObject<core_observers::SimpleSetLocalDescriptionObserver>(outer_this_, desc));
 
         // Set local description
         peer_connection_->SetLocalDescription(set_local_observer.get(), desc);
     }
 
-    void AfterSetLocalDescription(const webrtc::SessionDescriptionInterface *desc) const {
-        RTC_SENDER_LOG_DEBUG("Set local description with SDP answer");
+    void AfterSetLocalDescription(const webrtc::SessionDescriptionInterface* desc) const {
+        MOSAIC_LOG_DEBUG("Set local description with SDP answer");
         signaling_client_->SendSdpAnswer(desc);
     }
 
-    void HandleIceCandidateFromSignaling(const webrtc::IceCandidateInterface *candidate) const {
+    void HandleIceCandidateFromSignaling(const webrtc::IceCandidateInterface* candidate) const {
         if (peer_connection_) {
             // Convert raw pointer to unique_ptr
             std::unique_ptr<webrtc::IceCandidateInterface> candidate_unique_ptr(
-                const_cast<webrtc::IceCandidateInterface *>(candidate));
+                const_cast<webrtc::IceCandidateInterface*>(candidate));
 
             // Add ice candidate with callback for error handling
-            peer_connection_->AddIceCandidate(std::move(candidate_unique_ptr), [](const webrtc::RTCError &error) {
+            peer_connection_->AddIceCandidate(std::move(candidate_unique_ptr), [](const webrtc::RTCError& error) {
                 if (!error.ok()) {
-                    RTC_SENDER_LOG_ERROR("Failed to add ICE candidate: ", error.message());
+                    MOSAIC_LOG_ERROR("Failed to add ICE candidate: ", error.message());
                 } else {
-                    RTC_SENDER_LOG_DEBUG("Successfully added ICE candidate");
+                    MOSAIC_LOG_DEBUG("Successfully added ICE candidate");
                 }
             });
         }
     }
 
     void OnConnectionConnected() const {
-        RTC_SENDER_LOG_DEBUG("PeerConnectionManager::OnConnectionConnected()");
+        MOSAIC_LOG_DEBUG("PeerConnectionManager::OnConnectionConnected()");
         // state manager will automatically notify signaling server about connected state
         state_manager_->SetState(ConnectorStateManager::CONNECTED);
     }
 
     void OnConnectionDisconnected() const {
-        RTC_SENDER_LOG_DEBUG("PeerConnectionManager::OnConnectionDisconnected()");
+        MOSAIC_LOG_DEBUG("PeerConnectionManager::OnConnectionDisconnected()");
         // state manager will automatically notify signaling server about disconnected state
         state_manager_->SetState(ConnectorStateManager::READY_TO_CONNECT);
     }
 
-    void SendIceCandidate(const webrtc::IceCandidateInterface *candidate) const {
+    void SendIceCandidate(const webrtc::IceCandidateInterface* candidate) const {
         signaling_client_->SendIceCandidate(candidate);
     }
 
@@ -211,23 +210,23 @@ public:
 
     void ClosePeerConnection() {
         if (!state_manager_->IsState(ConnectorStateManager::CONNECTED)) {
-            return; // 연결 중이 아닌 경우 종료하지 않습니다.
+            return;  // 연결 중이 아닌 경우 종료하지 않습니다.
         }
 
         state_manager_->SetState(ConnectorStateManager::DISCONNECTING);
         try {
-            RTC_SENDER_LOG_INFO("Closing Media Tracks and Data Channels...");
+            MOSAIC_LOG_INFO("Closing Media Tracks and Data Channels...");
             client_->CloseAllMediaTracks();
             client_->CloseAllDataChannels();
 
-            RTC_SENDER_LOG_INFO("Closing Peer Connection...");
+            MOSAIC_LOG_INFO("Closing Peer Connection...");
             // 피어 연결 종료
             if (peer_connection_) {
                 peer_connection_->Close();
                 peer_connection_ = nullptr;
             }
-        } catch (const std::exception &e) {
-            RTC_SENDER_LOG_ERROR("Exception caught: {}", e.what());
+        } catch (const std::exception& e) {
+            MOSAIC_LOG_ERROR("Exception caught: {}", e.what());
         }
 
         // 연결 해제 알림
@@ -235,14 +234,14 @@ public:
     }
 
     void DestroyPeerConnectionManager() {
-        RTC_SENDER_LOG_INFO("Destroying Peer Connection, Observer and Factory...");
+        MOSAIC_LOG_INFO("Destroying Peer Connection, Observer and Factory...");
         // finally 블록과 동일한 정리 작업
         peer_connection_ = nullptr;
         peer_connection_observer_ = nullptr;
 
         peer_connection_factory_ = nullptr;
 
-        RTC_SENDER_LOG_INFO("Destroying Threads...");
+        MOSAIC_LOG_INFO("Destroying Threads...");
         // 아래 스레드 종료 및 파괴 작업은 peer_connection_factory 의 파괴 이후에 수행해야 합니다.
         if (network_thread_) {
             network_thread_->Stop();
@@ -258,11 +257,11 @@ public:
         }
     }
 
-private:
-    std::shared_ptr<GCSConnector> client_;
+  private:
+    std::shared_ptr<MosaicConnector> client_;
     std::shared_ptr<ConnectorStateManager> state_manager_;
     std::shared_ptr<IceConfig> ice_config_;
-    std::shared_ptr<signaling::ISignalingClient> signaling_client_;
+    std::shared_ptr<core_signaling::ISignalingClient> signaling_client_;
 
     webrtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> peer_connection_factory_ = nullptr;
     webrtc::scoped_refptr<webrtc::PeerConnectionInterface> peer_connection_ = nullptr;
@@ -274,31 +273,31 @@ private:
     std::unique_ptr<rtc::Thread> signaling_thread_ = nullptr;
 
     [[nodiscard]] webrtc::scoped_refptr<webrtc::VideoTrackInterface> CreateVideoTrack(
-        const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> &source,
-        const std::string &label) const {
+        const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface>& source,
+        const std::string& label) const {
         return peer_connection_factory_->CreateVideoTrack(source, label);
     }
 
     [[nodiscard]] webrtc::scoped_refptr<webrtc::RtpSenderInterface> AddTrack(
-        const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> &track,
-        const std::vector<std::string> &stream_ids) const {
+        const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface>& track,
+        const std::vector<std::string>& stream_ids) const {
         auto add_track_result = peer_connection_->AddTrack(track, stream_ids);
         if (!add_track_result.ok()) {
-            RTC_SENDER_LOG_ERROR("Failed to add track: {}", add_track_result.error().message());
+            MOSAIC_LOG_ERROR("Failed to add track: {}", add_track_result.error().message());
             return nullptr;
         }
-        RTC_SENDER_LOG_DEBUG("Track added successfully: {}", track->id());
+        MOSAIC_LOG_DEBUG("Track added successfully: {}", track->id());
         return add_track_result.value();
     }
 
     friend class PeerConnectionManager;
-    friend class GCSConnector;
+    friend class MosaicConnector;
 };
 
-PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<GCSConnector> &client,
-                                             const std::shared_ptr<ConnectorStateManager> &state_manager,
-                                             const std::shared_ptr<signaling::ISignalingClient> &signaling_client,
-                                             const std::shared_ptr<IceConfig> &ice_config) {
+PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<MosaicConnector>& client,
+                                             const std::shared_ptr<ConnectorStateManager>& state_manager,
+                                             const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client,
+                                             const std::shared_ptr<IceConfig>& ice_config) {
     pImpl = std::make_shared<Impl>(client, state_manager, signaling_client, ice_config);
 }
 
@@ -310,7 +309,7 @@ void PeerConnectionManager::CreatePeerConnection() {
     pImpl->CreatePeerConnection(shared_from_this());
 }
 
-void PeerConnectionManager::HandleSdpOffer(webrtc::SessionDescriptionInterface *sdp_offer) {
+void PeerConnectionManager::HandleSdpOffer(webrtc::SessionDescriptionInterface* sdp_offer) {
     pImpl->HandleSdpOffer(sdp_offer, shared_from_this());
 }
 
@@ -318,15 +317,15 @@ void PeerConnectionManager::AfterSetSessionDescription() {
     pImpl->AfterSetSessionDescription(shared_from_this());
 }
 
-void PeerConnectionManager::AfterCreateSdpAnswer(webrtc::SessionDescriptionInterface *desc) {
+void PeerConnectionManager::AfterCreateSdpAnswer(webrtc::SessionDescriptionInterface* desc) {
     pImpl->AfterCreateSdpAnswer(desc, shared_from_this());
 }
 
-void PeerConnectionManager::AfterSetLocalDescription(const webrtc::SessionDescriptionInterface *desc) const {
+void PeerConnectionManager::AfterSetLocalDescription(const webrtc::SessionDescriptionInterface* desc) const {
     pImpl->AfterSetLocalDescription(desc);
 }
 
-void PeerConnectionManager::HandleIceCandidateFromSignaling(const webrtc::IceCandidateInterface *candidate) const {
+void PeerConnectionManager::HandleIceCandidateFromSignaling(const webrtc::IceCandidateInterface* candidate) const {
     pImpl->HandleIceCandidateFromSignaling(candidate);
 }
 
@@ -338,7 +337,7 @@ void PeerConnectionManager::OnConnectionDisconnected() const {
     pImpl->OnConnectionDisconnected();
 }
 
-void PeerConnectionManager::SendIceCandidate(const webrtc::IceCandidateInterface *candidate) const {
+void PeerConnectionManager::SendIceCandidate(const webrtc::IceCandidateInterface* candidate) const {
     pImpl->SendIceCandidate(candidate);
 }
 
@@ -355,14 +354,14 @@ void PeerConnectionManager::DestroyPeerConnectionManager() const {
 }
 
 webrtc::scoped_refptr<webrtc::VideoTrackInterface> PeerConnectionManager::CreateVideoTrack(
-    const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface> &source,
-    const std::string &label) const {
+    const webrtc::scoped_refptr<webrtc::VideoTrackSourceInterface>& source,
+    const std::string& label) const {
     return pImpl->CreateVideoTrack(source, label);
 }
 
 webrtc::scoped_refptr<webrtc::RtpSenderInterface> PeerConnectionManager::AddTrack(
-    const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface> &track,
-    const std::vector<std::string> &stream_ids) const {
+    const webrtc::scoped_refptr<webrtc::MediaStreamTrackInterface>& track,
+    const std::vector<std::string>& stream_ids) const {
     return pImpl->AddTrack(track, stream_ids);
 }
 
@@ -370,11 +369,11 @@ webrtc::scoped_refptr<webrtc::PeerConnectionInterface> PeerConnectionManager::Ge
     return pImpl->peer_connection_;
 }
 
-webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<IceConfig> &ice_config) {
+webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<IceConfig>& ice_config) {
     webrtc::PeerConnectionInterface::IceServer server;
     if (ice_config->turn_url.empty() || ice_config->turn_username.empty() || ice_config->turn_credential.empty()) {
         // TODO
-        return server; // Return an empty IceServer
+        return server;  // Return an empty IceServer
     }
     // Create an IceServer with the TURN URL, username, and credential
     server.urls.push_back("turn:" + ice_config->turn_url);

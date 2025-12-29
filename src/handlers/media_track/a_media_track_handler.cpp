@@ -11,52 +11,51 @@
 
 #include <opencv2/core/mat.hpp>
 
-using namespace rtc_sender::handlers;
+using namespace mosaic::handlers;
 
-namespace rtc_sender::handlers {
-    class ActualVideoTrackSource : public rtc::AdaptedVideoTrackSource {
-    public:
-        ActualVideoTrackSource() {
+namespace mosaic::handlers {
+class ActualVideoTrackSource : public rtc::AdaptedVideoTrackSource {
+  public:
+    ActualVideoTrackSource() {}
+
+    // rtc::AdaptedVideoTrackSource 인터페이스 구현
+    SourceState state() const override {
+        return is_running_ ? kLive : kEnded;
+    }
+
+    bool remote() const override {
+        return false;
+    }
+
+    bool is_screencast() const override {
+        return false;
+    }
+
+    std::optional<bool> needs_denoising() const override {
+        return false;
+    }
+
+    void SendFrame(const webrtc::VideoFrame& frame) {
+        if (is_running_ && !stop_flag_) {
+            OnFrame(frame);
+        } else {
         }
+    }
 
-        // rtc::AdaptedVideoTrackSource 인터페이스 구현
-        SourceState state() const override {
-            return is_running_ ? kLive : kEnded;
-        }
-
-        bool remote() const override {
-            return false;
-        }
-
-        bool is_screencast() const override {
-            return false;
-        }
-
-        std::optional<bool> needs_denoising() const override {
-            return false;
-        }
-
-        void SendFrame(const webrtc::VideoFrame &frame) {
-            if (is_running_ && !stop_flag_) {
-                OnFrame(frame);
-            } else {
-            }
-        }
-
-        std::atomic<bool> is_running_ = false;
-        std::atomic<bool> stop_flag_ = false;
-    };
-} // namespace rtc_sender::handlers
+    std::atomic<bool> is_running_ = false;
+    std::atomic<bool> stop_flag_ = false;
+};
+}  // namespace mosaic::handlers
 
 class AMediaTrackHandler::Impl {
-public:
-    void SendFrame(const webrtc::VideoFrame &frame) const {
+  public:
+    void SendFrame(const webrtc::VideoFrame& frame) const {
         if (actual_video_track_source_) {
             actual_video_track_source_->SendFrame(frame);
         }
     }
 
-    void SendFrame(const cv::Mat &frame, const std::chrono::steady_clock::time_point start_time) const {
+    void SendFrame(const cv::Mat& frame, const std::chrono::steady_clock::time_point start_time) const {
         if (actual_video_track_source_) {
             actual_video_track_source_->SendFrame(CvMat2VideoFrame(frame, start_time));
         }
@@ -71,8 +70,7 @@ public:
             // Create a new ActualVideoTrackSource instance if it doesn't exist
             // TODO: check if memory leak
             actual_video_track_source_ =
-                    webrtc::scoped_refptr<ActualVideoTrackSource>(
-                        new webrtc::RefCountedObject<ActualVideoTrackSource>());
+                webrtc::scoped_refptr<ActualVideoTrackSource>(new webrtc::RefCountedObject<ActualVideoTrackSource>());
         }
         return actual_video_track_source_;
     }
@@ -97,10 +95,10 @@ public:
         }
     }
 
-private:
+  private:
     webrtc::scoped_refptr<ActualVideoTrackSource> actual_video_track_source_;
 
-    static webrtc::VideoFrame CvMat2VideoFrame(const cv::Mat &frame, std::chrono::steady_clock::time_point start_time) {
+    static webrtc::VideoFrame CvMat2VideoFrame(const cv::Mat& frame, std::chrono::steady_clock::time_point start_time) {
         // Create I420 buffer
         webrtc::scoped_refptr<webrtc::I420Buffer> buffer = webrtc::I420Buffer::Create(frame.cols, frame.rows);
 
@@ -124,7 +122,7 @@ private:
         return webrtc::VideoFrame::Builder().set_video_frame_buffer(buffer).set_timestamp_us(timestamp_us).build();
     }
 
-    static cv::Mat VideoFrame2CvMat(const webrtc::VideoFrame &frame) {
+    static cv::Mat VideoFrame2CvMat(const webrtc::VideoFrame& frame) {
         const auto buffer = frame.video_frame_buffer();
         const auto i420_buffer = buffer->ToI420();
 
@@ -143,7 +141,7 @@ private:
                             i420_buffer->DataV(),
                             i420_buffer->StrideV(),
                             rgb_data.get(),
-                            width * 3, // RGB stride
+                            width * 3,  // RGB stride
                             width,
                             height);
 
@@ -160,7 +158,7 @@ private:
     friend class AMediaTrackHandler;
 };
 
-AMediaTrackHandler::AMediaTrackHandler(const std::string &track_name, const bool recordable)
+AMediaTrackHandler::AMediaTrackHandler(const std::string& track_name, const bool recordable)
     : IMediaTrackHandler(track_name), Recordable(recordable) {
     pImpl = std::make_unique<Impl>();
 }
@@ -169,12 +167,12 @@ AMediaTrackHandler::~AMediaTrackHandler() {
     AMediaTrackHandler::Close();
 }
 
-void AMediaTrackHandler::SendFrame(const webrtc::VideoFrame &frame) {
+void AMediaTrackHandler::SendFrame(const webrtc::VideoFrame& frame) {
     pImpl->SendFrame(frame);
     RecordFrame(Impl::VideoFrame2CvMat(frame));
 }
 
-void AMediaTrackHandler::SendFrame(const cv::Mat &frame, const std::chrono::steady_clock::time_point start_time) {
+void AMediaTrackHandler::SendFrame(const cv::Mat& frame, const std::chrono::steady_clock::time_point start_time) {
     pImpl->SendFrame(frame, start_time);
     RecordFrame(frame);
 }

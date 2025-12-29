@@ -11,15 +11,15 @@
 
 #include <opencv2/videoio.hpp>
 
-using namespace rtc_sender::handlers;
+using namespace mosaic::handlers;
 
 class VideoRecorder::Impl {
-public:
-    explicit Impl(const std::string &record_file_path) : record_file_path_(record_file_path) {
+  public:
+    explicit Impl(const std::string& record_file_path) : record_file_path_(record_file_path) {
         video_writer_ = std::make_unique<cv::VideoWriter>();
     }
 
-    void SetRecordFilePath(const std::string &record_file_path) {
+    void SetRecordFilePath(const std::string& record_file_path) {
         record_file_path_ = record_file_path;
     }
 
@@ -46,7 +46,7 @@ public:
         }
     }
 
-    void SaveFrame(const cv::Mat &frame) const {
+    void SaveFrame(const cv::Mat& frame) const {
         if (video_writer_->isOpened()) {
             video_writer_->write(frame);
         } else {
@@ -54,11 +54,11 @@ public:
         }
     }
 
-private:
+  private:
     std::string record_file_path_;
-    double fps_ = 30.0; // Default FPS
-    int width_ = 640; // Default width
-    int height_ = 480; // Default height
+    double fps_ = 30.0;  // Default FPS
+    int width_ = 640;    // Default width
+    int height_ = 480;   // Default height
     std::unique_ptr<cv::VideoWriter> video_writer_;
 
     std::string GetFilename() const {
@@ -75,7 +75,7 @@ private:
     }
 };
 
-VideoRecorder::VideoRecorder(const std::string &record_file_path) {
+VideoRecorder::VideoRecorder(const std::string& record_file_path) {
     pImpl = std::make_unique<Impl>(record_file_path);
 }
 
@@ -83,7 +83,7 @@ VideoRecorder::~VideoRecorder() {
     Stop();
 }
 
-void VideoRecorder::SetRecordFilePath(const std::string &record_file_path) const {
+void VideoRecorder::SetRecordFilePath(const std::string& record_file_path) const {
     pImpl->SetRecordFilePath(record_file_path);
 }
 
@@ -99,6 +99,6 @@ void VideoRecorder::Stop() const {
     pImpl->Stop();
 }
 
-void VideoRecorder::SaveFrame(const cv::Mat &frame) const {
+void VideoRecorder::SaveFrame(const cv::Mat& frame) const {
     pImpl->SaveFrame(frame);
 }

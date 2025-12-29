@@ -2,62 +2,62 @@
 // Created by yhkim on 25. 6. 5.
 //
 
-#include <mosaic_rtc_core/gcs_connector.h>
 #include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/mosaic_connector.h>
 #include <mosaic_rtc_core/observers/peer_connection_observer.h>
 
-using namespace rtc_sender::observers;
+using namespace mosaic::core_observers;
 
 void PeerConnectionObserver::OnDataChannel(const webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) {
     gcs_connector_->OnDataChannel(data_channel);
 }
 
-void PeerConnectionObserver::OnIceCandidate(const webrtc::IceCandidateInterface *candidate) {
+void PeerConnectionObserver::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {
     if (!candidate) {
-        RTC_SENDER_LOG_DEBUG("Received null ICE candidate");
+        MOSAIC_LOG_DEBUG("Received null ICE candidate");
         return;
     }
-    RTC_SENDER_LOG_DEBUG("Gathered candidate: {} {}", candidate->sdp_mid(), candidate->sdp_mline_index());
+    MOSAIC_LOG_DEBUG("Gathered candidate: {} {}", candidate->sdp_mid(), candidate->sdp_mline_index());
 
     pc_manager_->SendIceCandidate(candidate);
 }
 
 void PeerConnectionObserver::OnStandardizedIceConnectionChange(
     const webrtc::PeerConnectionInterface::IceConnectionState new_state) {
-    RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnStandardizedIceConnectionChange: {}",
+    MOSAIC_LOG_INFO("PeerConnectionObserver::OnStandardizedIceConnectionChange: {}",
                         webrtc::PeerConnectionInterface::AsString(new_state));
 }
 
 void PeerConnectionObserver::OnIceGatheringChange(const webrtc::PeerConnectionInterface::IceGatheringState new_state) {
     if (new_state == webrtc::PeerConnectionInterface::IceGatheringState::kIceGatheringComplete) {
-        RTC_SENDER_LOG_INFO("ICE Gathering Complete");
+        MOSAIC_LOG_INFO("ICE Gathering Complete");
     }
 }
 
 void PeerConnectionObserver::OnSignalingChange(const webrtc::PeerConnectionInterface::SignalingState new_state) {
-    RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnSignalingChange: {}",
+    MOSAIC_LOG_INFO("PeerConnectionObserver::OnSignalingChange: {}",
                         webrtc::PeerConnectionInterface::AsString(new_state));
 }
 
 void PeerConnectionObserver::OnConnectionChange(const webrtc::PeerConnectionInterface::PeerConnectionState new_state) {
     switch (new_state) {
         case webrtc::PeerConnectionInterface::PeerConnectionState::kNew:
-            RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: New");
+            MOSAIC_LOG_INFO("PeerConnectionObserver::OnConnectionChange: New");
             break;
         case webrtc::PeerConnectionInterface::PeerConnectionState::kConnecting:
-            RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Connecting");
+            MOSAIC_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Connecting");
             break;
         case webrtc::PeerConnectionInterface::PeerConnectionState::kConnected:
-            RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Connected");
+            MOSAIC_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Connected");
             pc_manager_->OnConnectionConnected();
             break;
         case webrtc::PeerConnectionInterface::PeerConnectionState::kFailed:
-            RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Failed");
+            MOSAIC_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Failed");
             pc_manager_->ClosePeerConnection();
             break;
         case webrtc::PeerConnectionInterface::PeerConnectionState::kDisconnected:
         case webrtc::PeerConnectionInterface::PeerConnectionState::kClosed:
-            RTC_SENDER_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Disconnected");
+            MOSAIC_LOG_INFO("PeerConnectionObserver::OnConnectionChange: Disconnected");
             pc_manager_->ClosePeerConnection();
             break;
     }

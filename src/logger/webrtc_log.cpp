@@ -5,7 +5,7 @@
 #include <mosaic_rtc_core/logger/webrtc_log.h>
 #include <rtc_base/logging.h>
 
-void rtc_sender::log::SetWebRTCLogLevel(const WebRTCLogLevel level) {
+void mosaic::core_log::SetWebRTCLogLevel(const WebRTCLogLevel level) {
     switch (level) {
         case LS_INFO:
             rtc::LogMessage::LogToDebug(rtc::LS_INFO);
@@ -25,10 +25,10 @@ void rtc_sender::log::SetWebRTCLogLevel(const WebRTCLogLevel level) {
     }
 }
 
-void rtc_sender::log::SetWebRTCLogTimestamps(const bool enable = true) {
+void mosaic::core_log::SetWebRTCLogTimestamps(const bool enable = true) {
     rtc::LogMessage::LogTimestamps(enable);
 }
 
-void rtc_sender::log::SetWebRTCLogThreads(const bool enable = true) {
+void mosaic::core_log::SetWebRTCLogThreads(const bool enable = true) {
     rtc::LogMessage::LogThreads(enable);
 }

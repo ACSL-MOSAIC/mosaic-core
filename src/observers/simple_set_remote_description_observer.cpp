@@ -5,13 +5,13 @@
 #include <mosaic_rtc_core/logger/log.h>
 #include <mosaic_rtc_core/observers/simple_set_remote_description_observer.h>
 
-using namespace rtc_sender::observers;
+using namespace mosaic::core_observers;
 
 void SimpleSetRemoteDescriptionObserver::OnSuccess() {
-    RTC_SENDER_LOG_INFO("Set remote description with SDP offer Success");
+    MOSAIC_LOG_INFO("Set remote description with SDP offer Success");
     pc_manager_->AfterSetSessionDescription();
 }
 
 void SimpleSetRemoteDescriptionObserver::OnFailure(const webrtc::RTCError error) {
-    RTC_SENDER_LOG_ERROR("Failed to set session description: {}", error.message());
+    MOSAIC_LOG_ERROR("Failed to set session description: {}", error.message());
 }

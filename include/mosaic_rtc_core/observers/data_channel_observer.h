@@ -2,29 +2,29 @@
 // Created by yhkim on 25. 6. 4.
 //
 
-#ifndef BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H
-#define BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H
+#ifndef MOSAIC_RTC_CORE_DATA_CHANNEL_OBSERVER_H
+#define MOSAIC_RTC_CORE_DATA_CHANNEL_OBSERVER_H
 
 #include <api/data_channel_interface.h>
 
-namespace rtc_sender::observers {
-    class DataChannelObserver final : public webrtc::DataChannelObserver {
-    public:
-        explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer &)> onMessageCallback);
+namespace mosaic::core_observers {
+class DataChannelObserver final : public webrtc::DataChannelObserver {
+  public:
+    explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer&)> onMessageCallback);
 
-        void OnStateChange() override;
+    void OnStateChange() override;
 
-        void OnMessage(const webrtc::DataBuffer &buffer) override;
+    void OnMessage(const webrtc::DataBuffer& buffer) override;
 
-        void OnBufferedAmountChange(uint64_t sent_data_size) override;
+    void OnBufferedAmountChange(uint64_t sent_data_size) override;
 
-        bool IsOkToCallOnTheNetworkThread() override {
-            return true; // Allow callbacks on the network thread
-        }
+    bool IsOkToCallOnTheNetworkThread() override {
+        return true;  // Allow callbacks on the network thread
+    }
 
-    private:
-        std::function<void(const webrtc::DataBuffer &)> onMessageCallback_;
-    };
-} // namespace rtc_sender::observers
+  private:
+    std::function<void(const webrtc::DataBuffer&)> onMessageCallback_;
+};
+}  // namespace mosaic::core_observers
 
-#endif  // BA_GCS_RTC_SENDER_DATA_CHANNEL_OBSERVER_H
+#endif  // MOSAIC_RTC_CORE_DATA_CHANNEL_OBSERVER_H

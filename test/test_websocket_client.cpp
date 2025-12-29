@@ -9,10 +9,10 @@
 #include <gtest/gtest.h>
 #include <mosaic_rtc_core/signaling/websocket_client.h>
 
-using namespace rtc_sender::signaling;
+using namespace mosaic::core_signaling;
 
 class WebSocketClientTest : public ::testing::Test {
-protected:
+  protected:
     void SetUp() override {
         // 테스트 시작 전 초기화
         client = std::make_unique<WebSocketClient>();
@@ -34,9 +34,7 @@ TEST_F(WebSocketClientTest, ConnectToValidServer) {
     const std::string test_server_url = "ws://ws.ifelse.io";
 
     bool connected = false;
-    client->setOnConnected([&connected]() {
-        connected = true;
-    });
+    client->setOnConnected([&connected]() { connected = true; });
 
     client->connect(test_server_url);
 
@@ -51,9 +49,7 @@ TEST_F(WebSocketClientTest, ConnectToValidSSLServer) {
     const std::string test_server_url = "wss://echo.websocket.org";
 
     bool connected = false;
-    client->setOnConnected([&connected]() {
-        connected = true;
-    });
+    client->setOnConnected([&connected]() { connected = true; });
 
     client->connect(test_server_url);
 
@@ -68,9 +64,7 @@ TEST_F(WebSocketClientTest, ConnectToInvalidServer) {
     const std::string invalid_url = "ws://invalid-server-that-does-not-exist.com";
 
     bool connection_failed = false;
-    client->setOnError([&connection_failed](const std::string &) {
-        connection_failed = true;
-    });
+    client->setOnError([&connection_failed](const std::string&) { connection_failed = true; });
 
     client->connect(invalid_url);
 
@@ -89,11 +83,9 @@ TEST_F(WebSocketClientTest, SendMessage) {
     bool message_received = false;
     std::string received_message;
 
-    client->setOnConnected([&connected]() {
-        connected = true;
-    });
+    client->setOnConnected([&connected]() { connected = true; });
 
-    client->setOnMessage([&message_received, &received_message](const std::string &message) {
+    client->setOnMessage([&message_received, &received_message](const std::string& message) {
         message_received = true;
         received_message = message;
     });
@@ -121,13 +113,9 @@ TEST_F(WebSocketClientTest, DisconnectFromServer) {
     bool connected = false;
     bool disconnected = false;
 
-    client->setOnConnected([&connected]() {
-        connected = true;
-    });
+    client->setOnConnected([&connected]() { connected = true; });
 
-    client->setOnDisconnected([&disconnected]() {
-        disconnected = true;
-    });
+    client->setOnDisconnected([&disconnected]() { disconnected = true; });
 
     client->connect(test_server_url);
 
@@ -152,13 +140,9 @@ TEST_F(WebSocketClientTest, ThreadSafety) {
     std::atomic<int> messages_sent{0};
     std::atomic<int> messages_received{0};
 
-    client->setOnConnected([&connected]() {
-        connected = true;
-    });
+    client->setOnConnected([&connected]() { connected = true; });
 
-    client->setOnMessage([&messages_received](const std::string &) {
-        messages_received++;
-    });
+    client->setOnMessage([&messages_received](const std::string&) { messages_received++; });
 
     client->connect(test_server_url);
 
@@ -183,7 +167,7 @@ TEST_F(WebSocketClientTest, ThreadSafety) {
     }
 
     // 모든 스레드 완료 대기
-    for (auto &thread: threads) {
+    for (auto& thread : threads) {
         thread.join();
     }
 
@@ -191,5 +175,5 @@ TEST_F(WebSocketClientTest, ThreadSafety) {
     std::this_thread::sleep_for(std::chrono::milliseconds(2000));
 
     EXPECT_EQ(messages_sent, num_threads * messages_per_thread);
-    EXPECT_GE(messages_received, messages_sent); // 수신된 메시지가 전송된 메시지보다 많거나 같아야 함
+    EXPECT_GE(messages_received, messages_sent);  // 수신된 메시지가 전송된 메시지보다 많거나 같아야 함
 }

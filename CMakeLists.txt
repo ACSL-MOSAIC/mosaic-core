@@ -79,8 +79,8 @@ target_include_directories(observers PUBLIC
 )
 
 add_library(mosaic-rtc-core STATIC
-        src/gcs_connector.cpp
-        src/gcs_connector_factory.cpp
+        src/mosaic_connector.cpp
+        src/mosaic_connector_factory.cpp
         src/connector_state_manager.cpp
         src/peer_connection_manager.cpp
 )

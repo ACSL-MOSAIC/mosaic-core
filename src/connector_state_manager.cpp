@@ -7,11 +7,10 @@
 #include <mosaic_rtc_core/connector_state_manager.h>
 #include <mosaic_rtc_core/logger/log.h>
 
-using namespace rtc_sender;
+using namespace mosaic::core;
 
-ConnectorStateManager::ConnectorStateManager(const std::shared_ptr<signaling::ISignalingClient> &signaling_client)
-    : state_(INITIALIZING), signaling_client_(signaling_client) {
-}
+ConnectorStateManager::ConnectorStateManager(const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client)
+    : state_(INITIALIZING), signaling_client_(signaling_client) {}
 
 void ConnectorStateManager::SetState(const State new_state) {
     std::unique_lock lock(mutex_);
@@ -39,12 +38,12 @@ void ConnectorStateManager::SendStateToSignalingServer() const {
     if (signaling_client_) {
         signaling_client_->SendState(StateToString(state_));
     } else {
-        RTC_SENDER_LOG_ERROR("Signaling server is not set, cannot send state change");
+        MOSAIC_LOG_ERROR("Signaling server is not set, cannot send state change");
     }
 }
 
 void ConnectorStateManager::LogState(const State old_state, const State new_state) {
-    RTC_SENDER_LOG_INFO("Changing state from {} to {}", StateToString(old_state), StateToString(new_state));
+    MOSAIC_LOG_INFO("Changing state from {} to {}", StateToString(old_state), StateToString(new_state));
 }
 
 std::string ConnectorStateManager::StateToString(const State state) {

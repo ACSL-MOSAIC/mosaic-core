@@ -11,18 +11,18 @@
 #include <mosaic_rtc_core/logger/log.h>
 #include <mosaic_rtc_core/signaling/websocket_client.h>
 
-class LoggingLevelTester : public rtc_sender::log::ILogger {
-public:
+class LoggingLevelTester : public mosaic::core_log::ILogger {
+  public:
     ~LoggingLevelTester() override = default;
 
-    void LOG(const std::string &message, const rtc_sender::log::LogLevel log_level) {
-        if (log_level == rtc_sender::log::DEBUG) {
+    void LOG(const std::string& message, const mosaic::core_log::LogLevel log_level) {
+        if (log_level == mosaic::core_log::DEBUG) {
             DEBUG_LOG_COUNT++;
-        } else if (log_level == rtc_sender::log::WARNING) {
+        } else if (log_level == mosaic::core_log::WARNING) {
             WARNING_LOG_COUNT++;
-        } else if (log_level == rtc_sender::log::INFO) {
+        } else if (log_level == mosaic::core_log::INFO) {
             INFO_LOG_COUNT++;
-        } else if (log_level == rtc_sender::log::ERROR) {
+        } else if (log_level == mosaic::core_log::ERROR) {
             ERROR_LOG_COUNT++;
         }
     }
@@ -34,11 +34,11 @@ public:
 };
 
 class LoggingLevelTest : public ::testing::Test {
-protected:
+  protected:
     void SetUp() override {
         // 테스트 시작 전 초기화
-        rtc_sender::log::RegisterLogger<LoggingLevelTester>();
-        auto logger = rtc_sender::log::GetLogger();
+        mosaic::core_log::RegisterLogger<LoggingLevelTester>();
+        auto logger = mosaic::core_log::GetLogger();
         logger_tester_ = std::dynamic_pointer_cast<LoggingLevelTester>(logger);
     }
 
@@ -51,29 +51,29 @@ protected:
 
 // 기본 로깅 테스트
 TEST_F(LoggingLevelTest, SimpleLogging) {
-    rtc_sender::log::SetLogLevel(rtc_sender::log::INFO);
-    RTC_SENDER_LOG_INFO("Hello!");
+    mosaic::core_log::SetLogLevel(mosaic::core_log::INFO);
+    MOSAIC_LOG_INFO("Hello!");
 
     EXPECT_EQ(logger_tester_->INFO_LOG_COUNT, 1);
 }
 
 TEST_F(LoggingLevelTest, LevelInfoLogDebug) {
-    rtc_sender::log::SetLogLevel(rtc_sender::log::INFO);
-    RTC_SENDER_LOG_DEBUG("Hello!");
+    mosaic::core_log::SetLogLevel(mosaic::core_log::INFO);
+    MOSAIC_LOG_DEBUG("Hello!");
 
     EXPECT_EQ(logger_tester_->DEBUG_LOG_COUNT, 0);
 }
 
 TEST_F(LoggingLevelTest, LevelDebugLogInfo) {
-    rtc_sender::log::SetLogLevel(rtc_sender::log::DEBUG);
-    RTC_SENDER_LOG_INFO("Hello!");
+    mosaic::core_log::SetLogLevel(mosaic::core_log::DEBUG);
+    MOSAIC_LOG_INFO("Hello!");
 
     EXPECT_EQ(logger_tester_->INFO_LOG_COUNT, 1);
 }
 
 TEST_F(LoggingLevelTest, LevelDebugLogDebug) {
-    rtc_sender::log::SetLogLevel(rtc_sender::log::DEBUG);
-    RTC_SENDER_LOG_DEBUG("Hello!");
+    mosaic::core_log::SetLogLevel(mosaic::core_log::DEBUG);
+    MOSAIC_LOG_DEBUG("Hello!");
 
     EXPECT_EQ(logger_tester_->DEBUG_LOG_COUNT, 1);
 }
