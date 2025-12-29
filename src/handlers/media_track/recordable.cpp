@@ -2,14 +2,14 @@
 // Created by yhkim on 7/29/25.
 //
 
-#include "rtc_sender/handlers/media_track/recordable.h"
+#include "mosaic_rtc_core/handlers/media_track/recordable.h"
 
 #include <filesystem>
 
 #include <opencv2/core/mat.hpp>
 
-#include "rtc_sender/handlers/media_track/video_recorder.h"
-#include "rtc_sender/logger/log.h"
+#include "mosaic_rtc_core/handlers/media_track/video_recorder.h"
+#include "mosaic_rtc_core/logger/log.h"
 
 using namespace rtc_sender::handlers;
 

@@ -2,9 +2,9 @@
 // Created by yhkim on 25. 7. 7.
 //
 
-#include <rtc_sender/ice_config.h>
-#include <rtc_sender/gcs_connector_factory.h>
-#include <rtc_sender/signaling/signaling_client.h>
+#include <mosaic_rtc_core/gcs_connector_factory.h>
+#include <mosaic_rtc_core/ice_config.h>
+#include <mosaic_rtc_core/signaling/signaling_client.h>
 
 using namespace rtc_sender;
 

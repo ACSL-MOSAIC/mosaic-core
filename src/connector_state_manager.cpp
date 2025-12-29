@@ -2,10 +2,10 @@
 // Created by yhkim on 25. 6. 26.
 //
 
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/connector_state_manager.h>
-
 #include <mutex>
+
+#include <mosaic_rtc_core/connector_state_manager.h>
+#include <mosaic_rtc_core/logger/log.h>
 
 using namespace rtc_sender;
 

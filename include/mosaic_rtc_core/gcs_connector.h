@@ -8,11 +8,11 @@
 #include <memory>
 #include <string>
 
-#include <rtc_sender/connector_state_manager.h>
-#include <rtc_sender/peer_connection_manager.h>
-#include <rtc_sender/webrtc_forward_decl.h>
-#include <rtc_sender/handlers/media_track/i_media_track_handler.h>
-#include <rtc_sender/handlers/data_channel/i_data_channel_handler.h>
+#include <mosaic_rtc_core/connector_state_manager.h>
+#include <mosaic_rtc_core/handlers/data_channel/i_data_channel_handler.h>
+#include <mosaic_rtc_core/handlers/media_track/i_media_track_handler.h>
+#include <mosaic_rtc_core/peer_connection_manager.h>
+#include <mosaic_rtc_core/webrtc_forward_decl.h>
 
 namespace rtc_sender {
     // Forward declarations for avoid circular dependencies

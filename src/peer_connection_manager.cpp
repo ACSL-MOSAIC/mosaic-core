@@ -2,12 +2,10 @@
 // Created by yhkim on 25. 7. 2.
 //
 
-#include <api/create_peerconnection_factory.h>
-#include <api/task_queue/default_task_queue_factory.h>
-
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
 #include <api/audio_codecs/builtin_audio_encoder_factory.h>
-
+#include <api/create_peerconnection_factory.h>
+#include <api/task_queue/default_task_queue_factory.h>
 #include <api/video_codecs/video_decoder_factory_template.h>
 #include <api/video_codecs/video_decoder_factory_template_dav1d_adapter.h>
 #include <api/video_codecs/video_decoder_factory_template_libvpx_vp8_adapter.h>
@@ -18,16 +16,15 @@
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_open_h264_adapter.h>
-
-#include <rtc_sender/ice_config.h>
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/peer_connection_manager.h>
-#include <rtc_sender/connector_state_manager.h>
-#include <rtc_sender/signaling/i_signaling_client.h>
-#include <rtc_sender/observers/peer_connection_observer.h>
-#include <rtc_sender/observers/create_sdp_answer_observer.h>
-#include <rtc_sender/observers/simple_set_local_description_observer.h>
-#include <rtc_sender/observers/simple_set_remote_description_observer.h>
+#include <mosaic_rtc_core/connector_state_manager.h>
+#include <mosaic_rtc_core/ice_config.h>
+#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/observers/create_sdp_answer_observer.h>
+#include <mosaic_rtc_core/observers/peer_connection_observer.h>
+#include <mosaic_rtc_core/observers/simple_set_local_description_observer.h>
+#include <mosaic_rtc_core/observers/simple_set_remote_description_observer.h>
+#include <mosaic_rtc_core/peer_connection_manager.h>
+#include <mosaic_rtc_core/signaling/i_signaling_client.h>
 
 using namespace rtc_sender;
 

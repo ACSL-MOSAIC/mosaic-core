@@ -2,7 +2,7 @@
 // Created by yhkim on 7/29/25.
 //
 
-#include "rtc_sender/handlers/media_track/video_recorder.h"
+#include "mosaic_rtc_core/handlers/media_track/video_recorder.h"
 
 #include <chrono>
 #include <filesystem>

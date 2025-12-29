@@ -2,12 +2,10 @@
 // Created by yhkim on 25. 7. 1.
 //
 
-#include <rtc_sender/handlers/data_channel/data_channel_sendable.h>
-#include <rtc_sender/logger/log.h>
-
-#include <json/json.h>
-
 #include <api/data_channel_interface.h>
+#include <json/json.h>
+#include <mosaic_rtc_core/handlers/data_channel/data_channel_sendable.h>
+#include <mosaic_rtc_core/logger/log.h>
 
 using namespace rtc_sender::handlers;
 

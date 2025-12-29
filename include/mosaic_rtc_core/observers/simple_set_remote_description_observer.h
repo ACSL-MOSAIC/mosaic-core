@@ -8,8 +8,7 @@
 #include <memory>
 
 #include <api/jsep.h>
-
-#include <rtc_sender/gcs_connector.h>
+#include <mosaic_rtc_core/gcs_connector.h>
 
 namespace rtc_sender::observers {
     class SimpleSetRemoteDescriptionObserver : public webrtc::SetSessionDescriptionObserver {

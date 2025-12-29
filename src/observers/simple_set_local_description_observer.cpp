@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 22.
 //
 
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/observers/simple_set_local_description_observer.h>
+#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/observers/simple_set_local_description_observer.h>
 
 using namespace rtc_sender::observers;
 

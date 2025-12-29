@@ -9,7 +9,7 @@
 #include <shared_mutex>
 #include <string>
 
-#include <rtc_sender/signaling/i_signaling_client.h>
+#include <mosaic_rtc_core/signaling/i_signaling_client.h>
 
 namespace rtc_sender {
   class ConnectorStateManager final {

@@ -2,14 +2,13 @@
 // Created by yhkim on 25. 6. 3.
 //
 
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/gcs_connector.h>
-#include <rtc_sender/observers/peer_connection_observer.h>
-
 #include <utility>
 
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
 #include <api/video_codecs/video_decoder_factory_template.h>
+#include <mosaic_rtc_core/gcs_connector.h>
+#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/observers/peer_connection_observer.h>
 
 class rtc_sender::GCSConnector::Impl {
 public:

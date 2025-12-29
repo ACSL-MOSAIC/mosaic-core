@@ -2,9 +2,9 @@
 // Created by yhkim on 25. 6. 5.
 //
 
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/gcs_connector.h>
-#include <rtc_sender/observers/peer_connection_observer.h>
+#include <mosaic_rtc_core/gcs_connector.h>
+#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/observers/peer_connection_observer.h>
 
 using namespace rtc_sender::observers;
 

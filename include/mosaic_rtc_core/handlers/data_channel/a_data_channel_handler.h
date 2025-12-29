@@ -5,7 +5,7 @@
 #ifndef BA_GCS_RTC_SENDER_A_DATA_CHANNEL_HANDLER_H
 #define BA_GCS_RTC_SENDER_A_DATA_CHANNEL_HANDLER_H
 
-#include "rtc_sender/handlers/data_channel/i_data_channel_handler.h"
+#include "mosaic_rtc_core/handlers/data_channel/i_data_channel_handler.h"
 
 namespace rtc_sender::handlers {
     class ADataChannelHandler : public IDataChannelHandler {

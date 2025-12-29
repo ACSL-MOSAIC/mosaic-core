@@ -8,8 +8,8 @@
 #include <memory>
 #include <string>
 
-#include <rtc_sender/gcs_connector.h>
-#include <rtc_sender/signaling/i_signaling_client.h>
+#include <mosaic_rtc_core/gcs_connector.h>
+#include <mosaic_rtc_core/signaling/i_signaling_client.h>
 
 namespace rtc_sender::signaling {
   class SignalingClient : public ISignalingClient {

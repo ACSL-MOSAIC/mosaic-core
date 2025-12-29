@@ -7,8 +7,8 @@
 
 #include <string>
 
-#include <rtc_sender/webrtc_forward_decl.h>
-#include <rtc_sender/security/i_gcs_authenticator.h>
+#include <mosaic_rtc_core/security/i_gcs_authenticator.h>
+#include <mosaic_rtc_core/webrtc_forward_decl.h>
 
 namespace rtc_sender {
     class GCSConnector;

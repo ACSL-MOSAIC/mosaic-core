@@ -5,9 +5,8 @@
 #ifndef BA_GCS_RTC_SENDER_PEER_CONNECTION_OBSERVER_H
 #define BA_GCS_RTC_SENDER_PEER_CONNECTION_OBSERVER_H
 
-#include <rtc_sender/gcs_connector.h>
-
 #include <api/peer_connection_interface.h>
+#include <mosaic_rtc_core/gcs_connector.h>
 
 namespace rtc_sender::observers {
     class PeerConnectionObserver : public webrtc::PeerConnectionObserver {

@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(BA_GCS_rtc_sender VERSION 1.0.0)
+project(mosaic-rtc-core VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -78,16 +78,16 @@ target_include_directories(observers PUBLIC
         $<INSTALL_INTERFACE:include>
 )
 
-add_library(BA_GCS_rtc_sender STATIC
+add_library(mosaic-rtc-core STATIC
         src/gcs_connector.cpp
         src/gcs_connector_factory.cpp
         src/connector_state_manager.cpp
         src/peer_connection_manager.cpp
 )
-target_link_libraries(BA_GCS_rtc_sender PRIVATE
+target_link_libraries(mosaic-rtc-core PRIVATE
         third_party_lib
 )
-target_link_libraries(BA_GCS_rtc_sender PUBLIC
+target_link_libraries(mosaic-rtc-core PUBLIC
         ${JSONCPP_LIBRARIES}
         signaling_server
         logging
@@ -95,7 +95,7 @@ target_link_libraries(BA_GCS_rtc_sender PUBLIC
         observers
 )
 
-target_include_directories(BA_GCS_rtc_sender PUBLIC
+target_include_directories(mosaic-rtc-core PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
         ${JSONCPP_INCLUDE_DIRS}
@@ -120,13 +120,13 @@ if (BUILD_TESTS)
 
     # 테스트 실행 파일에 라이브러리 링크
     target_link_libraries(websocket_client_tests
-            BA_GCS_rtc_sender          # 메인 라이브러리
+            mosaic-rtc-core          # 메인 라이브러리
             third_party_lib
             GTest::GTest               # Google Test
             GTest::Main                # Google Test main 함수
     )
     target_link_libraries(logger_tests
-            BA_GCS_rtc_sender
+            mosaic-rtc-core
             GTest::GTest               # Google Test
             GTest::Main                # Google Test main 함수
     )
@@ -158,8 +158,8 @@ endif ()
 ################################################################################
 include(GNUInstallDirs)
 
-install(TARGETS BA_GCS_rtc_sender third_party_lib signaling_server logging handlers observers
-        EXPORT ba_gcs_rtc_sender_targets
+install(TARGETS mosaic-rtc-core third_party_lib signaling_server logging handlers observers
+        EXPORT mosaic-rtc-core_targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -169,28 +169,28 @@ install(DIRECTORY include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-install(EXPORT ba_gcs_rtc_sender_targets
-        FILE ba_gcs_rtc_sender_targets.cmake
-        NAMESPACE ba_gcs::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
+install(EXPORT mosaic-rtc-core_targets
+        FILE mosaic-rtc-core_targets.cmake
+        NAMESPACE mosaic::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-rtc-core
 )
 
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ba_gcs_rtc_sender-config.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mosaic-rtc-core-config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-rtc-core
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config-version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config-version.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config-version.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-rtc-core
 )

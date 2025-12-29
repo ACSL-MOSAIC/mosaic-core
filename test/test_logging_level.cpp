@@ -7,10 +7,9 @@
 #include <thread>
 
 #include <gtest/gtest.h>
-
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/logger/i_logger.h>
-#include <rtc_sender/signaling/websocket_client.h>
+#include <mosaic_rtc_core/logger/i_logger.h>
+#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/signaling/websocket_client.h>
 
 class LoggingLevelTester : public rtc_sender::log::ILogger {
 public:

@@ -6,7 +6,7 @@
 #define BA_GCS_RTC_SENDER_I_DATA_CHANNEL_RECEIVABLE_H
 
 #include "a_data_channel_handler.h"
-#include "rtc_sender/webrtc_forward_decl.h"
+#include "mosaic_rtc_core/webrtc_forward_decl.h"
 
 namespace Json {
     class Value;

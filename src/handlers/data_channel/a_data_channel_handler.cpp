@@ -2,13 +2,13 @@
 // Created by yhkim on 25. 7. 1.
 //
 
-#include <rtc_sender/handlers/data_channel/a_data_channel_handler.h>
-#include <rtc_sender/handlers/data_channel/i_data_channel_receivable.h>
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/observers/data_channel_observer.h>
-
 #include <utility>
+
 #include <api/peer_connection_interface.h>
+#include <mosaic_rtc_core/handlers/data_channel/a_data_channel_handler.h>
+#include <mosaic_rtc_core/handlers/data_channel/i_data_channel_receivable.h>
+#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/observers/data_channel_observer.h>
 
 using namespace rtc_sender::handlers;
 

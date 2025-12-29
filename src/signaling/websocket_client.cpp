@@ -2,11 +2,11 @@
 // Created by yhkim on 25. 7. 16.
 //
 
-#include <rtc_sender/logger/log.h>
-#include <rtc_sender/signaling/websocket_client.h>
-
-#include <utility>
 #include <thread>
+#include <utility>
+
+#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic_rtc_core/signaling/websocket_client.h>
 
 using namespace rtc_sender::signaling;
 

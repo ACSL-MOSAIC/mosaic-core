@@ -6,8 +6,8 @@
 #define BA_GCS_RTC_SENDER_DATA_CHANNEL_SENDABLE_H
 
 #include "a_data_channel_handler.h"
-#include "rtc_sender/logger/log.h"
-#include "rtc_sender/webrtc_forward_decl.h"
+#include "mosaic_rtc_core/logger/log.h"
+#include "mosaic_rtc_core/webrtc_forward_decl.h"
 
 // Forward declaration for Json::Value
 namespace Json {
