@@ -36,14 +36,14 @@ std::shared_ptr<MosaicConnector> MosaicConnectorFactory::Create() {
 
     auto client_state_manager = std::make_shared<ConnectorStateManager>(signaling_server);
 
-    auto gcs_connector = std::make_shared<MosaicConnector>(robot_id_, user_id_, client_state_manager);
-    signaling_server->SetGCSConnector(gcs_connector);
+    auto mosaic_connector = std::make_shared<MosaicConnector>(robot_id_, user_id_, client_state_manager);
+    signaling_server->SetGCSConnector(mosaic_connector);
 
     const auto peer_connection_manager = std::make_shared<PeerConnectionManager>(
-        gcs_connector, gcs_connector->GetStateManager(), signaling_server, ice_config_);
-    gcs_connector->SetPeerConnectionManager(peer_connection_manager);
+        mosaic_connector, mosaic_connector->GetStateManager(), signaling_server, ice_config_);
+    mosaic_connector->SetPeerConnectionManager(peer_connection_manager);
 
-    gcs_connector->InitializeWebRTC();
+    mosaic_connector->InitializeWebRTC();
 
-    return gcs_connector;
+    return mosaic_connector;
 }

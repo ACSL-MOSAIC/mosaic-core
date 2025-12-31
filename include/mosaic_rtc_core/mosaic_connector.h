@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 3.
 //
 
-#ifndef MOSAIC_RTC_CORE_GCS_CONNECTOR_H
-#define MOSAIC_RTC_CORE_GCS_CONNECTOR_H
+#ifndef MOSAIC_RTC_CORE_MOSAIC_CONNECTOR_H
+#define MOSAIC_RTC_CORE_MOSAIC_CONNECTOR_H
 
 #include <memory>
 #include <string>
@@ -87,4 +87,4 @@ class MosaicConnector {
 };
 }  // namespace mosaic::core
 
-#endif  // MOSAIC_RTC_CORE_GCS_CONNECTOR_H
+#endif  // MOSAIC_RTC_CORE_MOSAIC_CONNECTOR_H
