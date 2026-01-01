@@ -49,9 +49,9 @@ endif ()
 ################################################################################
 set(WEBRTC_HEADERS_ROOT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/webrtc-headers/src")
 set(WEBRTC_INCLUDE_PATH "${WEBRTC_HEADERS_ROOT_PATH}")
-set(WEBRTC_LIBRARY_PATH "${WEBRTC_HEADERS_ROOT_PATH}/out")
+set(WEBRTC_LIBRARY_PATH "${WEBRTC_HEADERS_ROOT_PATH}/out/Default/obj")
 
-find_library(WEBRTC_LIBRARIES
+find_library(WEBRTC_LIBRARIES REQUIRED
         NAMES webrtc libwebrtc
         HINTS ${WEBRTC_LIBRARY_PATH}
         PATH_SUFFIXES lib

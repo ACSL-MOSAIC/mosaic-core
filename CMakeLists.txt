@@ -84,7 +84,7 @@ add_library(mosaic-rtc-core STATIC
         src/connector_state_manager.cpp
         src/peer_connection_manager.cpp
 )
-target_link_libraries(mosaic-rtc-core PRIVATE
+target_link_libraries(mosaic-rtc-core PUBLIC
         third_party_lib
 )
 target_link_libraries(mosaic-rtc-core PUBLIC
