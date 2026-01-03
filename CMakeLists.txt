@@ -118,20 +118,20 @@ if (BUILD_TESTS)
             test/test_logging_level.cpp
     )
 
-    # 테스트 실행 파일에 라이브러리 링크
+    # Link libraries to test executables
     target_link_libraries(websocket_client_tests
-            mosaic-rtc-core          # 메인 라이브러리
+            mosaic-rtc-core          # Main library
             third_party_lib
             GTest::GTest               # Google Test
-            GTest::Main                # Google Test main 함수
+            GTest::Main                # Google Test main function
     )
     target_link_libraries(logger_tests
             mosaic-rtc-core
             GTest::GTest               # Google Test
-            GTest::Main                # Google Test main 함수
+            GTest::Main                # Google Test main function
     )
 
-    # 테스트 헤더 경로 설정
+    # Set test header paths
     target_include_directories(websocket_client_tests PRIVATE
             include
             tests
@@ -141,12 +141,12 @@ if (BUILD_TESTS)
             tests
     )
 
-    # Google Test 발견 및 등록
+    # Google Test discovery and registration
     include(GoogleTest)
     gtest_discover_tests(websocket_client_tests)
     gtest_discover_tests(logger_tests)
 
-    # 개별 테스트 등록
+    # Register individual tests
     add_test(NAME websocket_client_tests COMMAND websocket_client_tests) # Not stable
     add_test(NAME logger_tests COMMAND logger_tests)
 

@@ -1,5 +1,5 @@
 ################################################################################
-# 외부 라이브러리 찾기
+# Find External Libraries
 ################################################################################
 if (APPLE)
     # Apple Silicon
@@ -22,7 +22,7 @@ find_package(OpenSSL REQUIRED COMPONENTS SSL Crypto)
 
 find_package(cpprestsdk REQUIRED)
 
-# logging 을 위한 fmt 라이브러리
+# fmt library for logging
 find_package(fmt REQUIRED)
 
 # opencv
