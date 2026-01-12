@@ -9,9 +9,6 @@
 
 using namespace mosaic::core_observers;
 
-DataChannelObserver::DataChannelObserver(std::function<void(const webrtc::DataBuffer&)> onMessageCallback)
-    : onMessageCallback_(std::move(onMessageCallback)) {}
-
 void DataChannelObserver::OnStateChange() {
     // Handle state change events here
 }

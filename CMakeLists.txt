@@ -44,6 +44,22 @@ target_include_directories(signaling_server PUBLIC
         ${CPPREST_INCLUDE_DIRS}
 )
 
+add_library(observers STATIC
+        src/observers/create_sdp_answer_observer.cpp
+        src/observers/data_channel_observer.cpp
+        src/observers/peer_connection_observer.cpp
+        src/observers/simple_set_local_description_observer.cpp
+        src/observers/simple_set_remote_description_observer.cpp
+)
+target_link_libraries(observers PRIVATE
+        third_party_lib
+        logging
+)
+target_include_directories(observers PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
 add_library(handlers STATIC
         src/handlers/data_channel/a_data_channel_handler.cpp
         src/handlers/data_channel/data_channel_sendable.cpp
@@ -55,25 +71,9 @@ add_library(handlers STATIC
 target_link_libraries(handlers PRIVATE
         third_party_lib
         logging
+        observers
 )
 target_include_directories(handlers PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-)
-
-add_library(observers STATIC
-        src/observers/create_sdp_answer_observer.cpp
-        src/observers/data_channel_observer.cpp
-        src/observers/peer_connection_observer.cpp
-        src/observers/simple_set_local_description_observer.cpp
-        src/observers/simple_set_remote_description_observer.cpp
-)
-target_link_libraries(observers PRIVATE
-        third_party_lib
-        logging
-        handlers
-)
-target_include_directories(observers PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
@@ -91,8 +91,8 @@ target_link_libraries(mosaic-rtc-core PUBLIC
         ${JSONCPP_LIBRARIES}
         signaling_server
         logging
-        handlers
         observers
+        handlers
 )
 
 target_include_directories(mosaic-rtc-core PUBLIC

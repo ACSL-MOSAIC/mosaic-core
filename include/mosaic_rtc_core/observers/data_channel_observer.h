@@ -10,7 +10,8 @@
 namespace mosaic::core_observers {
 class DataChannelObserver final : public webrtc::DataChannelObserver {
   public:
-    explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer&)> onMessageCallback);
+    explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer&)> onMessageCallback)
+        : onMessageCallback_(std::move(onMessageCallback)) {}
 
     void OnStateChange() override;
 
