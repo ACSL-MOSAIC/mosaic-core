@@ -32,8 +32,8 @@ add_library(signaling_server STATIC
         src/signaling/signaling_client.cpp
 )
 target_link_libraries(signaling_server PRIVATE
-        OpenSSL::SSL
-        OpenSSL::Crypto
+        #        OpenSSL::SSL
+        #        OpenSSL::Crypto
         logging
         cpprestsdk::cpprest
         third_party_lib

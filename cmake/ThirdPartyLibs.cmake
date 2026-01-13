@@ -18,8 +18,6 @@ if (POLICY CMP0167)
     cmake_policy(SET CMP0167 NEW)
 endif ()
 
-find_package(OpenSSL REQUIRED COMPONENTS SSL Crypto)
-
 find_package(cpprestsdk REQUIRED)
 
 # fmt library for logging

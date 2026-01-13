@@ -47,7 +47,6 @@ class ADataChannelHandler::Impl {
 
         observer_ = std::make_shared<core_observers::DataChannelObserver>(onMessageLambda);
         dc_interface_->RegisterObserver(observer_.get());
-        MOSAIC_LOG_INFO("DataChannelObserver registered for label (Receivable): {}", label_);
     }
 
     ChannelState GetState() const {
