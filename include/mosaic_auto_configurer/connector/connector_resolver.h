@@ -10,11 +10,8 @@
 #include <string>
 #include <unordered_map>
 
-#include <mosaic_rtc_core/configs_decl.h>
-
 #include "configurable_connector_factory.h"
 #include "i_configurable_connector.h"
-#include "i_configurable_connector_factory.h"
 
 namespace mosaic::auto_configurer {
 class ConnectorResolver {

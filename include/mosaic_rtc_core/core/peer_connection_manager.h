@@ -7,6 +7,7 @@
 
 #include <vector>
 
+#include <mosaic_rtc_core/configs_decl.h>
 #include <mosaic_rtc_core/core/mosaic_connector.h>
 #include <mosaic_rtc_core/signaling/i_signaling_client.h>
 
@@ -15,7 +16,6 @@ using namespace mosaic::core_signaling;
 namespace mosaic::core {
 // Forward declarations to avoid circular dependencies
 class ConnectorStateManager;
-struct IceConfig;
 class MosaicConnector;
 
 class PeerConnectionManager : public std::enable_shared_from_this<PeerConnectionManager> {
@@ -23,7 +23,7 @@ class PeerConnectionManager : public std::enable_shared_from_this<PeerConnection
     PeerConnectionManager(const std::shared_ptr<MosaicConnector>& client,
                           const std::shared_ptr<ConnectorStateManager>& state_manager,
                           const std::shared_ptr<ISignalingClient>& signaling_client,
-                          const std::shared_ptr<IceConfig>& ice_config);
+                          const std::shared_ptr<WebRtcConfig>& web_rtc_config);
 
     void InitializeWebRTC() const;
 

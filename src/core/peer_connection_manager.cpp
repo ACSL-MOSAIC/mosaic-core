@@ -16,9 +16,9 @@
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_open_h264_adapter.h>
+#include <mosaic_rtc_core/configs_decl.h>
 #include <mosaic_rtc_core/core/connector_state_manager.h>
 #include <mosaic_rtc_core/core/peer_connection_manager.h>
-#include <mosaic_rtc_core/ice_config.h>
 #include <mosaic_rtc_core/logger/log.h>
 #include <mosaic_rtc_core/observers/create_sdp_answer_observer.h>
 #include <mosaic_rtc_core/observers/peer_connection_observer.h>
@@ -28,18 +28,18 @@
 
 using namespace mosaic::core;
 
-webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<IceConfig>& ice_config);
+webrtc::PeerConnectionInterface::IceServer GetIceServer(const IceServerConfig& ice_config);
 
 class PeerConnectionManager::Impl {
   public:
     Impl(const std::shared_ptr<MosaicConnector>& client,
          const std::shared_ptr<ConnectorStateManager>& state_manager,
-         const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client,
-         const std::shared_ptr<IceConfig>& ice_config)
+         const std::shared_ptr<ISignalingClient>& signaling_client,
+         const std::shared_ptr<WebRtcConfig>& web_rtc_config)
         : client_(client),
           state_manager_(state_manager),
-          ice_config_(ice_config),
-          signaling_client_(signaling_client) {}
+          signaling_client_(signaling_client),
+          web_rtc_config_(web_rtc_config) {}
 
     void InitializeWebRTC() {
         // Initialize WebRTC components, such as threads and factory.
@@ -87,7 +87,9 @@ class PeerConnectionManager::Impl {
         MOSAIC_LOG_DEBUG("RobotWebRTCClient::CreatePeerConnection()");
         webrtc::PeerConnectionInterface::RTCConfiguration configuration;
         configuration.ice_connection_receiving_timeout = 30000;
-        configuration.servers.push_back(GetIceServer(ice_config_));
+        for (const auto& ice_server : web_rtc_config_->ice_servers) {
+            configuration.servers.push_back(GetIceServer(ice_server));
+        }
 
         // Observer 생성
         peer_connection_observer_ = std::make_shared<core_observers::PeerConnectionObserver>(client_, outer_this_);
@@ -260,8 +262,8 @@ class PeerConnectionManager::Impl {
   private:
     std::shared_ptr<MosaicConnector> client_;
     std::shared_ptr<ConnectorStateManager> state_manager_;
-    std::shared_ptr<IceConfig> ice_config_;
-    std::shared_ptr<core_signaling::ISignalingClient> signaling_client_;
+    std::shared_ptr<ISignalingClient> signaling_client_;
+    std::shared_ptr<WebRtcConfig> web_rtc_config_;
 
     webrtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> peer_connection_factory_ = nullptr;
     webrtc::scoped_refptr<webrtc::PeerConnectionInterface> peer_connection_ = nullptr;
@@ -296,9 +298,9 @@ class PeerConnectionManager::Impl {
 
 PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<MosaicConnector>& client,
                                              const std::shared_ptr<ConnectorStateManager>& state_manager,
-                                             const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client,
-                                             const std::shared_ptr<IceConfig>& ice_config) {
-    pImpl = std::make_shared<Impl>(client, state_manager, signaling_client, ice_config);
+                                             const std::shared_ptr<ISignalingClient>& signaling_client,
+                                             const std::shared_ptr<WebRtcConfig>& web_rtc_config) {
+    pImpl = std::make_shared<Impl>(client, state_manager, signaling_client, web_rtc_config);
 }
 
 void PeerConnectionManager::InitializeWebRTC() const {
@@ -369,16 +371,18 @@ webrtc::scoped_refptr<webrtc::PeerConnectionInterface> PeerConnectionManager::Ge
     return pImpl->peer_connection_;
 }
 
-webrtc::PeerConnectionInterface::IceServer GetIceServer(const std::shared_ptr<IceConfig>& ice_config) {
+webrtc::PeerConnectionInterface::IceServer GetIceServer(const IceServerConfig& ice_config) {
     webrtc::PeerConnectionInterface::IceServer server;
-    if (ice_config->turn_url.empty() || ice_config->turn_username.empty() || ice_config->turn_credential.empty()) {
+    if (ice_config.urls.empty() || ice_config.username.empty() || ice_config.credential.empty()) {
         // TODO
         return server;  // Return an empty IceServer
     }
     // Create an IceServer with the TURN URL, username, and credential
-    server.urls.push_back("turn:" + ice_config->turn_url);
-    server.username = ice_config->turn_username;
-    server.password = ice_config->turn_credential;
+    for (const auto& url : ice_config.urls) {
+        server.urls.push_back("turn:" + url);
+    }
+    server.username = ice_config.username;
+    server.password = ice_config.credential;
 
     return server;
 }

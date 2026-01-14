@@ -6,12 +6,19 @@
 #define MOSAIC_AUTO_CONFIGURER_CONFIG_READER_FACTORY_H
 
 #include <memory>
+#include <string>
 #include <type_traits>
 
 #include "i_config_reader.h"
-#include "i_config_reader_factory.h"
 
 namespace mosaic::auto_configurer {
+class IConfigReaderFactory {
+  public:
+    virtual ~IConfigReaderFactory() = default;
+    virtual bool IsSupportedExtension(const std::string& extension) = 0;
+    virtual std::shared_ptr<IConfigReader> CreateConfigReader() = 0;
+};
+
 template <typename T>
 class ConfigReaderFactory : public IConfigReaderFactory {
     static_assert(std::is_base_of_v<IConfigReader, T>, "T must inherit from IConfigReader");

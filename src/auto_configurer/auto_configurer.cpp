@@ -29,13 +29,7 @@ void AutoConfigurer::ReadConfigs(const std::string& config_file_path) {
 }
 
 void AutoConfigurer::CreateMosaicConnector() {
-    auto mosaic_connector_factory =
-        MosaicConnectorFactory(connector_configs_->server.auth_config.robot_id,
-                               connector_configs_->server.auth_config.user_id,
-                               connector_configs_->server.ws_url,
-                               connector_configs_->server.webrtc_config.ice_servers[0].urls[0],
-                               connector_configs_->server.webrtc_config.ice_servers[0].username,
-                               connector_configs_->server.webrtc_config.ice_servers[0].credential);
+    auto mosaic_connector_factory = MosaicConnectorFactory(std::make_shared<ServerConfig>(connector_configs_->server));
 
     mosaic_connector_ = mosaic_connector_factory.Create();
 }
