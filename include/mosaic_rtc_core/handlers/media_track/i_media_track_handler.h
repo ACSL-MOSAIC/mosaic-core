@@ -8,7 +8,7 @@
 #include <string>
 #include <utility>
 
-#include <mosaic_rtc_core/webrtc_forward_decl.h>
+#include <mosaic_rtc_core/rtc/webrtc_forward_decl.h>
 
 namespace mosaic::handlers {
 class IMediaTrackHandler {

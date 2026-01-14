@@ -6,7 +6,7 @@
 #define MOSAIC_RTC_CORE_PEER_CONNECTION_OBSERVER_H
 
 #include <api/peer_connection_interface.h>
-#include <mosaic_rtc_core/mosaic_connector.h>
+#include <mosaic_rtc_core/core/mosaic_connector.h>
 
 namespace mosaic::core_observers {
 class PeerConnectionObserver : public webrtc::PeerConnectionObserver {

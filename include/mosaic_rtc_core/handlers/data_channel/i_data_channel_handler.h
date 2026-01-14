@@ -8,7 +8,7 @@
 #include <string>
 
 #include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/webrtc_forward_decl.h>
+#include <mosaic_rtc_core/rtc/webrtc_forward_decl.h>
 
 namespace mosaic::handlers {
 class IDataChannelHandler {
@@ -27,7 +27,8 @@ class IDataChannelHandler {
         MOSAIC_LOG_ERROR("This DataChannel Handler is not Receivable!");
     }
 
-    virtual void SetDataChannelInterface(const webrtc::scoped_refptr<webrtc::DataChannelInterface>& dc_interface) const = 0;
+    virtual void SetDataChannelInterface(
+        const webrtc::scoped_refptr<webrtc::DataChannelInterface>& dc_interface) const = 0;
 
     virtual void RegisterDataChannelObserver(IDataChannelHandler* dc_handler) const = 0;
 

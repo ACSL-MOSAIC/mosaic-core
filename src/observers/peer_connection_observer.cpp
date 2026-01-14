@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 5.
 //
 
+#include <mosaic_rtc_core/core/mosaic_connector.h>
 #include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/mosaic_connector.h>
 #include <mosaic_rtc_core/observers/peer_connection_observer.h>
 
 using namespace mosaic::core_observers;
@@ -25,7 +25,7 @@ void PeerConnectionObserver::OnIceCandidate(const webrtc::IceCandidateInterface*
 void PeerConnectionObserver::OnStandardizedIceConnectionChange(
     const webrtc::PeerConnectionInterface::IceConnectionState new_state) {
     MOSAIC_LOG_INFO("PeerConnectionObserver::OnStandardizedIceConnectionChange: {}",
-                        webrtc::PeerConnectionInterface::AsString(new_state));
+                    webrtc::PeerConnectionInterface::AsString(new_state));
 }
 
 void PeerConnectionObserver::OnIceGatheringChange(const webrtc::PeerConnectionInterface::IceGatheringState new_state) {
@@ -36,7 +36,7 @@ void PeerConnectionObserver::OnIceGatheringChange(const webrtc::PeerConnectionIn
 
 void PeerConnectionObserver::OnSignalingChange(const webrtc::PeerConnectionInterface::SignalingState new_state) {
     MOSAIC_LOG_INFO("PeerConnectionObserver::OnSignalingChange: {}",
-                        webrtc::PeerConnectionInterface::AsString(new_state));
+                    webrtc::PeerConnectionInterface::AsString(new_state));
 }
 
 void PeerConnectionObserver::OnConnectionChange(const webrtc::PeerConnectionInterface::PeerConnectionState new_state) {

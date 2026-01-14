@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(mosaic-rtc-core VERSION 1.0.0)
+project(mosaic-core VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -32,8 +32,6 @@ add_library(signaling_server STATIC
         src/signaling/signaling_client.cpp
 )
 target_link_libraries(signaling_server PRIVATE
-        #        OpenSSL::SSL
-        #        OpenSSL::Crypto
         logging
         cpprestsdk::cpprest
         third_party_lib
@@ -79,16 +77,13 @@ target_include_directories(handlers PUBLIC
 )
 
 add_library(mosaic-rtc-core STATIC
-        src/mosaic_connector.cpp
-        src/mosaic_connector_factory.cpp
-        src/connector_state_manager.cpp
-        src/peer_connection_manager.cpp
+        src/core/mosaic_connector.cpp
+        src/core/mosaic_connector_factory.cpp
+        src/core/connector_state_manager.cpp
+        src/core/peer_connection_manager.cpp
 )
 target_link_libraries(mosaic-rtc-core PUBLIC
         third_party_lib
-)
-target_link_libraries(mosaic-rtc-core PUBLIC
-        ${JSONCPP_LIBRARIES}
         signaling_server
         logging
         observers
@@ -101,6 +96,22 @@ target_include_directories(mosaic-rtc-core PUBLIC
         ${JSONCPP_INCLUDE_DIRS}
 )
 
+add_library(mosaic-auto-configurer STATIC
+        src/auto_configurer/auto_configurer.cpp
+        src/auto_configurer/connector_resolver.cpp
+        src/config_reader/config_reader_resolver.cpp
+        src/config_reader/yaml_config_reader.cpp)
+
+target_include_directories(mosaic-auto-configurer PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(mosaic-auto-configurer PUBLIC
+        third_party_lib
+        mosaic-rtc-core
+)
+
 ################################################################################
 # Testing Configure
 ################################################################################
@@ -111,15 +122,26 @@ if (BUILD_TESTS)
 
     enable_testing()
 
-    add_executable(websocket_client_tests
-            test/test_websocket_client.cpp
+    add_executable(config_reader_tests
+            test/config_reader/test_yaml_config_reader.cpp
+            test/config_reader/test_config_reader_resolver.cpp
+    )
+
+    add_executable(signaling_tests
+            test/signaling/test_websocket_client.cpp
     )
     add_executable(logger_tests
-            test/test_logging_level.cpp
+            test/logger/test_logging_level.cpp
     )
 
     # Link libraries to test executables
-    target_link_libraries(websocket_client_tests
+    target_link_libraries(config_reader_tests
+            mosaic-auto-configurer
+            third_party_lib
+            GTest::GTest               # Google Test
+            GTest::Main                # Google Test main function
+    )
+    target_link_libraries(signaling_tests
             mosaic-rtc-core          # Main library
             third_party_lib
             GTest::GTest               # Google Test
@@ -132,7 +154,7 @@ if (BUILD_TESTS)
     )
 
     # Set test header paths
-    target_include_directories(websocket_client_tests PRIVATE
+    target_include_directories(signaling_tests PRIVATE
             include
             tests
     )
@@ -141,12 +163,18 @@ if (BUILD_TESTS)
             tests
     )
 
+    # Copy test data files to build directory
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test/config_reader/test_config.yaml
+            ${CMAKE_CURRENT_BINARY_DIR}/test/config_reader/test_config.yaml COPYONLY)
+
     # Google Test discovery and registration
     include(GoogleTest)
-    gtest_discover_tests(websocket_client_tests)
+    gtest_discover_tests(config_reader_tests)
+    gtest_discover_tests(signaling_tests)
     gtest_discover_tests(logger_tests)
 
     # Register individual tests
+    add_test(NAME config_reader_tests COMMAND config_reader_tests)
     add_test(NAME websocket_client_tests COMMAND websocket_client_tests) # Not stable
     add_test(NAME logger_tests COMMAND logger_tests)
 
@@ -158,8 +186,8 @@ endif ()
 ################################################################################
 include(GNUInstallDirs)
 
-install(TARGETS mosaic-rtc-core third_party_lib signaling_server logging handlers observers
-        EXPORT mosaic-rtc-core_targets
+install(TARGETS mosaic-rtc-core mosaic-auto-configurer third_party_lib signaling_server logging handlers observers
+        EXPORT mosaic_targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -169,28 +197,28 @@ install(DIRECTORY include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-install(EXPORT mosaic-rtc-core_targets
-        FILE mosaic-rtc-core_targets.cmake
+install(EXPORT mosaic_targets
+        FILE mosaic_targets.cmake
         NAMESPACE mosaic::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-rtc-core
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic
 )
 
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mosaic-rtc-core-config.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-rtc-core
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mosaic-config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config-version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config-version.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-rtc-core-config-version.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-rtc-core
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic
 )

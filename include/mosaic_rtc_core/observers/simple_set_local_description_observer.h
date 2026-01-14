@@ -6,7 +6,7 @@
 #define MOSAIC_RTC_CORE_SIMPLE_SET_LOCAL_DESCRIPTION_OBSERVER_H
 
 #include <api/jsep.h>
-#include <mosaic_rtc_core/mosaic_connector.h>
+#include <mosaic_rtc_core/core/mosaic_connector.h>
 
 namespace mosaic::core_observers {
 class SimpleSetLocalDescriptionObserver : public webrtc::SetSessionDescriptionObserver {

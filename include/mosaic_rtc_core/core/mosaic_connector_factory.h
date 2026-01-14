@@ -7,7 +7,7 @@
 
 #include <memory>
 
-#include <mosaic_rtc_core/mosaic_connector.h>
+#include <mosaic_rtc_core/core/mosaic_connector.h>
 #include <mosaic_rtc_core/signaling/signaling_config.h>
 
 namespace mosaic::core {

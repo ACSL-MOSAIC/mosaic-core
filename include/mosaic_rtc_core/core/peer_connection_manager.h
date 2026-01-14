@@ -7,7 +7,7 @@
 
 #include <vector>
 
-#include <mosaic_rtc_core/mosaic_connector.h>
+#include <mosaic_rtc_core/core/mosaic_connector.h>
 #include <mosaic_rtc_core/signaling/i_signaling_client.h>
 
 using namespace mosaic::core_signaling;

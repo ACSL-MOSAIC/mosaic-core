@@ -4,8 +4,8 @@
 
 #include <iostream>
 
+#include <mosaic_rtc_core/core/mosaic_connector.h>
 #include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/mosaic_connector.h>
 #include <mosaic_rtc_core/observers/create_sdp_answer_observer.h>
 
 using namespace mosaic::core_observers;

@@ -5,10 +5,8 @@
 #ifndef MOSAIC_RTC_CORE_DATA_CHANNEL_SENDABLE_H
 #define MOSAIC_RTC_CORE_DATA_CHANNEL_SENDABLE_H
 
-#include "mosaic_rtc_core/logger/log.h"
-#include "mosaic_rtc_core/webrtc_forward_decl.h"
-
-#include "a_data_channel_handler.h"
+#include <mosaic_rtc_core/handlers/data_channel/a_data_channel_handler.h>
+#include <mosaic_rtc_core/logger/log.h>
 
 // Forward declaration for Json::Value
 namespace Json {

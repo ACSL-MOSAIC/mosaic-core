@@ -11,7 +11,7 @@
 
 #include <mosaic_rtc_core/handlers/media_track/i_media_track_handler.h>
 #include <mosaic_rtc_core/handlers/media_track/recordable.h>
-#include <mosaic_rtc_core/webrtc_forward_decl.h>
+#include <mosaic_rtc_core/rtc/webrtc_forward_decl.h>
 
 #include "opencv_forward_decl.h"
 

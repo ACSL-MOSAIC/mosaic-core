@@ -7,8 +7,8 @@
 
 #include <string>
 
+#include <mosaic_rtc_core/rtc/webrtc_forward_decl.h>
 #include <mosaic_rtc_core/security/i_gcs_authenticator.h>
-#include <mosaic_rtc_core/webrtc_forward_decl.h>
 
 namespace mosaic::core {
 class MosaicConnector;

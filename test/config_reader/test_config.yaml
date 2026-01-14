@@ -1,0 +1,32 @@
+server:
+  ws_url: "ws://localhost:8080"
+  auth:
+    type: "basic"
+    robot_id: "robot123"
+    user_id: "user456"
+    params:
+      key1: "value1"
+      key2: "value2"
+  webrtc:
+    ice_servers:
+      - urls:
+          - "stun:stun.l.google.com:19302"
+          - "stun:stun1.l.google.com:19302"
+        username: "testuser"
+        credential: "testcred"
+      - urls:
+          - "turn:turn.example.com:3478"
+        username: "turnuser"
+        credential: "turncred"
+
+connectors:
+  - type: "camera"
+    label: "camera_dc"
+    params:
+      resolution: "1920x1080"
+      fps: "30"
+  - type: "microphone"
+    label: "mic_dc"
+    params:
+      sample_rate: "48000"
+      channels: "2"

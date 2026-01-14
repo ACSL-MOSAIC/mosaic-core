@@ -1,17 +1,6 @@
 ################################################################################
 # Find External Libraries
 ################################################################################
-if (APPLE)
-    # Apple Silicon
-    if (EXISTS "/opt/homebrew")
-        set(CMAKE_PREFIX_PATH "/opt/homebrew" ${CMAKE_PREFIX_PATH})
-    endif ()
-    # Intel
-    if (EXISTS "/usr/local")
-        set(CMAKE_PREFIX_PATH "/usr/local" ${CMAKE_PREFIX_PATH})
-    endif ()
-endif ()
-
 find_package(PkgConfig REQUIRED)
 
 if (POLICY CMP0167)
@@ -22,6 +11,8 @@ find_package(cpprestsdk REQUIRED)
 
 # fmt library for logging
 find_package(fmt REQUIRED)
+
+find_package(yaml-cpp REQUIRED)
 
 # opencv
 find_package(OpenCV REQUIRED)
@@ -127,6 +118,7 @@ function(create_third_party_target)
             fmt::fmt
             ${OpenCV_LIBS}
             ${JSONCPP_LIBRARIES}
+            yaml-cpp::yaml-cpp
     )
 
 endfunction()

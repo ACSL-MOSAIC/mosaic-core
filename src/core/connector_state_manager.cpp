@@ -4,7 +4,7 @@
 
 #include <mutex>
 
-#include <mosaic_rtc_core/connector_state_manager.h>
+#include <mosaic_rtc_core/core/connector_state_manager.h>
 #include <mosaic_rtc_core/logger/log.h>
 
 using namespace mosaic::core;
