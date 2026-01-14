@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 3.
 //
 
-#include <mosaic_rtc_core/logger/console_logger.h>
-#include <mosaic_rtc_core/logger/log_service.h>
+#include <mosaic/logger/console_logger.h>
+#include <mosaic/logger/log_service.h>
 
 using namespace mosaic::core_log;
 

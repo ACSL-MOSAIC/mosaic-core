@@ -2,11 +2,9 @@
 // Created by yhkim on 25. 6. 5.
 //
 
-#include <iostream>
-
-#include <mosaic_rtc_core/core/mosaic_connector.h>
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/observers/create_sdp_answer_observer.h>
+#include <mosaic/core/mosaic_connector.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/observers/create_sdp_answer_observer.h>
 
 using namespace mosaic::core_observers;
 

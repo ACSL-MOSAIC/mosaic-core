@@ -7,10 +7,11 @@
 
 #include <string>
 
-#include <mosaic_rtc_core/rtc/webrtc_forward_decl.h>
-#include <mosaic_rtc_core/security/i_gcs_authenticator.h>
+#include <mosaic/rtc/webrtc_forward_decl.h>
+#include <mosaic/security/i_gcs_authenticator.h>
 
 namespace mosaic::core {
+// TODO: forward decleration 필요한지 확
 class MosaicConnector;
 }  // namespace mosaic::core
 

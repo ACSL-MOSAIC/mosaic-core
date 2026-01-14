@@ -5,8 +5,8 @@
 #include <thread>
 #include <utility>
 
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/signaling/websocket_client.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/signaling/websocket_client.h>
 
 using namespace mosaic::core_signaling;
 
@@ -189,9 +189,9 @@ void WebSocketClient::handleClose(websocket_close_status close_status,
     };
      */
     MOSAIC_LOG_INFO("WebSocket closed. Status: {} Reason: {} Error Code: {}",
-                        static_cast<int>(close_status),
-                        reason,
-                        std::error_code().message());
+                    static_cast<int>(close_status),
+                    reason,
+                    std::error_code().message());
 
     if (m_onDisconnected) {
         m_onDisconnected();

@@ -7,7 +7,7 @@
 
 #include <filesystem>
 
-#include <mosaic_rtc_core/configs_decl.h>
+#include <mosaic/configs_decl.h>
 
 namespace mosaic::auto_configurer {
 class IConfigReader {

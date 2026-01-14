@@ -5,9 +5,9 @@
 #include <filesystem>
 
 #include <gtest/gtest.h>
-#include <mosaic_auto_configurer/config_reader/config_reader_factory.h>
-#include <mosaic_auto_configurer/config_reader/config_reader_resolver.h>
-#include <mosaic_auto_configurer/config_reader/yaml_config_reader.h>
+#include <mosaic/auto_configurer/config_reader/config_reader_factory.h>
+#include <mosaic/auto_configurer/config_reader/config_reader_resolver.h>
+#include <mosaic/auto_configurer/config_reader/yaml_config_reader.h>
 
 using namespace mosaic::auto_configurer;
 

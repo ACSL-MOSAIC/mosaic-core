@@ -2,7 +2,7 @@
 // Created by yhkim on 12/28/25.
 //
 
-#include <mosaic_auto_configurer/connector/connector_resolver.h>
+#include <mosaic/auto_configurer/connector/connector_resolver.h>
 
 using namespace mosaic::auto_configurer;
 

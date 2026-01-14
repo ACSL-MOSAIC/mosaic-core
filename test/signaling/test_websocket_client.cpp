@@ -7,7 +7,7 @@
 #include <thread>
 
 #include <gtest/gtest.h>
-#include <mosaic_rtc_core/signaling/websocket_client.h>
+#include <mosaic/signaling/websocket_client.h>
 
 using namespace mosaic::core_signaling;
 

@@ -6,8 +6,8 @@
 #include <api/video/video_frame.h>
 #include <libyuv/convert.h>
 #include <media/base/adapted_video_track_source.h>
-#include <mosaic_rtc_core/handlers/media_track/a_media_track_handler.h>
-#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic/handlers/media_track/a_media_track_handler.h>
+#include <mosaic/logger/log.h>
 
 #include <opencv2/core/mat.hpp>
 

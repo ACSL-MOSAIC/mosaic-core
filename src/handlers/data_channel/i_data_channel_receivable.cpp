@@ -5,7 +5,7 @@
 #include <api/data_channel_interface.h>
 #include <json/reader.h>
 #include <json/value.h>
-#include <mosaic_rtc_core/handlers/data_channel/i_data_channel_receivable.h>
+#include <mosaic/handlers/data_channel/i_data_channel_receivable.h>
 
 using namespace mosaic::handlers;
 

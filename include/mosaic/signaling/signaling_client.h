@@ -8,8 +8,8 @@
 #include <memory>
 #include <string>
 
-#include <mosaic_rtc_core/core/mosaic_connector.h>
-#include <mosaic_rtc_core/signaling/i_signaling_client.h>
+#include <mosaic/core/mosaic_connector.h>
+#include <mosaic/signaling/i_signaling_client.h>
 
 namespace mosaic::core_signaling {
 class SignalingClient : public ISignalingClient {

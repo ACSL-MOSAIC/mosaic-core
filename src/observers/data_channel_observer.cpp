@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 4.
 //
 
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/observers/data_channel_observer.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/observers/data_channel_observer.h>
 
 using namespace mosaic::core_observers;
 

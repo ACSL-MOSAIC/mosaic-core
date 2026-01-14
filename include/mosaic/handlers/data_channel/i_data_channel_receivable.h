@@ -5,7 +5,7 @@
 #ifndef MOSAIC_RTC_CORE_I_DATA_CHANNEL_RECEIVABLE_H
 #define MOSAIC_RTC_CORE_I_DATA_CHANNEL_RECEIVABLE_H
 
-#include <mosaic_rtc_core/handlers/data_channel/a_data_channel_handler.h>
+#include <mosaic/handlers/data_channel/a_data_channel_handler.h>
 
 namespace Json {
 class Value;

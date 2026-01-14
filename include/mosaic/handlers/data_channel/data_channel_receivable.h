@@ -6,8 +6,8 @@
 #define MOSAIC_RTC_CORE_DATA_CHANNEL_RECEIVABLE_H
 
 #include <json/json.h>
-#include <mosaic_rtc_core/handlers/data_channel/i_data_channel_receivable.h>
-#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic/handlers/data_channel/i_data_channel_receivable.h>
+#include <mosaic/logger/log.h>
 
 namespace mosaic::handlers {
 template <typename ReceiveT>

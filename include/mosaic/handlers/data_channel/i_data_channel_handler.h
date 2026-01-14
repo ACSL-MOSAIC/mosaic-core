@@ -7,8 +7,8 @@
 
 #include <string>
 
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/rtc/webrtc_forward_decl.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/rtc/webrtc_forward_decl.h>
 
 namespace mosaic::handlers {
 class IDataChannelHandler {

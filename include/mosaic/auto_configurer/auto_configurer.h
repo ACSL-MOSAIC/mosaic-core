@@ -7,10 +7,10 @@
 
 #include <memory>
 
-#include <mosaic_auto_configurer/config_reader/i_config_reader.h>
-#include <mosaic_auto_configurer/connector/i_configurable_connector.h>
-#include <mosaic_rtc_core/handlers/data_channel/i_data_channel_handler.h>
-#include <mosaic_rtc_core/handlers/media_track/i_media_track_handler.h>
+#include <mosaic/auto_configurer/config_reader/i_config_reader.h>
+#include <mosaic/auto_configurer/connector/i_configurable_connector.h>
+#include <mosaic/handlers/data_channel/i_data_channel_handler.h>
+#include <mosaic/handlers/media_track/i_media_track_handler.h>
 
 namespace mosaic::auto_configurer {
 class AutoConfigurer {

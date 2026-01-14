@@ -8,11 +8,11 @@
 #include <memory>
 #include <string>
 
-#include <mosaic_rtc_core/core/connector_state_manager.h>
-#include <mosaic_rtc_core/core/peer_connection_manager.h>
-#include <mosaic_rtc_core/handlers/data_channel/i_data_channel_handler.h>
-#include <mosaic_rtc_core/handlers/media_track/i_media_track_handler.h>
-#include <mosaic_rtc_core/rtc/webrtc_forward_decl.h>
+#include <mosaic/core/connector_state_manager.h>
+#include <mosaic/core/peer_connection_manager.h>
+#include <mosaic/handlers/data_channel/i_data_channel_handler.h>
+#include <mosaic/handlers/media_track/i_media_track_handler.h>
+#include <mosaic/rtc/webrtc_forward_decl.h>
 
 namespace mosaic::core_observers {
 class PeerConnectionObserver;

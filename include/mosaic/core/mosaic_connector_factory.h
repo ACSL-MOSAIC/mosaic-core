@@ -7,8 +7,8 @@
 
 #include <memory>
 
-#include <mosaic_rtc_core/configs_decl.h>
-#include <mosaic_rtc_core/core/mosaic_connector.h>
+#include <mosaic/configs_decl.h>
+#include <mosaic/core/mosaic_connector.h>
 
 namespace mosaic::core {
 class MosaicConnectorFactory {

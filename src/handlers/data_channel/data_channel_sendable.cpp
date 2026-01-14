@@ -4,8 +4,8 @@
 
 #include <api/data_channel_interface.h>
 #include <json/json.h>
-#include <mosaic_rtc_core/handlers/data_channel/data_channel_sendable.h>
-#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic/handlers/data_channel/data_channel_sendable.h>
+#include <mosaic/logger/log.h>
 
 using namespace mosaic::handlers;
 

@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 7. 7.
 //
 
-#include <mosaic_rtc_core/core/mosaic_connector_factory.h>
-#include <mosaic_rtc_core/signaling/signaling_client.h>
+#include <mosaic/core/mosaic_connector_factory.h>
+#include <mosaic/signaling/signaling_client.h>
 
 using namespace mosaic::core;
 

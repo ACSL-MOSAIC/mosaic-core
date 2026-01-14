@@ -2,8 +2,8 @@
 // Created by yhkim on 25. 6. 22.
 //
 
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/observers/simple_set_remote_description_observer.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/observers/simple_set_remote_description_observer.h>
 
 using namespace mosaic::core_observers;
 

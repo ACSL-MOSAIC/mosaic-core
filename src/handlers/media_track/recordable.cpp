@@ -4,9 +4,9 @@
 
 #include <filesystem>
 
-#include <mosaic_rtc_core/handlers/media_track/recordable.h>
-#include <mosaic_rtc_core/handlers/media_track/video_recorder.h>
-#include <mosaic_rtc_core/logger/log.h>
+#include <mosaic/handlers/media_track/recordable.h>
+#include <mosaic/handlers/media_track/video_recorder.h>
+#include <mosaic/logger/log.h>
 
 using namespace mosaic::handlers;
 

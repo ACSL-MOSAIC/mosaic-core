@@ -8,7 +8,7 @@
 #include <memory>
 
 #include <api/jsep.h>
-#include <mosaic_rtc_core/core/mosaic_connector.h>
+#include <mosaic/core/mosaic_connector.h>
 
 namespace mosaic::core_observers {
 class SimpleSetRemoteDescriptionObserver : public webrtc::SetSessionDescriptionObserver {

@@ -5,10 +5,10 @@
 #include <utility>
 
 #include <api/peer_connection_interface.h>
-#include <mosaic_rtc_core/handlers/data_channel/a_data_channel_handler.h>
-#include <mosaic_rtc_core/handlers/data_channel/i_data_channel_receivable.h>
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/observers/data_channel_observer.h>
+#include <mosaic/handlers/data_channel/a_data_channel_handler.h>
+#include <mosaic/handlers/data_channel/i_data_channel_receivable.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/observers/data_channel_observer.h>
 
 using namespace mosaic::handlers;
 

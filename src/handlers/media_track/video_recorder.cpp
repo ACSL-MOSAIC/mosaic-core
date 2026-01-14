@@ -7,7 +7,7 @@
 #include <iomanip>
 #include <sstream>
 
-#include <mosaic_rtc_core/handlers/media_track/video_recorder.h>
+#include <mosaic/handlers/media_track/video_recorder.h>
 
 #include <opencv2/videoio.hpp>
 

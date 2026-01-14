@@ -5,8 +5,8 @@
 #ifndef MOSAIC_AUTO_CONFIGURER_I_CONFIGURABLE_CONNECTOR_H
 #define MOSAIC_AUTO_CONFIGURER_I_CONFIGURABLE_CONNECTOR_H
 
-#include <mosaic_rtc_core/configs_decl.h>
-#include <mosaic_rtc_core/core/mosaic_connector.h>
+#include <mosaic/configs_decl.h>
+#include <mosaic/core/mosaic_connector.h>
 
 namespace mosaic::auto_configurer {
 class IConfigurableConnector {

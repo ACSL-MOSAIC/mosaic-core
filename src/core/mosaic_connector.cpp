@@ -6,9 +6,9 @@
 
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
 #include <api/video_codecs/video_decoder_factory_template.h>
-#include <mosaic_rtc_core/core/mosaic_connector.h>
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/observers/peer_connection_observer.h>
+#include <mosaic/core/mosaic_connector.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/observers/peer_connection_observer.h>
 
 using namespace mosaic::core;
 

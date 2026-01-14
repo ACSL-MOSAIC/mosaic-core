@@ -5,7 +5,7 @@
 #include <filesystem>
 #include <stdexcept>
 
-#include <mosaic_auto_configurer/config_reader/config_reader_resolver.h>
+#include <mosaic/auto_configurer/config_reader/config_reader_resolver.h>
 
 using namespace mosaic::auto_configurer;
 

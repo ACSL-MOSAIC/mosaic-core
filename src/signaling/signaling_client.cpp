@@ -5,9 +5,9 @@
 #include <utility>
 
 #include <api/jsep.h>
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/signaling/signaling_client.h>
-#include <mosaic_rtc_core/signaling/websocket_client.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/signaling/signaling_client.h>
+#include <mosaic/signaling/websocket_client.h>
 
 using namespace mosaic::core_signaling;
 

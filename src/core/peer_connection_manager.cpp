@@ -16,15 +16,15 @@
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_open_h264_adapter.h>
-#include <mosaic_rtc_core/configs_decl.h>
-#include <mosaic_rtc_core/core/connector_state_manager.h>
-#include <mosaic_rtc_core/core/peer_connection_manager.h>
-#include <mosaic_rtc_core/logger/log.h>
-#include <mosaic_rtc_core/observers/create_sdp_answer_observer.h>
-#include <mosaic_rtc_core/observers/peer_connection_observer.h>
-#include <mosaic_rtc_core/observers/simple_set_local_description_observer.h>
-#include <mosaic_rtc_core/observers/simple_set_remote_description_observer.h>
-#include <mosaic_rtc_core/signaling/i_signaling_client.h>
+#include <mosaic/configs_decl.h>
+#include <mosaic/core/connector_state_manager.h>
+#include <mosaic/core/peer_connection_manager.h>
+#include <mosaic/logger/log.h>
+#include <mosaic/observers/create_sdp_answer_observer.h>
+#include <mosaic/observers/peer_connection_observer.h>
+#include <mosaic/observers/simple_set_local_description_observer.h>
+#include <mosaic/observers/simple_set_remote_description_observer.h>
+#include <mosaic/signaling/i_signaling_client.h>
 
 using namespace mosaic::core;
 
