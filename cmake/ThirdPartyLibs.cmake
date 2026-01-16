@@ -1,18 +1,43 @@
 ################################################################################
 # Find External Libraries
 ################################################################################
-find_package(PkgConfig REQUIRED)
 
 if (POLICY CMP0167)
     cmake_policy(SET CMP0167 NEW)
 endif ()
 
+# cpprestsdk
 find_package(cpprestsdk REQUIRED)
+if (NOT cpprestsdk_FOUND)
+    message(FATAL_ERROR
+            "cpprestsdk not found!\n"
+            "Please install cpprestsdk development packages:\n"
+            "   Ubuntu/Debian: sudo apt install libcpprest-dev\n"
+            "   macOS: brew install cpprestsdk"
+    )
+endif ()
 
 # fmt library for logging
 find_package(fmt REQUIRED)
+if (NOT fmt_FOUND)
+    message(FATAL_ERROR
+            "fmt not found!\n"
+            "Please install fmt development packages:\n"
+            "   Ubuntu/Debian: sudo apt install libfmt-dev\n"
+            "   macOS: brew install fmt"
+    )
+endif ()
 
+# yaml-cpp
 find_package(yaml-cpp REQUIRED)
+if (NOT yaml-cpp_FOUND)
+    message(FATAL_ERROR
+            "yaml-cpp not found!\n"
+            "Please install yaml-cpp development packages:\n"
+            "   Ubuntu/Debian: sudo apt install libyaml-cpp-dev\n"
+            "   macOS: brew install yaml-cpp"
+    )
+endif ()
 
 # opencv
 find_package(OpenCV REQUIRED)
@@ -20,16 +45,19 @@ if (NOT OpenCV_FOUND)
     message(FATAL_ERROR
             "OpenCV not found!\n"
             "Please install OpenCV development packages:\n"
-            "   Ubuntu/Debian: sudo apt install libopencv-dev"
+            "   Ubuntu/Debian: sudo apt install libopencv-dev\n"
+            "   macOS: brew install opencv"
     )
 endif ()
 
-pkg_check_modules(JSONCPP jsoncpp)
-if (NOT JSONCPP_FOUND)
+# jsoncpp
+find_package(jsoncpp REQUIRED)
+if (NOT jsoncpp_FOUND)
     message(FATAL_ERROR
-            "JsonCPP not found via pkg-config!\n"
+            "JsonCPP not found!\n"
             "Please install JsonCPP development packages:\n"
-            "   Ubuntu/Debian: sudo apt install libjsoncpp-dev"
+            "   Ubuntu/Debian: sudo apt install libjsoncpp-dev\n"
+            "   macOS: brew install jsoncpp"
     )
 endif ()
 
@@ -99,7 +127,6 @@ function(create_third_party_target)
             $<BUILD_INTERFACE:${WEBRTC_INCLUDE_PATH}/third_party/libyuv/include>
             ${OpenCV_INCLUDE_DIRS}
             ${FMT_INCLUDE_DIRS}
-            ${JSONCPP_INCLUDE_DIRS}
     )
 
     # Link WebRTC .a file
@@ -117,7 +144,7 @@ function(create_third_party_target)
     target_link_libraries(third_party_lib INTERFACE
             fmt::fmt
             ${OpenCV_LIBS}
-            ${JSONCPP_LIBRARIES}
+            JsonCpp::JsonCpp
             yaml-cpp::yaml-cpp
     )
 
