@@ -1,0 +1,84 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class RobotWebRTCClient {
+    - robot_id: String
+    - user_id: String
+    - peer_connection_manager: PeerConnectionManager
+    - state_manager: ClientStateManager
+    - data_channel_handlers_dict: Dict<String, ADataChannelHandler>
+    - media_track_handlers_dict: Dict<String, IMediaTrackHandler>
+
+    + RobotWebRTCClient(robot_id: String, user_id: String)
+}
+
+interface IMediaTrackHandler {
+    # track_name: String
+
+    + IMediaTrackHandler(track_name: String)
+    + {abstract} CreateVideoTrackSource(): VideoTrackSourceInterface
+    + {abstract} Close()
+    + GetTrackName(): String
+}
+
+class ActualVideoTrackSource {
+    + is_running: Boolean
+    + stop_flag: Boolean
+    + SendFrame(frame: VideoFrame)
+}
+webrtc_AdaptedVideoTrackSource <|-- ActualVideoTrackSource
+
+abstract class MediaTrackHandler implements IMediaTrackHandler {
+    # actual_video_track_source: ActualVideoTrackSource
+    + MediaTrackHandler(track_name: String)
+    + {abstract} Start()
+    + {abstract} Stop()
+    + SendFrame(frame: VideoFrame)
+    + SendFrame(frame: cv::Mat, start_time: time_point)
+    + IsRunning(): Boolean
+    + CreateVideoTrackSource(): VideoTrackSourceInterface
+    + Close()
+    # SetRunning(running: Boolean)
+    # GetStopFlag(): Boolean
+    # SetStopFlag(stop_flag: Boolean)
+    - CvMat2VideoFrame(frame: cv::Mat, start_time: time_point): VideoFrame
+}
+
+enum RecordState {
+    NotRecording
+    Recording
+    Paused
+}
+
+class Recordable {
+    - recordable: Boolean
+    - recorder: VideoRecorder
+    - record_state: RecordState
+
+    + Recordable(recordable: Boolean)
+    + SetRecordFilePath(file_path: String)
+    + StartRecording()
+    + PauseRecording()
+    + ResumeRecording()
+    + StopRecording()
+    + RecordFrame(frame: cv::Mat)
+}
+
+class VideoRecorder {
+    - record_file_path: String
+
+    + VideoRecorder(record_file_path: String)
+    + Start()
+    + Stop()
+    + SaveFrame(frame: cv::Mat)
+}
+
+' Relationships
+RobotWebRTCClient "1" *-- "many" IMediaTrackHandler
+
+ActualVideoTrackSource -> MediaTrackHandler
+Recordable <|-- MediaTrackHandler
+Recordable *-- VideoRecorder
+Recordable *-- RecordState
+
+@enduml

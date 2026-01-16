@@ -1,0 +1,123 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package rtc {
+    class GCSConnector {}
+}
+
+interface IDataChannelHandler {
+    + GetLabel(): String
+    + GetState(): ChannelState
+    + CloseDataChannel()
+    + AfterCreate()
+    + OnMessage(buffer: DataBuffer)
+    + SetDataChannelInterface(dc_interface: DataChannelInterface)
+    + RegisterDataChannelObserver(dc_handler: ADataChannelHandler)
+}
+
+
+abstract class ADataChannelHandler implements IDataChannelHandler {
+    - label: String
+    - dc_interface: DataChannelInterface
+    + observer: DataChannelObserver
+
+    + ADataChannelHandler(label: String)
+    + GetLabel(): String
+    + GetState(): ChannelState
+    + CloseDataChannel()
+    + {abstract} AfterCreate()
+    + {abstract} OnMessage(buffer: DataBuffer)
+    + SetDataChannelInterface(dc_interface: DataChannelInterface)
+    + RegisterDataChannelObserver(dc_handler: ADataChannelHandler)
+}
+
+class DCSendable extends ADataChannelHandler {
+    + DCSendable(label: String)
+    + Sendable(): Boolean
+    + Send(buffer: DataBuffer)
+    + SendString(string: String)
+    + SendStringAsByte(string: String)
+    + SendJson(json: Json)
+}
+
+abstract class IDCReceivable extends ADataChannelHandler {
+    + IDCReceivable(label: String)
+    + ConvertDataBufferToJson(buffer: DataBuffer): Json
+    + {abstract} OnMessage(buffer: DataBuffer)
+}
+
+abstract class ADCReceivable<ReceiveT> extends IDCReceivable {
+    + ADCReceivable(label: String, need_to_create: Boolean)
+    + OnMessage(buffer: DataBuffer)
+    + {abstract} ConvertJsonToData(json: Json): ReceiveT
+    + {abstract} HandleData(data: ReceiveT)
+}
+
+enum ChannelState {
+    kConnecting
+    kOpen
+    kClosing
+    kClosed
+    kUnknown
+}
+ChannelState -* ADataChannelHandler
+
+
+
+
+
+
+
+
+
+interface IMediaTrackHandler {
+    + {abstract} CreateVideoTrackSource(): VideoTrackSourceInterface
+    + {abstract} Close()
+    + GetTrackName(): String
+}
+
+abstract class AMediaTrackHandler implements IMediaTrackHandler {
+    # track_name: String
+    # actual_video_track_source: ActualVideoTrackSource
+    + AMediaTrackHandler(track_name: String)
+    + {abstract} Start()
+    + {abstract} Stop()
+    + SendFrame(frame: VideoFrame)
+    + SendFrame(frame: cv::Mat, start_time: time_point)
+    + IsRunning(): Boolean
+    + CreateVideoTrackSource(): VideoTrackSourceInterface
+    + Close()
+    # SetRunning(running: Boolean)
+    # GetStopFlag(): Boolean
+    # SetStopFlag(stop_flag: Boolean)
+    - CvMat2VideoFrame(frame: cv::Mat, start_time: time_point): VideoFrame
+}
+
+class ActualVideoTrackSource {
+    + is_running: Boolean
+    + stop_flag: Boolean
+    + SendFrame(frame: VideoFrame)
+}
+webrtc_AdaptedVideoTrackSource <|-- ActualVideoTrackSource
+AMediaTrackHandler <- ActualVideoTrackSource
+
+package recorder {
+    class IMediaRecorder {}
+}
+AMediaTrackHandler *-- IMediaRecorder
+
+
+
+
+
+interface OnConnectionInit {
+    + OnConnectionInit()
+}
+interface OnConnectionClose {
+    + OnConnectionClose()
+}
+
+GCSConnector "1" *-- "many" IDataChannelHandler
+GCSConnector "1" *-- "many" IMediaTrackHandler
+
+@enduml

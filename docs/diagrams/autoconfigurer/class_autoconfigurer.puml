@@ -1,0 +1,98 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class AutoConfigurer {
+    - config_reader: IConfigReader
+    - connector_configs: ConnectorConfigs
+    + AutoConfigure()
+    - ReadConfigs()
+}
+
+class ConfigReaderResolver {
+    - ConfigReaderResolver()
+    + GetInstance(): ConfigReaderResolver
+    + IsSupportedFile(file_path: String): Boolean
+    + GetConfigReader(file_path: String): IConfigReader
+    + RegisterConfigReader(file_extension: String, factory_method: () => IConfigReader)
+
+    - instance: ConfigReaderResolver
+}
+
+interface IConfigReader {
+    + IsSupported(file_path: String): Boolean
+    + LoadConfigs(file_path: String): ConnectorConfigs
+}
+
+class YamlConfigReader implements IConfigReader {
+    + LoadConfigs(file_path: String): ConnectorConfigs
+    - LoadFile(file_path: String): YAML::Node
+    - ParseConnectorConfigs(node: YAML::Node): ConnectorConfigs
+    - ParseConnectorConfig(node: YAML::Node): ConnectorConfigs
+}
+
+struct ConnectorConfigs {
+    + server: ServerConfig
+    + connectors: List<ConnectorConfig>
+}
+
+struct ServerConfig {
+    + ws_url: String
+    + auth_config: AuthConfig
+    + webrtc_config: WebRTCConfig
+}
+
+struct AuthConfig {
+    + type: String
+    + robot_id: String
+    + user_id: String
+    + params: Dict<String, String>
+}
+
+struct WebRTCConfig {
+    + ice_servers: List<IceServerConfig>
+}
+
+struct IceServerConfig {
+    + urls: String
+    + username: String
+    + credential: String
+}
+
+struct ConnectorConfig {
+    + type: String
+    + dc_label: String
+    + params: Dict<String, String>
+}
+
+interface IConfigurableConnector {
+    + Configure(connector_config: ConnectorConfigs)
+}
+
+abstract AConfigurableConnector implements IConfigurableConnector {
+    + Configure(connector_config: ConnectorConfigs)
+}
+
+class ConnectorResolver {
+    - instance: ConnectorResolver
+    - ConnectorResolver()
+    + GetInstance(): ConnectorResolver
+    + IsSupportedType(connector_type: String): Boolean
+    + GetConfigurable(connector_type: String): IConfigurableConnector
+    + RegisterConfigurableConnector(connector_type: String, factory_method: (connector_config: ConnectorConfigs) => IConfigurableConnector)
+}
+
+ConnectorResolver "1" *-- "many" IConfigurableConnector
+AutoConfigurer *-- IConfigReader
+AutoConfigurer *-- ConnectorConfigs
+IConfigReader -> ConnectorConfigs
+AutoConfigurer - ConnectorResolver
+ConnectorConfigs "1" *-- "many" ConnectorConfig
+ConnectorConfigs *-- ServerConfig
+ServerConfig *-- AuthConfig
+ServerConfig *-- WebRTCConfig
+WebRTCConfig *-- "many" IceServerConfig
+
+ConfigReaderResolver "1" *-- "many" IConfigReader
+
+
+@enduml

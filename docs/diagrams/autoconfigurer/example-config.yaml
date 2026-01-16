@@ -1,0 +1,49 @@
+server:
+  ws_url: 'wss://api.acslgcs.com'
+  auth:
+    type: 'basic'
+    user_id: '922fbc34-3a5c-4fcc-974a-1ff3f9e4e9e3'
+    robot_id: 'a56c1d46-68fb-4d98-b691-ae53bab7db3c'
+    token: 'osdfjwejlk54nfs6d23erqg36rtv22tv342v4v23rt2tv34'
+  webrtc:
+    ice_servers:
+      - urls:
+          - 'turn.acslgcs.com:3478'
+        username: 'gistacsl2'
+        credential: 'qwqw!12321'
+
+connectors:
+  - type: 'opencv-webcam'
+    label: 'dc_label'
+    params:
+      device_id: '0'
+      fps: 30
+      width: 640
+      height: 480
+
+  - type: 'ros2-sender-sensor-PointCloud2'
+    label: 'lidar_pointcloud'
+    params:
+      topic_name: '/a200_0000/sensors/lidar3d_0/points'
+      parallel_stream: 5
+
+  - type: 'ros2-sender-sensor-Image'
+    label: 'video_stream'
+    params:
+      topic_name: '/a200_0000/sensors/camera_0/color/image'
+      recordable: true
+
+  - type: 'ros2-sender-sensor-NavSatFix'
+    label: 'gps_coordinate_channel'
+    params:
+      topic_name: '/a200_0000/sensors/gps_0/fix'
+
+  - type: 'ros2-sender-geometry-PoseWithCovarianceStamped'
+    label: '2d_map_pose'
+    params:
+      topic_name: '/a200_0000/amcl_pose'
+
+  - type: 'ros2-receiver-geometry-TwistStamped'
+    label: 'robot_cmd_vel'
+    params:
+      topic_name: '/a200_0000/cmd_vel'

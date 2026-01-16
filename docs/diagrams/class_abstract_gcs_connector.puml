@@ -1,0 +1,131 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+package ba_gcs_core {
+    package rtc {
+        class GCSConnectorClientFactory {}
+
+        interface ISignalingClient {}
+
+        class SignalingClient {}
+
+        class ConnectorStateManager {}
+
+        class GCSConnector {}
+
+        class PeerConnectionManager {}
+    }
+    package handler {
+
+        package dc {
+            interface IDataChannelHandler {}
+
+            abstract class ADataChannelHandler implements IDataChannelHandler {}
+
+            class DCSendable extends ADataChannelHandler {}
+
+            abstract class IDCReceivable extends ADataChannelHandler {}
+
+            abstract class ADCReceivable<ReceiveT> extends IDCReceivable {}
+        }
+
+        package media {
+            interface IMediaTrackHandler {}
+
+            abstract class AMediaTrackHandler implements IMediaTrackHandler {}
+        }
+
+        interface OnConnectionInit {}
+        interface OnConnectionClose {}
+    }
+}
+
+ISignalingClient <|. SignalingClient
+PeerConnectionManager *- ISignalingClient
+ISignalingClient --* ConnectorStateManager
+ConnectorStateManager --* GCSConnector
+
+GCSConnector "1" *-- "many" IDataChannelHandler
+GCSConnector "1" *-- "many" IMediaTrackHandler
+
+GCSConnectorClientFactory ->  GCSConnector
+PeerConnectionManager --* GCSConnector
+
+package ba_gcs_autoconfigurer {
+    class AutoConfigurer {}
+
+    interface ConfigReader {}
+
+    class YamlConfigReader implements ConfigReader {}
+
+    class ConnectorConfigs {}
+
+    class ConnectorConfig {}
+
+    interface IConfigurable {}
+
+    abstract AConfigurable implements IConfigurable {}
+
+    class ConnectorRegisterer {}
+}
+
+ConnectorRegisterer "1" *-- "many" IConfigurable
+AutoConfigurer *-- ConfigReader
+AutoConfigurer *-- ConnectorConfigs
+ConfigReader -> ConnectorConfigs
+AutoConfigurer - ConnectorRegisterer
+ConnectorConfigs "1" *-- "many" ConnectorConfig
+ConnectorConfig - AConfigurable
+
+package ba_gcs_recorder {
+    interface IMediaRecorder {}
+
+    class MediaRecorder implements IMediaRecorder {}
+
+    class VideoRecorder {}
+
+    package handler {
+        class RecorderController extends ba_gcs_core.handler.dc.ADCReceivable {}
+    }
+}
+
+IMediaRecorder --* AMediaTrackHandler
+MediaRecorder *-- VideoRecorder
+
+package ba_gcs_ros2 {
+    package handler {
+        class ImageMediaTrackHandler {}
+        class PointCloud2Sender  {}
+        class TwistReceiver  {}
+    }
+
+    package configurer {
+        class PointCloud2SenderConfigurer {}
+
+        class TwistReceiverConfigurer {}
+    }
+
+    package ros {
+        class GCSConnectorNode {}
+
+        class GCSConnectorNodeFactory {}
+
+        class RosLogger {}
+    }
+
+}
+PointCloud2Sender <-- PointCloud2SenderConfigurer
+TwistReceiver <-- TwistReceiverConfigurer
+GCSConnectorNode <-- GCSConnectorNodeFactory
+
+package ba_gcs_husky_ros2 {
+    package handler {
+        class HuksyStatusSender extends ba_gcs_core.handler.dc.DCSendable {}
+    }
+
+    package configurer {
+        class HuksyStatusSenderConfigurer extends ba_gcs_autoconfigurer.AConfigurable {}
+    }
+}
+
+@enduml
