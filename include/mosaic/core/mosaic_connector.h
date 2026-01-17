@@ -5,6 +5,7 @@
 #ifndef MOSAIC_RTC_CORE_MOSAIC_CONNECTOR_H
 #define MOSAIC_RTC_CORE_MOSAIC_CONNECTOR_H
 
+#include <map>
 #include <memory>
 #include <string>
 
@@ -14,9 +15,12 @@
 #include <mosaic/handlers/media_track/i_media_track_handler.h>
 #include <mosaic/rtc/webrtc_forward_decl.h>
 
+namespace mosaic::core_signaling {
+class SignalingClient;
+}  // namespace mosaic::core_signaling
+
 namespace mosaic::core {
 // Forward declarations for avoid circular dependencies
-class SignalingClient;
 class PeerConnectionManager;
 class PeerConnectionObserver;
 
@@ -42,25 +46,24 @@ class MosaicConnector {
 
     [[nodiscard]] std::string GetUserId() const;
 
-    void SetPeerConnectionManager(const std::shared_ptr<PeerConnectionManager>& peer_connection_manager) const;
-
     void InitializeWebRTC() const;
 
     void AddDataChannelHandler(const std::shared_ptr<handlers::IDataChannelHandler>& data_channel_handler) const;
 
     void AddMediaTrackHandler(const std::shared_ptr<handlers::IMediaTrackHandler>& media_track_handler) const;
 
-    void HandleSdpOffer(webrtc::SessionDescriptionInterface* sdp_offer) const;
-
-    void HandleIceCandidateFromSignaling(webrtc::IceCandidateInterface* candidate) const;
-
-    void ClosePeerConnection() const;
-
     void ShuttingDown() const;
 
   private:
-    class Impl;
-    std::unique_ptr<Impl> pImpl;
+    std::string robot_id_;
+    std::string user_id_;
+    std::shared_ptr<PeerConnectionManager> peer_connection_manager_ = nullptr;
+    std::shared_ptr<ConnectorStateManager> state_manager_;
+
+    // 데이터 채널 핸들러를 label 과 함께 저장합니다.
+    std::map<std::string, std::shared_ptr<handlers::IDataChannelHandler>> data_channel_handlers_dict_ = {};
+    // 미디어 트랙 핸들러를 track name 과 함께 저장합니다.
+    std::map<std::string, std::shared_ptr<handlers::IMediaTrackHandler>> media_track_handlers_dict_ = {};
 
     void CreateAllMediaTracks() const;
 
@@ -70,17 +73,21 @@ class MosaicConnector {
 
     void OnDataChannel(const webrtc::scoped_refptr<webrtc::DataChannelInterface>& data_channel) const;
 
-    [[nodiscard]] std::shared_ptr<ConnectorStateManager> GetStateManager() const;
+    std::shared_ptr<ConnectorStateManager> GetStateManager() const;
 
-    // Friends to access pImpl
+    void SetPeerConnectionManager(const std::shared_ptr<PeerConnectionManager>& peer_connection_manager) const;
+
+    void HandleSdpOffer(webrtc::SessionDescriptionInterface* sdp_offer) const;
+
+    void HandleIceCandidateFromSignaling(webrtc::IceCandidateInterface* candidate) const;
+
+    void ClosePeerConnection() const;
+
+    // Friends to access private members
     friend class MosaicConnectorFactory;
     friend class PeerConnectionManager;
-    friend class SignalingClient;
+    friend class core_signaling::SignalingClient;
     friend class PeerConnectionObserver;
-
-    [[nodiscard]] Impl* GetImpl() const {
-        return pImpl.get();
-    }
 };
 }  // namespace mosaic::core
 

@@ -10,6 +10,12 @@
 
 #include <mosaic/core/mosaic_connector.h>
 #include <mosaic/signaling/i_signaling_client.h>
+#include <mosaic/signaling/websocket_client.h>
+
+// forward declare
+namespace Json {
+class Value;
+}  // namespace Json
 
 namespace mosaic::core_signaling {
 class SignalingClient : public ISignalingClient {
@@ -35,8 +41,20 @@ class SignalingClient : public ISignalingClient {
     [[nodiscard]] bool IsAuthenticated() const override;
 
   private:
-    class Impl;
-    std::unique_ptr<Impl> pImpl;
+    void OnWsMessage(const std::string& msg) const;
+
+    void OnMessage(Json::Value const& message) const;
+
+    void SendWsMessage(const Json::Value& message) const;
+
+    std::shared_ptr<core::MosaicConnector> mosaic_connector_;
+    std::shared_ptr<security::IMosaicAuthenticator> authenticator_;
+    bool is_connected_ = false;
+    std::string ws_uri_;
+    std::unique_ptr<WebSocketClient> ws_client_ = nullptr;
+    std::string latest_state_;
+
+    void StartInternal();
 };
 }  // namespace mosaic::core_signaling
 

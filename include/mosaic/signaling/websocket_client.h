@@ -11,11 +11,15 @@
 #include <string>
 
 #define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
-#include <cpprest/json.h>
 #include <cpprest/ws_client.h>
 
 using namespace web;
 using namespace web::websockets::client;
+
+// forward declare
+namespace Json {
+class Value;
+}  // namespace Json
 
 namespace mosaic::core_signaling {
 class WebSocketClient {
@@ -44,7 +48,7 @@ class WebSocketClient {
 
     void send(const std::string& message) const;
 
-    void sendJson(const json::value& jsonMessage) const;
+    void sendJson(const Json::Value& jsonMessage) const;
 
     [[nodiscard]] bool isConnected() const;
 

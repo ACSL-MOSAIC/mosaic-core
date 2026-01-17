@@ -101,20 +101,19 @@ class MosaicConnector {
     + MosaicConnector(robot_id: String, user_id: String, state_manager: ConnectorStateManager)
     + GetRobotId(): String
     + GetUserId(): String
-    + SetPeerConnectionManager(peer_connection_manager: PeerConnectionManager)
     + InitializeWebRTC()
     + AddDataChannelHandler(handler: IDataChannelHandler)
     + AddMediaTrackHandler(handler: IMediaTrackHandler)
-    + HandleSdpOffer(sdp_offer: SessionDescriptionInterface)
-    + HandleIceCandidateFromSignaling(candidate: IceCandidateInterface)
-    + ClosePeerConnection()
     + ShuttingDown()
-    - OnDataChannel(data_channel: DataChannelInterface)
-    - GetStateManager(): ConnectorStateManager
     - CreateAllMediaTracks()
     - CloseAllMediaTracks()
     - CloseAllDataChannels()
-    - GetImpl(): Impl
+    - OnDataChannel(data_channel: DataChannelInterface)
+    - GetStateManager(): ConnectorStateManager
+    - SetPeerConnectionManager(peer_connection_manager: PeerConnectionManager)
+    - HandleSdpOffer(sdp_offer: SessionDescriptionInterface)
+    - HandleIceCandidateFromSignaling(candidate: IceCandidateInterface)
+    - ClosePeerConnection()
 }
 
 class PeerConnectionManager {

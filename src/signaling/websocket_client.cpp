@@ -5,6 +5,7 @@
 #include <thread>
 #include <utility>
 
+#include <json/json.h>
 #include <mosaic/logger/log.h>
 #include <mosaic/signaling/websocket_client.h>
 
@@ -112,8 +113,8 @@ void WebSocketClient::send(const std::string& message) const {
     }
 }
 
-void WebSocketClient::sendJson(const json::value& jsonMessage) const {
-    send(jsonMessage.serialize());
+void WebSocketClient::sendJson(const Json::Value& jsonMessage) const {
+    send(jsonMessage.asString());
 }
 
 bool WebSocketClient::isConnected() const {
