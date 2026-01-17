@@ -23,7 +23,7 @@ class ADataChannelHandler : public IDataChannelHandler {
     void SetDataChannelInterface(
         const webrtc::scoped_refptr<webrtc::DataChannelInterface>& dc_interface) const override;
 
-    void RegisterDataChannelObserver(IDataChannelHandler* dc_handler) const override;
+    void RegisterDataChannelObserver() const override;
 
     [[nodiscard]] ChannelState GetState() const override;
 

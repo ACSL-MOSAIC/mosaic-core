@@ -15,7 +15,7 @@ std::shared_ptr<MosaicConnector> MosaicConnectorFactory::Create() const {
 
     auto mosaic_connector = std::make_shared<MosaicConnector>(
         server_config_->auth_config.robot_id, server_config_->auth_config.user_id, client_state_manager);
-    signaling_client->SetGCSConnector(mosaic_connector);
+    signaling_client->SetMosaicConnector(mosaic_connector);
 
     const auto peer_connection_manager =
         std::make_shared<PeerConnectionManager>(mosaic_connector,

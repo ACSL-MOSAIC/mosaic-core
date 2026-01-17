@@ -4,13 +4,40 @@
 
 #include <utility>
 
+#include <api/data_channel_interface.h>
 #include <api/peer_connection_interface.h>
 #include <mosaic/handlers/data_channel/a_data_channel_handler.h>
-#include <mosaic/handlers/data_channel/i_data_channel_receivable.h>
+#include <mosaic/handlers/data_channel/data_channel_receivable.h>
 #include <mosaic/logger/log.h>
-#include <mosaic/observers/data_channel_observer.h>
 
 using namespace mosaic::handlers;
+
+class DataChannelObserver final : public webrtc::DataChannelObserver {
+  public:
+    explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer&)> onMessageCallback)
+        : onMessageCallback_(std::move(onMessageCallback)) {}
+
+    void OnStateChange() override {
+        // Handle state change events here
+    }
+
+    void OnMessage(const webrtc::DataBuffer& buffer) override {
+        // Handle incoming messages here
+        onMessageCallback_(buffer);
+    }
+
+    void OnBufferedAmountChange(uint64_t sent_data_size) override {
+        // Handle changes in buffered amount
+        MOSAIC_LOG_DEBUG("DataChannel Buffered amount changed: {}", sent_data_size);
+    }
+
+    bool IsOkToCallOnTheNetworkThread() override {
+        return true;  // Allow callbacks on the network thread
+    }
+
+  private:
+    std::function<void(const webrtc::DataBuffer&)> onMessageCallback_;
+};
 
 class ADataChannelHandler::Impl {
   public:
@@ -38,14 +65,14 @@ class ADataChannelHandler::Impl {
 
         std::function<void(const webrtc::DataBuffer&)> onMessageLambda;
 
-        if (auto receivable_ptr = static_cast<IDataChannelReceivable*>(dc_handler)) {
+        if (auto receivable_ptr = dynamic_cast<IDataChannelReceivable*>(dc_handler)) {
             MOSAIC_LOG_DEBUG("Receivable DataChannel Detected!");
             onMessageLambda = [receivable_ptr](const webrtc::DataBuffer& buffer) { receivable_ptr->OnMessage(buffer); };
         } else {
-            onMessageLambda = [this](const webrtc::DataBuffer&) {};
+            onMessageLambda = [](const webrtc::DataBuffer&) {};
         }
 
-        observer_ = std::make_shared<core_observers::DataChannelObserver>(onMessageLambda);
+        observer_ = std::make_shared<DataChannelObserver>(onMessageLambda);
         dc_interface_->RegisterObserver(observer_.get());
     }
 
@@ -80,7 +107,7 @@ class ADataChannelHandler::Impl {
   private:
     std::string label_;
     mutable webrtc::scoped_refptr<webrtc::DataChannelInterface> dc_interface_;
-    mutable std::shared_ptr<core_observers::DataChannelObserver> observer_;
+    mutable std::shared_ptr<DataChannelObserver> observer_;
 
     void Send(const webrtc::DataBuffer& buffer) const {
         dc_interface_->Send(buffer);
@@ -103,8 +130,8 @@ void ADataChannelHandler::SetDataChannelInterface(
     return pImpl->SetDataChannelInterface(dc_interface);
 }
 
-void ADataChannelHandler::RegisterDataChannelObserver(IDataChannelHandler* dc_handler) const {
-    pImpl->RegisterDataChannelObserver(dc_handler);
+void ADataChannelHandler::RegisterDataChannelObserver() const {
+    pImpl->RegisterDataChannelObserver(const_cast<ADataChannelHandler*>(this));
 }
 
 ADataChannelHandler::ChannelState ADataChannelHandler::GetState() const {

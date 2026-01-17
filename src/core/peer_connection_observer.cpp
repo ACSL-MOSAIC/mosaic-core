@@ -3,13 +3,13 @@
 //
 
 #include <mosaic/core/mosaic_connector.h>
+#include <mosaic/core/peer_connection_observer.h>
 #include <mosaic/logger/log.h>
-#include <mosaic/observers/peer_connection_observer.h>
 
-using namespace mosaic::core_observers;
+using namespace mosaic::core;
 
 void PeerConnectionObserver::OnDataChannel(const webrtc::scoped_refptr<webrtc::DataChannelInterface> data_channel) {
-    gcs_connector_->OnDataChannel(data_channel);
+    mosaic_connector_->OnDataChannel(data_channel);
 }
 
 void PeerConnectionObserver::OnIceCandidate(const webrtc::IceCandidateInterface* candidate) {

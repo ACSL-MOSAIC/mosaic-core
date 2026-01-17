@@ -19,16 +19,71 @@
 #include <mosaic/configs_decl.h>
 #include <mosaic/core/connector_state_manager.h>
 #include <mosaic/core/peer_connection_manager.h>
+#include <mosaic/core/peer_connection_observer.h>
 #include <mosaic/logger/log.h>
-#include <mosaic/observers/create_sdp_answer_observer.h>
-#include <mosaic/observers/peer_connection_observer.h>
-#include <mosaic/observers/simple_set_local_description_observer.h>
-#include <mosaic/observers/simple_set_remote_description_observer.h>
 #include <mosaic/signaling/i_signaling_client.h>
 
 using namespace mosaic::core;
 
 webrtc::PeerConnectionInterface::IceServer GetIceServer(const IceServerConfig& ice_config);
+
+class CreateSdpAnswerObserver : public webrtc::CreateSessionDescriptionObserver {
+  public:
+    explicit CreateSdpAnswerObserver(const std::shared_ptr<PeerConnectionManager>& pc_manager)
+        : pc_manager_(pc_manager) {}
+
+    void OnSuccess(webrtc::SessionDescriptionInterface* desc) override {
+        pc_manager_->AfterCreateSdpAnswer(desc);
+    }
+
+    void OnFailure(webrtc::RTCError error) override {
+        MOSAIC_LOG_ERROR("Failed to create SDP answer: {}", error.message());
+    }
+
+  private:
+    std::shared_ptr<PeerConnectionManager> pc_manager_;
+};
+
+class SimpleSetLocalDescriptionObserver : public webrtc::SetSessionDescriptionObserver {
+  public:
+    explicit SimpleSetLocalDescriptionObserver(const std::shared_ptr<PeerConnectionManager>& pc_manager,
+                                               webrtc::SessionDescriptionInterface* desc)
+        : pc_manager_(pc_manager), desc_(desc) {}
+
+    void OnSuccess() override {
+        if (!desc_) {
+            MOSAIC_LOG_ERROR("No session description set for local description observer.");
+            return;
+        }
+        pc_manager_->AfterSetLocalDescription(desc_);
+    }
+
+    void OnFailure(webrtc::RTCError error) override {
+        MOSAIC_LOG_ERROR("Failed to set local description: {}", error.message());
+    }
+
+  private:
+    std::shared_ptr<PeerConnectionManager> pc_manager_;
+    webrtc::SessionDescriptionInterface* desc_;
+};
+
+class SimpleSetRemoteDescriptionObserver : public webrtc::SetSessionDescriptionObserver {
+  public:
+    explicit SimpleSetRemoteDescriptionObserver(const std::shared_ptr<PeerConnectionManager>& pc_manager)
+        : pc_manager_(pc_manager) {}
+
+    void OnSuccess() override {
+        MOSAIC_LOG_INFO("Set remote description with SDP offer Success");
+        pc_manager_->AfterSetSessionDescription();
+    }
+
+    void OnFailure(const webrtc::RTCError error) override {
+        MOSAIC_LOG_ERROR("Failed to set session description: {}", error.message());
+    }
+
+  private:
+    std::shared_ptr<PeerConnectionManager> pc_manager_;
+};
 
 class PeerConnectionManager::Impl {
   public:
@@ -92,7 +147,7 @@ class PeerConnectionManager::Impl {
         }
 
         // Observer 생성
-        peer_connection_observer_ = std::make_shared<core_observers::PeerConnectionObserver>(client_, outer_this_);
+        peer_connection_observer_ = std::make_shared<PeerConnectionObserver>(client_, outer_this_);
 
         // PeerConnection 생성
         auto c = peer_connection_factory_->CreatePeerConnectionOrError(
@@ -132,8 +187,8 @@ class PeerConnectionManager::Impl {
         }
 
         // Set remote description (SDP offer)
-        const auto set_remote_observer = webrtc::scoped_refptr<core_observers::SimpleSetRemoteDescriptionObserver>(
-            new webrtc::RefCountedObject<core_observers::SimpleSetRemoteDescriptionObserver>(outer_this_));
+        const auto set_remote_observer = webrtc::scoped_refptr<SimpleSetRemoteDescriptionObserver>(
+            new webrtc::RefCountedObject<SimpleSetRemoteDescriptionObserver>(outer_this_));
 
         // Go to AfterSetSessionDescription after setting remote description
         peer_connection_->SetRemoteDescription(set_remote_observer.get(), sdp_offer);
@@ -145,8 +200,8 @@ class PeerConnectionManager::Impl {
         client_->CreateAllMediaTracks();
 
         // Create and set answer
-        const auto create_answer_observer = webrtc::scoped_refptr<core_observers::CreateSdpAnswerObserver>(
-            new webrtc::RefCountedObject<core_observers::CreateSdpAnswerObserver>(outer_this_));
+        const auto create_answer_observer = webrtc::scoped_refptr<CreateSdpAnswerObserver>(
+            new webrtc::RefCountedObject<CreateSdpAnswerObserver>(outer_this_));
 
         // 생성된 응답을 시그널링 서버로 전송하는 부분은 create_answer_observer 에서 진행
         peer_connection_->CreateAnswer(create_answer_observer.get(),
@@ -158,8 +213,8 @@ class PeerConnectionManager::Impl {
                               const std::shared_ptr<PeerConnectionManager>& outer_this_) const {
         MOSAIC_LOG_DEBUG("Sdp Answer Created");
         // Create observer for SetLocalDescription
-        const auto set_local_observer = webrtc::scoped_refptr<core_observers::SimpleSetLocalDescriptionObserver>(
-            new webrtc::RefCountedObject<core_observers::SimpleSetLocalDescriptionObserver>(outer_this_, desc));
+        const auto set_local_observer = webrtc::scoped_refptr<SimpleSetLocalDescriptionObserver>(
+            new webrtc::RefCountedObject<SimpleSetLocalDescriptionObserver>(outer_this_, desc));
 
         // Set local description
         peer_connection_->SetLocalDescription(set_local_observer.get(), desc);

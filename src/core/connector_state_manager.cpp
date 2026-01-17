@@ -16,7 +16,7 @@ void ConnectorStateManager::SetState(const State new_state) {
     std::unique_lock lock(mutex_);
     LogState(state_, new_state);
     state_ = new_state;
-    SendStateToSignalingServer();
+    SendState();
 }
 
 ConnectorStateManager::State ConnectorStateManager::GetState() const {
@@ -34,7 +34,7 @@ bool ConnectorStateManager::IsState(const State expected_state) const {
     return state_ == expected_state;
 }
 
-void ConnectorStateManager::SendStateToSignalingServer() const {
+void ConnectorStateManager::SendState() const {
     if (signaling_client_) {
         signaling_client_->SendState(StateToString(state_));
     } else {

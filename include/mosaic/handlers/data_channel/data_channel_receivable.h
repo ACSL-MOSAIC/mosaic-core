@@ -6,10 +6,21 @@
 #define MOSAIC_RTC_CORE_DATA_CHANNEL_RECEIVABLE_H
 
 #include <json/json.h>
-#include <mosaic/handlers/data_channel/i_data_channel_receivable.h>
+#include <mosaic/handlers/data_channel/a_data_channel_handler.h>
 #include <mosaic/logger/log.h>
 
 namespace mosaic::handlers {
+class IDataChannelReceivable : public ADataChannelHandler {
+  public:
+    explicit IDataChannelReceivable(const std::string& label) : ADataChannelHandler(label) {}
+
+    ~IDataChannelReceivable() override = default;
+
+    Json::Value ConvertDataBufferToJson(const webrtc::DataBuffer& buffer);
+
+    void OnMessage(const webrtc::DataBuffer& buffer) override = 0;
+};
+
 template <typename ReceiveT>
 class DataChannelReceivable : public IDataChannelReceivable {
   public:

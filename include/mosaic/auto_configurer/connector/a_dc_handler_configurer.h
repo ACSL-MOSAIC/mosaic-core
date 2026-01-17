@@ -2,15 +2,15 @@
 // Created by yhkim on 12/31/25.
 //
 
-#ifndef MOSAIC_AUTO_CONFIGURER_I_DC_HANDLER_CONFIGURER_H
-#define MOSAIC_AUTO_CONFIGURER_I_DC_HANDLER_CONFIGURER_H
+#ifndef MOSAIC_AUTO_CONFIGURER_A_DC_HANDLER_CONFIGURER_H
+#define MOSAIC_AUTO_CONFIGURER_A_DC_HANDLER_CONFIGURER_H
 
 #include "i_configurable_connector.h"
 
 namespace mosaic::auto_configurer {
-class IDCHandlerConfigurer : public IConfigurableConnector {
+class ADCHandlerConfigurer : public IConfigurableConnector {
   public:
-    IDCHandlerConfigurer() : IConfigurableConnector() {}
+    ADCHandlerConfigurer() : IConfigurableConnector() {}
 
     virtual std::string GetConnectorType() const override = 0;
 
@@ -25,4 +25,4 @@ class IDCHandlerConfigurer : public IConfigurableConnector {
 };
 }  // namespace mosaic::auto_configurer
 
-#endif  // MOSAIC_AUTO_CONFIGURER_I_DC_HANDLER_CONFIGURER_H
+#endif  // MOSAIC_AUTO_CONFIGURER_A_DC_HANDLER_CONFIGURER_H

@@ -28,9 +28,9 @@ class SignalingClient : public ISignalingClient {
 
     void SendState(const std::string& state) const override;
 
-    void SetGCSConnector(const std::shared_ptr<core::MosaicConnector>& gcs_connector) const override;
+    void SetMosaicConnector(const std::shared_ptr<core::MosaicConnector>& gcs_connector) const override;
 
-    void SetAuthenticator(const std::shared_ptr<security::IGCSAuthenticator>& authenticator) const override;
+    void SetAuthenticator(const std::shared_ptr<security::IMosaicAuthenticator>& authenticator) const override;
 
     [[nodiscard]] bool IsAuthenticated() const override;
 

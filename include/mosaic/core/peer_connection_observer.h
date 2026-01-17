@@ -8,12 +8,12 @@
 #include <api/peer_connection_interface.h>
 #include <mosaic/core/mosaic_connector.h>
 
-namespace mosaic::core_observers {
+namespace mosaic::core {
 class PeerConnectionObserver : public webrtc::PeerConnectionObserver {
   public:
-    explicit PeerConnectionObserver(const std::shared_ptr<core::MosaicConnector>& gcs_connector,
+    explicit PeerConnectionObserver(const std::shared_ptr<core::MosaicConnector>& mosaic_connector,
                                     const std::shared_ptr<core::PeerConnectionManager>& pc_manager)
-        : gcs_connector_(gcs_connector), pc_manager_(pc_manager) {}
+        : mosaic_connector_(mosaic_connector), pc_manager_(pc_manager) {}
 
     ~PeerConnectionObserver() override = default;
 
@@ -36,9 +36,9 @@ class PeerConnectionObserver : public webrtc::PeerConnectionObserver {
     void OnConnectionChange(webrtc::PeerConnectionInterface::PeerConnectionState new_state) override;
 
   private:
-    std::shared_ptr<core::MosaicConnector> gcs_connector_;
+    std::shared_ptr<core::MosaicConnector> mosaic_connector_;
     std::shared_ptr<core::PeerConnectionManager> pc_manager_;
 };
-}  // namespace mosaic::core_observers
+}  // namespace mosaic::core
 
 #endif  // MOSAIC_RTC_CORE_PEER_CONNECTION_OBSERVER_H

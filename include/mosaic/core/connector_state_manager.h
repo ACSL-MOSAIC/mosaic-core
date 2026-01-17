@@ -31,7 +31,7 @@ class ConnectorStateManager final {
     std::shared_ptr<core_signaling::ISignalingClient> signaling_client_;
     mutable std::shared_mutex mutex_;
 
-    void SendStateToSignalingServer() const;
+    void SendState() const;
 
     static void LogState(State old_state, State new_state);
 

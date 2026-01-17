@@ -8,7 +8,7 @@
 #include <string>
 
 #include <mosaic/rtc/webrtc_forward_decl.h>
-#include <mosaic/security/i_gcs_authenticator.h>
+#include <mosaic/security/i_mosaic_authenticator.h>
 
 namespace mosaic::core {
 // TODO: forward decleration 필요한지 확
@@ -30,9 +30,9 @@ class ISignalingClient {
 
     virtual void SendState(const std::string& state) const = 0;
 
-    virtual void SetGCSConnector(const std::shared_ptr<core::MosaicConnector>& gcs_connector) const = 0;
+    virtual void SetMosaicConnector(const std::shared_ptr<core::MosaicConnector>& mosaic_connector) const = 0;
 
-    virtual void SetAuthenticator(const std::shared_ptr<security::IGCSAuthenticator>& authenticator) const = 0;
+    virtual void SetAuthenticator(const std::shared_ptr<security::IMosaicAuthenticator>& authenticator) const = 0;
 
     [[nodiscard]] virtual bool IsAuthenticated() const = 0;
 };

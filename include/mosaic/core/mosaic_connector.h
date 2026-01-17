@@ -14,14 +14,11 @@
 #include <mosaic/handlers/media_track/i_media_track_handler.h>
 #include <mosaic/rtc/webrtc_forward_decl.h>
 
-namespace mosaic::core_observers {
-class PeerConnectionObserver;
-}  // namespace mosaic::core_observers
-
 namespace mosaic::core {
 // Forward declarations for avoid circular dependencies
 class SignalingClient;
 class PeerConnectionManager;
+class PeerConnectionObserver;
 
 class MosaicConnector {
   public:
@@ -79,7 +76,7 @@ class MosaicConnector {
     friend class MosaicConnectorFactory;
     friend class PeerConnectionManager;
     friend class SignalingClient;
-    friend class core_observers::PeerConnectionObserver;
+    friend class PeerConnectionObserver;
 
     [[nodiscard]] Impl* GetImpl() const {
         return pImpl.get();

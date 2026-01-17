@@ -30,7 +30,7 @@ class IDataChannelHandler {
     virtual void SetDataChannelInterface(
         const webrtc::scoped_refptr<webrtc::DataChannelInterface>& dc_interface) const = 0;
 
-    virtual void RegisterDataChannelObserver(IDataChannelHandler* dc_handler) const = 0;
+    virtual void RegisterDataChannelObserver() const = 0;
 
     virtual ChannelState GetState() const = 0;
 

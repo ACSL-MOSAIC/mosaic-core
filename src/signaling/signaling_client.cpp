@@ -39,8 +39,8 @@ class SignalingClient::Impl {
 
         json::value message;
         message["type"] = json::value::string("send_sdp_answer");
-        message["robot_id"] = json::value::string(robot_webrtc_client_->GetRobotId());
-        message["user_id"] = json::value::string(robot_webrtc_client_->GetUserId());
+        message["robot_id"] = json::value::string(mosaic_connector_->GetRobotId());
+        message["user_id"] = json::value::string(mosaic_connector_->GetUserId());
         message["sdp_answer"] = json::value::string(sdp_str);
 
         SendWsMessage(message);
@@ -55,8 +55,8 @@ class SignalingClient::Impl {
 
         json::value message;
         message["type"] = json::value::string("send_ice_candidate");
-        message["robot_id"] = json::value::string(robot_webrtc_client_->GetRobotId());
-        message["user_id"] = json::value::string(robot_webrtc_client_->GetUserId());
+        message["robot_id"] = json::value::string(mosaic_connector_->GetRobotId());
+        message["user_id"] = json::value::string(mosaic_connector_->GetUserId());
 
         json::value ice_candidate;
         ice_candidate["candidate"] = json::value::string(candidate_str);
@@ -76,18 +76,18 @@ class SignalingClient::Impl {
 
         json::value message;
         message["type"] = json::value::string("send_state");
-        message["robot_id"] = json::value::string(robot_webrtc_client_->GetRobotId());
-        message["user_id"] = json::value::string(robot_webrtc_client_->GetUserId());
+        message["robot_id"] = json::value::string(mosaic_connector_->GetRobotId());
+        message["user_id"] = json::value::string(mosaic_connector_->GetUserId());
         message["state"] = json::value::string(latest_state_);
 
         SendWsMessage(message);
     }
 
     void SetGCSConnector(const std::shared_ptr<core::MosaicConnector>& robot_webrtc_client) {
-        robot_webrtc_client_ = robot_webrtc_client;
+        mosaic_connector_ = robot_webrtc_client;
     }
 
-    void SetAuthenticator(const std::shared_ptr<security::IGCSAuthenticator>& authenticator) {
+    void SetAuthenticator(const std::shared_ptr<security::IMosaicAuthenticator>& authenticator) {
         authenticator_ = authenticator;
     }
 
@@ -158,7 +158,7 @@ class SignalingClient::Impl {
 
             // Process the SDP offer...
             if (const auto sdp_offer = ResolveSdpOffer(sdp_offer_str)) {
-                robot_webrtc_client_->HandleSdpOffer(sdp_offer);
+                mosaic_connector_->HandleSdpOffer(sdp_offer);
             }
         } else if (type == "receive_ice_candidate") {
             if (!message.has_object_field("ice_candidate")) {
@@ -179,10 +179,10 @@ class SignalingClient::Impl {
 
             if (const auto candidate = ResolveIceCandidate(message.at("ice_candidate"))) {
                 // Process the ICE candidate...
-                robot_webrtc_client_->HandleIceCandidateFromSignaling(candidate);
+                mosaic_connector_->HandleIceCandidateFromSignaling(candidate);
             }
         } else if (type == "send_close_peer_connection") {
-            robot_webrtc_client_->ClosePeerConnection();
+            mosaic_connector_->ClosePeerConnection();
         } else {
             MOSAIC_LOG_DEBUG("Received unknown message type: {}", type);
         }
@@ -194,8 +194,8 @@ class SignalingClient::Impl {
         }
     }
 
-    std::shared_ptr<core::MosaicConnector> robot_webrtc_client_;
-    std::shared_ptr<security::IGCSAuthenticator> authenticator_;
+    std::shared_ptr<core::MosaicConnector> mosaic_connector_;
+    std::shared_ptr<security::IMosaicAuthenticator> authenticator_;
     bool is_connected_ = false;
     std::string ws_uri_;
     std::unique_ptr<WebSocketClient> ws_client_ = nullptr;
@@ -228,11 +228,11 @@ void SignalingClient::SendState(const std::string& state) const {
     pImpl->SendState(state);
 }
 
-void SignalingClient::SetGCSConnector(const std::shared_ptr<core::MosaicConnector>& gcs_connector) const {
+void SignalingClient::SetMosaicConnector(const std::shared_ptr<core::MosaicConnector>& gcs_connector) const {
     pImpl->SetGCSConnector(gcs_connector);
 }
 
-void SignalingClient::SetAuthenticator(const std::shared_ptr<security::IGCSAuthenticator>& authenticator) const {
+void SignalingClient::SetAuthenticator(const std::shared_ptr<security::IMosaicAuthenticator>& authenticator) const {
     pImpl->SetAuthenticator(authenticator);
 }
 

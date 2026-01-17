@@ -1,76 +1,59 @@
 @startuml
 'https://plantuml.com/class-diagram
+skinparam linetype ortho
 
 class PeerConnectionObserver {
-    - gcs_connector: GCSConnector
+    - mosaic_connector: MosaicConnector
     - pc_manager: PeerConnectionManager
-    + PeerConnectionObserver(gcs_connector: GCSConnector,
+    + PeerConnectionObserver(mosaic_connector: MosaicConnector,
                             pc_manager: PeerConnectionManager)
 
     + OnDataChannel(data_channel: DataChannel)
-    + OnIceCandidate(candidate: IceCandidate)
+    + OnIceCandidate(candidate: IceCandidateInterface)
     + OnStandardizedIceConnectionChange(new_state: IceConnectionState)
     + OnIceGatheringChange(new_state: IceGatheringState)
     + OnSignalingChange(new_state: SignalingState)
     + OnConnectionChange(new_state: PeerConnectionState)
 }
 
-class GCSConnectorFactory {
-    - robot_id: String
-    - user_id: String
-    - ice_config: IceConfig
-    - signaling_config: SignalingConfig
-    + GCSConnectorFactory(robot_id: String, user_id: String,
-                        signaling_config: SignalingConfig, ice_config: IceConfig)
-    + GCSConnectorFactory(robot_id: String, user_id: String, ws_uri: String,
-                        turn_url: String, turn_username: String, turn_credential: String)
-    + Create(): GCSConnector
+class MosaicConnectorFactory {
+    - server_config: ServerConfig
+    + MosaicConnectorFactory(server_config: ServerConfig)
+    + Create(): MosaicConnector
 }
 
-struct IceConfig {
-    - turn_url: std::string
-    - turn_username: std::string
-    - turn_credential: std::string
-    + IceConfig(url: String, username: String, credential: String)
-}
-
-struct SignalingConfig {
-    - ws_uri: String
-    - robot_id: String
-    + SignalingConfig(ws_uri: String, robot_id: String)
-    + GetSignalingUrl(): String
-}
-
-interface IGCSAuthenticator {
+interface IMosaicAuthenticator {
+    + IsAuthenticated(): Boolean
 }
 
 interface ISignalingClient {
     + Start()
     + Stop()
-    + SendSdpAnswer(sdp_answer: SessionDescription)
-    + SendIceCandidate(candidate: IceCandidate)
+    + SendSdpAnswer(sdp_answer: SessionDescriptionInterface)
+    + SendIceCandidate(candidate: IceCandidateInterface)
     + SendState(state: String)
-    + SetGCSConnector(gcs_connector: GCSConnector)
-    + SetAuthenticator(authenticator: IGCSAuthenticator)
+    + SetMosaicConnector(mosaic_connector: MosaicConnector)
+    + SetAuthenticator(authenticator: IMosaicAuthenticator)
     + IsAuthenticated(): Boolean
 }
 
 class SignalingClient {
-    - gcs_connector: GCSConnector
-    - gcs_authenticator: IGCSAuthenticator
+    - mosaic_connector: MosaicConnector
+    - mosaic_authenticator: IMosaicAuthenticator
     - ws_client: WebSocketClient
     - is_connected: Boolean
     - is_authenticated: Boolean
     - ws_uri: String
+    - lastest_state: String
 
     + SignalingClient(ws_uri: String)
     + Start()
     + Stop()
-    + SendSdpAnswer(sdp_answer: SessionDescription)
-    + SendIceCandidate(candidate: IceCandidate)
+    + SendSdpAnswer(sdp_answer: SessionDescriptionInterface)
+    + SendIceCandidate(candidate: IceCandidateInterface)
     + SendState(state: String)
-    + SetGCSConnector(gcs_connector: GCSConnector)
-    + SetAuthenticator(authenticator: IGCSAuthenticator)
+    + SetMosaicConnector(mosaic_connector: MosaicConnector)
+    + SetAuthenticator(authenticator: IMosaicAuthenticator)
     + IsAuthenticated(): Boolean
 
     - StartInternal()
@@ -93,7 +76,7 @@ class ConnectorStateManager {
     + IsState(expected_state: ClientState): Boolean
 
     - LogState(old_state: ClientState, new_state: ClientState)
-    - SendStateToSignalingServer()
+    - SendState()
     - StateToString(state: ClientState): String
 }
 
@@ -107,29 +90,27 @@ enum ClientState {
     SHUTTING_DOWN
 }
 
-class GCSConnector {
+class MosaicConnector {
     - robot_id: String
     - user_id: String
-    - pc_manager: PeerConnectionManager
-    - state_manager: ConnectorStateManager
+    + pc_manager: PeerConnectionManager
+    + state_manager: ConnectorStateManager
     - data_channel_handlers_dict: Dict<String, IDataChannelHandler>
     - media_track_handlers_dict: Dict<String, IMediaTrackHandler>
 
-    + GCSConnector(robot_id: String, user_id: String)
+    + MosaicConnector(robot_id: String, user_id: String, state_manager: ConnectorStateManager)
     + GetRobotId(): String
     + GetUserId(): String
     + SetPeerConnectionManager(peer_connection_manager: PeerConnectionManager)
     + InitializeWebRTC()
-    + AddDataChannelHandler(handler: ADataChannelHandler)
+    + AddDataChannelHandler(handler: IDataChannelHandler)
     + AddMediaTrackHandler(handler: IMediaTrackHandler)
+    + HandleSdpOffer(sdp_offer: SessionDescriptionInterface)
+    + HandleIceCandidateFromSignaling(candidate: IceCandidateInterface)
     + ClosePeerConnection()
     + ShuttingDown()
-
-    + HandleSdpOffer(sdp_offer: SessionDescription)
-    + HandleIceCandidateFromSignaling(candidate: IceCandidate)
-
-    - OnDataChannel(data_channel: DataChannel)
-    - GetStateManager(): ClientStateManager
+    - OnDataChannel(data_channel: DataChannelInterface)
+    - GetStateManager(): ConnectorStateManager
     - CreateAllMediaTracks()
     - CloseAllMediaTracks()
     - CloseAllDataChannels()
@@ -137,60 +118,59 @@ class GCSConnector {
 }
 
 class PeerConnectionManager {
-    - client: GCSConnector
-    - state_manager: ClientStateManager
-    - ice_config: IceConfig
+    - client: MosaicConnector
+    - state_manager: ConnectorStateManager
+    - web_rtc_config: WebRtcConfig
     - signaling_client: ISignalingClient
 
     - peer_connection_factory: PeerConnectionFactoryInterface
     - peer_connection: PeerConnectionInterface
     - peer_connection_observer: PeerConnectionObserver
 
-    + PeerConnectionManager(client: GCSConnector, state_manager: ClientStateManager,
-                            signaling_client: ISignalingClient, ice_config: IceConfig)
+    + PeerConnectionManager(client: MosaicConnector, state_manager: ConnectorStateManager,
+                            signaling_client: ISignalingClient, web_rtc_config: WebRtcConfig)
     + InitializeWebRTC()
     + CreatePeerConnection()
-    + HandleSdpOffer(sdp_offer: SessionDescription)
+    + HandleSdpOffer(sdp_offer: SessionDescriptionInterface)
     + AfterSetSessionDescription()
-    + AfterCreateSdpAnswer(desc: SessionDescription)
-    + AfterSetLocalDescription(desc: SessionDescription)
-    + HandleIceCandidateFromSignaling(candidate: IceCandidate)
+    + AfterCreateSdpAnswer(desc: SessionDescriptionInterface)
+    + AfterSetLocalDescription(desc: SessionDescriptionInterface)
+    + HandleIceCandidateFromSignaling(candidate: IceCandidateInterface)
     + OnConnectionConnected()
     + OnConnectionDisconnected()
-    + SendIceCandidate(candidate: IceCandidate)
+    + SendIceCandidate(candidate: IceCandidateInterface)
     + StopSignalingServer()
     + ClosePeerConnection()
     + DestroyPeerConnectionManager()
 
     - CreateVideoTrack(source: VideoTrackSourceInterface, label: String): VideoTrackInterface
     - AddTrack(track: MediaStreamTrackInterface, stream_ids: String[]): RtpSenderInterface
+    - GetPeerConnection(): PeerConnectionInterface
     - GetImpl(): Impl
 }
 
-interface handler.dc.IDataChannelHandler {
+interface handler.IDataChannelHandler {
 }
-interface handler.media.IMediaTrackHandler {
+interface handler.IMediaTrackHandler {
 }
 
-GCSConnector "1" *-- "many" IDataChannelHandler
-GCSConnector "1" *-- "many" IMediaTrackHandler
+MosaicConnector "1" *-- "many" IDataChannelHandler
+MosaicConnector "1" *-- "many" IMediaTrackHandler
 
 ISignalingClient -* ConnectorStateManager
 
-SignalingClient *- IGCSAuthenticator
+SignalingClient *-- IMosaicAuthenticator
 
-GCSConnector *- ConnectorStateManager
+MosaicConnector *- ConnectorStateManager
 ConnectorStateManager <- ClientState
 
 PeerConnectionObserver -* PeerConnectionManager
-webrtc_PeerConnectionObserver <|- PeerConnectionObserver
+webrtc_PeerConnectionObserver <|-- PeerConnectionObserver
 
 ISignalingClient <|. SignalingClient
 PeerConnectionManager *- ISignalingClient
 
-GCSConnectorFactory ->  GCSConnector
-PeerConnectionManager --* GCSConnector
-GCSConnectorFactory -- IceConfig
-GCSConnectorFactory -- SignalingConfig
+MosaicConnectorFactory ->  MosaicConnector
+PeerConnectionManager --* MosaicConnector
 
 @enduml

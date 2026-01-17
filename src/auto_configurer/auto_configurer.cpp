@@ -4,9 +4,9 @@
 
 #include <mosaic/auto_configurer/auto_configurer.h>
 #include <mosaic/auto_configurer/config_reader/config_reader_resolver.h>
+#include <mosaic/auto_configurer/connector/a_dc_handler_configurer.h>
+#include <mosaic/auto_configurer/connector/a_mt_handler_configurer.h>
 #include <mosaic/auto_configurer/connector/connector_resolver.h>
-#include <mosaic/auto_configurer/connector/i_dc_handler_configurer.h>
-#include <mosaic/auto_configurer/connector/i_mt_handler_configurer.h>
 #include <mosaic/core/mosaic_connector_factory.h>
 
 using namespace mosaic::auto_configurer;
@@ -53,9 +53,9 @@ void AutoConfigurer::ConfigureConnectors() {
         configurable_connector->Configure(mosaic_connector_);
         const auto label = configurable_connector->GetConfig().label;
 
-        if (const auto dc_ptr = static_cast<IDCHandlerConfigurer*>(configurable_connector.get())) {
+        if (const auto dc_ptr = dynamic_cast<ADCHandlerConfigurer*>(configurable_connector.get())) {
             dc_handler_map_[label] = dc_ptr->GetHandler();
-        } else if (const auto mt_ptr = static_cast<IMTHandlerConfigurer*>(configurable_connector.get())) {
+        } else if (const auto mt_ptr = dynamic_cast<AMTHandlerConfigurer*>(configurable_connector.get())) {
             mt_handler_map_[label] = mt_ptr->GetHandler();
         }
     }
