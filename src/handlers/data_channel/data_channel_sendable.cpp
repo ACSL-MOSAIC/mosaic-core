@@ -13,6 +13,7 @@ bool DataChannelSendable::Sendable() const {
     return GetState() == kOpen;
 }
 
+// TODO: 길이 제한!!!!
 void DataChannelSendable::Send(const webrtc::DataBuffer& buffer) const {
     if (!Sendable()) {
         MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
