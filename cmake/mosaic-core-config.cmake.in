@@ -2,16 +2,14 @@
 
 include(CMakeFindDependencyMacro)
 
-# 필수 의존성 찾기
+# Find Required Dependencies
 find_dependency(PkgConfig REQUIRED)
 find_dependency(cpprestsdk REQUIRED)
 find_dependency(fmt REQUIRED)
 find_dependency(OpenCV REQUIRED)
 find_dependency(yaml-cpp REQUIRED)
+find_dependency(jsoncpp REQUIRED)
 
-# pkg-config를 통한 jsoncpp
-pkg_check_modules(JSONCPP REQUIRED jsoncpp)
+include("${CMAKE_CURRENT_LIST_DIR}/mosaic-core_targets.cmake")
 
-include("${CMAKE_CURRENT_LIST_DIR}/mosaic_targets.cmake")
-
-check_required_components(mosaic)
+check_required_components(mosaic-core)

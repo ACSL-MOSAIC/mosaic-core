@@ -95,6 +95,12 @@ target_link_libraries(mosaic-auto-configurer PUBLIC
         mosaic-rtc-core
 )
 
+add_library(mosaic-core INTERFACE)
+target_link_libraries(mosaic-core INTERFACE
+        mosaic-rtc-core
+        mosaic-auto-configurer
+)
+
 ################################################################################
 # Testing Configure
 ################################################################################
@@ -169,8 +175,8 @@ endif ()
 ################################################################################
 include(GNUInstallDirs)
 
-install(TARGETS mosaic-rtc-core mosaic-auto-configurer third_party_lib signaling_server logging handlers
-        EXPORT mosaic_targets
+install(TARGETS mosaic-core mosaic-rtc-core mosaic-auto-configurer logging signaling_server handlers third_party_lib
+        EXPORT mosaic-core_targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
@@ -180,28 +186,28 @@ install(DIRECTORY include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-install(EXPORT mosaic_targets
-        FILE mosaic_targets.cmake
+install(EXPORT mosaic-core_targets
+        FILE mosaic-core_targets.cmake
         NAMESPACE mosaic::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-core
 )
 
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mosaic-config.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mosaic-core-config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-core
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config-version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config-version.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-config-version.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-core
 )
