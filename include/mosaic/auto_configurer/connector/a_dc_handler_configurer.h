@@ -14,7 +14,7 @@ class ADCHandlerConfigurer : public IConfigurableConnector {
 
     virtual std::string GetConnectorType() const override = 0;
 
-    virtual void Configure(std::shared_ptr<core::MosaicConnector> mosaic_container) override = 0;
+    virtual void Configure() override = 0;
 
     std::shared_ptr<handlers::IDataChannelHandler> GetHandler() {
         return handler_;

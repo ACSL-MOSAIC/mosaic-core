@@ -39,6 +39,8 @@ class IDataChannelHandler {
   private:
     virtual void Send(const webrtc::DataBuffer& buffer) const = 0;
 
+    virtual void SendAsync(const webrtc::DataBuffer& buffer) const = 0;
+
     friend class DataChannelSendable;
 };
 }  // namespace mosaic::handlers

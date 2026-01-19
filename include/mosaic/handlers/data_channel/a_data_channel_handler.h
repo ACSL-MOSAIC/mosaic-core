@@ -35,6 +35,8 @@ class ADataChannelHandler : public IDataChannelHandler {
 
     void Send(const webrtc::DataBuffer& buffer) const override;
 
+    void SendAsync(const webrtc::DataBuffer& buffer) const override;
+
     friend class DataChannelSendable;
 
     [[nodiscard]] Impl* GetImpl() const {

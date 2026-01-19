@@ -22,13 +22,13 @@ class DataChannelSendable : public ADataChannelHandler {
 
     bool Sendable() const;
 
-    void Send(const webrtc::DataBuffer& buffer) const override;
+    void Send(const webrtc::DataBuffer& buffer, bool isAsync = false) const;
 
-    void SendString(const std::string& string) const;
+    void SendString(const std::string& string, bool isAsync = false) const;
 
-    void SendStringAsByte(const std::string& string) const;
+    void SendStringAsByte(const std::string& string, bool isAsync = false) const;
 
-    void SendJson(const Json::Value& json_data) const;
+    void SendJson(const Json::Value& json_data, bool isAsync = false) const;
 };
 }  // namespace mosaic::handlers
 

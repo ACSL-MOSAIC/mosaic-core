@@ -6,6 +6,7 @@
 #include <mosaic/auto_configurer/config_reader/config_reader_resolver.h>
 #include <mosaic/auto_configurer/connector/a_dc_handler_configurer.h>
 #include <mosaic/auto_configurer/connector/a_mt_handler_configurer.h>
+#include <mosaic/auto_configurer/connector/a_parallel_dc_handler_configurer.h>
 #include <mosaic/auto_configurer/connector/connector_resolver.h>
 #include <mosaic/core/mosaic_connector_factory.h>
 
@@ -50,13 +51,25 @@ void AutoConfigurer::ResolveConnectors() {
 
 void AutoConfigurer::ConfigureConnectors() {
     for (const auto& configurable_connector : configurable_connectors_) {
-        configurable_connector->Configure(mosaic_connector_);
-        const auto label = configurable_connector->GetConfig().label;
+        configurable_connector->Configure();
 
         if (const auto dc_ptr = dynamic_cast<ADCHandlerConfigurer*>(configurable_connector.get())) {
-            dc_handler_map_[label] = dc_ptr->GetHandler();
+            const auto handler = dc_ptr->GetHandler();
+            mosaic_connector_->AddDataChannelHandler(handler);
+
+            dc_handler_map_[handler->GetLabel()] = handler;
+        } else if (const auto dc_p_ptr = dynamic_cast<AParallelDCHandlerConfigurer*>(configurable_connector.get())) {
+            const auto handlers = dc_p_ptr->GetHandlers();
+            for (const auto& handler : handlers) {
+                mosaic_connector_->AddDataChannelHandler(handler);
+
+                dc_handler_map_[handler->GetLabel()] = handler;
+            }
         } else if (const auto mt_ptr = dynamic_cast<AMTHandlerConfigurer*>(configurable_connector.get())) {
-            mt_handler_map_[label] = mt_ptr->GetHandler();
+            const auto handler = mt_ptr->GetHandler();
+            mosaic_connector_->AddMediaTrackHandler(handler);
+
+            mt_handler_map_[handler->GetTrackName()] = handler;
         }
     }
 }

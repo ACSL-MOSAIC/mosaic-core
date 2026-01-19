@@ -21,7 +21,7 @@ class IMediaTrackHandler {
 
     virtual void Close() = 0;
 
-    [[nodiscard]] std::string GetTrackName() const {
+    std::string GetTrackName() const {
         return track_name_;
     }
 

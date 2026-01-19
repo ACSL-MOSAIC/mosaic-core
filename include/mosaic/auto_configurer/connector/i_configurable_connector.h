@@ -23,7 +23,7 @@ class IConfigurableConnector {
         return connector_config_;
     }
 
-    virtual void Configure(std::shared_ptr<core::MosaicConnector> mosaic_container) = 0;
+    virtual void Configure() = 0;
 
   protected:
     core::ConnectorConfig connector_config_;
