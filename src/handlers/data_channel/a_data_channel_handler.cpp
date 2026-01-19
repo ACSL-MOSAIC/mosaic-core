@@ -2,6 +2,8 @@
 // Created by yhkim on 25. 7. 1.
 //
 
+#include <mutex>
+#include <queue>
 #include <utility>
 
 #include <api/data_channel_interface.h>
@@ -108,9 +110,41 @@ class ADataChannelHandler::Impl {
     std::string label_;
     mutable webrtc::scoped_refptr<webrtc::DataChannelInterface> dc_interface_;
     mutable std::shared_ptr<DataChannelObserver> observer_;
+    mutable std::queue<webrtc::DataBuffer> send_queue_;
+    mutable std::mutex queue_mutex_;
+    mutable bool is_sending_ = false;
 
     void Send(const webrtc::DataBuffer& buffer) const {
         dc_interface_->Send(buffer);
+    }
+
+    void SendAsync(const webrtc::DataBuffer& buffer) const {
+        std::lock_guard<std::mutex> lock(queue_mutex_);
+        send_queue_.push(buffer);
+        ProcessQueue();
+    }
+
+    void ProcessQueue() const {
+        if (is_sending_ || send_queue_.empty()) {
+            return;
+        }
+
+        is_sending_ = true;
+        auto buffer = send_queue_.front();
+        send_queue_.pop();
+
+        MOSAIC_LOG_DEBUG("Buffer Size: {}", buffer.size());
+
+        dc_interface_->SendAsync(buffer, [this](webrtc::RTCError error) {
+            std::lock_guard<std::mutex> lock(queue_mutex_);
+            is_sending_ = false;
+
+            if (!error.ok()) {
+                MOSAIC_LOG_ERROR("SendAsync failed for label: {}, error: {}", label_, error.message());
+            }
+
+            ProcessQueue();
+        });
     }
 
     friend class ADataChannelHandler;
@@ -144,4 +178,8 @@ void ADataChannelHandler::CloseDataChannel() const {
 
 void ADataChannelHandler::Send(const webrtc::DataBuffer& buffer) const {
     pImpl->Send(buffer);
+}
+
+void ADataChannelHandler::SendAsync(const webrtc::DataBuffer& buffer) const {
+    pImpl->SendAsync(buffer);
 }

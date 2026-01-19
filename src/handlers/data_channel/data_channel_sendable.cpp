@@ -14,33 +14,37 @@ bool DataChannelSendable::Sendable() const {
 }
 
 // TODO: 길이 제한!!!!
-void DataChannelSendable::Send(const webrtc::DataBuffer& buffer) const {
+void DataChannelSendable::Send(const webrtc::DataBuffer& buffer, const bool isAsync) const {
     if (!Sendable()) {
         MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
-    ADataChannelHandler::Send(buffer);
+    if (isAsync) {
+        ADataChannelHandler::SendAsync(buffer);
+    } else {
+        ADataChannelHandler::Send(buffer);
+    }
 }
 
-void DataChannelSendable::SendString(const std::string& string) const {
+void DataChannelSendable::SendString(const std::string& string, const bool isAsync) const {
     if (!Sendable()) {
         MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
     const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), false);
-    Send(buffer);
+    Send(buffer, isAsync);
 }
 
-void DataChannelSendable::SendStringAsByte(const std::string& string) const {
+void DataChannelSendable::SendStringAsByte(const std::string& string, const bool isAsync) const {
     if (!Sendable()) {
         MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
     const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), true);
-    Send(buffer);
+    Send(buffer, isAsync);
 }
 
-void DataChannelSendable::SendJson(const Json::Value& json_data) const {
+void DataChannelSendable::SendJson(const Json::Value& json_data, const bool isAsync) const {
     if (!Sendable()) {
         MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
@@ -48,5 +52,5 @@ void DataChannelSendable::SendJson(const Json::Value& json_data) const {
     const Json::StreamWriterBuilder writer;
     const std::string json_string = Json::writeString(writer, json_data);
     const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(json_string), false);
-    Send(buffer);
+    Send(buffer, isAsync);
 }
