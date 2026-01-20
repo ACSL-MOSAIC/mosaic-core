@@ -30,7 +30,8 @@ void AutoConfigurer::ReadConfigs(const std::string& config_file_path) {
 }
 
 void AutoConfigurer::CreateMosaicConnector() {
-    auto mosaic_connector_factory = MosaicConnectorFactory(std::make_shared<ServerConfig>(connector_configs_->server));
+    const auto mosaic_connector_factory =
+        MosaicConnectorFactory(std::make_shared<ServerConfig>(connector_configs_->server));
 
     mosaic_connector_ = mosaic_connector_factory.Create();
 }
@@ -45,6 +46,12 @@ void AutoConfigurer::ResolveConnectors() {
 
         const auto configurable_connector = resolver.GetConfigurableConnector(connector_config.type);
         configurable_connector->SetConfig(connector_config);
+        try {
+            configurable_connector->ValidateConfig();
+        } catch (const std::exception& e) {
+            MOSAIC_LOG_ERROR("Error validating connector config for type {}: {}", connector_config.type, e.what());
+            continue;
+        }
         configurable_connectors_.push_back(configurable_connector);
     }
 }

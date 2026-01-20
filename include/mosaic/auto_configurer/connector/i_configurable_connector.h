@@ -19,6 +19,8 @@ class IConfigurableConnector {
         connector_config_ = connector_config;
     }
 
+    virtual void ValidateConfig();
+
     core::ConnectorConfig GetConfig() const {
         return connector_config_;
     }

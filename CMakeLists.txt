@@ -83,7 +83,8 @@ add_library(mosaic-auto-configurer STATIC
         src/auto_configurer/auto_configurer.cpp
         src/auto_configurer/connector_resolver.cpp
         src/config_reader/config_reader_resolver.cpp
-        src/config_reader/yaml_config_reader.cpp)
+        src/config_reader/yaml_config_reader.cpp
+        src/auto_configurer/i_configurable_connector.cpp)
 
 target_include_directories(mosaic-auto-configurer PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
