@@ -175,14 +175,14 @@ class PeerConnectionManager::Impl {
             return;
         }
 
-        state_manager_->SetState(ConnectorStateManager::CONNECTING);
+        state_manager_->SetState(ConnectorStateManager::RTC_CONNECTING);
         // Create a new PeerConnection
         CreatePeerConnection(outer_this_);
         MOSAIC_LOG_DEBUG("Peer Connection created successfully");
 
         if (!peer_connection_) {
             MOSAIC_LOG_ERROR("Peer connection is null, cannot handle SDP offer");
-            state_manager_->SetState(ConnectorStateManager::FAILED);
+            state_manager_->SetState(ConnectorStateManager::RTC_FAILED);
             return;
         }
 
@@ -245,7 +245,7 @@ class PeerConnectionManager::Impl {
     void OnConnectionConnected() const {
         MOSAIC_LOG_DEBUG("PeerConnectionManager::OnConnectionConnected()");
         // state manager will automatically notify signaling server about connected state
-        state_manager_->SetState(ConnectorStateManager::CONNECTED);
+        state_manager_->SetState(ConnectorStateManager::RTC_CONNECTED);
     }
 
     void OnConnectionDisconnected() const {
@@ -266,11 +266,11 @@ class PeerConnectionManager::Impl {
     }
 
     void ClosePeerConnection() {
-        if (!state_manager_->IsState(ConnectorStateManager::CONNECTED)) {
+        if (!state_manager_->IsState(ConnectorStateManager::RTC_CONNECTED)) {
             return;  // 연결 중이 아닌 경우 종료하지 않습니다.
         }
 
-        state_manager_->SetState(ConnectorStateManager::DISCONNECTING);
+        state_manager_->SetState(ConnectorStateManager::RTC_DISCONNECTING);
         try {
             MOSAIC_LOG_INFO("Closing Media Tracks and Data Channels...");
             client_->CloseAllMediaTracks();

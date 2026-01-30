@@ -26,9 +26,7 @@ class PeerConnectionObserver;
 
 class MosaicConnector {
   public:
-    explicit MosaicConnector(const std::string& robot_id,
-                             const std::string& user_id,
-                             const std::shared_ptr<ConnectorStateManager>& state_manager);
+    explicit MosaicConnector(const std::shared_ptr<ConnectorStateManager>& state_manager);
 
     ~MosaicConnector();
 
@@ -42,10 +40,6 @@ class MosaicConnector {
 
     MosaicConnector& operator=(MosaicConnector&&) noexcept = default;
 
-    [[nodiscard]] std::string GetRobotId() const;
-
-    [[nodiscard]] std::string GetUserId() const;
-
     void InitializeWebRTC() const;
 
     void AddDataChannelHandler(const std::shared_ptr<handlers::IDataChannelHandler>& data_channel_handler) const;
@@ -55,8 +49,6 @@ class MosaicConnector {
     void ShuttingDown() const;
 
   private:
-    std::string robot_id_;
-    std::string user_id_;
     std::shared_ptr<PeerConnectionManager> peer_connection_manager_ = nullptr;
     std::shared_ptr<ConnectorStateManager> state_manager_;
 

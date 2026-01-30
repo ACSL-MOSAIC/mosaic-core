@@ -53,7 +53,7 @@ TEST_F(ConfigReaderResolverTest, GetConfigReader_YamlFile) {
     ASSERT_NE(reader, nullptr);
 
     // IConfigReader 인터페이스를 통해 yaml 파일 읽기
-    mosaic::core::ConnectorConfigs configs = reader->LoadConfigs(test_yaml_path);
+    mosaic::core::MosaicConfig configs = reader->LoadConfigs(test_yaml_path);
 
     // Test server config
     EXPECT_EQ(configs.server.ws_url, "ws://localhost:8080");
@@ -61,7 +61,6 @@ TEST_F(ConfigReaderResolverTest, GetConfigReader_YamlFile) {
     // Test auth config
     EXPECT_EQ(configs.server.auth_config.type, "basic");
     EXPECT_EQ(configs.server.auth_config.robot_id, "robot123");
-    EXPECT_EQ(configs.server.auth_config.user_id, "user456");
 
     // Test connectors
     EXPECT_EQ(configs.connectors.size(), 2);

@@ -30,7 +30,7 @@ class AutoConfigurer {
     }
 
   protected:
-    std::shared_ptr<core::ConnectorConfigs> connector_configs_;
+    std::shared_ptr<core::MosaicConfig> mosaic_config_;
     std::shared_ptr<core::MosaicConnector> mosaic_connector_;
     std::vector<std::shared_ptr<IConfigurableConnector>> configurable_connectors_;
     std::unordered_map<std::string, std::shared_ptr<handlers::IDataChannelHandler>> dc_handler_map_;

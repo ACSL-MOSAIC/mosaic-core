@@ -59,6 +59,21 @@ target_include_directories(handlers PUBLIC
         $<INSTALL_INTERFACE:include>
 )
 
+add_library(security STATIC
+        src/security/authenticator_resolver.cpp
+        src/security/a_mosaic_authenticator.cpp
+        src/security/impl/no_auth_authenticator.cpp
+        src/security/impl/simple_token_authenticator.cpp
+)
+target_link_libraries(security PUBLIC
+        third_party_lib
+        logging
+)
+target_include_directories(security PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
 add_library(mosaic-rtc-core STATIC
         src/core/mosaic_connector.cpp
         src/core/mosaic_connector_factory.cpp
@@ -71,6 +86,7 @@ target_link_libraries(mosaic-rtc-core PUBLIC
         signaling_server
         logging
         handlers
+        security
 )
 
 target_include_directories(mosaic-rtc-core PUBLIC
@@ -176,7 +192,7 @@ endif ()
 ################################################################################
 include(GNUInstallDirs)
 
-install(TARGETS mosaic-core mosaic-rtc-core mosaic-auto-configurer logging signaling_server handlers third_party_lib
+install(TARGETS mosaic-core mosaic-rtc-core mosaic-auto-configurer logging signaling_server handlers security third_party_lib
         EXPORT mosaic-core_targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}

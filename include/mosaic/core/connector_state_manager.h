@@ -14,7 +14,15 @@
 namespace mosaic::core {
 class ConnectorStateManager final {
   public:
-    enum State { INITIALIZING, READY_TO_CONNECT, CONNECTING, CONNECTED, DISCONNECTING, FAILED, SHUTTING_DOWN };
+    enum State {
+        INITIALIZING,
+        READY_TO_CONNECT,
+        RTC_CONNECTING,
+        RTC_CONNECTED,
+        RTC_DISCONNECTING,
+        RTC_FAILED,
+        DISCONNECTED,
+    };
 
     explicit ConnectorStateManager(const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client);
 
@@ -26,6 +34,9 @@ class ConnectorStateManager final {
 
     bool IsState(State expected_state) const;
 
+    static std::string StateToString(State state);
+    static int StateToInt(State state);
+
   private:
     State state_;
     std::shared_ptr<core_signaling::ISignalingClient> signaling_client_;
@@ -34,8 +45,6 @@ class ConnectorStateManager final {
     void SendState() const;
 
     static void LogState(State old_state, State new_state);
-
-    static std::string StateToString(State state);
 };
 }  // namespace mosaic::core
 

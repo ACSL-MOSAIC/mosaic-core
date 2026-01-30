@@ -2,9 +2,9 @@ server:
   ws_url: 'wss://api.acslgcs.com'
   auth:
     type: 'basic'
-    user_id: '922fbc34-3a5c-4fcc-974a-1ff3f9e4e9e3'
     robot_id: 'a56c1d46-68fb-4d98-b691-ae53bab7db3c'
-    token: 'osdfjwejlk54nfs6d23erqg36rtv22tv342v4v23rt2tv34'
+    params:
+      token: 'osdfjwejlk54nfs6d23erqg36rtv22tv342v4v23rt2tv34'
   webrtc:
     ice_servers:
       - urls:

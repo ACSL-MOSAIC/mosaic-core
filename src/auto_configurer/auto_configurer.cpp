@@ -26,19 +26,19 @@ void AutoConfigurer::ReadConfigs(const std::string& config_file_path) {
     config_reader_ = ConfigReaderResolver::GetInstance().GetConfigReader(config_file_path);
 
     auto configs = config_reader_->LoadConfigs(config_file_path);
-    connector_configs_ = std::make_shared<ConnectorConfigs>(configs);
+    mosaic_config_ = std::make_shared<MosaicConfig>(configs);
 }
 
 void AutoConfigurer::CreateMosaicConnector() {
     const auto mosaic_connector_factory =
-        MosaicConnectorFactory(std::make_shared<ServerConfig>(connector_configs_->server));
+        MosaicConnectorFactory(std::make_shared<ServerConfig>(mosaic_config_->server));
 
     mosaic_connector_ = mosaic_connector_factory.Create();
 }
 
 void AutoConfigurer::ResolveConnectors() {
     auto& resolver = ConnectorResolver::GetInstance();
-    for (const auto& connector_config : connector_configs_->connectors) {
+    for (const auto& connector_config : mosaic_config_->connectors) {
         if (!resolver.IsSupportedType(connector_config.type)) {
             MOSAIC_LOG_ERROR("Unsupported connector type: {}", connector_config.type);
             continue;

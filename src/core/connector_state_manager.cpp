@@ -36,7 +36,7 @@ bool ConnectorStateManager::IsState(const State expected_state) const {
 
 void ConnectorStateManager::SendState() const {
     if (signaling_client_) {
-        signaling_client_->SendState(StateToString(state_));
+        signaling_client_->SendState(StateToInt(state_));
     } else {
         MOSAIC_LOG_ERROR("Signaling server is not set, cannot send state change");
     }
@@ -52,17 +52,38 @@ std::string ConnectorStateManager::StateToString(const State state) {
             return "INITIALIZING";
         case READY_TO_CONNECT:
             return "READY_TO_CONNECT";
-        case CONNECTING:
-            return "CONNECTING";
-        case CONNECTED:
-            return "CONNECTED";
-        case DISCONNECTING:
-            return "DISCONNECTING";
-        case FAILED:
-            return "FAILED";
-        case SHUTTING_DOWN:
-            return "SHUTTING_DOWN";
+        case RTC_CONNECTING:
+            return "RTC_CONNECTING";
+        case RTC_CONNECTED:
+            return "RTC_CONNECTED";
+        case RTC_DISCONNECTING:
+            return "RTC_DISCONNECTING";
+        case RTC_FAILED:
+            return "RTC_FAILED";
+        case DISCONNECTED:
+            return "DISCONNECTED";
         default:
             return "UNKNOWN_STATE";
+    }
+}
+
+int ConnectorStateManager::StateToInt(const State state) {
+    switch (state) {
+        case INITIALIZING:
+            return 6;
+        case READY_TO_CONNECT:
+            return 0;
+        case RTC_CONNECTING:
+            return 1;
+        case RTC_CONNECTED:
+            return 2;
+        case RTC_DISCONNECTING:
+            return 3;
+        case RTC_FAILED:
+            return 4;
+        case DISCONNECTED:
+            return 5;
+        default:
+            return -1;
     }
 }

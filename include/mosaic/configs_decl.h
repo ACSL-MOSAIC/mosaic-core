@@ -23,7 +23,6 @@ struct WebRtcConfig {
 struct AuthConfig {
     std::string type;
     std::string robot_id;
-    std::string user_id;
     std::unordered_map<std::string, std::string> params;
 };
 
@@ -43,7 +42,7 @@ struct ServerConfig {
     }
 };
 
-struct ConnectorConfigs {
+struct MosaicConfig {
     ServerConfig server;
     std::vector<ConnectorConfig> connectors;
 };

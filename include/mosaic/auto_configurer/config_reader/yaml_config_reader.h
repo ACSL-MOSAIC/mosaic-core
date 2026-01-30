@@ -18,7 +18,7 @@ class YamlConfigReader : public IConfigReader {
 
     bool IsSupportedExtension(const std::string& extension) override;
 
-    core::ConnectorConfigs LoadConfigs(const std::string& file_path) override;
+    core::MosaicConfig LoadConfigs(const std::string& file_path) override;
 
   private:
     class Impl;

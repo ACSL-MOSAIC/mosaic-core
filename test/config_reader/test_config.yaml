@@ -3,7 +3,6 @@ server:
   auth:
     type: "basic"
     robot_id: "robot123"
-    user_id: "user456"
     params:
       key1: "value1"
       key2: "value2"

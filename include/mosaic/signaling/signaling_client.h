@@ -12,11 +12,6 @@
 #include <mosaic/signaling/i_signaling_client.h>
 #include <mosaic/signaling/websocket_client.h>
 
-// forward declare
-namespace Json {
-class Value;
-}  // namespace Json
-
 namespace mosaic::core_signaling {
 class SignalingClient : public ISignalingClient {
   public:
@@ -32,27 +27,36 @@ class SignalingClient : public ISignalingClient {
 
     void SendIceCandidate(const webrtc::IceCandidateInterface* candidate) const override;
 
-    void SendState(const std::string& state) const override;
+    void SendState(const int state) const override;
 
-    void SetMosaicConnector(const std::shared_ptr<core::MosaicConnector>& gcs_connector) const override;
+    void SetMosaicConnector(const std::shared_ptr<core::MosaicConnector>& mosaic_connector) override;
 
-    void SetAuthenticator(const std::shared_ptr<security::IMosaicAuthenticator>& authenticator) const override;
+    void SetAuthenticator(const std::shared_ptr<security::IMosaicAuthenticator>& authenticator) override;
 
-    [[nodiscard]] bool IsAuthenticated() const override;
+    bool IsAuthenticated() const override;
+
+    void SendWsMessage(const Json::Value& message) const override;
 
   private:
     void OnWsMessage(const std::string& msg) const;
 
     void OnMessage(Json::Value const& message) const;
 
-    void SendWsMessage(const Json::Value& message) const;
+    void HandleSendSdpOffer(Json::Value const& message) const;
+
+    void HandleExchangeIceCandidate(Json::Value const& message) const;
+
+    void HandleCloseConnection() const;
+
+    void HandleAuthorizationMessage(const std::string& type, Json::Value const& message) const;
 
     std::shared_ptr<core::MosaicConnector> mosaic_connector_;
     std::shared_ptr<security::IMosaicAuthenticator> authenticator_;
     bool is_connected_ = false;
     std::string ws_uri_;
     std::unique_ptr<WebSocketClient> ws_client_ = nullptr;
-    std::string latest_state_;
+    int latest_state_ = -1;
+    std::string current_rtc_connection_id_;
 
     void StartInternal();
 };

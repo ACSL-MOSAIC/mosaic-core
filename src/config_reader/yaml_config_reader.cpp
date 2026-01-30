@@ -16,8 +16,8 @@ class YamlConfigReader::Impl {
         return YAML::LoadFile(file_path);
     }
 
-    ConnectorConfigs ParseConnectorConfigs(const YAML::Node& node) {
-        ConnectorConfigs configs;
+    MosaicConfig ParseConnectorConfigs(const YAML::Node& node) {
+        MosaicConfig configs;
 
         if (node["server"]) {
             configs.server = ParseServerConfig(node["server"]);
@@ -99,12 +99,6 @@ class YamlConfigReader::Impl {
             throw std::invalid_argument("Robot id is not found.");
         }
 
-        if (node["user_id"]) {
-            config.user_id = node["user_id"].as<std::string>();
-        } else {
-            throw std::invalid_argument("User id is not found.");
-        }
-
         if (node["params"]) {
             for (const auto& param : node["params"]) {
                 config.params[param.first.as<std::string>()] = param.second.as<std::string>();
@@ -167,7 +161,7 @@ bool YamlConfigReader::IsSupportedExtension(const std::string& extension) {
     return extension == "yaml" || extension == "yml";
 }
 
-ConnectorConfigs YamlConfigReader::LoadConfigs(const std::string& file_path) {
+MosaicConfig YamlConfigReader::LoadConfigs(const std::string& file_path) {
     const YAML::Node root = pImpl->LoadFile(file_path);
     return pImpl->ParseConnectorConfigs(root);
 }

@@ -12,21 +12,11 @@
 
 using namespace mosaic::core;
 
-MosaicConnector::MosaicConnector(const std::string& robot_id,
-                                 const std::string& user_id,
-                                 const std::shared_ptr<ConnectorStateManager>& state_manager)
-    : robot_id_(robot_id), user_id_(user_id), state_manager_(state_manager) {}
+MosaicConnector::MosaicConnector(const std::shared_ptr<ConnectorStateManager>& state_manager)
+    : state_manager_(state_manager) {}
 
 MosaicConnector::~MosaicConnector() {
     ShuttingDown();
-}
-
-std::string MosaicConnector::GetRobotId() const {
-    return robot_id_;
-}
-
-std::string MosaicConnector::GetUserId() const {
-    return user_id_;
 }
 
 void MosaicConnector::SetPeerConnectionManager(
@@ -71,7 +61,7 @@ void MosaicConnector::ClosePeerConnection() const {
 }
 
 void MosaicConnector::ShuttingDown() const {
-    state_manager_->SetState(ConnectorStateManager::SHUTTING_DOWN);
+    state_manager_->SetState(ConnectorStateManager::DISCONNECTED);
     MOSAIC_LOG_INFO("Shutting down RobotWebRTCClient...");
     peer_connection_manager_->StopSignalingServer();
     peer_connection_manager_->ClosePeerConnection();

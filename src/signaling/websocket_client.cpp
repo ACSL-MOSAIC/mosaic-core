@@ -114,7 +114,10 @@ void WebSocketClient::send(const std::string& message) const {
 }
 
 void WebSocketClient::sendJson(const Json::Value& jsonMessage) const {
-    send(jsonMessage.asString());
+    Json::StreamWriterBuilder builder;
+    builder["indentation"] = "";  // Compact JSON without indentation
+    const std::string message = Json::writeString(builder, jsonMessage);
+    send(message);
 }
 
 bool WebSocketClient::isConnected() const {
