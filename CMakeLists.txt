@@ -1,20 +1,13 @@
 cmake_minimum_required(VERSION 3.14)
-project(BA_GCS_rtc_sender VERSION 1.0.0)
+project(mosaic-core VERSION 1.0.0)
 
-if (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    add_compile_options(-Wall -Wextra -Wpedantic)
-endif ()
-
-# C++ 17 표준 사용 (WebRTC 요구사항)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ################################################################################
-# 서드파티 라이브러리 포함
+# Include Third Party Libraries
 ################################################################################
 include(cmake/ThirdPartyLibs.cmake)
-
-# 서드파티 라이브러리가 제대로 설정되었는지 확인
 if (NOT THIRD_PARTY_READY)
     message(FATAL_ERROR "Third party libraries not properly configured!")
 endif ()
@@ -24,6 +17,10 @@ endif ()
 ################################################################################
 add_library(logging STATIC
         src/logger/log_service.cpp
+        src/logger/webrtc_log.cpp
+)
+target_link_libraries(logging PRIVATE
+        third_party_lib
 )
 target_include_directories(logging PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -31,13 +28,13 @@ target_include_directories(logging PUBLIC
 )
 
 add_library(signaling_server STATIC
-        src/websocket/websocket_client.cpp
+        src/signaling/websocket_client.cpp
+        src/signaling/signaling_client.cpp
 )
 target_link_libraries(signaling_server PRIVATE
-        OpenSSL::SSL
-        OpenSSL::Crypto
         logging
         cpprestsdk::cpprest
+        third_party_lib
 )
 target_include_directories(signaling_server PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -45,80 +42,125 @@ target_include_directories(signaling_server PUBLIC
         ${CPPREST_INCLUDE_DIRS}
 )
 
-add_library(BA_GCS_rtc_sender STATIC
-        src/signaling_server.cpp
-        src/robot_webrtc_client.cpp
-        src/robot_webrtc_client_factory.cpp
-        src/client_state_manager.cpp
-        src/peer_connection_manager.cpp
-        src/logger/webrtc_log.cpp
+add_library(handlers STATIC
         src/handlers/data_channel/a_data_channel_handler.cpp
         src/handlers/data_channel/data_channel_sendable.cpp
-        src/handlers/data_channel/i_data_channel_receivable.cpp
-        src/handlers/media_track/media_track_handler.cpp
+        src/handlers/data_channel/data_channel_receivable.cpp
+        src/handlers/media_track/a_media_track_handler.cpp
         src/handlers/media_track/recordable.cpp
         src/handlers/media_track/video_recorder.cpp
-        src/observers/create_sdp_answer_observer.cpp
-        src/observers/data_channel_observer.cpp
-        src/observers/peer_connection_observer.cpp
-        src/observers/simple_set_local_description_observer.cpp
-        src/observers/simple_set_remote_description_observer.cpp
-
-        # 헤더 파일들
-        include/rtc_sender.h
 )
-# 컴파일 시 헤더 경로와 정의 설정
-target_link_libraries(BA_GCS_rtc_sender PRIVATE
+target_link_libraries(handlers PRIVATE
         third_party_lib
-)
-target_link_libraries(BA_GCS_rtc_sender PUBLIC
-        ${JSONCPP_LIBRARIES}
-        signaling_server
         logging
 )
+target_include_directories(handlers PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
 
-target_include_directories(BA_GCS_rtc_sender PUBLIC
+add_library(security STATIC
+        src/security/authenticator_resolver.cpp
+        src/security/a_mosaic_authenticator.cpp
+        src/security/impl/no_auth_authenticator.cpp
+        src/security/impl/simple_token_authenticator.cpp
+)
+target_link_libraries(security PUBLIC
+        third_party_lib
+        logging
+)
+target_include_directories(security PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
+add_library(mosaic-rtc-core STATIC
+        src/core/mosaic_connector.cpp
+        src/core/mosaic_connector_factory.cpp
+        src/core/connector_state_manager.cpp
+        src/core/peer_connection_manager.cpp
+        src/core/peer_connection_observer.cpp
+)
+target_link_libraries(mosaic-rtc-core PUBLIC
+        third_party_lib
+        signaling_server
+        logging
+        handlers
+        security
+)
+
+target_include_directories(mosaic-rtc-core PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
         ${JSONCPP_INCLUDE_DIRS}
 )
 
+add_library(mosaic-auto-configurer STATIC
+        src/auto_configurer/auto_configurer.cpp
+        src/auto_configurer/connector_resolver.cpp
+        src/config_reader/config_reader_resolver.cpp
+        src/config_reader/yaml_config_reader.cpp
+        src/auto_configurer/i_configurable_connector.cpp)
+
+target_include_directories(mosaic-auto-configurer PUBLIC
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+        $<INSTALL_INTERFACE:include>
+)
+
+target_link_libraries(mosaic-auto-configurer PUBLIC
+        third_party_lib
+        mosaic-rtc-core
+)
+
+add_library(mosaic-core INTERFACE)
+target_link_libraries(mosaic-core INTERFACE
+        mosaic-rtc-core
+        mosaic-auto-configurer
+)
+
 ################################################################################
-# 테스트 설정
+# Testing Configure
 ################################################################################
-# 테스트 빌드 옵션
 option(BUILD_TESTS "Build tests" ON)
 
 if (BUILD_TESTS)
-    # Google Test 찾기
     find_package(GTest REQUIRED)
 
-    # 테스트 활성화
     enable_testing()
 
-    # 테스트 실행 파일 생성
-    add_executable(websocket_client_tests
-            test/test_websocket_client.cpp
+    add_executable(config_reader_tests
+            test/config_reader/test_yaml_config_reader.cpp
+            test/config_reader/test_config_reader_resolver.cpp
+    )
+
+    add_executable(signaling_tests
+            test/signaling/test_websocket_client.cpp
     )
     add_executable(logger_tests
-            test/test_logging_level.cpp
+            test/logger/test_logging_level.cpp
     )
 
-    # 테스트 실행 파일에 라이브러리 링크
-    target_link_libraries(websocket_client_tests
-            BA_GCS_rtc_sender          # 메인 라이브러리
+    # Link libraries to test executables
+    target_link_libraries(config_reader_tests
+            mosaic-auto-configurer
             third_party_lib
             GTest::GTest               # Google Test
-            GTest::Main                # Google Test main 함수
+            GTest::Main                # Google Test main function
+    )
+    target_link_libraries(signaling_tests
+            mosaic-rtc-core          # Main library
+            third_party_lib
+            GTest::GTest               # Google Test
+            GTest::Main                # Google Test main function
     )
     target_link_libraries(logger_tests
-            BA_GCS_rtc_sender
+            mosaic-rtc-core
             GTest::GTest               # Google Test
-            GTest::Main                # Google Test main 함수
+            GTest::Main                # Google Test main function
     )
 
-    # 테스트 헤더 경로 설정
-    target_include_directories(websocket_client_tests PRIVATE
+    # Set test header paths
+    target_include_directories(signaling_tests PRIVATE
             include
             tests
     )
@@ -127,12 +169,18 @@ if (BUILD_TESTS)
             tests
     )
 
-    # Google Test 발견 및 등록
+    # Copy test data files to build directory
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test/config_reader/test_config.yaml
+            ${CMAKE_CURRENT_BINARY_DIR}/test/config_reader/test_config.yaml COPYONLY)
+
+    # Google Test discovery and registration
     include(GoogleTest)
-    gtest_discover_tests(websocket_client_tests)
+    gtest_discover_tests(config_reader_tests)
+    gtest_discover_tests(signaling_tests)
     gtest_discover_tests(logger_tests)
 
-    # 개별 테스트 등록
+    # Register individual tests
+    add_test(NAME config_reader_tests COMMAND config_reader_tests)
     add_test(NAME websocket_client_tests COMMAND websocket_client_tests) # Not stable
     add_test(NAME logger_tests COMMAND logger_tests)
 
@@ -140,48 +188,43 @@ if (BUILD_TESTS)
 endif ()
 
 ################################################################################
-# 설치 설정
+# Installation Configure
 ################################################################################
-# 설치 규칙
 include(GNUInstallDirs)
 
-# 라이브러리 설치
-install(TARGETS BA_GCS_rtc_sender third_party_lib signaling_server logging
-        EXPORT ba_gcs_rtc_sender_targets
+install(TARGETS mosaic-core mosaic-rtc-core mosaic-auto-configurer logging signaling_server handlers security third_party_lib
+        EXPORT mosaic-core_targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
 
-# 헤더 파일 설치
 install(DIRECTORY include/
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
-# CMake config 파일 생성 및 설치
-install(EXPORT ba_gcs_rtc_sender_targets
-        FILE ba_gcs_rtc_sender_targets.cmake
-        NAMESPACE ba_gcs::
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
+install(EXPORT mosaic-core_targets
+        FILE mosaic-core_targets.cmake
+        NAMESPACE mosaic::
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-core
 )
 
-# Config 파일 생성
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/ba_gcs_rtc_sender-config.cmake.in
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config.cmake
-        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mosaic-core-config.cmake.in
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config.cmake
+        INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-core
 )
 
 write_basic_package_version_file(
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config-version.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config-version.cmake
         VERSION ${PROJECT_VERSION}
         COMPATIBILITY AnyNewerVersion
 )
 
 install(FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config.cmake
-        ${CMAKE_CURRENT_BINARY_DIR}/ba_gcs_rtc_sender-config-version.cmake
-        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/ba_gcs_rtc_sender
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config.cmake
+        ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config-version.cmake
+        DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-core
 )

@@ -1,0 +1,113 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+
+class AutoConfigurer {
+    - config_reader: IConfigReader
+    # connector_configs: ConnectorConfigs
+    # mosaic_connector: MosaicConnector
+    # configurable_connectors: List<IConfigurableConnector>
+    # dc_handler_map: Map<String, IDataChannelHandler>
+    # mt_handler_map: Map<String, IMediaTrackHandler>
+    + AutoConfigure(config_file_path: String)
+    + {abstract} AfterConfigure()
+    + GetMosaicConnector(): MosaicConnector
+    - ReadConfigs(config_file_path: String)
+    - CreateMosaicConnector()
+    - ResolveConnectors()
+    - ConfigureConnectors()
+}
+
+class ConfigReaderResolver {
+    - ConfigReaderResolver()
+    + {static} GetInstance(): ConfigReaderResolver
+    + IsSupportedFile(file_path: String): Boolean
+    + GetConfigReader(file_path: String): IConfigReader
+    + RegisterConfigReader<T extends IConfigReaderFactory>()
+
+    - {static} instance: ConfigReaderResolver
+    - factories: vector<IConfigReaderFactory>
+}
+
+interface IConfigReader {
+    + IsSupportedExtension(extension: String): Boolean
+    + LoadConfigs(file_path: String): ConnectorConfigs
+}
+
+class YamlConfigReader implements IConfigReader {
+    + IsSupportedExtension(extension: String): Boolean
+    + LoadConfigs(file_path: String): ConnectorConfigs
+    - LoadFile(file_path: String): YAML::Node
+    - ParseConnectorConfigs(node: YAML::Node): ConnectorConfigs
+    - ParseConnectorConfig(node: YAML::Node): ConnectorConfigs
+    - ParseServerConfig(node: YAML::Node): ServerConfig
+    - ParseAuthConfig(node: YAML::Node): AuthConfig
+    - ParseWebRtcConfig(node: YAML::Node): WebRtcConfig
+    - ParseIceServers(node: YAML::Node): List<IceServerConfig>
+}
+
+struct ConnectorConfigs {
+    + server: ServerConfig
+    + connectors: List<ConnectorConfig>
+}
+
+interface IConfigurableConnector {
+    # connector_config: ConnectorConfig
+    + {abstract} GetConnectorType(): String
+    + SetConfig(connector_config: ConnectorConfig)
+    + GetConfig(): ConnectorConfig
+    + {abstract} Configure(mosaic_connector: MosaicConnector)
+}
+
+abstract ADCHandlerConfigurer implements IConfigurableConnector {
+    # handler: IDataChannelHandler
+    + {abstract} GetConnectorType(): String
+    + {abstract} Configure(mosaic_connector: MosaicConnector)
+    + GetHandler(): IDataChannelHandler
+}
+
+abstract AMTHandlerConfigurer implements IConfigurableConnector {
+    # handler: IMediaTrackHandler
+    + {abstract} GetConnectorType(): String
+    + {abstract} Configure(mosaic_connector: MosaicConnector)
+    + GetHandler(): IMediaTrackHandler
+}
+
+class ConnectorResolver {
+    - {static} instance: ConnectorResolver
+    - factory_map: Map<String, IConfigurableConnectorFactory>
+    - ConnectorResolver()
+    + {static} GetInstance(): ConnectorResolver
+    + IsSupportedType(connector_type: String): Boolean
+    + GetConfigurableConnector(connector_type: String): IConfigurableConnector
+    + RegisterConfigurableConnector<T extends IConfigurableConnector>()
+}
+
+interface IConfigReaderFactory {
+    + IsSupportedExtension(extension: String): Boolean
+    + CreateConfigReader(): IConfigReader
+}
+
+class ConfigReaderFactory<T> implements IConfigReaderFactory {
+}
+
+interface IConfigurableConnectorFactory {
+    + GetConnectorType(): String
+    + CreateConnector(): IConfigurableConnector
+}
+
+class ConfigurableConnectorFactory<T> implements IConfigurableConnectorFactory {
+}
+
+ConnectorResolver "1" *-- "many" IConfigurableConnectorFactory
+AutoConfigurer *-- IConfigReader
+AutoConfigurer *-- IConfigurableConnector
+IConfigReader -> ConnectorConfigs
+
+ConfigReaderResolver "1" *-- "many" IConfigReaderFactory
+ConfigReaderFactory -- IConfigReader
+
+ConfigurableConnectorFactory -- IConfigurableConnector
+
+
+@enduml

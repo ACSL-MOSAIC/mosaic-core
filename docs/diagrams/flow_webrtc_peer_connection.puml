@@ -1,0 +1,177 @@
+@startuml
+'https://plantuml.com/sequence-diagram
+!pragma teoz true
+
+actor Person
+participant Frontend
+participant SignalingServer
+participant Robots
+participant Coturn
+
+== WS 연결 단계 ==
+Robots <-> SignalingServer: WS connect
+& Frontend <-> SignalingServer: WS connect
+
+== 로봇 상태 업데이트 단계 ==
+Robots -> SignalingServer: 로봇 상태 업데이트
+note over Robots, SignalingServer
+{
+    "type": "update_robot_state",
+    "robot_id": "robot_1",
+    "state": "READY_TO_CONNECT"
+}
+end note
+
+Frontend -> SignalingServer: 현재 연결 중인 로봇 목록 요청
+note over Frontend, SignalingServer
+{
+    "type": "get_robot_list"
+}
+end note
+SignalingServer -> Frontend: 현재 연결 중인 로봇 목록 응답
+note over Frontend, SignalingServer
+{
+    "type": "robot_list",
+    "robots": [
+        {
+            "robot_id": "robot_1",
+            "state": "READY_TO_CONNECT"
+        },
+        {
+            "robot_id": "robot_2",
+            "state": "READY_TO_CONNECT"
+        }
+    ]
+}
+end note
+Person <- Frontend: 로봇 목록 표시
+Person -> Frontend: 로봇 선택
+
+== Peer Connection 생성 단계 ==
+Frontend -> Frontend: PeerConnection 생성
+Frontend -> Frontend: onicecandidate 이벤트 리스너 등록
+Frontend -> Frontend: Ice Servers 설정 (TURN 서버 설정) 추가
+Frontend -> Frontend: onTrack 이벤트 리스너 등록
+Frontend -> Frontend: dataChannel 생성
+
+== SDP Offer 단계 ==
+Frontend -> Frontend: createOffer() 호출
+Frontend -> Frontend: setLocalDescription() 호출
+Frontend -> SignalingServer: SDP Offer 전송
+note over Frontend, SignalingServer
+{
+    "type": "send_sdp_offer",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "sdp_offer": "v=0\r\no=- 0 0 IN IP4..."
+}
+end note
+SignalingServer -> Robots: SDP Offer 전달
+note over Robots, SignalingServer
+{
+    "type": "receive_sdp_offer",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "sdp_offer": "v=0\r\no=- 0 0 IN IP4..."
+}
+end note
+
+== SDP Answer 단계 ==
+Robots -> Robots: RTCPeerConnection 생성
+Robots -> Robots: onicecandidate 이벤트 리스너 등록
+Robots -> Robots: ondatachannel 이벤트 리스너 등록
+
+Robots -> Robots: getUserMedia() 호출
+Robots -> Robots: localStream 을 RTCPeerConnection 에 추가
+
+Robots -> Robots: setRemoteDescription(sdp offer)
+Robots -> Robots: createAnswer() 호출
+Robots -> Robots: setLocalDescription(sdp answer)
+
+Robots -> SignalingServer: SDP Answer 전송
+note over Robots, SignalingServer
+{
+    "type": "send_sdp_answer",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "sdp_answer": "v=0\r\no=- 0 0 IN IP4..."
+}
+end note
+SignalingServer -> Frontend: SDP Answer 전달
+note over Frontend, SignalingServer
+{
+    "type": "receive_sdp_answer",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "sdp_answer": "v=0\r\no=- 0 0 IN IP4..."
+}
+end note
+Frontend -> Frontend: setRemoteDescription(sdp answer)
+
+== ICE Candidate 단계 ==
+Frontend -> Coturn: ICE candidate 수집 요청
+Coturn -> Frontend: ICE candidate 응답
+Frontend -> SignalingServer: ICE candidate 전송
+note over Frontend, SignalingServer
+{
+    "type": "send_ice_candidate",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "ice_candidate": {
+        "candidate": "candidate:0 1 UDP 2122260223...",
+        "sdpMid": "video",
+        "sdpMLineIndex": 0
+    }
+}
+end note
+SignalingServer -> Robots: ICE candidate 전달
+note over Robots, SignalingServer
+{
+    "type": "receive_ice_candidate",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "ice_candidate": {
+        "candidate": "candidate:0 1 UDP 2122260223...",
+        "sdpMid": "video",
+        "sdpMLineIndex": 0
+    }
+}
+end note
+Robots -> Robots: addIceCandidate(candidate from Frontend)
+Robots -> Coturn: ICE candidate 수집 요청
+Coturn -> Robots: ICE candidate 응답
+Robots -> SignalingServer: ICE candidate 전송
+note over Robots, SignalingServer
+{
+    "type": "send_ice_candidate",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "ice_candidate": {
+        "candidate": "candidate:0 1 UDP 2122260223...",
+        "sdpMid": "video",
+        "sdpMLineIndex": 0
+    }
+}
+end note
+SignalingServer -> Frontend: ICE candidate 전달
+note over Frontend, SignalingServer
+{
+    "type": "receive_ice_candidate",
+    "user_id": "user_1",
+    "robot_id": "robot_1",
+    "ice_candidate": {
+        "candidate": "candidate:0 1 UDP 2122260223...",
+        "sdpMid": "video",
+        "sdpMLineIndex": 0
+    }
+}
+end note
+Frontend -> Frontend: addIceCandidate(candidate from Robots)
+
+== Media Stream 전송 단계 ==
+Robots -> Robots: dataChannel.onopen 이벤트 발생
+Robots -> Frontend: Track 이벤트 발생 및 Stream 전송 (TURN 서버 경유)
+
+Frontend -> Robots: DataChannel 메세지 전송 (TURN 서버 경유)
+
+@enduml

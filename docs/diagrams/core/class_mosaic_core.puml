@@ -1,0 +1,175 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+
+class PeerConnectionObserver {
+    - mosaic_connector: MosaicConnector
+    - pc_manager: PeerConnectionManager
+    + PeerConnectionObserver(mosaic_connector: MosaicConnector,
+                            pc_manager: PeerConnectionManager)
+
+    + OnDataChannel(data_channel: DataChannel)
+    + OnIceCandidate(candidate: IceCandidateInterface)
+    + OnStandardizedIceConnectionChange(new_state: IceConnectionState)
+    + OnIceGatheringChange(new_state: IceGatheringState)
+    + OnSignalingChange(new_state: SignalingState)
+    + OnConnectionChange(new_state: PeerConnectionState)
+}
+
+class MosaicConnectorFactory {
+    - server_config: ServerConfig
+    + MosaicConnectorFactory(server_config: ServerConfig)
+    + Create(): MosaicConnector
+}
+
+interface IMosaicAuthenticator {
+    + IsAuthenticated(): Boolean
+}
+
+interface ISignalingClient {
+    + Start()
+    + Stop()
+    + SendSdpAnswer(sdp_answer: SessionDescriptionInterface)
+    + SendIceCandidate(candidate: IceCandidateInterface)
+    + SendState(state: String)
+    + SetMosaicConnector(mosaic_connector: MosaicConnector)
+    + SetAuthenticator(authenticator: IMosaicAuthenticator)
+    + IsAuthenticated(): Boolean
+}
+
+class SignalingClient {
+    - mosaic_connector: MosaicConnector
+    - mosaic_authenticator: IMosaicAuthenticator
+    - ws_client: WebSocketClient
+    - is_connected: Boolean
+    - is_authenticated: Boolean
+    - ws_uri: String
+    - lastest_state: String
+
+    + SignalingClient(ws_uri: String)
+    + Start()
+    + Stop()
+    + SendSdpAnswer(sdp_answer: SessionDescriptionInterface)
+    + SendIceCandidate(candidate: IceCandidateInterface)
+    + SendState(state: String)
+    + SetMosaicConnector(mosaic_connector: MosaicConnector)
+    + SetAuthenticator(authenticator: IMosaicAuthenticator)
+    + IsAuthenticated(): Boolean
+
+    - StartInternal()
+    - OnWsMessage(message: String)
+    - OnMessage(message: Json)
+    - SendWsMessage(message: Json)
+
+    - ResolveIceCandidate(ice_candidate: Json): IceCandidate
+    - ResolveSdpOffer(sdp_offer: Json): SessionDescription
+}
+
+class ConnectorStateManager {
+    - state: ClientState
+    - signaling_client: ISignalingClient
+
+    + ConnectorStateManager(signaling_client: ISignalingClient)
+    + GetState(): ClientState
+    + SetState(new_state: ClientState)
+    + GetStateString(): String
+    + IsState(expected_state: ClientState): Boolean
+
+    - LogState(old_state: ClientState, new_state: ClientState)
+    - SendState()
+    - StateToString(state: ClientState): String
+}
+
+enum ClientState {
+    INITIALIZING
+    READY_TO_CONNECT
+    CONNECTING
+    CONNECTED
+    DISCONNECTING
+    FAILED
+    SHUTTING_DOWN
+}
+
+class MosaicConnector {
+    - robot_id: String
+    - user_id: String
+    + pc_manager: PeerConnectionManager
+    + state_manager: ConnectorStateManager
+    - data_channel_handlers_dict: Dict<String, IDataChannelHandler>
+    - media_track_handlers_dict: Dict<String, IMediaTrackHandler>
+
+    + MosaicConnector(robot_id: String, user_id: String, state_manager: ConnectorStateManager)
+    + GetRobotId(): String
+    + GetUserId(): String
+    + InitializeWebRTC()
+    + AddDataChannelHandler(handler: IDataChannelHandler)
+    + AddMediaTrackHandler(handler: IMediaTrackHandler)
+    + ShuttingDown()
+    - CreateAllMediaTracks()
+    - CloseAllMediaTracks()
+    - CloseAllDataChannels()
+    - OnDataChannel(data_channel: DataChannelInterface)
+    - GetStateManager(): ConnectorStateManager
+    - SetPeerConnectionManager(peer_connection_manager: PeerConnectionManager)
+    - HandleSdpOffer(sdp_offer: SessionDescriptionInterface)
+    - HandleIceCandidateFromSignaling(candidate: IceCandidateInterface)
+    - ClosePeerConnection()
+}
+
+class PeerConnectionManager {
+    - client: MosaicConnector
+    - state_manager: ConnectorStateManager
+    - web_rtc_config: WebRtcConfig
+    - signaling_client: ISignalingClient
+
+    - peer_connection_factory: PeerConnectionFactoryInterface
+    - peer_connection: PeerConnectionInterface
+    - peer_connection_observer: PeerConnectionObserver
+
+    + PeerConnectionManager(client: MosaicConnector, state_manager: ConnectorStateManager,
+                            signaling_client: ISignalingClient, web_rtc_config: WebRtcConfig)
+    + InitializeWebRTC()
+    + CreatePeerConnection()
+    + HandleSdpOffer(sdp_offer: SessionDescriptionInterface)
+    + AfterSetSessionDescription()
+    + AfterCreateSdpAnswer(desc: SessionDescriptionInterface)
+    + AfterSetLocalDescription(desc: SessionDescriptionInterface)
+    + HandleIceCandidateFromSignaling(candidate: IceCandidateInterface)
+    + OnConnectionConnected()
+    + OnConnectionDisconnected()
+    + SendIceCandidate(candidate: IceCandidateInterface)
+    + StopSignalingServer()
+    + ClosePeerConnection()
+    + DestroyPeerConnectionManager()
+
+    - CreateVideoTrack(source: VideoTrackSourceInterface, label: String): VideoTrackInterface
+    - AddTrack(track: MediaStreamTrackInterface, stream_ids: String[]): RtpSenderInterface
+    - GetPeerConnection(): PeerConnectionInterface
+    - GetImpl(): Impl
+}
+
+interface handler.IDataChannelHandler {
+}
+interface handler.IMediaTrackHandler {
+}
+
+MosaicConnector "1" *-- "many" IDataChannelHandler
+MosaicConnector "1" *-- "many" IMediaTrackHandler
+
+ISignalingClient -* ConnectorStateManager
+
+SignalingClient *-- IMosaicAuthenticator
+
+MosaicConnector *- ConnectorStateManager
+ConnectorStateManager <- ClientState
+
+PeerConnectionObserver -* PeerConnectionManager
+webrtc_PeerConnectionObserver <|-- PeerConnectionObserver
+
+ISignalingClient <|. SignalingClient
+PeerConnectionManager *- ISignalingClient
+
+MosaicConnectorFactory ->  MosaicConnector
+PeerConnectionManager --* MosaicConnector
+
+@enduml

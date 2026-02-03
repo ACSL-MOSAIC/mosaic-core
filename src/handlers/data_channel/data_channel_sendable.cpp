@@ -1,52 +1,56 @@
 //
 // Created by yhkim on 25. 7. 1.
 //
-#include "rtc_sender/handlers/data_channel/data_channel_sendable.h"
 
+#include <api/data_channel_interface.h>
 #include <json/json.h>
+#include <mosaic/handlers/data_channel/data_channel_sendable.h>
+#include <mosaic/logger/log.h>
 
-#include "api/data_channel_interface.h"
-#include "rtc_sender/logger/log.h"
-
-using namespace rtc_sender::handlers;
+using namespace mosaic::handlers;
 
 bool DataChannelSendable::Sendable() const {
     return GetState() == kOpen;
 }
 
-void DataChannelSendable::Send(const webrtc::DataBuffer &buffer) const {
+// TODO: 길이 제한!!!!
+void DataChannelSendable::Send(const webrtc::DataBuffer& buffer, const bool isAsync) const {
     if (!Sendable()) {
-        RTC_SENDER_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
+        MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
-    ADataChannelHandler::Send(buffer);
+    if (isAsync) {
+        ADataChannelHandler::SendAsync(buffer);
+    } else {
+        ADataChannelHandler::Send(buffer);
+    }
 }
 
-void DataChannelSendable::SendString(const std::string &string) const {
+void DataChannelSendable::SendString(const std::string& string, const bool isAsync) const {
     if (!Sendable()) {
-        RTC_SENDER_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
+        MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
-    webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), false);
-    Send(buffer);
+    const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), false);
+    Send(buffer, isAsync);
 }
 
-void DataChannelSendable::SendStringAsByte(const std::string &string) const {
+void DataChannelSendable::SendStringAsByte(const std::string& string, const bool isAsync) const {
     if (!Sendable()) {
-        RTC_SENDER_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
+        MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
-    webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), true);
-    Send(buffer);
+    const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(string), true);
+    Send(buffer, isAsync);
 }
 
-void DataChannelSendable::SendJson(const Json::Value &json_data) const {
+void DataChannelSendable::SendJson(const Json::Value& json_data, const bool isAsync) const {
     if (!Sendable()) {
-        RTC_SENDER_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
+        MOSAIC_LOG_ERROR("DataChannel is not open, cannot send data... Ignoring send request.");
         return;
     }
     const Json::StreamWriterBuilder writer;
     const std::string json_string = Json::writeString(writer, json_data);
     const webrtc::DataBuffer buffer(rtc::CopyOnWriteBuffer(json_string), false);
-    Send(buffer);
+    Send(buffer, isAsync);
 }

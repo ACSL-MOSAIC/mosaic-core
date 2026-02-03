@@ -1,0 +1,119 @@
+@startuml
+'https://plantuml.com/class-diagram
+skinparam linetype ortho
+
+package core {
+    class MosaicConnector {}
+}
+
+interface IDataChannelHandler {
+    + GetLabel(): String
+    + GetState(): ChannelState
+    + CloseDataChannel()
+    + AfterCreate()
+    + OnMessage(buffer: DataBuffer)
+    + SetDataChannelInterface(dc_interface: DataChannelInterface)
+    + RegisterDataChannelObserver()
+    - {abstract} Send(buffer: DataBuffer)
+}
+
+
+abstract class ADataChannelHandler implements IDataChannelHandler {
+    - label: String
+    - dc_interface: DataChannelInterface
+    + observer: DataChannelObserver
+
+    + ADataChannelHandler(label: String)
+    + GetLabel(): String
+    + GetState(): ChannelState
+    + CloseDataChannel()
+    + {abstract} OnMessage(buffer: DataBuffer)
+    + SetDataChannelInterface(dc_interface: DataChannelInterface)
+    + RegisterDataChannelObserver()
+    - Send(buffer: DataBuffer)
+}
+
+class DataChannelSendable extends ADataChannelHandler {
+    + DataChannelSendable(label: String)
+    + Sendable(): Boolean
+    + Send(buffer: DataBuffer)
+    + SendString(string: String)
+    + SendStringAsByte(string: String)
+    + SendJson(json: Json)
+}
+
+abstract class IDataChannelReceivable extends ADataChannelHandler {
+    + IDataChannelReceivable(label: String)
+    + ConvertDataBufferToJson(buffer: DataBuffer): Json
+    + {abstract} OnMessage(buffer: DataBuffer)
+}
+
+abstract class DataChannelReceivable<ReceiveT> extends IDataChannelReceivable {
+    + DataChannelReceivable(label: String, need_to_create: Boolean)
+    + OnMessage(buffer: DataBuffer)
+    + {abstract} ConvertJsonToData(json: Json): ReceiveT
+    + {abstract} HandleData(data: ReceiveT)
+}
+
+enum ChannelState {
+    kConnecting
+    kOpen
+    kClosing
+    kClosed
+    kUnknown
+}
+ChannelState -* ADataChannelHandler
+
+interface IMediaTrackHandler {
+    # track_name: String
+    + IMediaTrackHandler(track_name: String)
+    + {abstract} CreateVideoTrackSource(): VideoTrackSourceInterface
+    + {abstract} Close()
+    + GetTrackName(): String
+}
+
+abstract class AMediaTrackHandler implements IMediaTrackHandler {
+    - actual_video_track_source: ActualVideoTrackSource
+    + AMediaTrackHandler(track_name: String)
+    + {abstract} Start()
+    + {abstract} Stop()
+    + SendFrame(frame: VideoFrame)
+    + SendFrame(frame: cv::Mat, start_time: time_point)
+    + IsRunning(): Boolean
+    + CreateVideoTrackSource(): VideoTrackSourceInterface
+    + Close()
+    # SetRunning(running: Boolean)
+    # GetStopFlag(): Boolean
+    # SetStopFlag(stop_flag: Boolean)
+    - CvMat2VideoFrame(frame: cv::Mat, start_time: time_point): VideoFrame
+    - VideoFrame2CvMat(frame: VideoFrame): cv::Mat
+}
+
+class ActualVideoTrackSource {
+    + is_running: Boolean
+    + stop_flag: Boolean
+    + SendFrame(frame: VideoFrame)
+}
+webrtc_AdaptedVideoTrackSource <|-- ActualVideoTrackSource
+AMediaTrackHandler <- ActualVideoTrackSource
+
+package recorder {
+    class IMediaRecorder {}
+}
+AMediaTrackHandler *-- IMediaRecorder
+
+
+
+
+
+interface OnConnectionInit {
+    + OnConnectionInit()
+}
+interface OnConnectionClose {
+    + OnConnectionClose()
+}
+
+MosaicConnector "1" *-- "many" IDataChannelHandler
+MosaicConnector "1" *-- "many" IMediaTrackHandler
+
+@enduml

@@ -34,7 +34,7 @@ IncludeCategories:
     Priority: 2
   - Regex: '^<.*>'
     Priority: 3
-  - Regex: '^"acsl_robot/.*"'
+  - Regex: '^"mosaic_rtc_core/.*"'
     Priority: 4
   - Regex: '^".*"'
     Priority: 5
