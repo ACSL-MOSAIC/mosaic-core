@@ -64,7 +64,7 @@ endif ()
 ################################################################################
 # WebRTC related Settings
 ################################################################################
-set(WEBRTC_HEADERS_ROOT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/webrtc-headers/src")
+set(WEBRTC_HEADERS_ROOT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/webrtc/src")
 set(WEBRTC_INCLUDE_PATH "${WEBRTC_HEADERS_ROOT_PATH}")
 set(WEBRTC_LIBRARY_PATH "${WEBRTC_HEADERS_ROOT_PATH}/out/Default/obj")
 
