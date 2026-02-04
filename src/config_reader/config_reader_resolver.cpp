@@ -9,10 +9,9 @@
 
 using namespace mosaic::auto_configurer;
 
-ConfigReaderResolver ConfigReaderResolver::instance_;
-
 ConfigReaderResolver& ConfigReaderResolver::GetInstance() {
-    return instance_;
+    static ConfigReaderResolver instance;
+    return instance;
 }
 
 std::string ExtractFileExtension(const std::string& file_path) {

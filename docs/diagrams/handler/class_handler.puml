@@ -44,14 +44,13 @@ class DataChannelSendable extends ADataChannelHandler {
 
 abstract class IDataChannelReceivable extends ADataChannelHandler {
     + IDataChannelReceivable(label: String)
-    + ConvertDataBufferToJson(buffer: DataBuffer): Json
     + {abstract} OnMessage(buffer: DataBuffer)
 }
 
 abstract class DataChannelReceivable<ReceiveT> extends IDataChannelReceivable {
-    + DataChannelReceivable(label: String, need_to_create: Boolean)
+    + DataChannelReceivable(label: String)
     + OnMessage(buffer: DataBuffer)
-    + {abstract} ConvertJsonToData(json: Json): ReceiveT
+    + {abstract} ConvertBufferToData(buffer: DataBuffer): ReceiveT
     + {abstract} HandleData(data: ReceiveT)
 }
 
