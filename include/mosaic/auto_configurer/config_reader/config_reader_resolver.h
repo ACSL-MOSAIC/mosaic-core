@@ -32,7 +32,6 @@ class ConfigReaderResolver {
     ConfigReaderResolver& operator=(const ConfigReaderResolver&) = delete;
 
   private:
-    static ConfigReaderResolver instance_;
     std::vector<std::shared_ptr<IConfigReaderFactory>> factories_;
 
     ConfigReaderResolver() = default;

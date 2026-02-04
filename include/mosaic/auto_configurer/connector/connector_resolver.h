@@ -34,7 +34,6 @@ class ConnectorResolver {
     ConnectorResolver& operator=(const ConnectorResolver&) = delete;
 
   private:
-    static ConnectorResolver instance_;
     std::unordered_map<std::string, std::shared_ptr<IConfigurableConnectorFactory>> factory_map_;
 
     ConnectorResolver() = default;

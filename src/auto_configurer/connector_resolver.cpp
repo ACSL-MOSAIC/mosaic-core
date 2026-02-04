@@ -6,10 +6,9 @@
 
 using namespace mosaic::auto_configurer;
 
-ConnectorResolver ConnectorResolver::instance_;
-
 ConnectorResolver& ConnectorResolver::GetInstance() {
-    return instance_;
+    static ConnectorResolver instance;
+    return instance;
 }
 
 bool ConnectorResolver::IsSupportedType(const std::string& connector_type) const {
