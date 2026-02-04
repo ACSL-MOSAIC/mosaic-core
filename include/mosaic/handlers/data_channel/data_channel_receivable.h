@@ -5,6 +5,9 @@
 #ifndef MOSAIC_RTC_CORE_DATA_CHANNEL_RECEIVABLE_H
 #define MOSAIC_RTC_CORE_DATA_CHANNEL_RECEIVABLE_H
 
+#include <cstdint>
+#include <vector>
+
 #include <json/json.h>
 #include <mosaic/handlers/data_channel/a_data_channel_handler.h>
 #include <mosaic/logger/log.h>
@@ -15,8 +18,6 @@ class IDataChannelReceivable : public ADataChannelHandler {
     explicit IDataChannelReceivable(const std::string& label) : ADataChannelHandler(label) {}
 
     ~IDataChannelReceivable() override = default;
-
-    Json::Value ConvertDataBufferToJson(const webrtc::DataBuffer& buffer);
 
     void OnMessage(const webrtc::DataBuffer& buffer) override = 0;
 };
@@ -30,17 +31,53 @@ class DataChannelReceivable : public IDataChannelReceivable {
 
     void OnMessage(const webrtc::DataBuffer& buffer) override {
         try {
-            const auto json_data = ConvertDataBufferToJson(buffer);
-            auto data = ConvertJsonToData(json_data);
+            auto data = ConvertBufferToData(buffer);
             HandleData(data);
         } catch (const std::exception& e) {
             MOSAIC_LOG_ERROR("Error processing message: {}", e.what());
         }
     }
 
-    virtual ReceiveT ConvertJsonToData(const Json::Value& json_data) = 0;
+  protected:
+    virtual ReceiveT ConvertBufferToData(const webrtc::DataBuffer& buffer) = 0;
 
     virtual void HandleData(const ReceiveT&) {}
+};
+
+class DataChannelStringReceivable : public DataChannelReceivable<std::string> {
+  public:
+    explicit DataChannelStringReceivable(const std::string& label) : DataChannelReceivable(label) {}
+
+    ~DataChannelStringReceivable() override = default;
+
+  protected:
+    std::string ConvertBufferToData(const webrtc::DataBuffer& buffer) override;
+
+    virtual void HandleData(const std::string&) override {}
+};
+
+class DataChannelJsonReceivable : public DataChannelReceivable<Json::Value> {
+  public:
+    explicit DataChannelJsonReceivable(const std::string& label) : DataChannelReceivable(label) {}
+
+    ~DataChannelJsonReceivable() override = default;
+
+  protected:
+    Json::Value ConvertBufferToData(const webrtc::DataBuffer& buffer) override;
+
+    virtual void HandleData(const Json::Value&) override {}
+};
+
+class DataChannelByteReceivable : public DataChannelReceivable<std::vector<uint8_t>> {
+  public:
+    explicit DataChannelByteReceivable(const std::string& label) : DataChannelReceivable(label) {}
+
+    ~DataChannelByteReceivable() override = default;
+
+  protected:
+    std::vector<uint8_t> ConvertBufferToData(const webrtc::DataBuffer& buffer) override;
+
+    virtual void HandleData(const std::vector<uint8_t>&) override {}
 };
 }  // namespace mosaic::handlers
 

@@ -9,7 +9,11 @@
 
 using namespace mosaic::handlers;
 
-Json::Value IDataChannelReceivable::ConvertDataBufferToJson(const webrtc::DataBuffer& buffer) {
+std::string DataChannelStringReceivable::ConvertBufferToData(const webrtc::DataBuffer& buffer) {
+    return {buffer.data.data<char>(), buffer.data.size()};
+}
+
+Json::Value DataChannelJsonReceivable::ConvertBufferToData(const webrtc::DataBuffer& buffer) {
     Json::Value json_data;
     const Json::CharReaderBuilder reader_builder;
     std::string errors;
@@ -19,4 +23,8 @@ Json::Value IDataChannelReceivable::ConvertDataBufferToJson(const webrtc::DataBu
         throw std::runtime_error("JSON parsing failed: " + errors);
     }
     return json_data;
+}
+
+std::vector<uint8_t> DataChannelByteReceivable::ConvertBufferToData(const webrtc::DataBuffer& buffer) {
+    return {buffer.data.data<uint8_t>(), buffer.data.data<uint8_t>() + buffer.data.size()};
 }
