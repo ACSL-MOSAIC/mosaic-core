@@ -125,7 +125,7 @@ target_link_libraries(mosaic-core INTERFACE
 )
 
 # Python bindings
-option(BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
+option(BUILD_PYTHON_BINDINGS "Build Python bindings" OFF)
 if (BUILD_PYTHON_BINDINGS)
     find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
     find_package(pybind11 CONFIG REQUIRED)
