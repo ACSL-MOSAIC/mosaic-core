@@ -4,7 +4,7 @@ version = "0.1.0"
 requires-python = ">=3.12"
 description = "Tests for mosaic-core Python bindings"
 dependencies = [
-    "mosaic-core",
+    "mosaic_core",
     "numpy>=2.0",
     "setuptools>=80.10.2",
 ]
@@ -17,4 +17,4 @@ dev = [
 # _build는 Makefile이 cmake-build-debug 또는 build 디렉토리로 자동 생성하는 심볼릭 링크
 # make sync 후 uv sync 단독 실행도 가능
 [tool.uv.sources]
-mosaic-core = { path = "./_build", editable = true }
+mosaic_core = { path = "./_build", editable = true }
