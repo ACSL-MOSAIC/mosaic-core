@@ -2,10 +2,12 @@
 // Created by yhkim on 12/28/25.
 //
 
+#include "mosaic/auto_configurer/config_reader/config_reader_resolver.h"
+
 #include <filesystem>
 #include <stdexcept>
 
-#include <mosaic/auto_configurer/config_reader/config_reader_resolver.h>
+#include "mosaic/auto_configurer/config_reader/yaml_config_reader.h"
 
 using namespace mosaic::auto_configurer;
 
@@ -60,4 +62,8 @@ std::shared_ptr<IConfigReader> ConfigReaderResolver::GetConfigReader(const std::
     }
 
     throw std::invalid_argument("Unsupported file extension: " + extension);
+}
+
+ConfigReaderResolver::ConfigReaderResolver() {
+    factories_.push_back(std::make_shared<ConfigReaderFactory<YamlConfigReader>>());
 }

@@ -16,7 +16,10 @@
 namespace mosaic::security {
 class AuthenticatorResolver {
   public:
-    static AuthenticatorResolver& GetInstance();
+    static AuthenticatorResolver& GetInstance() {
+        static AuthenticatorResolver instance;
+        return instance;
+    }
 
     std::shared_ptr<IMosaicAuthenticator> CreateAuthenticator(
         const core::AuthConfig& auth_config,
@@ -27,10 +30,11 @@ class AuthenticatorResolver {
     AuthenticatorResolver& operator=(const AuthenticatorResolver&) = delete;
 
   private:
-    static AuthenticatorResolver instance_;
     std::unordered_map<AuthType, std::shared_ptr<IAuthenticatorFactory>> factory_map_;
 
     AuthenticatorResolver();
+
+    ~AuthenticatorResolver() = default;
 };
 }  // namespace mosaic::security
 

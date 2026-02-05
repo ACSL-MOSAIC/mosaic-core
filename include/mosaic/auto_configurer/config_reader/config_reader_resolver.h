@@ -27,6 +27,10 @@ class ConfigReaderResolver {
         factories_.push_back(factory);
     }
 
+    void RegisterConfigReader(const std::shared_ptr<IConfigReaderFactory>& factory) {
+        factories_.push_back(factory);
+    }
+
     ConfigReaderResolver(const ConfigReaderResolver&) = delete;
 
     ConfigReaderResolver& operator=(const ConfigReaderResolver&) = delete;
@@ -34,7 +38,7 @@ class ConfigReaderResolver {
   private:
     std::vector<std::shared_ptr<IConfigReaderFactory>> factories_;
 
-    ConfigReaderResolver() = default;
+    ConfigReaderResolver();
 };
 }  // namespace mosaic::auto_configurer
 
