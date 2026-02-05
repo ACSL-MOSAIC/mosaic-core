@@ -19,6 +19,7 @@ add_library(logging STATIC
         src/logger/log_service.cpp
         src/logger/webrtc_log.cpp
 )
+target_compile_options(logging PRIVATE -fPIC)
 target_link_libraries(logging PRIVATE
         third_party_lib
 )
@@ -31,6 +32,7 @@ add_library(signaling_server STATIC
         src/signaling/websocket_client.cpp
         src/signaling/signaling_client.cpp
 )
+target_compile_options(signaling_server PRIVATE -fPIC)
 target_link_libraries(signaling_server PRIVATE
         logging
         cpprestsdk::cpprest
@@ -50,6 +52,7 @@ add_library(handlers STATIC
         src/handlers/media_track/recordable.cpp
         src/handlers/media_track/video_recorder.cpp
 )
+target_compile_options(handlers PRIVATE -fPIC)
 target_link_libraries(handlers PRIVATE
         third_party_lib
         logging
@@ -65,6 +68,7 @@ add_library(security STATIC
         src/security/impl/no_auth_authenticator.cpp
         src/security/impl/simple_token_authenticator.cpp
 )
+target_compile_options(security PRIVATE -fPIC)
 target_link_libraries(security PUBLIC
         third_party_lib
         logging
@@ -81,6 +85,7 @@ add_library(mosaic-rtc-core STATIC
         src/core/peer_connection_manager.cpp
         src/core/peer_connection_observer.cpp
 )
+target_compile_options(mosaic-rtc-core PRIVATE -fPIC)
 target_link_libraries(mosaic-rtc-core PUBLIC
         third_party_lib
         signaling_server
@@ -101,6 +106,7 @@ add_library(mosaic-auto-configurer STATIC
         src/config_reader/config_reader_resolver.cpp
         src/config_reader/yaml_config_reader.cpp
         src/auto_configurer/i_configurable_connector.cpp)
+target_compile_options(mosaic-auto-configurer PRIVATE -fPIC)
 
 target_include_directories(mosaic-auto-configurer PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>

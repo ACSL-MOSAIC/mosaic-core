@@ -4,18 +4,23 @@ ifeq ($(BUILD_DIR),)
 $(error Build directory not found. cmake-build-debug or build directory is required.)
 endif
 
-.PHONY: sync test clean
+.PHONY: test stub env_setting clean _build
 
-# Create _build symlink referenced by pyproject.toml
+# Copy build output referenced by pyproject.toml
 _build:
-	@ln -snf $(BUILD_DIR) _build
+	@rm -rf _build
+	@cp -r $(BUILD_DIR) _build
 
-sync: _build
-	uv sync
+# Generate .pyi stubs from compiled _mosaic_core.so for IDE static analysis
+# Output: $(BUILD_DIR)/mosaic_core/_mosaic_core.pyi
+stub: _build
+	uv sync --all-groups
+	uv run pybind11-stubgen mosaic_core._mosaic_core -o $(BUILD_DIR)
 
-test: sync
+env_setting: clean stub
+
+test: env_setting
 	uv run python -m unittest discover -s tests
 
 clean:
-	rm -f _build
-	rm -rf .venv uv.lock
+	rm -rf _build .venv uv.lock

@@ -41,6 +41,7 @@ void bind_logging(py::module_& m) {
 
     // ILogger 추상 클래스 (PyILogger 트램폴린으로 Python 서브클래스 가능)
     py::class_<mosaic::core_log::ILogger, std::shared_ptr<mosaic::core_log::ILogger>, PyILogger>(m, "ILogger")
+        .def(py::init<>())
         .def("log", &mosaic::core_log::ILogger::LOG)
         .def("log_debug",
              static_cast<void (mosaic::core_log::ILogger::*)(const std::string&)>(&mosaic::core_log::ILogger::LOG_DEBUG))
