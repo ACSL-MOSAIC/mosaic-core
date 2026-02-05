@@ -1,0 +1,4 @@
+_build
+.venv
+uv.lock
+__pycache__/
