@@ -1,5 +1,5 @@
 # Auto-detect build directory (cmake-build-debug preferred, fallback to build)
-BUILD_DIR := $(firstword $(wildcard ../../cmake-build-debug ../../build))
+BUILD_DIR := $(firstword $(wildcard ../../build ../../cmake-build-debug))
 ifeq ($(BUILD_DIR),)
 $(error Build directory not found. cmake-build-debug or build directory is required.)
 endif
