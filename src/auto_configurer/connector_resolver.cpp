@@ -20,5 +20,6 @@ std::shared_ptr<IConfigurableConnector> ConnectorResolver::GetConfigurableConnec
     if (it != factory_map_.end()) {
         return it->second->CreateConnector();
     }
+    MOSAIC_LOG_ERROR("No factory found for connector type: {}", connector_type);
     return nullptr;
 }

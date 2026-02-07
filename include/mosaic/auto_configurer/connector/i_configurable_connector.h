@@ -15,20 +15,20 @@ class IConfigurableConnector {
 
     virtual std::string GetConnectorType() const = 0;
 
-    void SetConfig(const core::ConnectorConfig& connector_config) {
+    void SetConfig(const std::shared_ptr<core::ConnectorConfig>& connector_config) {
         connector_config_ = connector_config;
     }
 
     virtual void ValidateConfig();
 
-    core::ConnectorConfig GetConfig() const {
+    std::shared_ptr<core::ConnectorConfig> GetConfig() const {
         return connector_config_;
     }
 
     virtual void Configure() = 0;
 
   protected:
-    core::ConnectorConfig connector_config_;
+    std::shared_ptr<core::ConnectorConfig> connector_config_;
 };
 }  // namespace mosaic::auto_configurer
 

@@ -15,10 +15,6 @@ _build:
 stub: _build
 	uv sync --all-groups
 	uv run pybind11-stubgen mosaic_core -o $(BUILD_DIR)
-#	uv run pybind11-stubgen mosaic_core.handlers -o $(BUILD_DIR)/mosaic_core
-#	uv run pybind11-stubgen mosaic_core.configs -o $(BUILD_DIR)/mosaic_core
-#	uv run pybind11-stubgen mosaic_core.core -o $(BUILD_DIR)/mosaic_core
-#	uv run pybind11-stubgen mosaic_core.auto_configurer -o $(BUILD_DIR)/mosaic_core
 
 env_setting: clean stub
 

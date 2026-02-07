@@ -29,6 +29,14 @@ class AutoConfigurer {
         return mosaic_connector_;
     }
 
+    void ReadConfigs(const std::string& config_file_path);
+
+    void CreateMosaicConnector();
+
+    void ResolveConnectors();
+
+    void ConfigureConnectors();
+
   protected:
     std::shared_ptr<core::MosaicConfig> mosaic_config_;
     std::shared_ptr<core::MosaicConnector> mosaic_connector_;
@@ -38,14 +46,6 @@ class AutoConfigurer {
 
   private:
     std::shared_ptr<IConfigReader> config_reader_;
-
-    void ReadConfigs(const std::string& config_file_path);
-
-    void CreateMosaicConnector();
-
-    void ResolveConnectors();
-
-    void ConfigureConnectors();
 };
 }  // namespace mosaic::auto_configurer
 
