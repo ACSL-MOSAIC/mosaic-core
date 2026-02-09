@@ -12,12 +12,6 @@
 
 using namespace mosaic::security;
 
-AuthenticatorResolver AuthenticatorResolver::instance_;
-
-AuthenticatorResolver& AuthenticatorResolver::GetInstance() {
-    return instance_;
-}
-
 std::shared_ptr<IMosaicAuthenticator> AuthenticatorResolver::CreateAuthenticator(
     const core::AuthConfig& auth_config,
     const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client) {

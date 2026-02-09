@@ -11,6 +11,10 @@
 #include <string>
 
 #define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
+#ifdef CPPREST_EXCLUDE_WEBSOCKETS
+#undef CPPREST_EXCLUDE_WEBSOCKETS
+#endif
+
 #include <cpprest/ws_client.h>
 
 using namespace web;

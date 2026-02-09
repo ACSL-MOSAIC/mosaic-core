@@ -5,7 +5,6 @@
 #ifndef MOSAIC_AUTO_CONFIGURER_CONNECTOR_RESOLVER_H
 #define MOSAIC_AUTO_CONFIGURER_CONNECTOR_RESOLVER_H
 
-#include <functional>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -26,6 +25,10 @@ class ConnectorResolver {
     void RegisterConfigurableConnector() {
         static_assert(std::is_base_of_v<IConfigurableConnector, T>, "T must inherit from IConfigurableConnector");
         auto factory = std::make_shared<ConfigurableConnectorFactory<T>>();
+        factory_map_[factory->GetConnectorType()] = factory;
+    }
+
+    void RegisterConfigurableConnector(const std::shared_ptr<IConfigurableConnectorFactory>& factory) {
         factory_map_[factory->GetConnectorType()] = factory;
     }
 

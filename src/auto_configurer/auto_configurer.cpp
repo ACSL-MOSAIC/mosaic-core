@@ -45,7 +45,14 @@ void AutoConfigurer::ResolveConnectors() {
         }
 
         const auto configurable_connector = resolver.GetConfigurableConnector(connector_config.type);
-        configurable_connector->SetConfig(connector_config);
+        if (!configurable_connector) {
+            MOSAIC_LOG_ERROR("Failed to create connector: {}", connector_config.type);
+            continue;
+        }
+
+        auto config_ptr = std::make_shared<ConnectorConfig>(connector_config);
+        configurable_connector->SetConfig(config_ptr);
+
         try {
             configurable_connector->ValidateConfig();
         } catch (const std::exception& e) {
@@ -57,26 +64,37 @@ void AutoConfigurer::ResolveConnectors() {
 }
 
 void AutoConfigurer::ConfigureConnectors() {
+    int connector_index = 0;
     for (const auto& configurable_connector : configurable_connectors_) {
+        if (!configurable_connector) {
+            MOSAIC_LOG_ERROR("ConfigureConnectors: Connector #{} is nullptr!", connector_index);
+            connector_index++;
+            continue;
+        }
         configurable_connector->Configure();
-
         if (const auto dc_ptr = dynamic_cast<ADCHandlerConfigurer*>(configurable_connector.get())) {
             const auto handler = dc_ptr->GetHandler();
-            mosaic_connector_->AddDataChannelHandler(handler);
-
-            dc_handler_map_[handler->GetLabel()] = handler;
+            if (!handler) {
+                MOSAIC_LOG_ERROR("ConfigureConnectors: Handler is nullptr for connector #{}!", connector_index);
+            } else {
+                mosaic_connector_->AddDataChannelHandler(handler);
+                dc_handler_map_[handler->GetLabel()] = handler;
+            }
         } else if (const auto dc_p_ptr = dynamic_cast<AParallelDCHandlerConfigurer*>(configurable_connector.get())) {
             const auto handlers = dc_p_ptr->GetHandlers();
             for (const auto& handler : handlers) {
                 mosaic_connector_->AddDataChannelHandler(handler);
-
                 dc_handler_map_[handler->GetLabel()] = handler;
             }
         } else if (const auto mt_ptr = dynamic_cast<AMTHandlerConfigurer*>(configurable_connector.get())) {
             const auto handler = mt_ptr->GetHandler();
             mosaic_connector_->AddMediaTrackHandler(handler);
-
             mt_handler_map_[handler->GetTrackName()] = handler;
+        } else {
+            MOSAIC_LOG_INFO("ConfigureConnectors: Connector #{} type not recognized for handler extraction",
+                            connector_index);
         }
+
+        connector_index++;
     }
 }
