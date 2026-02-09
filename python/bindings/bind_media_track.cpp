@@ -19,8 +19,8 @@ namespace {
 
 using namespace mosaic::handlers;
 
-// numpy array (HxW, HxWx3, HxWx4) → cv::Mat 변환
-// py::array::c_style | forcecast로 연속 메모리와 uint8 타입 보장
+// numpy array (HxW, HxWx3, HxWx4) → cv::Mat conversion
+// py::array::c_style | forcecast ensures contiguous memory and uint8 type
 cv::Mat numpy_to_mat(const py::array_t<uint8_t, py::array::c_style | py::array::forcecast>& array) {
     auto buf = array.request();
     int type;
@@ -36,8 +36,8 @@ cv::Mat numpy_to_mat(const py::array_t<uint8_t, py::array::c_style | py::array::
     return cv::Mat(buf.shape[0], buf.shape[1], type, buf.ptr);
 }
 
-// AMediaTrackHandler의 Trampoline 클래스
-// Python에서 Start(), Stop()을 구현할 수 있도록 합니다
+// Trampoline class for AMediaTrackHandler
+// Allows Python to implement Start() and Stop()
 class PyAMediaTrackHandler : public AMediaTrackHandler {
   public:
     using AMediaTrackHandler::AMediaTrackHandler;
@@ -58,7 +58,7 @@ class PyAMediaTrackHandler : public AMediaTrackHandler {
         );
     }
 
-    // protected 메서드 접근을 위한 헬퍼
+    // Helpers for accessing protected methods
     void SetRunningPublic(bool running) {
         SetRunning(running);
     }
@@ -84,7 +84,7 @@ void bind_media_track(py::module_& m) {
         .value("PAUSED", Paused);
 
     // Recordable
-    // shared_ptr holder: AMediaTrackHandler의 다중상속 기본 클래스로서 holder 일관성 유지
+    // shared_ptr holder: maintains holder consistency as multiple inheritance base class of AMediaTrackHandler
     py::class_<Recordable, std::shared_ptr<Recordable>>(m, "Recordable")
         .def(py::init<bool>(), py::arg("recordable"))
         .def("set_record_file_path", &Recordable::SetRecordFilePath)
@@ -102,16 +102,16 @@ void bind_media_track(py::module_& m) {
                  self.RecordFrame(numpy_to_mat(frame));
              });
 
-    // IMediaTrackHandler (abstract - 생성자 없음)
-    // CreateVideoTrackSource는 WebRTC 타입이므로 제외
-    // shared_ptr holder: MosaicConnector::AddMediaTrackHandler에서 shared_ptr<IMediaTrackHandler>로 전달됨
+    // IMediaTrackHandler (abstract - no constructor)
+    // CreateVideoTrackSource is excluded as it uses WebRTC types
+    // shared_ptr holder: passed as shared_ptr<IMediaTrackHandler> in MosaicConnector::AddMediaTrackHandler
     py::class_<IMediaTrackHandler, std::shared_ptr<IMediaTrackHandler>>(m, "IMediaTrackHandler")
         .def("get_track_name", &IMediaTrackHandler::GetTrackName)
         .def("close", &IMediaTrackHandler::Close);
 
-    // AMediaTrackHandler (abstract, 다중상속 IMediaTrackHandler + Recordable)
-    // Trampoline 클래스를 통해 Python에서 Start(), Stop()을 구현할 수 있습니다
-    // SendFrame(VideoFrame), CreateVideoTrackSource는 WebRTC 타입이므로 제외
+    // AMediaTrackHandler (abstract, multiple inheritance: IMediaTrackHandler + Recordable)
+    // Python can implement Start() and Stop() via trampoline class
+    // SendFrame(VideoFrame), CreateVideoTrackSource are excluded as they use WebRTC types
     py::class_<AMediaTrackHandler,
                std::shared_ptr<AMediaTrackHandler>,
                IMediaTrackHandler,

@@ -11,7 +11,7 @@
 
 namespace {
 
-// Trampoline: Python 서브클래스에서 LOG()를 오버라이드할 수 있도록 필요
+// Trampoline: Needed to allow Python subclasses to override LOG()
 class PyILogger : public mosaic::core_log::ILogger {
   public:
     using ILogger::ILogger;
@@ -39,7 +39,7 @@ void bind_logging(py::module_& m) {
         .value("LS_ERROR", mosaic::core_log::LS_ERROR)
         .value("LS_NONE", mosaic::core_log::LS_NONE);
 
-    // ILogger 추상 클래스 (PyILogger 트램폴린으로 Python 서브클래스 가능)
+    // ILogger abstract class (Python subclasses enabled via PyILogger trampoline)
     py::class_<mosaic::core_log::ILogger, std::shared_ptr<mosaic::core_log::ILogger>, PyILogger>(m, "ILogger")
         .def(py::init<>())
         .def("log", &mosaic::core_log::ILogger::LOG)
@@ -58,16 +58,16 @@ void bind_logging(py::module_& m) {
         .def_static("is_warning_enabled", &mosaic::core_log::ILogger::IsWarningEnabled)
         .def_static("is_error_enabled", &mosaic::core_log::ILogger::IsErrorEnabled);
 
-    // LogService 자유함수 (LogService 자체는 생성자·소멸자가 private인 singleton이므로 py::class_ 바인딩 불가)
+    // LogService free functions (LogService itself cannot be bound with py::class_ as it's a singleton with private constructor/destructor)
     m.def("get_logger", &mosaic::core_log::GetLogger);
     m.def("set_log_level", &mosaic::core_log::SetLogLevel);
     m.def("get_log_level", &mosaic::core_log::GetLogLevel);
-    // RegisterLogger<Impl>은 템플릿이므로 shared_ptr 기반 set_logger로 대체
+    // RegisterLogger<Impl> is a template, so replaced with shared_ptr-based set_logger
     m.def("set_logger", [](std::shared_ptr<mosaic::core_log::ILogger> logger) {
         mosaic::core_log::LogService::GetInstance().logger_ = std::move(logger);
     });
 
-    // WebRTC 로깅 설정 함수
+    // WebRTC logging configuration functions
     m.def("set_webrtc_log_level", &mosaic::core_log::SetWebRTCLogLevel);
     m.def("set_webrtc_log_timestamps", &mosaic::core_log::SetWebRTCLogTimestamps);
     m.def("set_webrtc_log_threads", &mosaic::core_log::SetWebRTCLogThreads);

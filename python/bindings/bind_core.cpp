@@ -12,8 +12,8 @@
 void bind_core(py::module_& m) {
     using namespace mosaic::core;
 
-    // shared_ptr holder: MosaicConnectorFactory::Create()에서 shared_ptr<MosaicConnector>로 반환됨
-    // 생성자 비노출 — Factory를 통해만 생성 가능
+    // shared_ptr holder: returned as shared_ptr<MosaicConnector> from MosaicConnectorFactory::Create()
+    // Constructor not exposed — can only be created via Factory
     py::class_<MosaicConnector, std::shared_ptr<MosaicConnector>>(m, "MosaicConnector")
         .def("initialize_webrtc", &MosaicConnector::InitializeWebRTC)
         .def("add_data_channel_handler", &MosaicConnector::AddDataChannelHandler)

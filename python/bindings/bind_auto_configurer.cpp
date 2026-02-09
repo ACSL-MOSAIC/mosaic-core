@@ -25,8 +25,8 @@ using namespace mosaic::handlers;
 using namespace mosaic::core;
 
 // --- Trampoline: IConfigurableConnector ---
-// GetConnectorType(순수 가상), ValidateConfig(기본 빈 본문), Configure(순수 가상)
-// 세 메서드 모두 snake_case로 디스패치; C++ 기본 본문이 빈 메서드는 no-op lambda로 폴백
+// GetConnectorType (pure virtual), ValidateConfig (default empty), Configure (pure virtual)
+// All three methods dispatch to snake_case; methods with empty C++ default fallback to no-op lambda
 class PyIConfigurableConnector : public IConfigurableConnector {
   public:
     using IConfigurableConnector::IConfigurableConnector;
@@ -48,7 +48,7 @@ class PyIConfigurableConnector : public IConfigurableConnector {
 };
 
 // --- Trampoline: IConfigurableConnectorFactory ---
-// GetConnectorType, CreateConnector 모두 순수 가상 → snake_case로 디스패치
+// GetConnectorType, CreateConnector are both pure virtual → dispatch to snake_case
 class PyIConfigurableConnectorFactory : public IConfigurableConnectorFactory {
   public:
     using IConfigurableConnectorFactory::IConfigurableConnectorFactory;
@@ -161,7 +161,7 @@ class PyAutoConfigurer : public AutoConfigurer {
         py::cast(this).attr("after_configure")();
     }
 
-    // protected 멤버 접근자 — pybind11 property/method 람다에서만 호출됨
+    // Protected member accessors — called only from pybind11 property/method lambdas
     std::shared_ptr<MosaicConfig> GetMosaicConfig() const {
         return mosaic_config_;
     }
@@ -188,7 +188,7 @@ class PyAutoConfigurer : public AutoConfigurer {
 void bind_auto_configurer(py::module_& m) {
     using namespace mosaic::auto_configurer;
 
-    // IConfigurableConnector (abstract — 순수 가상 get_connector_type, configure)
+    // IConfigurableConnector (abstract — pure virtual get_connector_type, configure)
     py::class_<IConfigurableConnector, std::shared_ptr<IConfigurableConnector>, PyIConfigurableConnector>(
         m, "IConfigurableConnector")
         .def(py::init<>())
@@ -206,8 +206,8 @@ void bind_auto_configurer(py::module_& m) {
         .def("validate_config", [](IConfigurableConnector&) {})
         .def("configure", [](IConfigurableConnector&) {});
 
-    // IConfigurableConnectorFactory (abstract — 순수 가상 get_connector_type, create_connector)
-    // ConnectorResolver에 등록하여 auto_configure 시 자동으로 커넥터 생성
+    // IConfigurableConnectorFactory (abstract — pure virtual get_connector_type, create_connector)
+    // Register with ConnectorResolver to automatically create connectors during auto_configure
     py::class_<IConfigurableConnectorFactory,
                std::shared_ptr<IConfigurableConnectorFactory>,
                PyIConfigurableConnectorFactory>(m, "IConfigurableConnectorFactory")
@@ -216,8 +216,8 @@ void bind_auto_configurer(py::module_& m) {
         .def("create_connector",
              [](IConfigurableConnectorFactory&) -> std::shared_ptr<IConfigurableConnector> { return nullptr; });
 
-    // ADCHandlerConfigurer (abstract, 상속 IConfigurableConnector)
-    // handler 프로퍼티: Python 서브클래스의 configure()에서 self.handler = <handler> 로 설정
+    // ADCHandlerConfigurer (abstract, inherits IConfigurableConnector)
+    // handler property: set via self.handler = <handler> in Python subclass's configure()
     py::class_<ADCHandlerConfigurer,
                std::shared_ptr<ADCHandlerConfigurer>,
                IConfigurableConnector,
@@ -234,7 +234,7 @@ void bind_auto_configurer(py::module_& m) {
             },
             "Set the data channel handler (use this in Python configure() method)");
 
-    // AMTHandlerConfigurer (abstract, 상속 IConfigurableConnector)
+    // AMTHandlerConfigurer (abstract, inherits IConfigurableConnector)
     py::class_<AMTHandlerConfigurer,
                std::shared_ptr<AMTHandlerConfigurer>,
                IConfigurableConnector,
@@ -251,7 +251,7 @@ void bind_auto_configurer(py::module_& m) {
             },
             "Set the media track handler (use this in Python configure() method)");
 
-    // AParallelDCHandlerConfigurer (abstract, 상속 IConfigurableConnector)
+    // AParallelDCHandlerConfigurer (abstract, inherits IConfigurableConnector)
     py::class_<AParallelDCHandlerConfigurer,
                std::shared_ptr<AParallelDCHandlerConfigurer>,
                IConfigurableConnector,
@@ -268,12 +268,12 @@ void bind_auto_configurer(py::module_& m) {
             },
             "Set the data channel handlers (use this in Python configure() method)");
 
-    // AutoConfigurer (Python 서브클래스에서 before_configure / after_configure 오버라이드)
+    // AutoConfigurer (Python subclasses can override before_configure / after_configure)
     py::class_<AutoConfigurer, PyAutoConfigurer>(m, "AutoConfigurer")
         .def(py::init<>())
         .def("auto_configure",
              [](AutoConfigurer& self, const std::string& config_file_path) {
-                 // Python 서브클래스 확인
+                 // Check if Python subclass
 
                  if (auto* py_self = dynamic_cast<PyAutoConfigurer*>(&self)) {
                      py_self->ReadConfigs(config_file_path);
@@ -286,7 +286,7 @@ void bind_auto_configurer(py::module_& m) {
                      py_self->ConfigureConnectors();
                      py_self->AfterConfigure();
                  } else {
-                     // C++ 객체인 경우: 그냥 호출
+                     // C++ object: just call directly
                      self.AutoConfigure(config_file_path);
                  }
              })
@@ -316,19 +316,19 @@ void bind_auto_configurer(py::module_& m) {
         [](const std::shared_ptr<IConfigurableConnectorFactory>& factory) {
             ConnectorResolver::GetInstance().RegisterConfigurableConnector(factory);
         },
-        "커넥터 팩토리를 ConnectorResolver에 등록. auto_configure 시 해당 타입의 커넥터를 자동 생성");
+        "Register connector factory with ConnectorResolver to auto-create connectors during auto_configure");
 
     m.def(
         "is_supported_connector_type",
         [](const std::string& connector_type) -> bool {
             return ConnectorResolver::GetInstance().IsSupportedType(connector_type);
         },
-        "등록된 커넥터 타입 여부 확인");
+        "Check if connector type is registered");
 
     m.def(
         "get_configurable_connector",
         [](const std::string& connector_type) -> std::shared_ptr<IConfigurableConnector> {
             return ConnectorResolver::GetInstance().GetConfigurableConnector(connector_type);
         },
-        "등록된 커넥터 타입으로 IConfigurableConnector 인스턴스 생성");
+        "Create IConfigurableConnector instance for the given registered connector type");
 }

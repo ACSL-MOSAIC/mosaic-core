@@ -12,9 +12,9 @@
 #include "mosaic/handlers/data_channel/data_channel_receivable.h"
 #include "mosaic/handlers/data_channel/data_channel_sendable.h"
 
-// Json::Value ↔ Python 객체 타입 캐스터
-// type_caster 내에서 pybind11::cast가 클래스 멤버 cast로 가려지므로,
-// 변환 로직은 클래스 밖의 헬퍼 함수로 구현
+// Json::Value ↔ Python object type caster
+// pybind11::cast is shadowed by the class member cast inside type_caster,
+// so conversion logic is implemented as helper functions outside the class
 namespace pybind11 {
 namespace detail {
 
@@ -106,8 +106,8 @@ namespace {
 
 using namespace mosaic::handlers;
 
-// Trampolines: C++에서 HandleData 호출 시 Python의 handle_data로 디스패치
-// HandleData의 C++ 기본 구현이 빈 본문이므로 PYBIND11_OVERRIDE 폴백 불필요
+// Trampolines: Dispatch C++ HandleData calls to Python's handle_data
+// No PYBIND11_OVERRIDE fallback needed since C++ default implementation is empty
 class PyDataChannelStringReceivable : public DataChannelStringReceivable {
   public:
     using DataChannelStringReceivable::DataChannelStringReceivable;
@@ -151,8 +151,8 @@ void bind_data_channel(py::module_& m) {
         .value("CLOSED", IDataChannelHandler::kClosed)
         .value("UNKNOWN", IDataChannelHandler::kUnknown);
 
-    // Base classes (생성자 없음 - 상속 체인 등록용)
-    // shared_ptr holder: MosaicConnector::AddDataChannelHandler에서 shared_ptr<IDataChannelHandler>로 전달됨
+    // Base classes (no constructor - for inheritance chain registration)
+    // shared_ptr holder: passed as shared_ptr<IDataChannelHandler> in MosaicConnector::AddDataChannelHandler
     py::class_<IDataChannelHandler, std::shared_ptr<IDataChannelHandler>>(m, "IDataChannelHandler");
 
     py::class_<ADataChannelHandler, std::shared_ptr<ADataChannelHandler>, IDataChannelHandler>(m, "ADataChannelHandler")
@@ -160,7 +160,7 @@ void bind_data_channel(py::module_& m) {
         .def("get_state", &ADataChannelHandler::GetState)
         .def("close", &ADataChannelHandler::CloseDataChannel);
 
-    // Receivable classes (Python 서브클래스에서 handle_data 오버라이드 가능)
+    // Receivable classes (Python subclasses can override handle_data)
     py::class_<DataChannelStringReceivable, std::shared_ptr<DataChannelStringReceivable>, ADataChannelHandler, PyDataChannelStringReceivable>(
         m, "DataChannelStringReceivable")
         .def(py::init<const std::string&>())
@@ -176,7 +176,7 @@ void bind_data_channel(py::module_& m) {
         .def(py::init<const std::string&>())
         .def("handle_data", [](DataChannelByteReceivable&, py::object) {});
 
-    // DataChannelSendable (Send(DataBuffer)는 WebRTC 내부 타입이므로 제외)
+    // DataChannelSendable (Send(DataBuffer) is excluded as it uses WebRTC internal types)
     py::class_<DataChannelSendable, std::shared_ptr<DataChannelSendable>, ADataChannelHandler>(m, "DataChannelSendable")
         .def(py::init<const std::string&>())
         .def("sendable", &DataChannelSendable::Sendable)
