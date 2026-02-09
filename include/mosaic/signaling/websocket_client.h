@@ -10,6 +10,8 @@
 #include <memory>
 #include <string>
 
+#include "mosaic/json_forward_decl.h"
+
 #define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
 
 #include <cpprest/ws_client.h>
