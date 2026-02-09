@@ -36,21 +36,39 @@ cv::Mat numpy_to_mat(const py::array_t<uint8_t, py::array::c_style | py::array::
     return cv::Mat(buf.shape[0], buf.shape[1], type, buf.ptr);
 }
 
-// AMediaTrackHandler의 protected 메서드에 접근하기 위한 접근자 클래스
-// pybind11에는 등록하지 않음 — static_cast 대상으로만 사용
-class ProtectedAccessor : public AMediaTrackHandler {
+// AMediaTrackHandler의 Trampoline 클래스
+// Python에서 Start(), Stop()을 구현할 수 있도록 합니다
+class PyAMediaTrackHandler : public AMediaTrackHandler {
   public:
-    void Start() override {}
-    void Stop() override {}
+    using AMediaTrackHandler::AMediaTrackHandler;
 
-    static void CallSetRunning(AMediaTrackHandler& self, bool running) {
-        dynamic_cast<ProtectedAccessor&>(self).SetRunning(running);
+    void Start() override {
+        PYBIND11_OVERRIDE_PURE_NAME(void,                // Return type
+                                    AMediaTrackHandler,  // Parent class
+                                    "start",             // Python method name
+                                    Start                // C++ function name
+        );
     }
-    static bool CallGetStopFlag(AMediaTrackHandler& self) {
-        return dynamic_cast<ProtectedAccessor&>(self).GetStopFlag();
+
+    void Stop() override {
+        PYBIND11_OVERRIDE_PURE_NAME(void,                // Return type
+                                    AMediaTrackHandler,  // Parent class
+                                    "stop",              // Python method name
+                                    Stop                 // C++ function name
+        );
     }
-    static void CallSetStopFlag(AMediaTrackHandler& self, bool stop_flag) {
-        dynamic_cast<ProtectedAccessor&>(self).SetStopFlag(stop_flag);
+
+    // protected 메서드 접근을 위한 헬퍼
+    void SetRunningPublic(bool running) {
+        SetRunning(running);
+    }
+
+    bool GetStopFlagPublic() const {
+        return GetStopFlag();
+    }
+
+    void SetStopFlagPublic(bool stop_flag) const {
+        SetStopFlag(stop_flag);
     }
 };
 
@@ -91,9 +109,15 @@ void bind_media_track(py::module_& m) {
         .def("get_track_name", &IMediaTrackHandler::GetTrackName)
         .def("close", &IMediaTrackHandler::Close);
 
-    // AMediaTrackHandler (abstract, 다중상속 IMediaTrackHandler + Recordable - 생성자 없음)
+    // AMediaTrackHandler (abstract, 다중상속 IMediaTrackHandler + Recordable)
+    // Trampoline 클래스를 통해 Python에서 Start(), Stop()을 구현할 수 있습니다
     // SendFrame(VideoFrame), CreateVideoTrackSource는 WebRTC 타입이므로 제외
-    py::class_<AMediaTrackHandler, std::shared_ptr<AMediaTrackHandler>, IMediaTrackHandler, Recordable>(m, "AMediaTrackHandler")
+    py::class_<AMediaTrackHandler,
+               std::shared_ptr<AMediaTrackHandler>,
+               IMediaTrackHandler,
+               Recordable,
+               PyAMediaTrackHandler>(m, "AMediaTrackHandler")
+        .def(py::init<const std::string&, bool>(), py::arg("track_name"), py::arg("recordable"))
         .def("start", &AMediaTrackHandler::Start)
         .def("stop", &AMediaTrackHandler::Stop)
         .def("is_running", &AMediaTrackHandler::IsRunning)
@@ -103,8 +127,14 @@ void bind_media_track(py::module_& m) {
                 self.SendFrame(numpy_to_mat(frame), std::chrono::steady_clock::now());
             })
         .def("set_running",
-             [](AMediaTrackHandler& self, bool running) { ProtectedAccessor::CallSetRunning(self, running); })
-        .def("get_stop_flag", [](AMediaTrackHandler& self) -> bool { return ProtectedAccessor::CallGetStopFlag(self); })
-        .def("set_stop_flag",
-             [](AMediaTrackHandler& self, bool stop_flag) { ProtectedAccessor::CallSetStopFlag(self, stop_flag); });
+             [](AMediaTrackHandler& self, bool running) {
+                 dynamic_cast<PyAMediaTrackHandler&>(self).SetRunningPublic(running);
+             })
+        .def("get_stop_flag",
+             [](AMediaTrackHandler& self) -> bool {
+                 return dynamic_cast<PyAMediaTrackHandler&>(self).GetStopFlagPublic();
+             })
+        .def("set_stop_flag", [](AMediaTrackHandler& self, bool stop_flag) {
+            dynamic_cast<PyAMediaTrackHandler&>(self).SetStopFlagPublic(stop_flag);
+        });
 }

@@ -31,7 +31,7 @@ class PyIConfigurableConnector : public IConfigurableConnector {
   public:
     using IConfigurableConnector::IConfigurableConnector;
 
-    std::string GetConnectorType() const override {
+    [[nodiscard]] std::string GetConnectorType() const override {
         py::gil_scoped_acquire gil;
         return py::cast(this).attr("get_connector_type")().cast<std::string>();
     }
@@ -75,7 +75,7 @@ class PyADCHandlerConfigurer : public ADCHandlerConfigurer {
   public:
     using ADCHandlerConfigurer::ADCHandlerConfigurer;
 
-    std::string GetConnectorType() const override {
+    [[nodiscard]] std::string GetConnectorType() const override {
         py::gil_scoped_acquire gil;
         return py::cast(this).attr("get_connector_type")().cast<std::string>();
     }
@@ -100,7 +100,7 @@ class PyAMTHandlerConfigurer : public AMTHandlerConfigurer {
   public:
     using AMTHandlerConfigurer::AMTHandlerConfigurer;
 
-    std::string GetConnectorType() const override {
+    [[nodiscard]] std::string GetConnectorType() const override {
         py::gil_scoped_acquire gil;
         return py::cast(this).attr("get_connector_type")().cast<std::string>();
     }
@@ -125,7 +125,7 @@ class PyAParallelDCHandlerConfigurer : public AParallelDCHandlerConfigurer {
   public:
     using AParallelDCHandlerConfigurer::AParallelDCHandlerConfigurer;
 
-    std::string GetConnectorType() const override {
+    [[nodiscard]] std::string GetConnectorType() const override {
         py::gil_scoped_acquire gil;
         return py::cast(this).attr("get_connector_type")().cast<std::string>();
     }
@@ -199,7 +199,7 @@ void bind_auto_configurer(py::module_& m) {
                  self.SetConfig(config_ptr);
              })
         .def("get_config",
-             [](IConfigurableConnector& self) -> ConnectorConfig {
+             [](const IConfigurableConnector& self) -> ConnectorConfig {
                  auto config_ptr = self.GetConfig();
                  return config_ptr ? *config_ptr : ConnectorConfig{};
              })
@@ -230,7 +230,7 @@ void bind_auto_configurer(py::module_& m) {
         .def(
             "set_handler",
             [](ADCHandlerConfigurer& self, const std::shared_ptr<IDataChannelHandler>& h) {
-                static_cast<PyADCHandlerConfigurer&>(self).SetHandler(h);
+                dynamic_cast<PyADCHandlerConfigurer&>(self).SetHandler(h);
             },
             "Set the data channel handler (use this in Python configure() method)");
 
@@ -244,11 +244,12 @@ void bind_auto_configurer(py::module_& m) {
         .def("validate_config", [](AMTHandlerConfigurer&) {})
         .def("configure", [](AMTHandlerConfigurer&) {})
         .def("get_handler", &AMTHandlerConfigurer::GetHandler)
-        .def_property("handler",
-                      &AMTHandlerConfigurer::GetHandler,
-                      [](AMTHandlerConfigurer& self, const std::shared_ptr<IMediaTrackHandler>& h) {
-                          static_cast<PyAMTHandlerConfigurer&>(self).SetHandler(h);
-                      });
+        .def(
+            "set_handler",
+            [](AMTHandlerConfigurer& self, const std::shared_ptr<IMediaTrackHandler>& h) {
+                dynamic_cast<PyAMTHandlerConfigurer&>(self).SetHandler(h);
+            },
+            "Set the media track handler (use this in Python configure() method)");
 
     // AParallelDCHandlerConfigurer (abstract, 상속 IConfigurableConnector)
     py::class_<AParallelDCHandlerConfigurer,
@@ -260,12 +261,12 @@ void bind_auto_configurer(py::module_& m) {
         .def("validate_config", [](AParallelDCHandlerConfigurer&) {})
         .def("configure", [](AParallelDCHandlerConfigurer&) {})
         .def("get_handlers", &AParallelDCHandlerConfigurer::GetHandlers)
-        .def_property(
-            "handlers",
-            &AParallelDCHandlerConfigurer::GetHandlers,
+        .def(
+            "set_handlers",
             [](AParallelDCHandlerConfigurer& self, const std::vector<std::shared_ptr<IDataChannelHandler>>& hs) {
-                static_cast<PyAParallelDCHandlerConfigurer&>(self).SetHandlers(hs);
-            });
+                dynamic_cast<PyAParallelDCHandlerConfigurer&>(self).SetHandlers(hs);
+            },
+            "Set the data channel handlers (use this in Python configure() method)");
 
     // AutoConfigurer (Python 서브클래스에서 before_configure / after_configure 오버라이드)
     py::class_<AutoConfigurer, PyAutoConfigurer>(m, "AutoConfigurer")
@@ -273,9 +274,8 @@ void bind_auto_configurer(py::module_& m) {
         .def("auto_configure",
              [](AutoConfigurer& self, const std::string& config_file_path) {
                  // Python 서브클래스 확인
-                 PyAutoConfigurer* py_self = dynamic_cast<PyAutoConfigurer*>(&self);
 
-                 if (py_self) {
+                 if (auto* py_self = dynamic_cast<PyAutoConfigurer*>(&self)) {
                      py_self->ReadConfigs(config_file_path);
                      {
                          py::gil_scoped_release release;
@@ -295,19 +295,19 @@ void bind_auto_configurer(py::module_& m) {
         .def("get_mosaic_connector", &AutoConfigurer::GetMosaicConnector)
         .def_property_readonly(
             "mosaic_config",
-            [](AutoConfigurer& self) { return static_cast<PyAutoConfigurer&>(self).GetMosaicConfig(); })
+            [](AutoConfigurer& self) { return dynamic_cast<PyAutoConfigurer&>(self).GetMosaicConfig(); })
         .def_property_readonly(
             "configurable_connectors",
-            [](AutoConfigurer& self) { return static_cast<PyAutoConfigurer&>(self).GetConnectors(); })
+            [](AutoConfigurer& self) { return dynamic_cast<PyAutoConfigurer&>(self).GetConnectors(); })
         .def("add_configurable_connector",
              [](AutoConfigurer& self, const std::shared_ptr<IConfigurableConnector>& c) {
-                 static_cast<PyAutoConfigurer&>(self).AddConnector(c);
+                 dynamic_cast<PyAutoConfigurer&>(self).AddConnector(c);
              })
         .def_property_readonly(
             "dc_handler_map",
-            [](AutoConfigurer& self) { return static_cast<PyAutoConfigurer&>(self).GetDcHandlerMap(); })
+            [](AutoConfigurer& self) { return dynamic_cast<PyAutoConfigurer&>(self).GetDcHandlerMap(); })
         .def_property_readonly("mt_handler_map", [](AutoConfigurer& self) {
-            return static_cast<PyAutoConfigurer&>(self).GetMtHandlerMap();
+            return dynamic_cast<PyAutoConfigurer&>(self).GetMtHandlerMap();
         });
 
     // ConnectorResolver singleton — free functions
