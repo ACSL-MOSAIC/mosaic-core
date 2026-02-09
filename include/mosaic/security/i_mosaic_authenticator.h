@@ -9,10 +9,7 @@
 
 #include "auth_type.h"
 #include "mosaic/configs_decl.h"
-
-namespace Json {
-class Value;
-}
+#include "mosaic/json_forward_decl.h"
 namespace mosaic::core_signaling {
 class ISignalingClient;
 }

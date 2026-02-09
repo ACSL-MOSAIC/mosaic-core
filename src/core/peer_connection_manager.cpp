@@ -23,7 +23,7 @@
 #include <mosaic/logger/log.h>
 #include <mosaic/signaling/i_signaling_client.h>
 
-using namespace mosaic::core;
+namespace mosaic::core {
 
 webrtc::PeerConnectionInterface::IceServer GetIceServer(const IceServerConfig& ice_config);
 
@@ -441,3 +441,5 @@ webrtc::PeerConnectionInterface::IceServer GetIceServer(const IceServerConfig& i
 
     return server;
 }
+
+}  // namespace mosaic::core

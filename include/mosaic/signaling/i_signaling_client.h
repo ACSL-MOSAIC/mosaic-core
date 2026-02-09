@@ -5,14 +5,9 @@
 #ifndef MOSAIC_RTC_CORE_I_SIGNALING_CLIENT_H
 #define MOSAIC_RTC_CORE_I_SIGNALING_CLIENT_H
 
-#include <string>
-
+#include <mosaic/json_forward_decl.h>
 #include <mosaic/rtc/webrtc_forward_decl.h>
 #include <mosaic/security/i_mosaic_authenticator.h>
-
-namespace Json {
-class Value;
-}  // namespace Json
 namespace mosaic::core {
 // TODO: forward decleration 필요한지 확
 class MosaicConnector;
