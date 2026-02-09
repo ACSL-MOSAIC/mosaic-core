@@ -1,0 +1,14 @@
+<map id="mosaic::handlers::DataChannelByteReceivable" name="mosaic::handlers::DataChannelByteReceivable">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1532,13,1757,53"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="1257,5,1483,60"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1496,30,1532,30,1532,35,1496,35"/>
+<area shape="rect" id="Node000003" href="$classmosaic_1_1handlers_1_1IDataChannelReceivable.html" title=" " alt="" coords="568,13,797,53"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="811,23,1010,17,1233,19,1257,21,1257,26,1233,25,1010,23,811,29"/>
+<area shape="rect" id="Node000006" href="$classmosaic_1_1handlers_1_1DataChannelReceivable.html" title=" " alt="" coords="847,41,1072,81"/>
+<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="811,43,847,47,846,52,811,48"/>
+<area shape="rect" id="Node000004" href="$classmosaic_1_1handlers_1_1ADataChannelHandler.html" title=" " alt="" coords="284,13,519,53"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="533,30,568,30,568,35,533,35"/>
+<area shape="rect" id="Node000005" href="$classmosaic_1_1handlers_1_1IDataChannelHandler.html" title=" " alt="" coords="5,13,235,53"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="248,30,284,30,284,35,248,35"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="1086,56,1233,49,1257,46,1258,52,1234,54,1086,62"/>
+</map>

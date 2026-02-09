@@ -1,0 +1,12 @@
+<map id="mosaic::core::PeerConnectionObserver" name="mosaic::core::PeerConnectionObserver">
+<area shape="rect" id="Node000001" title=" " alt="" coords="865,55,1080,95"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="451,5,685,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="679,30,842,53,866,56,865,62,841,58,678,35"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="471,55,665,95"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="679,73,865,73,865,78,679,78"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,96,163,121"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="176,100,471,79,471,85,177,105"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="448,119,688,159"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="138,122,187,133,322,143,448,143,448,148,321,148,186,138,137,128"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="701,116,865,90,866,95,702,121"/>
+</map>

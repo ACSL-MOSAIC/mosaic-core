@@ -1,0 +1,26 @@
+<map id="mosaic::core::PeerConnectionManager::Impl" name="mosaic::core::PeerConnectionManager::Impl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="917,197,1132,237"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="471,5,664,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="678,29,730,36,786,48,842,65,895,88,931,112,963,141,1011,195,1007,199,960,145,928,116,892,93,840,70,784,53,729,42,677,34"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,141,163,166"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="104,128,139,95,186,67,258,43,333,28,405,21,471,19,471,24,406,26,333,34,259,48,188,72,143,100,107,132"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="448,69,687,109"/>
+<area shape="poly" id="edge4_Node000004_Node000003" title=" " alt="" coords="159,135,186,131,321,112,447,98,448,103,322,117,187,136,160,141"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="468,133,667,173"/>
+<area shape="poly" id="edge6_Node000005_Node000003" title=" " alt="" coords="177,151,468,151,468,156,177,156"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="477,197,658,237"/>
+<area shape="poly" id="edge8_Node000006_Node000003" title=" " alt="" coords="160,166,187,171,340,191,477,206,476,212,339,197,186,176,159,171"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="464,261,671,301"/>
+<area shape="poly" id="edge10_Node000007_Node000003" title=" " alt="" coords="107,175,143,208,164,224,188,236,257,259,329,274,400,281,464,283,464,288,399,286,328,279,255,265,186,241,162,228,139,212,104,179"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="701,105,796,124,894,151,945,172,990,195,987,199,943,177,892,156,795,129,700,110"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="681,165,894,195,918,198,917,203,893,200,680,171"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="672,215,917,215,917,220,672,220"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="684,264,893,235,917,231,918,236,894,240,684,269"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="478,325,657,365"/>
+<area shape="poly" id="edge11_Node000001_Node000008" title=" " alt="" coords="670,330,778,311,892,280,944,259,988,235,991,240,946,264,894,285,780,316,671,336"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="5,366,163,391"/>
+<area shape="poly" id="edge12_Node000008_Node000009" title=" " alt="" coords="176,370,478,349,478,354,177,375"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="492,389,643,429"/>
+<area shape="poly" id="edge14_Node000010_Node000009" title=" " alt="" coords="155,391,187,396,350,407,492,408,492,414,350,412,186,401,154,397"/>
+<area shape="poly" id="edge13_Node000001_Node000010" title=" " alt="" coords="656,415,712,414,773,409,834,396,892,372,933,343,967,306,993,268,1011,236,1016,239,997,271,971,309,936,347,895,377,836,401,774,414,712,420,656,420"/>
+</map>

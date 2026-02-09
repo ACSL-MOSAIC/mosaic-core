@@ -1,0 +1,11 @@
+<map id="mosaic::core::IceServerConfig" name="mosaic::core::IceServerConfig">
+<area shape="rect" id="Node000001" title=" " alt="" coords="71,211,286,236"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,192,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,143,172,209,168,212,114,146"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="34,13,163,38"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,52,101,108,96,108,96,52"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="217,108,303,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="244,146,190,212,186,209,240,143"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="191,5,329,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="263,59,263,108,257,108,257,59"/>
+</map>

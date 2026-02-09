@@ -1,0 +1,20 @@
+<map id="mosaic::core::ServerConfig" name="mosaic::core::ServerConfig">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1032,126,1228,151"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="425,106,512,131"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="526,118,687,123,1032,133,1032,138,687,128,526,123"/>
+<area shape="rect" id="Node000004" href="$structmosaic_1_1core_1_1AuthConfig.html" title=" " alt="" coords="696,74,880,99"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="526,110,695,93,696,99,526,116"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="12,99,151,139"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="164,116,425,116,425,121,164,121"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="887,99,1008,117,1047,123,1046,129,1008,123,886,104"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="393,7,545,62"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="559,46,663,63,714,71,713,77,662,68,558,51"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="5,15,157,55"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="171,32,392,32,392,37,171,37"/>
+<area shape="rect" id="Node000007" href="$structmosaic_1_1core_1_1WebRtcConfig.html" title=" " alt="" coords="687,187,889,213"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="902,186,1007,169,1088,149,1089,154,1009,175,903,191"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="377,180,560,220"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="574,197,686,197,686,203,574,203"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="17,187,146,213"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="160,197,377,197,377,203,160,203"/>
+</map>

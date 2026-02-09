@@ -1,0 +1,9 @@
+<map id="mosaic::auto_configurer::YamlConfigReader" name="mosaic::auto_configurer::YamlConfigReader">
+<area shape="rect" id="Node000001" title=" " alt="" coords="27,211,205,251"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1auto__configurer_1_1IConfigReader.html" title=" " alt="" coords="5,108,184,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="104,161,115,210,109,211,99,162"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="209,108,415,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,157,154,213,151,208,262,152"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="233,5,391,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="315,45,315,108,309,108,309,45"/>
+</map>

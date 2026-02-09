@@ -1,0 +1,9 @@
+<map id="mosaic::handlers::ActualVideoTrackSource" name="mosaic::handlers::ActualVideoTrackSource">
+<area shape="rect" id="Node000001" title=" " alt="" coords="43,196,226,236"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,221,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="121,131,134,195,128,196,116,132"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="246,93,399,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="292,128,169,198,166,194,290,123"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="256,5,389,31"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="325,45,325,93,320,93,320,45"/>
+</map>

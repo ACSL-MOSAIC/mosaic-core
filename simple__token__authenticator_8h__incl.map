@@ -1,0 +1,22 @@
+<map id="include/mosaic/security/impl/simple_token_authenticator.h" name="include/mosaic/security/impl/simple_token_authenticator.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="108,5,359,45"/>
+<area shape="rect" id="Node000002" href="$a__mosaic__authenticator_8h.html" title=" " alt="" coords="138,93,329,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="236,46,236,79,231,79,231,46"/>
+<area shape="rect" id="Node000003" href="$i__mosaic__authenticator_8h.html" title=" " alt="" coords="141,181,326,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="236,134,236,167,231,167,231,134"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,262,83,287"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="207,209,85,259,83,254,205,204"/>
+<area shape="rect" id="Node000005" href="$auth__type_8h.html" title=" " alt="" coords="107,262,205,287"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="224,209,179,254,175,250,220,205"/>
+<area shape="rect" id="Node000007" href="$configs__decl_8h.html" title=" " alt="" coords="229,262,395,287"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="247,205,292,250,289,254,243,209"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="419,255,576,295"/>
+<area shape="poly" id="edge10_Node000003_Node000010" title=" " alt="" coords="272,204,422,248,420,253,271,209"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="147,343,205,368"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="162,287,172,329,167,330,156,288"/>
+<area shape="poly" id="edge7_Node000007_Node000006" title=" " alt="" coords="293,290,209,338,207,333,291,285"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="239,343,363,368"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="313,288,307,329,302,328,308,287"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="387,343,450,368"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="329,285,393,332,390,337,326,290"/>
+</map>

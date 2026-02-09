@@ -1,0 +1,13 @@
+<map id="mosaic::auto_configurer::AParallelDCHandlerConfigurer" name="mosaic::auto_configurer::AParallelDCHandlerConfigurer">
+<area shape="rect" id="Node000001" title=" " alt="" coords="1151,52,1375,92"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html" title=" " alt="" coords="844,16,1027,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1040,45,1151,57,1150,62,1040,50"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="388,15,576,55"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="590,32,844,33,844,38,590,38"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,22,163,47"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="177,32,388,32,388,37,177,37"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="836,81,1035,135"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="1048,93,1150,82,1151,87,1049,98"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="417,97,547,122"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="561,106,836,106,836,111,561,112"/>
+</map>

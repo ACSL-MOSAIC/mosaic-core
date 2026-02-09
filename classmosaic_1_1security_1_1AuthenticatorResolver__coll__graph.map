@@ -1,0 +1,7 @@
+<map id="mosaic::security::AuthenticatorResolver" name="mosaic::security::AuthenticatorResolver">
+<area shape="rect" id="Node000001" title=" " alt="" coords="723,29,947,69"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="383,15,581,84"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="595,47,722,47,722,52,595,52"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,29,157,69"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="171,47,382,47,382,52,171,52"/>
+</map>

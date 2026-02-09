@@ -1,0 +1,9 @@
+<map id="mosaic::core::ConnectorStateManager" name="mosaic::core::ConnectorStateManager">
+<area shape="rect" id="Node000001" title=" " alt="" coords="117,225,330,265"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,201,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="119,174,136,199,170,223,167,227,132,203,114,177"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="25,5,182,31"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="106,45,106,108,101,108,101,45"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="225,123,368,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="283,161,238,227,234,224,279,158"/>
+</map>

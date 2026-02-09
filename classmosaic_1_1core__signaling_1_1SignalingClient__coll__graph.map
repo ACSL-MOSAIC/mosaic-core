@@ -1,0 +1,20 @@
+<map id="mosaic::core_signaling::SignalingClient" name="mosaic::core_signaling::SignalingClient">
+<area shape="rect" id="Node000001" title=" " alt="" coords="905,116,1076,156"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1core__signaling_1_1ISignalingClient.html" title=" " alt="" coords="491,5,661,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="676,36,776,55,882,83,953,113,951,118,880,88,775,60,675,41"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="479,69,673,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="686,97,882,119,905,122,905,127,881,124,686,103"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,110,163,135"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="176,114,479,93,479,99,176,119"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="455,133,697,173"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="138,136,187,147,325,157,454,157,454,162,325,163,186,152,137,142"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="711,145,905,137,905,142,711,150"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="533,198,619,223"/>
+<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="633,213,749,215,815,208,881,195,924,176,961,154,964,158,926,181,882,200,816,214,749,220,633,219"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="15,191,153,231"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="167,208,532,208,532,213,167,213"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="448,248,704,288"/>
+<area shape="poly" id="edge8_Node000001_Node000008" title=" " alt="" coords="717,271,800,261,841,251,880,236,909,219,934,198,973,155,977,158,938,202,912,224,882,241,843,256,801,266,718,276"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="5,255,163,281"/>
+<area shape="poly" id="edge9_Node000008_Node000009" title=" " alt="" coords="176,265,448,265,448,271,176,271"/>
+</map>

@@ -1,0 +1,11 @@
+<map id="mosaic::core::AuthConfig" name="mosaic::core::AuthConfig">
+<area shape="rect" id="Node000001" title=" " alt="" coords="61,255,245,280"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="38,137,125,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,173,133,229,148,253,143,256,128,232,93,176"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,5,144,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="79,59,83,137,78,137,74,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="161,123,313,177"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="218,191,190,232,168,256,164,253,186,229,214,188"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="168,5,320,45"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="245,59,241,123,236,122,240,59"/>
+</map>

@@ -1,0 +1,16 @@
+<map id="include/mosaic/logger/i_logger.h" name="include/mosaic/logger/i_logger.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="104,5,269,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,64,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="151,48,71,89,68,84,149,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="89,93,194,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="178,47,157,83,153,80,173,44"/>
+<area shape="rect" id="Node000004" href="$log__level_8h.html" title=" " alt="" coords="180,167,273,192"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="195,45,208,93,223,153,218,154,203,94,190,47"/>
+<area shape="rect" id="Node000005" href="$log__service_8h.html" title=" " alt="" coords="278,93,386,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="223,43,300,84,297,89,220,48"/>
+<area shape="poly" id="edge7_Node000005_Node000004" title=" " alt="" coords="317,121,256,161,254,157,314,116"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="297,167,375,192"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="335,119,337,153,332,153,330,119"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="399,167,491,192"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="352,116,417,157,414,162,349,121"/>
+</map>

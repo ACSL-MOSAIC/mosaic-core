@@ -1,0 +1,21 @@
+<map id="src/handlers/media_track/video_recorder.cpp" name="src/handlers/media_track/video_recorder.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="203,5,392,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,101,72,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="233,48,85,96,79,98,77,93,83,91,232,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="96,101,187,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="264,48,175,96,173,92,262,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="211,101,285,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="289,47,264,90,259,87,284,44"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="309,101,384,126"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="311,44,335,87,331,90,306,47"/>
+<area shape="rect" id="Node000006" href="$video__recorder_8h.html" title=" " alt="" coords="409,93,583,133"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="342,43,441,85,439,90,340,48"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="608,101,765,126"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="383,43,622,95,621,100,382,48"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="365,181,443,207"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="475,136,430,174,426,170,472,132"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="467,181,525,207"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="499,134,499,167,493,167,493,134"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="550,181,722,207"/>
+<area shape="poly" id="edge8_Node000006_Node000009" title=" " alt="" coords="531,131,604,172,602,177,528,136"/>
+</map>

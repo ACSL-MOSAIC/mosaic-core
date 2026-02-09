@@ -1,0 +1,13 @@
+<map id="include/mosaic/signaling/websocket_client.h" name="include/mosaic/signaling/websocket_client.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="155,5,338,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,93,72,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="198,48,83,91,81,86,196,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="97,93,183,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="222,48,169,87,166,83,219,43"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="208,93,285,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="249,46,249,79,244,79,244,46"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="309,93,368,119"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="271,44,316,82,313,86,267,48"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="392,93,539,119"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="300,43,421,86,419,91,298,48"/>
+</map>

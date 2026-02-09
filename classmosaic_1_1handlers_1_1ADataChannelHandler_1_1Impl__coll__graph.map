@@ -1,0 +1,17 @@
+<map id="mosaic::handlers::ADataChannelHandler::Impl" name="mosaic::handlers::ADataChannelHandler::Impl">
+<area shape="rect" id="Node000001" title=" " alt="" coords="779,100,1013,140"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="460,13,547,38"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="561,34,630,48,755,76,831,97,829,103,754,81,629,53,560,39"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="15,5,153,45"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="167,23,460,23,460,28,167,28"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="377,63,629,103"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="643,93,779,106,778,112,643,99"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="5,70,163,95"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="176,80,377,80,377,85,176,85"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="429,127,578,167"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="592,139,754,129,778,128,779,133,755,135,593,145"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="20,134,148,159"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="162,144,428,144,428,149,162,149"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="457,191,549,217"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="563,192,754,156,826,137,828,143,755,161,564,198"/>
+</map>

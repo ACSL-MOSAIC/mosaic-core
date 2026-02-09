@@ -1,0 +1,24 @@
+<map id="mosaic::handlers::IDataChannelReceivable" name="mosaic::handlers::IDataChannelReceivable">
+<area shape="rect" id="Node000001" title=" " alt="" coords="568,122,797,162"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="1257,5,1483,60"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="743,114,846,78,969,44,1096,25,1165,22,1233,25,1257,25,1257,31,1233,30,1165,27,1096,30,970,49,847,83,745,119"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="1257,97,1483,137"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="811,161,904,172,1011,178,1123,177,1233,165,1281,152,1326,134,1327,139,1283,157,1234,170,1123,183,1010,184,904,177,811,167"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="1257,185,1483,225"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="759,163,847,183,955,196,1065,203,1257,205,1257,211,1065,208,955,201,846,189,758,169"/>
+<area shape="rect" id="Node000010" href="$classmosaic_1_1handlers_1_1DataChannelReceivable.html" title=" " alt="" coords="847,93,1072,133"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="811,126,846,122,847,127,811,131"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1handlers_1_1ADataChannelHandler.html" title=" " alt="" coords="284,122,519,162"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="533,139,568,139,568,145,533,145"/>
+<area shape="rect" id="Node000003" href="$classmosaic_1_1handlers_1_1IDataChannelHandler.html" title=" " alt="" coords="5,122,235,162"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="248,139,284,139,284,145,248,145"/>
+<area shape="rect" id="Node000005" href="$classmosaic_1_1handlers_1_1DataChannelByteReceivable.html" title=" " alt="" coords="1532,13,1757,53"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="1496,30,1532,30,1532,35,1496,35"/>
+<area shape="rect" id="Node000007" href="$classmosaic_1_1handlers_1_1DataChannelJsonReceivable.html" title=" " alt="" coords="1532,97,1757,137"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1496,114,1532,114,1532,119,1496,119"/>
+<area shape="rect" id="Node000009" href="$classmosaic_1_1handlers_1_1DataChannelStringReceivable.html" title=" " alt="" coords="1532,185,1757,225"/>
+<area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1496,202,1532,202,1532,207,1496,207"/>
+<area shape="poly" id="edge10_Node000010_Node000004" title=" " alt="" coords="1076,87,1257,52,1258,57,1077,93"/>
+<area shape="poly" id="edge11_Node000010_Node000006" title=" " alt="" coords="1086,111,1257,113,1257,118,1085,117"/>
+<area shape="poly" id="edge12_Node000010_Node000008" title=" " alt="" coords="1063,133,1280,182,1279,187,1062,138"/>
+</map>

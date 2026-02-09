@@ -1,0 +1,9 @@
+<map id="include/mosaic/auto_configurer/connector/configurable_connector_factory.h" name="include/mosaic/auto_configurer/connector/configurable_connector_factory.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="88,5,265,75"/>
+<area shape="rect" id="Node000002" href="$connector__resolver_8h.html" title=" " alt="" coords="95,123,258,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="179,88,179,122,174,122,174,88"/>
+<area shape="rect" id="Node000003" href="$auto__configurer_8cpp.html" title=" " alt="" coords="5,225,159,265"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="142,189,103,227,99,223,138,185"/>
+<area shape="rect" id="Node000004" href="$connector__resolver_8cpp.html" title=" " alt="" coords="183,225,359,265"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="215,185,254,223,250,227,212,189"/>
+</map>

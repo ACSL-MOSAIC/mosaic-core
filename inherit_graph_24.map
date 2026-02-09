@@ -1,0 +1,23 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="Node000000" href="$classmosaic_1_1handlers_1_1IDataChannelHandler.html" title=" " alt="" coords="5,85,235,125"/>
+<area shape="rect" id="Node000001" href="$classmosaic_1_1handlers_1_1ADataChannelHandler.html" title=" " alt="" coords="283,85,517,125"/>
+<area shape="poly" id="edge9_Node000000_Node000001" title=" " alt="" coords="248,102,283,102,283,107,248,107"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1handlers_1_1DataChannelSendable.html" title=" " alt="" coords="567,53,793,93"/>
+<area shape="poly" id="edge10_Node000001_Node000002" title=" " alt="" coords="531,87,567,83,567,88,531,92"/>
+<area shape="rect" id="Node000003" href="$classmosaic_1_1handlers_1_1IDataChannelReceivable.html" title=" " alt="" coords="565,117,795,157"/>
+<area shape="poly" id="edge11_Node000001_Node000003" title=" " alt="" coords="531,117,565,121,565,126,530,122"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="843,5,1068,60"/>
+<area shape="poly" id="edge12_Node000003_Node000004" title=" " alt="" coords="776,110,793,102,817,87,841,70,869,58,871,63,844,75,820,91,796,107,778,115"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="843,85,1068,125"/>
+<area shape="poly" id="edge14_Node000003_Node000006" title=" " alt="" coords="808,119,842,115,843,120,809,124"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="843,149,1068,189"/>
+<area shape="poly" id="edge16_Node000003_Node000008" title=" " alt="" coords="809,149,843,153,842,158,808,154"/>
+<area shape="rect" id="Node000010" href="$classmosaic_1_1handlers_1_1DataChannelReceivable.html" title=" " alt="" coords="843,213,1068,253"/>
+<area shape="poly" id="edge18_Node000003_Node000010" title=" " alt="" coords="742,159,844,198,881,210,879,215,842,203,740,164"/>
+<area shape="rect" id="Node000005" href="$classmosaic_1_1handlers_1_1DataChannelByteReceivable.html" title=" " alt="" coords="1116,13,1341,53"/>
+<area shape="poly" id="edge13_Node000004_Node000005" title=" " alt="" coords="1082,30,1116,30,1116,35,1082,35"/>
+<area shape="rect" id="Node000007" href="$classmosaic_1_1handlers_1_1DataChannelJsonReceivable.html" title=" " alt="" coords="1116,85,1341,125"/>
+<area shape="poly" id="edge15_Node000006_Node000007" title=" " alt="" coords="1082,102,1116,102,1116,107,1082,107"/>
+<area shape="rect" id="Node000009" href="$classmosaic_1_1handlers_1_1DataChannelStringReceivable.html" title=" " alt="" coords="1116,149,1341,189"/>
+<area shape="poly" id="edge17_Node000008_Node000009" title=" " alt="" coords="1082,166,1116,166,1116,171,1082,171"/>
+</map>

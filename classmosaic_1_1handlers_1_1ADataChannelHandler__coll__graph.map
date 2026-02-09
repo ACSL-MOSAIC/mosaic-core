@@ -1,0 +1,9 @@
+<map id="mosaic::handlers::ADataChannelHandler" name="mosaic::handlers::ADataChannelHandler">
+<area shape="rect" id="Node000001" title=" " alt="" coords="692,41,927,81"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1handlers_1_1IDataChannelHandler.html" title=" " alt="" coords="369,5,598,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="612,37,692,46,692,51,611,42"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="364,70,603,125"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="616,80,692,72,692,77,616,85"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,85,163,110"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="176,95,364,95,364,100,176,100"/>
+</map>

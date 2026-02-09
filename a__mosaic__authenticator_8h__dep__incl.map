@@ -1,0 +1,16 @@
+<map id="include/mosaic/security/a_mosaic_authenticator.h" name="include/mosaic/security/a_mosaic_authenticator.h">
+<area shape="rect" id="Node000001" title=" " alt="" coords="335,5,529,45"/>
+<area shape="rect" id="Node000002" href="$no__auth__authenticator_8h.html" title=" " alt="" coords="67,93,283,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="363,52,232,96,230,91,362,47"/>
+<area shape="rect" id="Node000005" href="$simple__token__authenticator_8h.html" title=" " alt="" coords="307,93,557,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="435,59,435,93,429,93,429,59"/>
+<area shape="rect" id="Node000007" href="$a__mosaic__authenticator_8cpp.html" title=" " alt="" coords="581,93,744,133"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="496,48,613,91,611,96,494,53"/>
+<area shape="rect" id="Node000003" href="$authenticator__resolver_8cpp.html" title=" " alt="" coords="209,181,397,221"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="216,139,276,179,273,183,213,144"/>
+<area shape="rect" id="Node000004" href="$no__auth__authenticator_8cpp.html" title=" " alt="" coords="5,181,184,221"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="150,145,114,183,110,179,146,142"/>
+<area shape="poly" id="edge5_Node000005_Node000003" title=" " alt="" coords="393,144,333,183,330,179,390,139"/>
+<area shape="rect" id="Node000006" href="$simple__token__authenticator_8cpp.html" title=" " alt="" coords="421,181,606,221"/>
+<area shape="poly" id="edge6_Node000005_Node000006" title=" " alt="" coords="461,142,497,179,493,183,458,145"/>
+</map>

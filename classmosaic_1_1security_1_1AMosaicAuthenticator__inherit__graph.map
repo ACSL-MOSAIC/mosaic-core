@@ -1,0 +1,9 @@
+<map id="mosaic::security::AMosaicAuthenticator" name="mosaic::security::AMosaicAuthenticator">
+<area shape="rect" id="Node000001" title=" " alt="" coords="105,93,295,133"/>
+<area shape="rect" id="Node000003" href="$classmosaic_1_1security_1_1NoAuthAuthenticator.html" title=" " alt="" coords="5,181,189,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="168,144,122,183,118,179,165,140"/>
+<area shape="rect" id="Node000004" href="$classmosaic_1_1security_1_1SimpleTokenAuthenticator.html" title=" " alt="" coords="213,181,395,221"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="235,140,283,179,279,183,232,144"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1security_1_1IMosaicAuthenticator.html" title=" " alt="" coords="107,5,293,45"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="203,59,203,93,197,93,197,59"/>
+</map>

@@ -1,0 +1,58 @@
+<map id="src/security/authenticator_resolver.cpp" name="src/security/authenticator_resolver.cpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="743,5,931,45"/>
+<area shape="rect" id="Node000002" href="$authenticator__resolver_8h.html" title=" " alt="" coords="262,93,478,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="743,47,486,93,485,88,742,41"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="1127,101,1207,126"/>
+<area shape="poly" id="edge19_Node000001_Node000012" title=" " alt="" coords="926,43,1018,64,1116,91,1125,94,1124,99,1115,96,1017,70,925,48"/>
+<area shape="rect" id="Node000013" href="$log_8h.html" title=" " alt="" coords="952,101,1103,126"/>
+<area shape="poly" id="edge20_Node000001_Node000013" title=" " alt="" coords="880,43,991,93,988,98,877,48"/>
+<area shape="rect" id="Node000019" href="$no__auth__authenticator_8h.html" title=" " alt="" coords="745,93,928,133"/>
+<area shape="poly" id="edge30_Node000001_Node000019" title=" " alt="" coords="839,46,839,79,834,79,834,46"/>
+<area shape="rect" id="Node000021" href="$simple__token__authenticator_8h.html" title=" " alt="" coords="502,93,721,133"/>
+<area shape="poly" id="edge34_Node000001_Node000021" title=" " alt="" coords="788,48,674,91,673,86,786,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="597,350,674,375"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="400,131,464,179,553,265,619,338,615,341,549,269,460,183,397,136"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="5,431,129,456"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="285,136,236,155,190,183,164,209,142,239,108,304,86,368,74,418,69,417,81,366,103,302,137,236,160,206,187,179,233,150,283,131"/>
+<area shape="rect" id="Node000005" href="$auth__type_8h.html" title=" " alt="" coords="474,350,573,375"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="392,132,434,180,483,264,516,336,511,339,478,267,429,183,388,136"/>
+<area shape="rect" id="Node000007" href="$authenticator__factory_8h.html" title=" " alt="" coords="227,189,399,214"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="359,135,330,178,326,175,355,132"/>
+<area shape="rect" id="Node000008" href="$i__mosaic__authenticator_8h.html" title=" " alt="" coords="249,269,435,295"/>
+<area shape="poly" id="edge17_Node000002_Node000008" title=" " alt="" coords="388,132,401,151,412,173,417,198,412,222,396,246,376,264,372,260,392,242,408,220,412,198,407,175,396,153,384,135"/>
+<area shape="rect" id="Node000009" href="$configs__decl_8h.html" title=" " alt="" coords="103,350,269,375"/>
+<area shape="poly" id="edge18_Node000002_Node000009" title=" " alt="" coords="286,136,248,155,216,183,196,220,187,262,184,303,185,336,180,336,179,303,181,261,191,218,212,180,245,150,284,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="494,431,553,456"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="526,376,526,417,521,417,521,376"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="337,212,601,341,598,346,335,216"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="319,213,335,255,330,257,314,215"/>
+<area shape="poly" id="edge16_Node000007_Node000009" title=" " alt="" coords="298,216,269,240,239,271,216,305,199,339,194,336,211,303,235,268,265,236,295,212"/>
+<area shape="poly" id="edge9_Node000008_Node000003" title=" " alt="" coords="397,292,485,313,585,340,594,343,593,348,584,345,484,318,395,297"/>
+<area shape="poly" id="edge10_Node000008_Node000005" title=" " alt="" coords="369,292,485,342,483,347,367,297"/>
+<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="321,297,222,346,220,342,318,292"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="293,343,450,383"/>
+<area shape="poly" id="edge15_Node000008_Node000011" title=" " alt="" coords="349,294,362,329,357,331,344,296"/>
+<area shape="poly" id="edge13_Node000009_Node000004" title=" " alt="" coords="170,378,98,425,95,421,167,373"/>
+<area shape="poly" id="edge12_Node000009_Node000006" title=" " alt="" coords="236,373,481,429,480,435,234,378"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="155,431,217,456"/>
+<area shape="poly" id="edge14_Node000009_Node000010" title=" " alt="" coords="189,376,189,417,183,417,183,376"/>
+<area shape="rect" id="Node000014" href="$i__logger_8h.html" title=" " alt="" coords="985,189,1070,214"/>
+<area shape="poly" id="edge21_Node000013_Node000014" title=" " alt="" coords="1030,126,1030,174,1025,174,1025,126"/>
+<area shape="rect" id="Node000017" href="$log__service_8h.html" title=" " alt="" coords="879,269,987,295"/>
+<area shape="poly" id="edge29_Node000013_Node000017" title=" " alt="" coords="1018,128,997,152,975,183,956,221,943,257,938,255,951,219,970,180,992,149,1014,124"/>
+<area shape="poly" id="edge22_Node000014_Node000006" title=" " alt="" coords="1036,213,1052,246,1067,291,1071,316,1071,340,1065,364,1052,385,1026,398,978,409,841,426,688,437,567,443,566,438,688,432,841,420,977,404,1024,393,1048,381,1060,362,1066,340,1066,316,1062,292,1048,248,1032,215"/>
+<area shape="rect" id="Node000015" title=" " alt="" coords="1113,269,1219,295"/>
+<area shape="poly" id="edge23_Node000014_Node000015" title=" " alt="" coords="1049,212,1135,260,1132,265,1046,217"/>
+<area shape="rect" id="Node000016" href="$log__level_8h.html" title=" " alt="" coords="945,350,1038,375"/>
+<area shape="poly" id="edge24_Node000014_Node000016" title=" " alt="" coords="1027,215,1000,337,994,336,1022,213"/>
+<area shape="poly" id="edge25_Node000014_Node000017" title=" " alt="" coords="1015,216,959,262,956,258,1012,212"/>
+<area shape="poly" id="edge26_Node000017_Node000003" title=" " alt="" coords="890,297,688,350,687,345,889,292"/>
+<area shape="poly" id="edge28_Node000017_Node000016" title=" " alt="" coords="943,293,977,337,972,340,939,296"/>
+<area shape="rect" id="Node000018" title=" " alt="" coords="828,350,920,375"/>
+<area shape="poly" id="edge27_Node000017_Node000018" title=" " alt="" coords="926,296,893,340,889,337,922,293"/>
+<area shape="poly" id="edge31_Node000019_Node000003" title=" " alt="" coords="839,134,834,176,827,200,816,223,784,263,746,297,707,325,672,346,669,341,704,321,743,293,781,259,812,220,822,198,829,175,834,133"/>
+<area shape="rect" id="Node000020" href="$a__mosaic__authenticator_8h.html" title=" " alt="" coords="612,181,803,221"/>
+<area shape="poly" id="edge32_Node000019_Node000020" title=" " alt="" coords="809,136,749,176,746,171,806,131"/>
+<area shape="poly" id="edge33_Node000020_Node000008" title=" " alt="" coords="620,224,409,269,408,264,619,219"/>
+<area shape="poly" id="edge35_Node000021_Node000020" title=" " alt="" coords="634,132,678,170,674,174,631,136"/>
+</map>
