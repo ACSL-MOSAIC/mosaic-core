@@ -1,0 +1,83 @@
+site_name: MOSAIC Core - Python Documentation
+site_description: Python bindings for MOSAIC Core library
+site_author: MOSAIC Team
+site_url: https://acsl-mosaic.github.io/mosaic-core/python/
+
+repo_name: ACSL-MOSAIC/mosaic-core
+repo_url: https://github.com/ACSL-MOSAIC/mosaic-core
+edit_uri: edit/main/docs/python/
+
+theme:
+  name: material
+  language: en
+  palette:
+    # Light mode
+    - scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    # Dark mode
+    - scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+
+plugins:
+  - search
+
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.details
+  - admonition
+  - attr_list
+  - md_in_html
+  - toc:
+      permalink: true
+
+nav:
+  - Home: index.md
+  - Installation: installation.md
+  - Quick Start: quickstart.md
+  - Tutorials:
+    - Logging: tutorials/logging.md
+    - Configuration: tutorials/configuration.md
+    - Handlers: tutorials/handlers.md
+    - Auto Configurer: tutorials/auto-configurer.md
+  - API Reference:
+    - Overview: api/overview.md
+    - logging: api/logging.md
+    - configs: api/configs.md
+    - handlers: api/handlers.md
+    - core: api/core.md
+    - auto_configurer: api/auto-configurer.md
+  - Examples: examples.md
+  - C++ Documentation: ../index.html
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/ACSL-MOSAIC/mosaic-core
+
+docs_dir: docs/python
+site_dir: site

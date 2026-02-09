@@ -66,3 +66,9 @@ build/
 # Doxygen generated documentation
 docs/doxygen/html/
 docs/doxygen/latex/
+
+# MkDocs generated documentation (build output)
+site/
+
+# Deployment directory
+deploy/
