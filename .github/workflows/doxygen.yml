@@ -1,4 +1,4 @@
-name: Doxygen Documentation
+name: Documentation
 
 on:
   push:
@@ -19,23 +19,41 @@ jobs:
         with:
           submodules: recursive
 
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
       - name: Install Doxygen and Graphviz
         run: |
           sudo apt-get update
           sudo apt-get install -y doxygen graphviz
 
-      - name: Generate documentation
+      - name: Install MkDocs and dependencies
+        run: |
+          pip install mkdocs-material
+
+      - name: Generate C++ documentation (Doxygen)
         run: doxygen Doxyfile
+
+      - name: Generate Python documentation (MkDocs)
+        run: mkdocs build
 
       - name: Create .nojekyll file
         run: touch docs/doxygen/html/.nojekyll
+
+      - name: Prepare deployment directory
+        run: |
+          mkdir -p deploy
+          cp -r docs/doxygen/html/* deploy/
+          cp -r site deploy/python
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/doxygen/html
+          publish_dir: ./deploy
           publish_branch: gh-pages
           user_name: 'github-actions[bot]'
           user_email: 'github-actions[bot]@users.noreply.github.com'
-          commit_message: 'Deploy Doxygen documentation'
+          commit_message: 'Deploy documentation (C++ and Python)'
