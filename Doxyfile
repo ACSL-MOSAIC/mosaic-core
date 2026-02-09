@@ -10,6 +10,7 @@ PROJECT_LOGO           =
 OUTPUT_DIRECTORY       = docs/doxygen
 CREATE_SUBDIRS         = NO
 OUTPUT_LANGUAGE        = English
+LAYOUT_FILE            = docs/doxygen/DoxygenLayout.xml
 
 #---------------------------------------------------------------------------
 # Build related configuration options
@@ -103,12 +104,11 @@ COLS_IN_ALPHA_INDEX    = 5
 GENERATE_HTML          = YES
 HTML_OUTPUT            = html
 HTML_FILE_EXTENSION    = .html
-HTML_HEADER            = docs/doxygen-custom/header.html
+HTML_HEADER            = docs/header.html
 HTML_COLORSTYLE        = LIGHT
-HTML_EXTRA_STYLESHEET  = docs/doxygen-awesome-css/doxygen-awesome.css \
-                         docs/doxygen-awesome-css/doxygen-awesome-sidebar-only-darkmode-toggle.css
-HTML_EXTRA_FILES       = docs/doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js \
-                         docs/doxygen-awesome-css/doxygen-awesome-paragraph-link.js
+HTML_EXTRA_STYLESHEET  = docs/doxygen/doxygen-awesome-css/doxygen-awesome.css \
+HTML_EXTRA_FILES       = docs/doxygen/doxygen-awesome-css/doxygen-awesome-darkmode-toggle.js \
+                         docs/doxygen/doxygen-awesome-css/doxygen-awesome-paragraph-link.js
 HTML_TIMESTAMP         = YES
 HTML_DYNAMIC_SECTIONS  = YES
 HTML_INDEX_NUM_ENTRIES = 100
