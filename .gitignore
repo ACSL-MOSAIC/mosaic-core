@@ -63,5 +63,6 @@ CMakeUserPresets.json
 
 build/
 
-# Doxygen documentation
-docs/doxygen/
+# Doxygen generated documentation
+docs/doxygen/html/
+docs/doxygen/latex/
