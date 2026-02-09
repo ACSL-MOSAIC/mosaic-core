@@ -12,7 +12,7 @@
 #include <mosaic/handlers/data_channel/data_channel_receivable.h>
 #include <mosaic/logger/log.h>
 
-using namespace mosaic::handlers;
+namespace mosaic::handlers {
 
 class DataChannelObserver final : public webrtc::DataChannelObserver {
   public:
@@ -183,3 +183,5 @@ void ADataChannelHandler::Send(const webrtc::DataBuffer& buffer) const {
 void ADataChannelHandler::SendAsync(const webrtc::DataBuffer& buffer) const {
     pImpl->SendAsync(buffer);
 }
+
+}  // namespace mosaic::handlers

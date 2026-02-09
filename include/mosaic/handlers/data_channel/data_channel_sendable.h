@@ -8,11 +8,6 @@
 #include <mosaic/handlers/data_channel/a_data_channel_handler.h>
 #include <mosaic/logger/log.h>
 
-// Forward declaration for Json::Value
-namespace Json {
-class Value;
-}
-
 namespace mosaic::handlers {
 class DataChannelSendable : public ADataChannelHandler {
   public:

@@ -62,3 +62,6 @@ _deps
 CMakeUserPresets.json
 
 build/
+
+# Doxygen documentation
+docs/doxygen/
