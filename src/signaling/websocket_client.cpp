@@ -5,6 +5,8 @@
 #include <thread>
 #include <utility>
 
+#include <execinfo.h>
+#include <iostream>
 #include <json/json.h>
 #include <mosaic/logger/log.h>
 #include <mosaic/signaling/websocket_client.h>
@@ -73,6 +75,17 @@ void WebSocketClient::connectInternal() {
             throw std::runtime_error("Failed to connect to WebSocket server");
         }
     } catch (const std::exception& e) {
+        // Print stack trace
+        void* callstack[128];
+        int frames = backtrace(callstack, 128);
+        char** strs = backtrace_symbols(callstack, frames);
+
+        std::cout << "Stack trace:" << std::endl;
+        for (int i = 0; i < frames; ++i) {
+            std::cout << strs[i] << std::endl;
+        }
+        free(strs);
+
         MOSAIC_LOG_ERROR("Connection failed: {}", e.what());
     }
 }
