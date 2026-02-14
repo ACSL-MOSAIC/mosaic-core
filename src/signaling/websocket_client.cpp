@@ -72,9 +72,9 @@ void WebSocketClient::connectInternal() {
         if (res != pplx::task_status::completed) {
             throw std::runtime_error("Failed to connect to WebSocket server");
         }
-    } catch (const websocket_exception& e) {
+    } catch (const std::exception& e) {
         MOSAIC_LOG_ERROR("Connection failed: {}", e.what());
-        MOSAIC_LOG_ERROR("{}", e.error_code().value());
+        // MOSAIC_LOG_ERROR("{}", e.error_code().value());
     }
 }
 
