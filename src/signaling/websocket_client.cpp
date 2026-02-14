@@ -74,7 +74,6 @@ void WebSocketClient::connectInternal() {
         }
     } catch (const std::exception& e) {
         MOSAIC_LOG_ERROR("Connection failed: {}", e.what());
-        // MOSAIC_LOG_ERROR("{}", e.error_code().value());
     }
 }
 
