@@ -2,8 +2,6 @@
 // Created by yhkim on 25. 7. 16.
 //
 
-#include <execinfo.h>
-#include <iostream>
 #include <thread>
 #include <utility>
 
@@ -59,6 +57,8 @@ void WebSocketClient::connectInternal() {
     // 이벤트 핸들러 설정
     setupEventHandlers();
 
+    MOSAIC_LOG_INFO("Connecting to WebSocket server: {}", m_uri);
+
     try {
         // 연결 시도
         const auto res = m_client->connect(m_uri)
@@ -75,17 +75,6 @@ void WebSocketClient::connectInternal() {
             throw std::runtime_error("Failed to connect to WebSocket server");
         }
     } catch (const std::exception& e) {
-        // Print stack trace
-        void* callstack[1024];
-        int frames = backtrace(callstack, 1024);
-        char** strs = backtrace_symbols(callstack, frames);
-
-        std::cout << "Stack trace:" << std::endl;
-        for (int i = 0; i < frames; ++i) {
-            std::cout << strs[i] << std::endl;
-        }
-        free(strs);
-
         MOSAIC_LOG_ERROR("Connection failed: {}", e.what());
     }
 }
