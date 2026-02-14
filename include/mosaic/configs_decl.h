@@ -38,7 +38,7 @@ struct ServerConfig {
     WebRtcConfig webrtc_config;
 
     [[nodiscard]] std::string GetSignalingUrl() const {
-        return ws_url + "/ws/robot?robot_id=" + auth_config.robot_id;
+        return ws_url + "/ws/robot";
     }
 };
 
