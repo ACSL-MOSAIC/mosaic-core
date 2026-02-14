@@ -105,7 +105,9 @@ add_library(mosaic-auto-configurer STATIC
         src/auto_configurer/connector_resolver.cpp
         src/config_reader/config_reader_resolver.cpp
         src/config_reader/yaml_config_reader.cpp
-        src/auto_configurer/i_configurable_connector.cpp)
+        src/auto_configurer/i_configurable_connector.cpp
+        src/auto_configurer/impl/opencv_camera_mt_handler.cpp
+)
 target_compile_options(mosaic-auto-configurer PRIVATE -fPIC)
 
 target_include_directories(mosaic-auto-configurer PUBLIC

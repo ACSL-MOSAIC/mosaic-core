@@ -4,6 +4,8 @@
 
 #include <mosaic/auto_configurer/connector/connector_resolver.h>
 
+#include "mosaic/auto_configurer/impl/opencv_camera_mt_handler.h"
+
 using namespace mosaic::auto_configurer;
 
 ConnectorResolver& ConnectorResolver::GetInstance() {
@@ -22,4 +24,8 @@ std::shared_ptr<IConfigurableConnector> ConnectorResolver::GetConfigurableConnec
     }
     MOSAIC_LOG_ERROR("No factory found for connector type: {}", connector_type);
     return nullptr;
+}
+
+ConnectorResolver::ConnectorResolver() {
+    RegisterConfigurableConnector<impl::OpenCVCameraMediaTrackConfigurer>();
 }

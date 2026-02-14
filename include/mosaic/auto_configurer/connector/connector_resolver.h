@@ -39,7 +39,7 @@ class ConnectorResolver {
   private:
     std::unordered_map<std::string, std::shared_ptr<IConfigurableConnectorFactory>> factory_map_;
 
-    ConnectorResolver() = default;
+    ConnectorResolver();
 };
 }  // namespace mosaic::auto_configurer
 
