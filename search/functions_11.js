@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['yamlconfigreader_0',['YamlConfigReader',['../classmosaic_1_1auto__configurer_1_1YamlConfigReader.html#af48e2bafc757c87abfc8738eb8c91c32',1,'mosaic::auto_configurer::YamlConfigReader']]]
+  ['websocketclient_0',['WebSocketClient',['../classmosaic_1_1core__signaling_1_1WebSocketClient.html#a8be976f224fccacb952a9c556085ea23',1,'mosaic::core_signaling::WebSocketClient']]]
 ];

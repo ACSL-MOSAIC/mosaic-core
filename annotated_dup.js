@@ -2,6 +2,10 @@ var annotated_dup =
 [
     [ "mosaic", "namespacemosaic.html", [
       [ "auto_configurer", "namespacemosaic_1_1auto__configurer.html", [
+        [ "impl", "namespacemosaic_1_1auto__configurer_1_1impl.html", [
+          [ "OpenCVCameraMediaTrack", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack" ],
+          [ "OpenCVCameraMediaTrackConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer" ]
+        ] ],
         [ "ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer" ],
         [ "AMTHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer" ],
         [ "AParallelDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer" ],

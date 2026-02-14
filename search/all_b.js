@@ -17,5 +17,5 @@ var searchData=
   ['handlesdpoffer_14',['handlesdpoffer',['../classmosaic_1_1core_1_1MosaicConnector.html#ac00e6af8e3116bf09789cc36f4c9a137',1,'mosaic::core::MosaicConnector::HandleSdpOffer()'],['../classmosaic_1_1core_1_1PeerConnectionManager.html#abf0ce2f89d8792710ce87908d54af900',1,'mosaic::core::PeerConnectionManager::HandleSdpOffer()'],['../classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a527c51aa129ceb6c0c99f4408ad6bae1',1,'mosaic::core::PeerConnectionManager::Impl::HandleSdpOffer()']]],
   ['handlesendsdpoffer_15',['HandleSendSdpOffer',['../classmosaic_1_1core__signaling_1_1SignalingClient.html#a1ded64c306cc0b1e9483d8b2c9d91677',1,'mosaic::core_signaling::SignalingClient']]],
   ['headers_16',['3. Include Headers',['../index.html#autotoc_md8',1,'']]],
-  ['height_5f_17',['height_',['../classVideoRecorder_1_1Impl.html#a3f8c985ce7f49e71a09db9be3d1c9f02',1,'VideoRecorder::Impl']]]
+  ['height_5f_17',['height_',['../classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html#add158ddcc1fc7c2a2e5e83ed9ba6b5a5',1,'mosaic::auto_configurer::impl::OpenCVCameraMediaTrack::height_'],['../classVideoRecorder_1_1Impl.html#a3f8c985ce7f49e71a09db9be3d1c9f02',1,'mosaic::handlers::VideoRecorder::Impl::height_']]]
 ];

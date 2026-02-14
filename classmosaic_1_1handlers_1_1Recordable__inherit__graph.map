@@ -1,5 +1,7 @@
 <map id="mosaic::handlers::Recordable" name="mosaic::handlers::Recordable">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,220,31"/>
-<area shape="rect" id="Node000002" href="$classmosaic_1_1handlers_1_1AMediaTrackHandler.html" title=" " alt="" coords="17,79,208,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,44,115,79,110,79,110,44"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="20,5,235,31"/>
+<area shape="rect" id="Node000002" href="$classmosaic_1_1handlers_1_1AMediaTrackHandler.html" title=" " alt="" coords="32,79,223,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="130,44,130,79,125,79,125,44"/>
+<area shape="rect" id="Node000003" href="$classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html" title=" " alt="" coords="5,167,249,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="130,133,130,166,125,166,125,133"/>
 </map>

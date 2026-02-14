@@ -32,7 +32,9 @@ var hierarchy =
     ] ],
     [ "mosaic::auto_configurer::IConfigurableConnector", "classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html", [
       [ "mosaic::auto_configurer::ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", null ],
-      [ "mosaic::auto_configurer::AMTHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html", null ],
+      [ "mosaic::auto_configurer::AMTHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html", [
+        [ "mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html", null ]
+      ] ],
       [ "mosaic::auto_configurer::AParallelDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer.html", null ]
     ] ],
     [ "mosaic::auto_configurer::IConfigurableConnectorFactory", "classmosaic_1_1auto__configurer_1_1IConfigurableConnectorFactory.html", [
@@ -59,7 +61,9 @@ var hierarchy =
       [ "mosaic::core_log::ConsoleLogger", "classmosaic_1_1core__log_1_1ConsoleLogger.html", null ]
     ] ],
     [ "mosaic::handlers::IMediaTrackHandler", "classmosaic_1_1handlers_1_1IMediaTrackHandler.html", [
-      [ "mosaic::handlers::AMediaTrackHandler", "classmosaic_1_1handlers_1_1AMediaTrackHandler.html", null ]
+      [ "mosaic::handlers::AMediaTrackHandler", "classmosaic_1_1handlers_1_1AMediaTrackHandler.html", [
+        [ "mosaic::auto_configurer::impl::OpenCVCameraMediaTrack", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html", null ]
+      ] ]
     ] ],
     [ "mosaic::security::IMosaicAuthenticator", "classmosaic_1_1security_1_1IMosaicAuthenticator.html", [
       [ "mosaic::security::AMosaicAuthenticator", "classmosaic_1_1security_1_1AMosaicAuthenticator.html", [

@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['peerconnectionmanager_0',['PeerConnectionManager',['../classmosaic_1_1core_1_1PeerConnectionManager.html',1,'mosaic::core']]],
-  ['peerconnectionobserver_1',['PeerConnectionObserver',['../classmosaic_1_1core_1_1PeerConnectionObserver.html',1,'mosaic::core']]]
+  ['opencvcameramediatrack_0',['OpenCVCameraMediaTrack',['../classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html',1,'mosaic::auto_configurer::impl']]],
+  ['opencvcameramediatrackconfigurer_1',['OpenCVCameraMediaTrackConfigurer',['../classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html',1,'mosaic::auto_configurer::impl']]]
 ];

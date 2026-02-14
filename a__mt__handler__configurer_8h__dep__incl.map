@@ -1,5 +1,11 @@
 <map id="include/mosaic/auto_configurer/connector/a_mt_handler_configurer.h" name="include/mosaic/auto_configurer/connector/a_mt_handler_configurer.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="5,5,204,60"/>
-<area shape="rect" id="Node000002" href="$auto__configurer_8cpp.html" title=" " alt="" coords="28,108,181,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="107,74,107,108,102,108,102,74"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="185,5,383,60"/>
+<area shape="rect" id="Node000002" href="$opencv__camera__mt__handler_8h.html" title=" " alt="" coords="100,108,279,163"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="252,72,216,110,212,106,248,68"/>
+<area shape="rect" id="Node000005" href="$auto__configurer_8cpp.html" title=" " alt="" coords="303,115,457,155"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="320,68,364,113,360,117,317,72"/>
+<area shape="rect" id="Node000003" href="$connector__resolver_8cpp.html" title=" " alt="" coords="5,218,181,258"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="157,174,114,219,110,216,153,171"/>
+<area shape="rect" id="Node000004" href="$opencv__camera__mt__handler_8cpp.html" title=" " alt="" coords="205,211,368,265"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="226,171,263,209,259,212,222,175"/>
 </map>

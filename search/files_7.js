@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['peer_5fconnection_5fmanager_2ecpp_0',['peer_connection_manager.cpp',['../peer__connection__manager_8cpp.html',1,'']]],
-  ['peer_5fconnection_5fmanager_2eh_1',['peer_connection_manager.h',['../peer__connection__manager_8h.html',1,'']]],
-  ['peer_5fconnection_5fobserver_2ecpp_2',['peer_connection_observer.cpp',['../peer__connection__observer_8cpp.html',1,'']]],
-  ['peer_5fconnection_5fobserver_2eh_3',['peer_connection_observer.h',['../peer__connection__observer_8h.html',1,'']]]
+  ['opencv_5fcamera_5fmt_5fhandler_2ecpp_0',['opencv_camera_mt_handler.cpp',['../opencv__camera__mt__handler_8cpp.html',1,'']]],
+  ['opencv_5fcamera_5fmt_5fhandler_2eh_1',['opencv_camera_mt_handler.h',['../opencv__camera__mt__handler_8h.html',1,'']]]
 ];

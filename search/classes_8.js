@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['recordable_0',['Recordable',['../classmosaic_1_1handlers_1_1Recordable.html',1,'mosaic::handlers']]]
+  ['peerconnectionmanager_0',['PeerConnectionManager',['../classmosaic_1_1core_1_1PeerConnectionManager.html',1,'mosaic::core']]],
+  ['peerconnectionobserver_1',['PeerConnectionObserver',['../classmosaic_1_1core_1_1PeerConnectionObserver.html',1,'mosaic::core']]]
 ];

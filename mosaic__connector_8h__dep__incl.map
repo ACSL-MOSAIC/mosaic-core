@@ -1,52 +1,57 @@
 <map id="include/mosaic/core/mosaic_connector.h" name="include/mosaic/core/mosaic_connector.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="1538,5,1693,45"/>
-<area shape="rect" id="Node000002" href="$i__configurable__connector_8h.html" title=" " alt="" coords="437,93,636,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1525,37,636,113,636,108,1524,32"/>
-<area shape="rect" id="Node000012" href="$mosaic__connector__factory_8h.html" title=" " alt="" coords="1073,101,1280,141"/>
-<area shape="poly" id="edge16_Node000001_Node000012" title=" " alt="" coords="1525,47,1292,96,1259,103,1258,98,1291,91,1524,42"/>
-<area shape="rect" id="Node000014" href="$peer__connection__manager_8h.html" title=" " alt="" coords="1511,101,1720,141"/>
-<area shape="poly" id="edge19_Node000001_Node000014" title=" " alt="" coords="1609,59,1611,101,1605,101,1604,59"/>
-<area shape="rect" id="Node000016" href="$peer__connection__observer_8h.html" title=" " alt="" coords="1745,101,1953,141"/>
-<area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="1676,48,1803,98,1801,103,1674,53"/>
-<area shape="rect" id="Node000017" href="$mosaic__connector_8cpp.html" title=" " alt="" coords="1738,218,1959,243"/>
-<area shape="poly" id="edge29_Node000001_Node000017" title=" " alt="" coords="1707,29,1781,36,1859,48,1925,66,1950,78,1967,92,1975,106,1977,120,1967,149,1950,173,1927,193,1880,220,1877,216,1924,189,1946,170,1962,147,1972,119,1970,108,1963,95,1947,82,1923,71,1857,53,1781,41,1706,34"/>
-<area shape="rect" id="Node000018" href="$peer__connection__observer_8cpp.html" title=" " alt="" coords="1983,211,2167,251"/>
-<area shape="poly" id="edge30_Node000001_Node000018" title=" " alt="" coords="1707,32,1867,54,1940,70,1969,80,1990,91,2020,118,2043,150,2071,209,2067,212,2038,153,2016,121,1987,96,1966,85,1938,75,1866,59,1706,37"/>
-<area shape="rect" id="Node000019" href="$signaling__client_8h.html" title=" " alt="" coords="1304,101,1487,141"/>
-<area shape="poly" id="edge26_Node000001_Node000019" title=" " alt="" coords="1559,53,1441,103,1439,98,1557,48"/>
-<area shape="rect" id="Node000003" href="$auto__configurer_8h.html" title=" " alt="" coords="615,328,826,368"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="569,157,707,326,703,329,565,160"/>
-<area shape="rect" id="Node000005" href="$a__dc__handler__configurer_8h.html" title=" " alt="" coords="850,321,1045,375"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="598,153,901,318,898,323,595,157"/>
-<area shape="rect" id="Node000006" href="$a__mt__handler__configurer_8h.html" title=" " alt="" coords="200,321,399,375"/>
-<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="534,162,518,216,505,243,487,267,468,281,441,296,376,323,373,318,439,291,465,277,483,263,500,240,513,214,528,161"/>
-<area shape="rect" id="Node000007" href="$a__parallel__dc__handler__configurer_8h.html" title=" " alt="" coords="423,313,591,383"/>
-<area shape="poly" id="edge8_Node000002_Node000007" title=" " alt="" coords="540,162,538,212,533,266,521,314,516,312,527,265,533,211,535,162"/>
-<area shape="rect" id="Node000008" href="$configurable__connector__factory_8h.html" title=" " alt="" coords="5,196,183,265"/>
-<area shape="poly" id="edge10_Node000002_Node000008" title=" " alt="" coords="425,147,203,199,184,204,182,199,201,193,424,142"/>
-<area shape="rect" id="Node000009" href="$connector__resolver_8h.html" title=" " alt="" coords="13,321,175,375"/>
-<area shape="poly" id="edge14_Node000002_Node000009" title=" " alt="" coords="424,135,334,157,289,175,248,198,230,214,220,230,211,247,196,267,132,322,129,318,192,264,207,244,216,227,226,210,244,194,287,170,332,152,423,130"/>
-<area shape="rect" id="Node000011" href="$i__configurable__connector_8cpp.html" title=" " alt="" coords="259,211,473,251"/>
-<area shape="poly" id="edge15_Node000002_Node000011" title=" " alt="" coords="485,158,398,213,395,208,482,153"/>
-<area shape="rect" id="Node000004" href="$auto__configurer_8cpp.html" title=" " alt="" coords="537,431,691,471"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="692,380,636,433,632,429,689,376"/>
-<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="850,382,839,385,678,433,677,428,837,380,848,377"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="395,377,556,428,554,433,393,382"/>
-<area shape="poly" id="edge9_Node000007_Node000004" title=" " alt="" coords="555,391,595,428,592,432,552,395"/>
-<area shape="poly" id="edge11_Node000008_Node000009" title=" " alt="" coords="97,279,97,320,91,320,91,279"/>
-<area shape="poly" id="edge12_Node000009_Node000004" title=" " alt="" coords="176,377,188,380,281,401,376,417,538,439,537,444,375,423,280,406,187,385,175,382"/>
-<area shape="rect" id="Node000010" href="$connector__resolver_8cpp.html" title=" " alt="" coords="6,431,182,471"/>
-<area shape="poly" id="edge13_Node000009_Node000010" title=" " alt="" coords="97,389,97,430,91,430,91,389"/>
-<area shape="poly" id="edge17_Node000012_Node000004" title=" " alt="" coords="1146,152,1126,173,1110,197,1098,224,1093,249,1093,296,1093,319,1088,341,1078,363,1058,385,1032,401,994,415,896,434,788,445,691,450,691,445,788,440,896,429,992,409,1029,396,1055,381,1073,360,1083,339,1087,318,1088,296,1088,249,1093,222,1105,195,1122,170,1142,149"/>
-<area shape="rect" id="Node000013" href="$mosaic__connector__factory_8cpp.html" title=" " alt="" coords="1119,211,1314,251"/>
-<area shape="poly" id="edge18_Node000012_Node000013" title=" " alt="" coords="1191,152,1212,210,1207,211,1186,154"/>
-<area shape="poly" id="edge20_Node000014_Node000001" title=" " alt="" coords="1621,87,1620,45,1625,45,1627,87"/>
-<area shape="rect" id="Node000015" href="$peer__connection__manager_8cpp.html" title=" " alt="" coords="1530,211,1714,251"/>
-<area shape="poly" id="edge21_Node000014_Node000015" title=" " alt="" coords="1620,154,1623,210,1618,211,1615,155"/>
-<area shape="poly" id="edge24_Node000016_Node000015" title=" " alt="" coords="1798,149,1663,213,1661,208,1796,144"/>
-<area shape="poly" id="edge23_Node000016_Node000017" title=" " alt="" coords="1851,154,1851,217,1846,217,1846,154"/>
-<area shape="poly" id="edge25_Node000016_Node000018" title=" " alt="" coords="1901,144,2037,208,2034,213,1899,149"/>
-<area shape="poly" id="edge27_Node000019_Node000013" title=" " alt="" coords="1354,150,1249,213,1247,208,1351,145"/>
-<area shape="rect" id="Node000020" href="$signaling__client_8cpp.html" title=" " alt="" coords="1339,211,1505,251"/>
-<area shape="poly" id="edge28_Node000019_Node000020" title=" " alt="" coords="1406,153,1420,210,1415,211,1401,154"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="1572,5,1727,45"/>
+<area shape="rect" id="Node000002" href="$i__configurable__connector_8h.html" title=" " alt="" coords="590,93,789,148"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1559,38,789,112,789,107,1558,33"/>
+<area shape="rect" id="Node000014" href="$mosaic__connector__factory_8h.html" title=" " alt="" coords="1107,101,1314,141"/>
+<area shape="poly" id="edge19_Node000001_Node000014" title=" " alt="" coords="1559,47,1326,96,1293,103,1292,98,1325,91,1558,42"/>
+<area shape="rect" id="Node000016" href="$peer__connection__manager_8h.html" title=" " alt="" coords="1545,101,1754,141"/>
+<area shape="poly" id="edge22_Node000001_Node000016" title=" " alt="" coords="1643,59,1645,101,1639,101,1638,59"/>
+<area shape="rect" id="Node000018" href="$peer__connection__observer_8h.html" title=" " alt="" coords="1829,101,2037,141"/>
+<area shape="poly" id="edge25_Node000001_Node000018" title=" " alt="" coords="1721,47,1877,98,1875,103,1719,52"/>
+<area shape="rect" id="Node000019" href="$mosaic__connector_8cpp.html" title=" " alt="" coords="1765,218,1987,243"/>
+<area shape="poly" id="edge32_Node000001_Node000019" title=" " alt="" coords="1704,49,1736,68,1767,91,1819,150,1870,216,1865,219,1815,154,1764,95,1733,73,1701,54"/>
+<area shape="rect" id="Node000020" href="$peer__connection__observer_8cpp.html" title=" " alt="" coords="2011,211,2195,251"/>
+<area shape="poly" id="edge33_Node000001_Node000020" title=" " alt="" coords="1740,29,1826,36,1917,48,1997,66,2028,78,2051,91,2075,118,2090,151,2099,183,2104,210,2098,211,2094,184,2085,153,2070,121,2048,95,2026,83,1995,71,1916,54,1825,42,1740,34"/>
+<area shape="rect" id="Node000021" href="$signaling__client_8h.html" title=" " alt="" coords="1338,101,1521,141"/>
+<area shape="poly" id="edge29_Node000001_Node000021" title=" " alt="" coords="1593,53,1475,103,1473,98,1591,48"/>
+<area shape="rect" id="Node000003" href="$auto__configurer_8h.html" title=" " alt="" coords="451,328,661,368"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="720,158,734,183,744,211,746,240,737,267,718,284,688,301,615,330,613,325,685,296,715,280,732,264,741,239,739,212,729,185,715,161"/>
+<area shape="rect" id="Node000005" href="$a__dc__handler__configurer_8h.html" title=" " alt="" coords="685,321,880,375"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="749,154,768,173,782,195,793,227,796,262,791,321,786,320,791,262,788,228,778,197,764,176,745,158"/>
+<area shape="rect" id="Node000006" href="$a__mt__handler__configurer_8h.html" title=" " alt="" coords="286,203,485,258"/>
+<area shape="poly" id="edge6_Node000002_Node000006" title=" " alt="" coords="603,155,460,206,458,201,601,150"/>
+<area shape="rect" id="Node000010" href="$a__parallel__dc__handler__configurer_8h.html" title=" " alt="" coords="904,313,1072,383"/>
+<area shape="poly" id="edge11_Node000002_Node000010" title=" " alt="" coords="747,153,808,194,886,255,952,311,949,315,883,259,805,198,744,158"/>
+<area shape="rect" id="Node000011" href="$configurable__connector__factory_8h.html" title=" " alt="" coords="85,196,262,265"/>
+<area shape="poly" id="edge13_Node000002_Node000011" title=" " alt="" coords="577,140,432,164,274,199,263,202,261,196,273,193,431,159,576,135"/>
+<area shape="rect" id="Node000012" href="$connector__resolver_8h.html" title=" " alt="" coords="11,321,173,375"/>
+<area shape="poly" id="edge17_Node000002_Node000012" title=" " alt="" coords="576,130,431,140,273,154,141,174,97,185,74,198,65,211,60,226,60,258,68,291,80,319,75,321,63,292,55,259,55,225,60,209,70,194,95,180,140,168,273,149,430,134,576,125"/>
+<area shape="rect" id="Node000013" href="$i__configurable__connector_8cpp.html" title=" " alt="" coords="509,211,723,251"/>
+<area shape="poly" id="edge18_Node000002_Node000013" title=" " alt="" coords="666,161,631,212,627,209,661,158"/>
+<area shape="rect" id="Node000004" href="$auto__configurer_8cpp.html" title=" " alt="" coords="593,438,746,478"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="587,375,651,436,648,440,584,379"/>
+<area shape="poly" id="edge5_Node000005_Node000004" title=" " alt="" coords="747,387,691,440,687,436,743,383"/>
+<area shape="poly" id="edge10_Node000006_Node000004" title=" " alt="" coords="392,271,407,328,421,356,441,381,474,407,513,425,554,439,593,447,592,452,553,444,511,430,472,411,437,385,417,359,402,330,387,272"/>
+<area shape="rect" id="Node000007" href="$opencv__camera__mt__handler_8h.html" title=" " alt="" coords="197,321,376,375"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="356,270,311,322,307,319,352,266"/>
+<area shape="rect" id="Node000008" href="$connector__resolver_8cpp.html" title=" " alt="" coords="5,438,181,478"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="229,384,129,440,126,435,226,380"/>
+<area shape="rect" id="Node000009" href="$opencv__camera__mt__handler_8cpp.html" title=" " alt="" coords="205,431,368,485"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="289,390,289,430,284,430,284,390"/>
+<area shape="poly" id="edge12_Node000010_Node000004" title=" " alt="" coords="892,385,727,440,726,435,890,380"/>
+<area shape="poly" id="edge14_Node000011_Node000012" title=" " alt="" coords="144,278,113,322,108,319,139,275"/>
+<area shape="poly" id="edge15_Node000012_Node000004" title=" " alt="" coords="174,377,186,380,296,404,406,423,593,447,592,452,406,428,295,409,185,385,173,382"/>
+<area shape="poly" id="edge16_Node000012_Node000008" title=" " alt="" coords="95,390,96,437,90,438,90,390"/>
+<area shape="poly" id="edge20_Node000014_Node000004" title=" " alt="" coords="1177,151,1155,173,1137,197,1125,224,1120,249,1119,295,1119,318,1115,340,1105,362,1086,385,1061,400,1027,414,937,434,837,448,746,455,746,450,837,442,936,429,1025,409,1059,396,1082,381,1100,360,1110,339,1114,317,1114,295,1115,248,1120,222,1132,195,1151,169,1173,147"/>
+<area shape="rect" id="Node000015" href="$mosaic__connector__factory_8cpp.html" title=" " alt="" coords="1147,211,1341,251"/>
+<area shape="poly" id="edge21_Node000014_Node000015" title=" " alt="" coords="1223,153,1241,210,1236,211,1218,155"/>
+<area shape="poly" id="edge23_Node000016_Node000001" title=" " alt="" coords="1655,87,1654,45,1659,45,1661,87"/>
+<area shape="rect" id="Node000017" href="$peer__connection__manager_8cpp.html" title=" " alt="" coords="1557,211,1741,251"/>
+<area shape="poly" id="edge24_Node000016_Node000017" title=" " alt="" coords="1652,154,1652,210,1647,210,1647,154"/>
+<area shape="poly" id="edge27_Node000018_Node000017" title=" " alt="" coords="1872,148,1700,213,1698,208,1870,143"/>
+<area shape="poly" id="edge26_Node000018_Node000019" title=" " alt="" coords="1919,154,1885,219,1880,216,1915,151"/>
+<area shape="poly" id="edge28_Node000018_Node000020" title=" " alt="" coords="1976,146,2074,208,2072,213,1973,150"/>
+<area shape="poly" id="edge30_Node000021_Node000015" title=" " alt="" coords="1387,150,1278,213,1275,208,1384,145"/>
+<area shape="rect" id="Node000022" href="$signaling__client_8cpp.html" title=" " alt="" coords="1366,211,1533,251"/>
+<area shape="poly" id="edge31_Node000021_Node000022" title=" " alt="" coords="1438,153,1448,210,1443,211,1433,154"/>
 </map>

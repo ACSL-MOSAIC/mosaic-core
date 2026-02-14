@@ -3,5 +3,8 @@ var searchData=
   ['factories_5f_0',['factories_',['../classmosaic_1_1auto__configurer_1_1ConfigReaderResolver.html#ac082668850ca132dfc1188dd5a0394b0',1,'mosaic::auto_configurer::ConfigReaderResolver']]],
   ['factory_5fmap_5f_1',['factory_map_',['../classmosaic_1_1auto__configurer_1_1ConnectorResolver.html#aeab2da3673cf096935d654007c8356ec',1,'mosaic::auto_configurer::ConnectorResolver::factory_map_'],['../classmosaic_1_1security_1_1AuthenticatorResolver.html#a11b99752c0d1c7e191ec495d76e6e6e6',1,'mosaic::security::AuthenticatorResolver::factory_map_']]],
   ['fmt_5fheader_5fonly_2',['FMT_HEADER_ONLY',['../i__logger_8h.html#a27b3249db8d77bd236109bda307bc263',1,'i_logger.h']]],
-  ['fps_5f_3',['fps_',['../classVideoRecorder_1_1Impl.html#a66ecb7eec9402923479ec42b8f49d59e',1,'VideoRecorder::Impl']]]
+  ['fps_5f_3',['fps_',['../classVideoRecorder_1_1Impl.html#a66ecb7eec9402923479ec42b8f49d59e',1,'VideoRecorder::Impl']]],
+  ['frame_5floop_5fthread_5f_4',['frame_loop_thread_',['../classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html#aa33018a43b97269746e0e1ec606cc637',1,'mosaic::auto_configurer::impl::OpenCVCameraMediaTrack']]],
+  ['frame_5frate_5f_5',['frame_rate_',['../classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html#a69b5234771c346cdd4d14233ad86a30e',1,'mosaic::auto_configurer::impl::OpenCVCameraMediaTrack']]],
+  ['frameloop_6',['FrameLoop',['../classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html#aa92e419643d1ee54ade3c14b93bb0e82',1,'mosaic::auto_configurer::impl::OpenCVCameraMediaTrack']]]
 ];
