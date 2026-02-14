@@ -57,8 +57,6 @@ void WebSocketClient::connectInternal() {
     // 이벤트 핸들러 설정
     setupEventHandlers();
 
-    MOSAIC_LOG_INFO("Connecting to WebSocket server: {}", m_uri);
-
     try {
         // 연결 시도
         const auto res = m_client->connect(m_uri)
@@ -74,8 +72,9 @@ void WebSocketClient::connectInternal() {
         if (res != pplx::task_status::completed) {
             throw std::runtime_error("Failed to connect to WebSocket server");
         }
-    } catch (const std::exception& e) {
+    } catch (const websocket_exception& e) {
         MOSAIC_LOG_ERROR("Connection failed: {}", e.what());
+        MOSAIC_LOG_ERROR("{}", e.error_code());
     }
 }
 
