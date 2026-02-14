@@ -25,7 +25,7 @@ void impl::OpenCVCameraMediaTrack::Start() {
     if (IsRunning()) {
         return;
     }
-    if (!capture_.open(0, cv::CAP_V4L2)) {
+    if (!capture_.open(camera_id_, cv::CAP_V4L2)) {
         return;
     }
     capture_.set(cv::CAP_PROP_FOURCC, cv::VideoWriter::fourcc('M', 'J', 'P', 'G'));
@@ -36,7 +36,7 @@ void impl::OpenCVCameraMediaTrack::Start() {
 
     SetRunning(true);
     SetStopFlag(false);
-    start_time_ = std::chrono::high_resolution_clock::now();
+    start_time_ = std::chrono::steady_clock::now();
     frame_loop_thread_ = std::make_shared<std::thread>(std::thread([this]() {
         while (!GetStopFlag()) {
             try {
