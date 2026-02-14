@@ -2,11 +2,11 @@
 // Created by yhkim on 25. 7. 16.
 //
 
+#include <execinfo.h>
+#include <iostream>
 #include <thread>
 #include <utility>
 
-#include <execinfo.h>
-#include <iostream>
 #include <json/json.h>
 #include <mosaic/logger/log.h>
 #include <mosaic/signaling/websocket_client.h>
@@ -76,8 +76,8 @@ void WebSocketClient::connectInternal() {
         }
     } catch (const std::exception& e) {
         // Print stack trace
-        void* callstack[128];
-        int frames = backtrace(callstack, 128);
+        void* callstack[1024];
+        int frames = backtrace(callstack, 1024);
         char** strs = backtrace_symbols(callstack, frames);
 
         std::cout << "Stack trace:" << std::endl;
