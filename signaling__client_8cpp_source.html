@@ -290,7 +290,7 @@ $(document).ready(function(){initNavTree('signaling__client_8cpp_source.html',''
 <div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>        <a class="code hl_function" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a1ded64c306cc0b1e9483d8b2c9d91677">HandleSendSdpOffer</a>(message[<span class="stringliteral">&quot;data&quot;</span>]);</div>
 <div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;signaling.exchange_ice_candidate&quot;</span>) {</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>        <a class="code hl_function" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a33dbc9df49bff4eb16a5225b2dc6efc8">HandleExchangeIceCandidate</a>(message[<span class="stringliteral">&quot;data&quot;</span>]);</div>
-<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;signaling.send_close_peer_connection&quot;</span>) {</div>
+<div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type == <span class="stringliteral">&quot;signaling.close_peer_connection&quot;</span>) {</div>
 <div class="line"><a id="l00160" name="l00160"></a><span class="lineno">  160</span>        <a class="code hl_function" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#ae89fae7e985b4531d4c27869fdd7d520">HandleCloseConnection</a>();</div>
 <div class="line"><a id="l00161" name="l00161"></a><span class="lineno">  161</span>    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (type.rfind(<span class="stringliteral">&quot;authorize&quot;</span>, 0) == 0) {</div>
 <div class="line"><a id="l00162" name="l00162"></a><span class="lineno">  162</span>        <a class="code hl_function" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a8950ab3377bc47664e3d63e91be2d1eb">HandleAuthorizationMessage</a>(type, message[<span class="stringliteral">&quot;data&quot;</span>]);</div>
@@ -440,7 +440,7 @@ $(document).ready(function(){initNavTree('signaling__client_8cpp_source.html',''
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_7039ceb4d09e67587c6c1d1a01ef7850.html">signaling</a></li><li class="navelem"><a class="el" href="signaling__client_8cpp.html">signaling_client.cpp</a></li>
-    <li class="footer">Generated on Sat Feb 14 2026 13:38:02 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Feb 15 2026 15:59:06 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>
