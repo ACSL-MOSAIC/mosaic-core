@@ -156,7 +156,7 @@ void SignalingClient::OnMessage(Json::Value const& message) const {
         HandleSendSdpOffer(message["data"]);
     } else if (type == "signaling.exchange_ice_candidate") {
         HandleExchangeIceCandidate(message["data"]);
-    } else if (type == "signaling.send_close_peer_connection") {
+    } else if (type == "signaling.close_peer_connection") {
         HandleCloseConnection();
     } else if (type.rfind("authorize", 0) == 0) {
         HandleAuthorizationMessage(type, message["data"]);
