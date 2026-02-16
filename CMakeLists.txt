@@ -12,255 +12,23 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 option(BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 option(BUILD_TESTS "Build tests" ON)
 
-################################################################################
-# Include Third Party Libraries
-################################################################################
-include(cmake/ThirdPartyLibs.cmake)
-if (NOT THIRD_PARTY_READY)
-    message(FATAL_ERROR "Third party libraries not properly configured!")
+if (POLICY CMP0167)
+    cmake_policy(SET CMP0167 NEW)
+endif ()
+if (POLICY CMP0148)
+    cmake_policy(SET CMP0148 NEW)
 endif ()
 
-################################################################################
-# WebRTC Sender Library
-################################################################################
-add_library(logging STATIC
-        src/logger/log_service.cpp
-        src/logger/webrtc_log.cpp
-)
-target_compile_options(logging PRIVATE -fPIC)
-target_link_libraries(logging PRIVATE
-        third_party_lib
-)
-target_include_directories(logging PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-)
+find_package(cpprestsdk REQUIRED)
+find_package(fmt REQUIRED)
+find_package(yaml-cpp REQUIRED)
+find_package(OpenCV REQUIRED)
+find_package(jsoncpp REQUIRED)
 
-add_library(signaling_server STATIC
-        src/signaling/websocket_client.cpp
-        src/signaling/signaling_client.cpp
-)
-target_compile_options(signaling_server PRIVATE -fPIC)
-target_link_libraries(signaling_server PRIVATE
-        logging
-        cpprestsdk::cpprest
-        third_party_lib
-)
-target_include_directories(signaling_server PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-        ${CPPREST_INCLUDE_DIRS}
-)
-
-add_library(handlers STATIC
-        src/handlers/data_channel/data_channel_handler.cpp
-        src/handlers/data_channel/data_channel_sendable.cpp
-        src/handlers/data_channel/data_channel_receivable.cpp
-        src/handlers/media_track/media_track_handler.cpp
-        src/handlers/media_track/recordable.cpp
-        src/handlers/media_track/video_recorder.cpp
-)
-target_compile_options(handlers PRIVATE -fPIC)
-target_link_libraries(handlers PRIVATE
-        third_party_lib
-        logging
-)
-target_include_directories(handlers PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-)
-
-add_library(security STATIC
-        src/security/authenticator_resolver.cpp
-        src/security/mosaic_authenticator.cpp
-        src/security/impl/no_auth_authenticator.cpp
-        src/security/impl/simple_token_authenticator.cpp
-)
-target_compile_options(security PRIVATE -fPIC)
-target_link_libraries(security PUBLIC
-        third_party_lib
-        logging
-)
-target_include_directories(security PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-)
-
-add_library(mosaic-rtc-core STATIC
-        src/core/mosaic_connector.cpp
-        src/core/connector_state_manager.cpp
-        src/core/peer_connection_manager.cpp
-        src/core/peer_connection_observer.cpp
-)
-target_compile_options(mosaic-rtc-core PRIVATE -fPIC)
-target_link_libraries(mosaic-rtc-core PUBLIC
-        third_party_lib
-        signaling_server
-        logging
-        handlers
-        security
-)
-
-target_include_directories(mosaic-rtc-core PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-        ${JSONCPP_INCLUDE_DIRS}
-)
-
-add_library(mosaic-auto-configurer STATIC
-        src/auto_configurer/auto_configurer.cpp
-        src/auto_configurer/connector_resolver.cpp
-        src/config_reader/config_reader_resolver.cpp
-        src/config_reader/yaml_config_reader.cpp
-        src/auto_configurer/impl/opencv_camera_mt_handler.cpp
-)
-target_compile_options(mosaic-auto-configurer PRIVATE -fPIC)
-
-target_include_directories(mosaic-auto-configurer PUBLIC
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
-        $<INSTALL_INTERFACE:include>
-)
-
-target_link_libraries(mosaic-auto-configurer PUBLIC
-        third_party_lib
-        mosaic-rtc-core
-)
-
-add_library(mosaic-core INTERFACE)
-target_link_libraries(mosaic-core INTERFACE
-        mosaic-rtc-core
-        mosaic-auto-configurer
-)
-
-# Python bindings
-if (BUILD_PYTHON_BINDINGS)
-    find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
-    find_package(pybind11 CONFIG REQUIRED)
-
-    set(PYTHON_DEV_DIR ${CMAKE_CURRENT_BINARY_DIR}/mosaic_core)
-
-    pybind11_add_module(_mosaic_core
-            python/bindings/main.cpp
-            python/bindings/bind_logging.cpp
-            python/bindings/bind_configs.cpp
-            python/bindings/bind_handlers.cpp
-            python/bindings/bind_data_channel.cpp
-            python/bindings/bind_media_track.cpp
-            python/bindings/bind_core.cpp
-            python/bindings/bind_auto_configurer.cpp
-    )
-
-    target_link_libraries(_mosaic_core PRIVATE
-            mosaic-core
-    )
-    target_include_directories(_mosaic_core PRIVATE
-            ${CMAKE_CURRENT_SOURCE_DIR}/include
-    )
-
-    add_custom_command(TARGET _mosaic_core POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E make_directory ${PYTHON_DEV_DIR}
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            ${CMAKE_CURRENT_SOURCE_DIR}/python/mosaic_core/__init__.py
-            ${PYTHON_DEV_DIR}/__init__.py
-            COMMAND ${CMAKE_COMMAND} -E copy_if_different
-            $<TARGET_FILE:_mosaic_core>
-            ${PYTHON_DEV_DIR}/$<TARGET_FILE_NAME:_mosaic_core>
-            COMMENT "Copying Python module to build directory for development"
-    )
-
-    if (DEFINED Python3_SITELIB)
-        set(PYTHON_INSTALL_DIR ${Python3_SITELIB}/mosaic_core)
-    else ()
-        set(PYTHON_INSTALL_DIR
-                lib/python${Python3_VERSION_MAJOR}.${Python3_VERSION_MINOR}/site-packages/mosaic_core)
-    endif ()
-
-    install(TARGETS _mosaic_core
-            LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}
-            COMPONENT python
-    )
-
-    # Python 패키지 파일들도 설치
-    install(FILES
-            ${CMAKE_CURRENT_SOURCE_DIR}/python/mosaic_core/__init__.py
-            DESTINATION ${PYTHON_INSTALL_DIR}
-            COMPONENT python
-    )
-
-    configure_file(
-            ${CMAKE_CURRENT_SOURCE_DIR}/python/setup.py.in
-            ${CMAKE_CURRENT_BINARY_DIR}/setup.py
-            @ONLY
-    )
-
-endif ()
-
-################################################################################
-# Testing Configure
-################################################################################
-if (BUILD_TESTS)
-    find_package(GTest REQUIRED)
-
-    enable_testing()
-
-    add_executable(config_reader_tests
-            test/config_reader/test_yaml_config_reader.cpp
-            test/config_reader/test_config_reader_resolver.cpp
-    )
-
-    add_executable(signaling_tests
-            test/signaling/test_websocket_client.cpp
-    )
-    add_executable(logger_tests
-            test/logger/test_logging_level.cpp
-    )
-
-    # Link libraries to test executables
-    target_link_libraries(config_reader_tests
-            mosaic-auto-configurer
-            third_party_lib
-            GTest::GTest               # Google Test
-            GTest::Main                # Google Test main function
-    )
-    target_link_libraries(signaling_tests
-            mosaic-rtc-core          # Main library
-            third_party_lib
-            GTest::GTest               # Google Test
-            GTest::Main                # Google Test main function
-    )
-    target_link_libraries(logger_tests
-            mosaic-rtc-core
-            GTest::GTest               # Google Test
-            GTest::Main                # Google Test main function
-    )
-
-    # Set test header paths
-    target_include_directories(signaling_tests PRIVATE
-            include
-            tests
-    )
-    target_include_directories(logger_tests PRIVATE
-            include
-            tests
-    )
-
-    # Copy test data files to build directory
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/test/config_reader/test_config.yaml
-            ${CMAKE_CURRENT_BINARY_DIR}/test/config_reader/test_config.yaml COPYONLY)
-
-    # Google Test discovery and registration
-    include(GoogleTest)
-    gtest_discover_tests(config_reader_tests)
-    gtest_discover_tests(signaling_tests)
-    gtest_discover_tests(logger_tests)
-
-    # Register individual tests
-    add_test(NAME config_reader_tests COMMAND config_reader_tests)
-    add_test(NAME websocket_client_tests COMMAND websocket_client_tests) # Not stable
-    add_test(NAME logger_tests COMMAND logger_tests)
-
-
-endif ()
+add_subdirectory(third_party)
+add_subdirectory(src)
+add_subdirectory(python)
+add_subdirectory(test)
 
 ################################################################################
 # Installation Configure
@@ -287,7 +55,7 @@ install(EXPORT mosaic-core_targets
 include(CMakePackageConfigHelpers)
 
 configure_package_config_file(
-        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/mosaic-core-config.cmake.in
+        ${CMAKE_CURRENT_SOURCE_DIR}/mosaic-core-config.cmake.in
         ${CMAKE_CURRENT_BINARY_DIR}/mosaic-core-config.cmake
         INSTALL_DESTINATION ${CMAKE_INSTALL_LIBDIR}/cmake/mosaic-core
 )
