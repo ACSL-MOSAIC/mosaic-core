@@ -31,7 +31,9 @@ var hierarchy =
       [ "mosaic::auto_configurer::ConfigReaderFactory< T >", "classmosaic_1_1auto__configurer_1_1ConfigReaderFactory.html", null ]
     ] ],
     [ "mosaic::auto_configurer::IConfigurableConnector", "classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html", [
-      [ "mosaic::auto_configurer::ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", null ],
+      [ "mosaic::auto_configurer::ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", [
+        [ "mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html", null ]
+      ] ],
       [ "mosaic::auto_configurer::AMTHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html", [
         [ "mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html", null ]
       ] ],
@@ -42,7 +44,9 @@ var hierarchy =
     ] ],
     [ "mosaic::handlers::IDataChannelHandler", "classmosaic_1_1handlers_1_1IDataChannelHandler.html", [
       [ "mosaic::handlers::ADataChannelHandler", "classmosaic_1_1handlers_1_1ADataChannelHandler.html", [
-        [ "mosaic::handlers::DataChannelSendable", "classmosaic_1_1handlers_1_1DataChannelSendable.html", null ],
+        [ "mosaic::handlers::DataChannelSendable", "classmosaic_1_1handlers_1_1DataChannelSendable.html", [
+          [ "mosaic::auto_configurer::impl::ConnectionCheckDataChannel", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html", null ]
+        ] ],
         [ "mosaic::handlers::IDataChannelReceivable", "classmosaic_1_1handlers_1_1IDataChannelReceivable.html", [
           [ "mosaic::handlers::DataChannelReceivable< std::vector< uint8_t > >", "classmosaic_1_1handlers_1_1DataChannelReceivable.html", [
             [ "mosaic::handlers::DataChannelByteReceivable", "classmosaic_1_1handlers_1_1DataChannelByteReceivable.html", null ]
@@ -51,7 +55,9 @@ var hierarchy =
             [ "mosaic::handlers::DataChannelJsonReceivable", "classmosaic_1_1handlers_1_1DataChannelJsonReceivable.html", null ]
           ] ],
           [ "mosaic::handlers::DataChannelReceivable< std::string >", "classmosaic_1_1handlers_1_1DataChannelReceivable.html", [
-            [ "mosaic::handlers::DataChannelStringReceivable", "classmosaic_1_1handlers_1_1DataChannelStringReceivable.html", null ]
+            [ "mosaic::handlers::DataChannelStringReceivable", "classmosaic_1_1handlers_1_1DataChannelStringReceivable.html", [
+              [ "mosaic::auto_configurer::impl::ConnectionCheckDataChannel", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html", null ]
+            ] ]
           ] ],
           [ "mosaic::handlers::DataChannelReceivable< ReceiveT >", "classmosaic_1_1handlers_1_1DataChannelReceivable.html", null ]
         ] ]

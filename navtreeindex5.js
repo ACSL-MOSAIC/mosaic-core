@@ -1,5 +1,21 @@
 var NAVTREEINDEX5 =
 {
+"functions_func_h.html":[2,3,1,6],
+"functions_func_i.html":[2,3,1,7],
+"functions_func_l.html":[2,3,1,8],
+"functions_func_m.html":[2,3,1,9],
+"functions_func_n.html":[2,3,1,10],
+"functions_func_o.html":[2,3,1,11],
+"functions_func_p.html":[2,3,1,12],
+"functions_func_r.html":[2,3,1,13],
+"functions_func_s.html":[2,3,1,14],
+"functions_func_v.html":[2,3,1,15],
+"functions_func_w.html":[2,3,1,16],
+"functions_func_y.html":[2,3,1,17],
+"functions_func_~.html":[2,3,1,18],
+"functions_g.html":[2,3,0,5],
+"functions_h.html":[2,3,0,6],
+"functions_i.html":[2,3,0,7],
 "functions_k.html":[2,3,0,8],
 "functions_l.html":[2,3,0,9],
 "functions_m.html":[2,3,0,10],
@@ -134,8 +150,8 @@ var NAVTREEINDEX5 =
 "no__auth__authenticator_8h_source.html":[3,0,0,0,4,0,0],
 "opencv__camera__mt__handler_8cpp.html":[3,0,1,0,0,0],
 "opencv__camera__mt__handler_8cpp_source.html":[3,0,1,0,0,0],
-"opencv__camera__mt__handler_8h.html":[3,0,0,0,0,2,0],
-"opencv__camera__mt__handler_8h_source.html":[3,0,0,0,0,2,0],
+"opencv__camera__mt__handler_8h.html":[3,0,0,0,0,2,1],
+"opencv__camera__mt__handler_8h_source.html":[3,0,0,0,0,2,1],
 "pages.html":[],
 "peer__connection__manager_8cpp.html":[3,0,1,2,3],
 "peer__connection__manager_8cpp.html#a8ef1c9cab0bca6a35a39fc5114cb98d3":[3,0,1,2,3,4],
@@ -233,6 +249,5 @@ var NAVTREEINDEX5 =
 "websocket__client_8h_source.html":[3,0,0,0,5,2],
 "yaml__config__reader_8cpp.html":[3,0,1,1,1],
 "yaml__config__reader_8cpp_source.html":[3,0,1,1,1],
-"yaml__config__reader_8h.html":[3,0,0,0,0,0,3],
-"yaml__config__reader_8h_source.html":[3,0,0,0,0,0,3]
+"yaml__config__reader_8h.html":[3,0,0,0,0,0,3]
 };

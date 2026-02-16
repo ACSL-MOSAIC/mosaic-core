@@ -66,10 +66,11 @@ var NAVTREEINDEX =
 [
 "a__data__channel__handler_8cpp.html",
 "classmosaic_1_1auto__configurer_1_1ConnectorResolver.html#aeab2da3673cf096935d654007c8356ec",
-"classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a0496d51cab6173f380d94ef68a7fef5c",
-"classmosaic_1_1core__signaling_1_1WebSocketClient.html#a72eb208a1f4f085935f7a45b545d2211",
-"classmosaic_1_1handlers_1_1IDataChannelHandler.html#ad84b49563c3f8aa7e8cb4f24381315e0",
-"functions_k.html"
+"classmosaic_1_1core_1_1PeerConnectionManager.html#ab0257b20b5cc2e5aa89993e364b31036",
+"classmosaic_1_1core__signaling_1_1WebSocketClient.html#a1bcaaf9c0dadfac34d8fd2e453d64184",
+"classmosaic_1_1handlers_1_1IDataChannelHandler.html#a11aea8b84f837393103ec085db62bc03afea1956319cd4bb0a0917aee51f4952f",
+"functions_func_h.html",
+"yaml__config__reader_8h_source.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

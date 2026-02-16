@@ -1,5 +1,7 @@
 <map id="mosaic::handlers::DataChannelStringReceivable" name="mosaic::handlers::DataChannelStringReceivable">
 <area shape="rect" id="Node000001" title=" " alt="" coords="1495,5,1720,45"/>
+<area shape="rect" id="Node000007" href="$classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html" title=" " alt="" coords="1769,5,2033,45"/>
+<area shape="poly" id="edge7_Node000001_Node000007" title=" " alt="" coords="1734,23,1769,23,1769,28,1734,28"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="1220,5,1445,45"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="1459,23,1494,23,1494,28,1459,28"/>
 <area shape="rect" id="Node000003" href="$classmosaic_1_1handlers_1_1IDataChannelReceivable.html" title=" " alt="" coords="568,7,797,47"/>
