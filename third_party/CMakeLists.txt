@@ -82,4 +82,5 @@ target_link_libraries(third_party_lib INTERFACE
         ${OpenCV_LIBS}
         JsonCpp::JsonCpp
         yaml-cpp::yaml-cpp
+        cpprestsdk::cpprest
 )

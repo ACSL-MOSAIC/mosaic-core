@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.14)
 set(VERSION_MAJOR 1)
-set(VERSION_MINOR 0)
-set(VERSION_PATCH 3)
+set(VERSION_MINOR 1)
+set(VERSION_PATCH 0)
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 project(mosaic-core VERSION ${VERSION} LANGUAGES CXX)
@@ -11,6 +11,15 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 option(BUILD_TESTS "Build tests" ON)
+option(BUILD_SHARED_LIBS "Build shared libraries instead of static" ON)
+
+# RPATH settings for finding shared libraries at runtime
+if (BUILD_SHARED_LIBS)
+    set(CMAKE_SKIP_BUILD_RPATH FALSE)
+    set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+    set(CMAKE_INSTALL_RPATH "${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR}")
+    set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+endif ()
 
 if (POLICY CMP0167)
     cmake_policy(SET CMP0167 NEW)
@@ -35,7 +44,7 @@ add_subdirectory(test)
 ################################################################################
 include(GNUInstallDirs)
 
-install(TARGETS mosaic-core mosaic-rtc-core mosaic-auto-configurer logging signaling_server handlers security third_party_lib
+install(TARGETS mosaic-core third_party_lib
         EXPORT mosaic-core_targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}

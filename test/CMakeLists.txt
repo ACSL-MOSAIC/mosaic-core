@@ -20,19 +20,17 @@ if (BUILD_TESTS)
 
     # Link libraries to test executables
     target_link_libraries(config_reader_tests
-            mosaic-auto-configurer
-            third_party_lib
+            mosaic-core              # Unified library
             GTest::GTest               # Google Test
             GTest::Main                # Google Test main function
     )
     target_link_libraries(signaling_tests
-            mosaic-rtc-core          # Main library
-            third_party_lib
+            mosaic-core              # Unified library
             GTest::GTest               # Google Test
             GTest::Main                # Google Test main function
     )
     target_link_libraries(logger_tests
-            mosaic-rtc-core
+            mosaic-core              # Unified library
             GTest::GTest               # Google Test
             GTest::Main                # Google Test main function
     )

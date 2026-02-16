@@ -10,7 +10,7 @@
 #include "../connector/configurable_connectors.hpp"
 
 namespace mosaic::auto_configurer::impl {
-class ConnectionCheckDCHandlerConfigurer : public ADCHandlerConfigurer {
+class ConnectionCheckDCHandlerConfigurer : public AMultipleDCHandlerConfigurer {
   public:
     ConnectionCheckDCHandlerConfigurer() = default;
 
@@ -20,14 +20,25 @@ class ConnectionCheckDCHandlerConfigurer : public ADCHandlerConfigurer {
     void Configure() override;
 };
 
-class ConnectionCheckDataChannel : public handlers::DataChannelSendable, public handlers::DataChannelStringReceivable {
+class ConnectionCheckDataChannelSender : public handlers::DataChannelSendable {
   public:
-    explicit ConnectionCheckDataChannel(const std::string& label)
-        : DataChannelSendable(label), DataChannelStringReceivable(label) {}
+    explicit ConnectionCheckDataChannelSender(const std::string& label) : DataChannelSendable(label) {}
+};
+
+class ConnectionCheckDataChannelReceiver : public handlers::DataChannelStringReceivable {
+  public:
+    explicit ConnectionCheckDataChannelReceiver(const std::string& label) : DataChannelStringReceivable(label) {}
+
+    void SetSender(const std::shared_ptr<ConnectionCheckDataChannelSender>& sender) {
+        sender_ = sender;
+    }
 
     void HandleData(const std::string& data) override {
-        SendString(data, true);
+        sender_->SendString(data, true);
     }
+
+  private:
+    std::shared_ptr<ConnectionCheckDataChannelSender> sender_;
 };
 
 }  // namespace mosaic::auto_configurer::impl

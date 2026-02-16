@@ -6,6 +6,7 @@
 #define MOSAIC_CORE_A_MOSAIC_AUTHENTICATOR_HPP
 
 #include <memory>
+#include <utility>
 
 #include <json/json.h>
 
@@ -19,8 +20,7 @@ class ISignalingClient;
 namespace mosaic::security {
 class IMosaicAuthenticator {
   public:
-    IMosaicAuthenticator(const core::AuthConfig& auth_config,
-                         const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client);
+    IMosaicAuthenticator() = default;
 
     virtual ~IMosaicAuthenticator() = default;
 
@@ -39,11 +39,9 @@ class IMosaicAuthenticator {
 
 class AMosaicAuthenticator : public IMosaicAuthenticator {
   public:
-    explicit AMosaicAuthenticator(const core::AuthConfig& auth_config,
+    explicit AMosaicAuthenticator(core::AuthConfig auth_config,
                                   const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client)
-        : IMosaicAuthenticator(auth_config, signaling_client),
-          auth_config_(auth_config),
-          signaling_client_(signaling_client) {}
+        : auth_config_(std::move(auth_config)), signaling_client_(signaling_client) {}
 
     ~AMosaicAuthenticator() override = default;
 

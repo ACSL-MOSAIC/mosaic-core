@@ -47,9 +47,9 @@ class ADCHandlerConfigurer : public IConfigurableConnector {
     std::shared_ptr<handlers::IDataChannelHandler> handler_;
 };
 
-class AParallelDCHandlerConfigurer : public IConfigurableConnector {
+class AMultipleDCHandlerConfigurer : public IConfigurableConnector {
   public:
-    AParallelDCHandlerConfigurer() : IConfigurableConnector() {}
+    AMultipleDCHandlerConfigurer() : IConfigurableConnector() {}
 
     virtual std::string GetConnectorType() const override = 0;
 

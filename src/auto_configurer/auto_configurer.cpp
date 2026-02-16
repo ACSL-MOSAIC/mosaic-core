@@ -79,7 +79,7 @@ void AutoConfigurer::ConfigureConnectors() {
                 mosaic_connector_->AddDataChannelHandler(handler);
                 dc_handler_map_[handler->GetLabel()] = handler;
             }
-        } else if (const auto dc_p_ptr = dynamic_cast<AParallelDCHandlerConfigurer*>(configurable_connector.get())) {
+        } else if (const auto dc_p_ptr = dynamic_cast<AMultipleDCHandlerConfigurer*>(configurable_connector.get())) {
             const auto handlers = dc_p_ptr->GetHandlers();
             for (const auto& handler : handlers) {
                 mosaic_connector_->AddDataChannelHandler(handler);
