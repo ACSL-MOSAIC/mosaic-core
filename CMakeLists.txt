@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 3.14)
-project(mosaic-core)
-
 set(VERSION_MAJOR 1)
 set(VERSION_MINOR 0)
 set(VERSION_PATCH 3)
 set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
+project(mosaic-core VERSION ${VERSION} LANGUAGES CXX)
+
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+option(BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
+option(BUILD_TESTS "Build tests" ON)
 
 ################################################################################
 # Include Third Party Libraries
@@ -130,7 +133,6 @@ target_link_libraries(mosaic-core INTERFACE
 )
 
 # Python bindings
-option(BUILD_PYTHON_BINDINGS "Build Python bindings" ON)
 if (BUILD_PYTHON_BINDINGS)
     find_package(Python3 COMPONENTS Interpreter Development REQUIRED)
     find_package(pybind11 CONFIG REQUIRED)
@@ -196,8 +198,6 @@ endif ()
 ################################################################################
 # Testing Configure
 ################################################################################
-option(BUILD_TESTS "Build tests" ON)
-
 if (BUILD_TESTS)
     find_package(GTest REQUIRED)
 
