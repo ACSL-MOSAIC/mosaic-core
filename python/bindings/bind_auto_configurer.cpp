@@ -2,7 +2,7 @@
 // Created by yhkim on 2026. 2. 4.
 //
 
-#include "bind_auto_configurer.h"
+#include "bind_auto_configurer.hpp"
 
 #include <memory>
 #include <string>
@@ -11,12 +11,10 @@
 
 #include <pybind11/stl.h>
 
-#include "mosaic/auto_configurer/auto_configurer.h"
-#include "mosaic/auto_configurer/connector/a_dc_handler_configurer.h"
-#include "mosaic/auto_configurer/connector/a_mt_handler_configurer.h"
-#include "mosaic/auto_configurer/connector/a_parallel_dc_handler_configurer.h"
-#include "mosaic/auto_configurer/connector/configurable_connector_factory.h"
-#include "mosaic/auto_configurer/connector/connector_resolver.h"
+#include "mosaic/auto_configurer/auto_configurer.hpp"
+#include "mosaic/auto_configurer/connector/configurable_connector_factory.hpp"
+#include "mosaic/auto_configurer/connector/configurable_connectors.hpp"
+#include "mosaic/auto_configurer/connector/connector_resolver.hpp"
 
 namespace {
 

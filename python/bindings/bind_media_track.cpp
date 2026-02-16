@@ -2,7 +2,7 @@
 // Created by yhkim on 2026. 2. 4.
 //
 
-#include "bind_media_track.h"
+#include "bind_media_track.hpp"
 
 #include <chrono>
 #include <memory>
@@ -12,8 +12,8 @@
 
 #include <opencv2/core.hpp>
 
-#include "mosaic/handlers/media_track/a_media_track_handler.h"
-#include "mosaic/handlers/media_track/recordable.h"
+#include "mosaic/handlers/media_track/media_track_handler.hpp"
+#include "mosaic/handlers/media_track/recordable.hpp"
 
 namespace {
 

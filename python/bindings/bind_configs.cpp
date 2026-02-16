@@ -2,13 +2,13 @@
 // Created by yhkim on 2026. 2. 4.
 //
 
-#include "bind_configs.h"
+#include "bind_configs.hpp"
 
 #include <memory>
 
 #include <pybind11/stl.h>
 
-#include "mosaic/configs_decl.h"
+#include "mosaic/configs_decl.hpp"
 
 void bind_configs(py::module_& m) {
     using namespace mosaic::core;
