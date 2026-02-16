@@ -2,6 +2,8 @@
 // Created by yhkim on 25. 7. 2.
 //
 
+#include "mosaic/core/peer_connection_manager.hpp"
+
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
 #include <api/audio_codecs/builtin_audio_encoder_factory.h>
 #include <api/create_peerconnection_factory.h>
@@ -16,12 +18,12 @@
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp8_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_libvpx_vp9_adapter.h>
 #include <api/video_codecs/video_encoder_factory_template_open_h264_adapter.h>
-#include <mosaic/configs_decl.h>
-#include <mosaic/core/connector_state_manager.h>
-#include <mosaic/core/peer_connection_manager.h>
-#include <mosaic/core/peer_connection_observer.h>
-#include <mosaic/logger/log.h>
-#include <mosaic/signaling/i_signaling_client.h>
+
+#include "mosaic/configs_decl.hpp"
+#include "mosaic/core/connector_state_manager.hpp"
+#include "mosaic/core/peer_connection_observer.hpp"
+#include "mosaic/logger/log.hpp"
+#include "mosaic/signaling/i_signaling_client.hpp"
 
 namespace mosaic::core {
 
@@ -89,7 +91,7 @@ class PeerConnectionManager::Impl {
   public:
     Impl(const std::shared_ptr<MosaicConnector>& client,
          const std::shared_ptr<ConnectorStateManager>& state_manager,
-         const std::shared_ptr<ISignalingClient>& signaling_client,
+         const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client,
          const std::shared_ptr<WebRtcConfig>& web_rtc_config)
         : client_(client),
           state_manager_(state_manager),
@@ -317,7 +319,7 @@ class PeerConnectionManager::Impl {
   private:
     std::shared_ptr<MosaicConnector> client_;
     std::shared_ptr<ConnectorStateManager> state_manager_;
-    std::shared_ptr<ISignalingClient> signaling_client_;
+    std::shared_ptr<core_signaling::ISignalingClient> signaling_client_;
     std::shared_ptr<WebRtcConfig> web_rtc_config_;
 
     webrtc::scoped_refptr<webrtc::PeerConnectionFactoryInterface> peer_connection_factory_ = nullptr;
@@ -353,7 +355,7 @@ class PeerConnectionManager::Impl {
 
 PeerConnectionManager::PeerConnectionManager(const std::shared_ptr<MosaicConnector>& client,
                                              const std::shared_ptr<ConnectorStateManager>& state_manager,
-                                             const std::shared_ptr<ISignalingClient>& signaling_client,
+                                             const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client,
                                              const std::shared_ptr<WebRtcConfig>& web_rtc_config) {
     pImpl = std::make_shared<Impl>(client, state_manager, signaling_client, web_rtc_config);
 }

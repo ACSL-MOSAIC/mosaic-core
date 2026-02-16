@@ -2,7 +2,8 @@
 // Created by yhkim on 12/28/25.
 //
 
-#include <mosaic/auto_configurer/config_reader/yaml_config_reader.h>
+#include "mosaic/auto_configurer/config_reader/yaml_config_reader.hpp"
+
 #include <yaml-cpp/yaml.h>
 
 using namespace mosaic::core;

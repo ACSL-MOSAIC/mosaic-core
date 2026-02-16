@@ -2,11 +2,9 @@
 // Created by yhkim on 2026. 2. 14.
 //
 
-#include "mosaic/auto_configurer/impl/opencv_camera_mt_handler.h"
+#include "mosaic/auto_configurer/impl/opencv_camera_mt_handler.hpp"
 
 #include <chrono>
-
-#include <opencv2/opencv.hpp>
 
 using namespace mosaic::auto_configurer;
 

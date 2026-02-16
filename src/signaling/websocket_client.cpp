@@ -2,12 +2,14 @@
 // Created by yhkim on 25. 7. 16.
 //
 
+#include "mosaic/signaling/websocket_client.hpp"
+
 #include <thread>
 #include <utility>
 
 #include <json/json.h>
-#include <mosaic/logger/log.h>
-#include <mosaic/signaling/websocket_client.h>
+
+#include "mosaic/logger/log.hpp"
 
 using namespace mosaic::core_signaling;
 

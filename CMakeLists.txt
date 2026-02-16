@@ -50,10 +50,10 @@ target_include_directories(signaling_server PUBLIC
 )
 
 add_library(handlers STATIC
-        src/handlers/data_channel/a_data_channel_handler.cpp
+        src/handlers/data_channel/data_channel_handler.cpp
         src/handlers/data_channel/data_channel_sendable.cpp
         src/handlers/data_channel/data_channel_receivable.cpp
-        src/handlers/media_track/a_media_track_handler.cpp
+        src/handlers/media_track/media_track_handler.cpp
         src/handlers/media_track/recordable.cpp
         src/handlers/media_track/video_recorder.cpp
 )
@@ -69,7 +69,7 @@ target_include_directories(handlers PUBLIC
 
 add_library(security STATIC
         src/security/authenticator_resolver.cpp
-        src/security/a_mosaic_authenticator.cpp
+        src/security/mosaic_authenticator.cpp
         src/security/impl/no_auth_authenticator.cpp
         src/security/impl/simple_token_authenticator.cpp
 )
@@ -85,7 +85,6 @@ target_include_directories(security PUBLIC
 
 add_library(mosaic-rtc-core STATIC
         src/core/mosaic_connector.cpp
-        src/core/mosaic_connector_factory.cpp
         src/core/connector_state_manager.cpp
         src/core/peer_connection_manager.cpp
         src/core/peer_connection_observer.cpp
@@ -110,7 +109,6 @@ add_library(mosaic-auto-configurer STATIC
         src/auto_configurer/connector_resolver.cpp
         src/config_reader/config_reader_resolver.cpp
         src/config_reader/yaml_config_reader.cpp
-        src/auto_configurer/i_configurable_connector.cpp
         src/auto_configurer/impl/opencv_camera_mt_handler.cpp
 )
 target_compile_options(mosaic-auto-configurer PRIVATE -fPIC)

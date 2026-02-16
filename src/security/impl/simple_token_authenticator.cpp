@@ -2,11 +2,11 @@
 // Created by yhkim on 1/30/26.
 //
 
-#include "mosaic/security/impl/simple_token_authenticator.h"
+#include "mosaic/security/impl/simple_token_authenticator.hpp"
 
-#include <json/value.h>
+#include <json/json.h>
 
-#include "mosaic/signaling/i_signaling_client.h"
+#include "mosaic/signaling/i_signaling_client.hpp"
 
 using namespace mosaic::security;
 

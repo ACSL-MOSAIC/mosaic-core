@@ -1,5 +1,5 @@
 //
-// Created by 김연혁 on 2025. 7. 16..
+// Created by yhkim on 2025. 7. 16.
 //
 
 #include <chrono>
@@ -7,7 +7,8 @@
 #include <thread>
 
 #include <gtest/gtest.h>
-#include <mosaic/signaling/websocket_client.h>
+
+#include "mosaic/signaling/websocket_client.hpp"
 
 using namespace mosaic::core_signaling;
 

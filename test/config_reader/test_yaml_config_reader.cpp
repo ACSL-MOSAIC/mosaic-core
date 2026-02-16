@@ -1,7 +1,8 @@
 #include <filesystem>
 
 #include <gtest/gtest.h>
-#include <mosaic/auto_configurer/config_reader/yaml_config_reader.h>
+
+#include "mosaic/auto_configurer/config_reader/yaml_config_reader.hpp"
 
 using namespace mosaic::auto_configurer;
 

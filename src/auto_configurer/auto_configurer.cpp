@@ -2,13 +2,12 @@
 // Created by yhkim on 12/28/25.
 //
 
-#include <mosaic/auto_configurer/auto_configurer.h>
-#include <mosaic/auto_configurer/config_reader/config_reader_resolver.h>
-#include <mosaic/auto_configurer/connector/a_dc_handler_configurer.h>
-#include <mosaic/auto_configurer/connector/a_mt_handler_configurer.h>
-#include <mosaic/auto_configurer/connector/a_parallel_dc_handler_configurer.h>
-#include <mosaic/auto_configurer/connector/connector_resolver.h>
-#include <mosaic/core/mosaic_connector_factory.h>
+#include "mosaic/auto_configurer/auto_configurer.hpp"
+
+#include "mosaic/auto_configurer/config_reader/config_reader_resolver.hpp"
+#include "mosaic/auto_configurer/connector/configurable_connectors.hpp"
+#include "mosaic/auto_configurer/connector/connector_resolver.hpp"
+#include "mosaic/core/mosaic_connector.hpp"
 
 using namespace mosaic::auto_configurer;
 using namespace mosaic::core;

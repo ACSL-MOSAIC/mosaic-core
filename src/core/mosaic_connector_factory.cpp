@@ -2,15 +2,14 @@
 // Created by yhkim on 25. 7. 7.
 //
 
-#include <mosaic/core/mosaic_connector_factory.h>
-#include <mosaic/signaling/signaling_client.h>
-
-#include "mosaic/security/authenticator_resolver.h"
+#include "../signaling/signaling_client.hpp"
+#include "mosaic/core/mosaic_connector.hpp"
+#include "mosaic/security/authenticator_resolver.hpp"
 
 using namespace mosaic::core;
 
 std::shared_ptr<MosaicConnector> MosaicConnectorFactory::Create() const {
-    auto signaling_client = std::make_shared<SignalingClient>(server_config_->GetSignalingUrl());
+    auto signaling_client = std::make_shared<core_signaling::SignalingClient>(server_config_->GetSignalingUrl());
 
     auto authenticator = security::AuthenticatorResolver::GetInstance().CreateAuthenticator(server_config_->auth_config,
                                                                                             signaling_client);

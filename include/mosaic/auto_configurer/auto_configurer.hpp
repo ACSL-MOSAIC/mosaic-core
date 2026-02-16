@@ -1,0 +1,52 @@
+//
+// Created by yhkim on 12/28/25.
+//
+
+#ifndef MOSAIC_AUTO_CONFIGURER_AUTO_CONFIGURER_HPP
+#define MOSAIC_AUTO_CONFIGURER_AUTO_CONFIGURER_HPP
+
+#include <memory>
+
+#include "../handlers/data_channel/data_channel_handler.hpp"
+#include "../handlers/media_track/media_track_handler.hpp"
+#include "./config_reader/i_config_reader.hpp"
+#include "./connector/configurable_connectors.hpp"
+
+namespace mosaic::auto_configurer {
+class AutoConfigurer {
+  public:
+    AutoConfigurer() = default;
+
+    virtual ~AutoConfigurer() = default;
+
+    virtual void BeforeConfigure() {}
+
+    void AutoConfigure(const std::string& config_file_path);
+
+    virtual void AfterConfigure() {}
+
+    std::shared_ptr<core::MosaicConnector> GetMosaicConnector() const {
+        return mosaic_connector_;
+    }
+
+    void ReadConfigs(const std::string& config_file_path);
+
+    void CreateMosaicConnector();
+
+    void ResolveConnectors();
+
+    void ConfigureConnectors();
+
+  protected:
+    std::shared_ptr<core::MosaicConfig> mosaic_config_;
+    std::shared_ptr<core::MosaicConnector> mosaic_connector_;
+    std::vector<std::shared_ptr<IConfigurableConnector>> configurable_connectors_;
+    std::unordered_map<std::string, std::shared_ptr<handlers::IDataChannelHandler>> dc_handler_map_;
+    std::unordered_map<std::string, std::shared_ptr<handlers::IMediaTrackHandler>> mt_handler_map_;
+
+  private:
+    std::shared_ptr<IConfigReader> config_reader_;
+};
+}  // namespace mosaic::auto_configurer
+
+#endif  // MOSAIC_AUTO_CONFIGURER_AUTO_CONFIGURER_HPP

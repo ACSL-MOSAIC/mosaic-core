@@ -2,10 +2,12 @@
 // Created by yhkim on 25. 6. 2.
 //
 
+#include "signaling_client.hpp"
+
 #include <api/jsep.h>
 #include <json/json.h>
-#include <mosaic/logger/log.h>
-#include <mosaic/signaling/signaling_client.h>
+
+#include "mosaic/logger/log.hpp"
 
 using namespace mosaic::core_signaling;
 

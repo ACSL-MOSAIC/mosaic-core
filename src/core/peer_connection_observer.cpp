@@ -2,9 +2,10 @@
 // Created by yhkim on 25. 6. 5.
 //
 
-#include <mosaic/core/mosaic_connector.h>
-#include <mosaic/core/peer_connection_observer.h>
-#include <mosaic/logger/log.h>
+#include "mosaic/core/peer_connection_observer.hpp"
+
+#include "mosaic/core/mosaic_connector.hpp"
+#include "mosaic/logger/log.hpp"
 
 using namespace mosaic::core;
 
