@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.14)
-project(mosaic-core VERSION 1.0.2)
+project(mosaic-core)
+
+set(VERSION_MAJOR 1)
+set(VERSION_MINOR 0)
+set(VERSION_PATCH 3)
+set(VERSION "${VERSION_MAJOR}.${VERSION_MINOR}.${VERSION_PATCH}")
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
