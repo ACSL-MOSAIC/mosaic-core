@@ -17,6 +17,7 @@ add_library(mosaic-core ${LIB_TYPE}
         logger/webrtc_log.cpp
         # Signaling
         signaling/websocket_client.cpp
+        signaling/websocket_client_impl.cpp
         signaling/signaling_client.cpp
         # Handlers
         handlers/data_channel/data_channel_handler.cpp

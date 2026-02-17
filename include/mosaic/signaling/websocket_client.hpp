@@ -5,21 +5,17 @@
 #ifndef MOSAIC_CORE_WEBSOCKET_CLIENT_HPP
 #define MOSAIC_CORE_WEBSOCKET_CLIENT_HPP
 
-#include <atomic>
 #include <functional>
-#include <memory>
 #include <string>
 
 #include <json/json.h>
 
-#define _TURN_OFF_PLATFORM_STRING  // DO NOT ERASE THIS LINE AND CHANGE THE POSITION
-#include <cpprest/ws_client.h>
-
-using namespace web;
-using namespace web::websockets::client;
+#include "../utils.hpp"
 
 namespace mosaic::core_signaling {
-class WebSocketClient {
+class WebSocketClientImpl;
+
+class WebSocketClient : CheshireCat<WebSocketClientImpl> {
   public:
     // declare callback functions
     using OnConnectedCallback = std::function<void()>;
@@ -27,9 +23,9 @@ class WebSocketClient {
     using OnMessageCallback = std::function<void(const std::string&)>;
     using OnErrorCallback = std::function<void(const std::string&)>;
 
-    WebSocketClient();
+    explicit WebSocketClient(impl_ptr<WebSocketClientImpl> impl);
 
-    ~WebSocketClient();
+    ~WebSocketClient() override;
 
     void setOnConnected(OnConnectedCallback callback);
 
@@ -50,22 +46,7 @@ class WebSocketClient {
     [[nodiscard]] bool isConnected() const;
 
   private:
-    std::shared_ptr<websocket_callback_client> m_client = nullptr;
-    std::atomic<bool> m_connected;
-    std::string m_uri;
-
-    OnConnectedCallback m_onConnected;
-    OnDisconnectedCallback m_onDisconnected;
-    OnMessageCallback m_onMessage;
-    OnErrorCallback m_onError;
-
-    void connectInternal();
-
-    void handleMessage(const websocket_incoming_message& message) const;
-
-    void handleClose(websocket_close_status close_status, const std::string& reason, const std::error_code&);
-
-    void setupEventHandlers();
+    using CheshireCat::impl;
 };
 }  // namespace mosaic::core_signaling
 
