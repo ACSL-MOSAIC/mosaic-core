@@ -113,60 +113,58 @@ $(document).ready(function(){initNavTree('mosaic__connector__factory_8cpp_source
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Created by yhkim on 25. 7. 7.</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="mosaic__connector__factory_8h.html">mosaic/core/mosaic_connector_factory.h</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="signaling__client_8h.html">mosaic/signaling/signaling_client.h</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &quot;<a class="code" href="authenticator__resolver_8h.html">mosaic/security/authenticator_resolver.h</a>&quot;</span></div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacemosaic_1_1core.html">mosaic::core</a>;</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="foldopen" id="foldopen00012" data-start="{" data-end="}">
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno"><a class="line" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a7bfa828cc0664d9d39da807ad628a807">   12</a></span>std::shared_ptr&lt;MosaicConnector&gt; <a class="code hl_function" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a7bfa828cc0664d9d39da807ad628a807">MosaicConnectorFactory::Create</a>()<span class="keyword"> const </span>{</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keyword">auto</span> signaling_client = std::make_shared&lt;SignalingClient&gt;(<a class="code hl_variable" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">server_config_</a>-&gt;GetSignalingUrl());</div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>    <span class="keyword">auto</span> authenticator = <a class="code hl_function" href="classmosaic_1_1security_1_1AuthenticatorResolver.html#af2fba070ab2d3b852d21ee9b2bf0ecdc">security::AuthenticatorResolver::GetInstance</a>().<a class="code hl_function" href="classmosaic_1_1security_1_1AuthenticatorResolver.html#a6311157cb2a4af36e02f0d03c11f5f43">CreateAuthenticator</a>(<a class="code hl_variable" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">server_config_</a>-&gt;auth_config,</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>                                                                                            signaling_client);</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>    <span class="keywordflow">if</span> (!authenticator) {</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <a class="code hl_define" href="log_8h.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a>(<span class="stringliteral">&quot;Failed to create authenticator.&quot;</span>);</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    }</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>    signaling_client-&gt;SetAuthenticator(authenticator);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>    signaling_client-&gt;Start();</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keyword">auto</span> client_state_manager = std::make_shared&lt;ConnectorStateManager&gt;(signaling_client);</div>
-<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    <span class="keyword">auto</span> mosaic_connector = std::make_shared&lt;MosaicConnector&gt;(client_state_manager);</div>
-<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>    signaling_client-&gt;SetMosaicConnector(mosaic_connector);</div>
-<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
-<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>    <span class="keyword">const</span> <span class="keyword">auto</span> peer_connection_manager =</div>
-<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>        std::make_shared&lt;PeerConnectionManager&gt;(mosaic_connector,</div>
-<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                                                mosaic_connector-&gt;GetStateManager(),</div>
-<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                                                signaling_client,</div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>                                                std::make_shared&lt;WebRtcConfig&gt;(<a class="code hl_variable" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">server_config_</a>-&gt;webrtc_config));</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span>    mosaic_connector-&gt;SetPeerConnectionManager(peer_connection_manager);</div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    mosaic_connector-&gt;InitializeWebRTC();</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>    <span class="keywordflow">return</span> mosaic_connector;</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;../signaling/signaling_client.hpp&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="mosaic__connector_8hpp.html">mosaic/core/mosaic_connector.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="authenticator__resolver_8hpp.html">mosaic/security/authenticator_resolver.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacemosaic_1_1core.html">mosaic::core</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a7bfa828cc0664d9d39da807ad628a807">   11</a></span>std::shared_ptr&lt;MosaicConnector&gt; <a class="code hl_function" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a7bfa828cc0664d9d39da807ad628a807">MosaicConnectorFactory::Create</a>()<span class="keyword"> const </span>{</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keyword">auto</span> signaling_client = std::make_shared&lt;core_signaling::SignalingClient&gt;(<a class="code hl_variable" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">server_config_</a>-&gt;GetSignalingUrl());</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">auto</span> authenticator = <a class="code hl_function" href="classmosaic_1_1security_1_1AuthenticatorResolver.html#af2fba070ab2d3b852d21ee9b2bf0ecdc">security::AuthenticatorResolver::GetInstance</a>().<a class="code hl_function" href="classmosaic_1_1security_1_1AuthenticatorResolver.html#a6311157cb2a4af36e02f0d03c11f5f43">CreateAuthenticator</a>(<a class="code hl_variable" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">server_config_</a>-&gt;auth_config,</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span>                                                                                            signaling_client);</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>    <span class="keywordflow">if</span> (!authenticator) {</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>        <a class="code hl_define" href="log_8hpp.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a>(<span class="stringliteral">&quot;Failed to create authenticator.&quot;</span>);</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>        <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    signaling_client-&gt;SetAuthenticator(authenticator);</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>    signaling_client-&gt;Start();</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span> </div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    <span class="keyword">auto</span> client_state_manager = std::make_shared&lt;ConnectorStateManager&gt;(signaling_client);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>    <span class="keyword">auto</span> mosaic_connector = std::make_shared&lt;MosaicConnector&gt;(client_state_manager);</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>    signaling_client-&gt;SetMosaicConnector(mosaic_connector);</div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span>    <span class="keyword">const</span> <span class="keyword">auto</span> peer_connection_manager =</div>
+<div class="line"><a id="l00030" name="l00030"></a><span class="lineno">   30</span>        std::make_shared&lt;PeerConnectionManager&gt;(mosaic_connector,</div>
+<div class="line"><a id="l00031" name="l00031"></a><span class="lineno">   31</span>                                                mosaic_connector-&gt;GetStateManager(),</div>
+<div class="line"><a id="l00032" name="l00032"></a><span class="lineno">   32</span>                                                signaling_client,</div>
+<div class="line"><a id="l00033" name="l00033"></a><span class="lineno">   33</span>                                                std::make_shared&lt;WebRtcConfig&gt;(<a class="code hl_variable" href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">server_config_</a>-&gt;webrtc_config));</div>
+<div class="line"><a id="l00034" name="l00034"></a><span class="lineno">   34</span>    mosaic_connector-&gt;SetPeerConnectionManager(peer_connection_manager);</div>
+<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
+<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>    mosaic_connector-&gt;InitializeWebRTC();</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span> </div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    <span class="keywordflow">return</span> mosaic_connector;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>}</div>
 </div>
-<div class="ttc" id="aauthenticator__resolver_8h_html"><div class="ttname"><a href="authenticator__resolver_8h.html">authenticator_resolver.h</a></div></div>
-<div class="ttc" id="aclassmosaic_1_1core_1_1MosaicConnectorFactory_html_a0ec6122fae965d937e027f8a719fed08"><div class="ttname"><a href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">mosaic::core::MosaicConnectorFactory::server_config_</a></div><div class="ttdeci">std::shared_ptr&lt; ServerConfig &gt; server_config_</div><div class="ttdef"><b>Definition</b> <a href="mosaic__connector__factory_8h_source.html#l00022">mosaic_connector_factory.h:22</a></div></div>
-<div class="ttc" id="aclassmosaic_1_1core_1_1MosaicConnectorFactory_html_a7bfa828cc0664d9d39da807ad628a807"><div class="ttname"><a href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a7bfa828cc0664d9d39da807ad628a807">mosaic::core::MosaicConnectorFactory::Create</a></div><div class="ttdeci">std::shared_ptr&lt; MosaicConnector &gt; Create() const</div><div class="ttdef"><b>Definition</b> <a href="mosaic__connector__factory_8cpp_source.html#l00012">mosaic_connector_factory.cpp:12</a></div></div>
-<div class="ttc" id="aclassmosaic_1_1security_1_1AuthenticatorResolver_html_a6311157cb2a4af36e02f0d03c11f5f43"><div class="ttname"><a href="classmosaic_1_1security_1_1AuthenticatorResolver.html#a6311157cb2a4af36e02f0d03c11f5f43">mosaic::security::AuthenticatorResolver::CreateAuthenticator</a></div><div class="ttdeci">std::shared_ptr&lt; IMosaicAuthenticator &gt; CreateAuthenticator(const core::AuthConfig &amp;auth_config, const std::shared_ptr&lt; core_signaling::ISignalingClient &gt; &amp;signaling_client)</div><div class="ttdef"><b>Definition</b> <a href="authenticator__resolver_8cpp_source.html#l00015">authenticator_resolver.cpp:15</a></div></div>
-<div class="ttc" id="aclassmosaic_1_1security_1_1AuthenticatorResolver_html_af2fba070ab2d3b852d21ee9b2bf0ecdc"><div class="ttname"><a href="classmosaic_1_1security_1_1AuthenticatorResolver.html#af2fba070ab2d3b852d21ee9b2bf0ecdc">mosaic::security::AuthenticatorResolver::GetInstance</a></div><div class="ttdeci">static AuthenticatorResolver &amp; GetInstance()</div><div class="ttdef"><b>Definition</b> <a href="authenticator__resolver_8h_source.html#l00019">authenticator_resolver.h:19</a></div></div>
-<div class="ttc" id="alog_8h_html_ad91b537c72caf03b8287f79e5b649959"><div class="ttname"><a href="log_8h.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a></div><div class="ttdeci">#define MOSAIC_LOG_ERROR(...)</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00018">log.h:18</a></div></div>
-<div class="ttc" id="amosaic__connector__factory_8h_html"><div class="ttname"><a href="mosaic__connector__factory_8h.html">mosaic_connector_factory.h</a></div></div>
-<div class="ttc" id="anamespacemosaic_1_1core_html"><div class="ttname"><a href="namespacemosaic_1_1core.html">mosaic::core</a></div><div class="ttdef"><b>Definition</b> <a href="configs__decl_8h_source.html#l00012">configs_decl.h:12</a></div></div>
-<div class="ttc" id="asignaling__client_8h_html"><div class="ttname"><a href="signaling__client_8h.html">signaling_client.h</a></div></div>
+<div class="ttc" id="aauthenticator__resolver_8hpp_html"><div class="ttname"><a href="authenticator__resolver_8hpp.html">authenticator_resolver.hpp</a></div></div>
+<div class="ttc" id="aclassmosaic_1_1core_1_1MosaicConnectorFactory_html_a0ec6122fae965d937e027f8a719fed08"><div class="ttname"><a href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a0ec6122fae965d937e027f8a719fed08">mosaic::core::MosaicConnectorFactory::server_config_</a></div><div class="ttdeci">std::shared_ptr&lt; ServerConfig &gt; server_config_</div><div class="ttdef"><b>Definition</b> <a href="mosaic__connector_8hpp_source.html#l00092">mosaic_connector.hpp:92</a></div></div>
+<div class="ttc" id="aclassmosaic_1_1core_1_1MosaicConnectorFactory_html_a7bfa828cc0664d9d39da807ad628a807"><div class="ttname"><a href="classmosaic_1_1core_1_1MosaicConnectorFactory.html#a7bfa828cc0664d9d39da807ad628a807">mosaic::core::MosaicConnectorFactory::Create</a></div><div class="ttdeci">std::shared_ptr&lt; MosaicConnector &gt; Create() const</div><div class="ttdef"><b>Definition</b> <a href="mosaic__connector__factory_8cpp_source.html#l00011">mosaic_connector_factory.cpp:11</a></div></div>
+<div class="ttc" id="aclassmosaic_1_1security_1_1AuthenticatorResolver_html_a6311157cb2a4af36e02f0d03c11f5f43"><div class="ttname"><a href="classmosaic_1_1security_1_1AuthenticatorResolver.html#a6311157cb2a4af36e02f0d03c11f5f43">mosaic::security::AuthenticatorResolver::CreateAuthenticator</a></div><div class="ttdeci">std::shared_ptr&lt; IMosaicAuthenticator &gt; CreateAuthenticator(const core::AuthConfig &amp;auth_config, const std::shared_ptr&lt; core_signaling::ISignalingClient &gt; &amp;signaling_client)</div><div class="ttdef"><b>Definition</b> <a href="authenticator__resolver_8cpp_source.html#l00012">authenticator_resolver.cpp:12</a></div></div>
+<div class="ttc" id="aclassmosaic_1_1security_1_1AuthenticatorResolver_html_af2fba070ab2d3b852d21ee9b2bf0ecdc"><div class="ttname"><a href="classmosaic_1_1security_1_1AuthenticatorResolver.html#af2fba070ab2d3b852d21ee9b2bf0ecdc">mosaic::security::AuthenticatorResolver::GetInstance</a></div><div class="ttdeci">static AuthenticatorResolver &amp; GetInstance()</div><div class="ttdef"><b>Definition</b> <a href="authenticator__resolver_8hpp_source.html#l00019">authenticator_resolver.hpp:19</a></div></div>
+<div class="ttc" id="alog_8hpp_html_ad91b537c72caf03b8287f79e5b649959"><div class="ttname"><a href="log_8hpp.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a></div><div class="ttdeci">#define MOSAIC_LOG_ERROR(...)</div><div class="ttdef"><b>Definition</b> <a href="log_8hpp_source.html#l00018">log.hpp:18</a></div></div>
+<div class="ttc" id="amosaic__connector_8hpp_html"><div class="ttname"><a href="mosaic__connector_8hpp.html">mosaic_connector.hpp</a></div></div>
+<div class="ttc" id="anamespacemosaic_1_1core_html"><div class="ttname"><a href="namespacemosaic_1_1core.html">mosaic::core</a></div><div class="ttdef"><b>Definition</b> <a href="configs__decl_8hpp_source.html#l00012">configs_decl.hpp:12</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_aebb8dcc11953d78e620bbef0b9e2183.html">core</a></li><li class="navelem"><a class="el" href="mosaic__connector__factory_8cpp.html">mosaic_connector_factory.cpp</a></li>
-    <li class="footer">Generated on Mon Feb 16 2026 12:17:04 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Feb 17 2026 13:09:28 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

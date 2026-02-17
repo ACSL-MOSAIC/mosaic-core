@@ -1,0 +1,19 @@
+<map id="include/mosaic/handlers/media_track/media_track_handler.hpp" name="include/mosaic/handlers/media_track/media_track_handler.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="159,5,351,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,115,72,141"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="195,63,79,112,77,108,193,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="11,196,88,221"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="207,62,172,84,138,110,99,149,68,186,64,183,95,145,134,106,169,80,204,58"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="325,196,384,221"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="272,59,344,183,339,186,268,62"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="341,115,496,141"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="302,58,388,106,385,111,299,62"/>
+<area shape="rect" id="Node000006" href="$webrtc__forward__decl_8hpp.html" title=" " alt="" coords="520,108,688,148"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="352,57,521,102,519,107,350,62"/>
+<area shape="rect" id="Node000007" href="$recordable_8hpp.html" title=" " alt="" coords="147,115,266,141"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="243,62,221,104,217,102,239,59"/>
+<area shape="poly" id="edge7_Node000007_Node000003" title=" " alt="" coords="185,143,86,192,83,188,183,138"/>
+<area shape="poly" id="edge8_Node000007_Node000004" title=" " alt="" coords="230,138,322,187,319,192,227,143"/>
+<area shape="rect" id="Node000008" href="$opencv__forward__decl_8hpp.html" title=" " alt="" coords="113,196,301,221"/>
+<area shape="poly" id="edge9_Node000007_Node000008" title=" " alt="" coords="209,141,209,182,204,182,204,141"/>
+</map>

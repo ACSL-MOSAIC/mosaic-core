@@ -1,6 +1,6 @@
 var classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl =
 [
-    [ "Impl", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a49e9a2f616bce7bbd98b0c21eee0560f", null ],
+    [ "Impl", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a6b39726457d49680950630069e298973", null ],
     [ "AddTrack", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#ac1c33410b26e28132a37cb121177127d", null ],
     [ "AfterCreateSdpAnswer", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#ac7ecb4836ef7797ae785daf6e6073093", null ],
     [ "AfterSetLocalDescription", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a9e151da391b0721ea21d790edf7d9d6b", null ],
@@ -23,7 +23,7 @@ var classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl =
     [ "peer_connection_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a98c24b8cfb7309c99de254c9eadc5207", null ],
     [ "peer_connection_factory_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#adfad830f00b8e9a4811ded0faec5dc3a", null ],
     [ "peer_connection_observer_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a1e34578cfc76c3428d2c4820d40f54ee", null ],
-    [ "signaling_client_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#aae4b44b8e054461f70d28fac713a06bb", null ],
+    [ "signaling_client_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a78ee85874e3070f3dc39e91332b36fa3", null ],
     [ "signaling_thread_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a83800b8d25c95a6b966c7b5aad853d26", null ],
     [ "state_manager_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#ad3146db6b5e77b17361c3d7f1e039fa2", null ],
     [ "task_queue_factory_", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a88a21589f49c77ea7eb3752b8e0d74e5", null ],

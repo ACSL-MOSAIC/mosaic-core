@@ -1,0 +1,28 @@
+<map id="include/mosaic/handlers/data_channel/data_channel_sendable.hpp" name="include/mosaic/handlers/data_channel/data_channel_sendable.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="32,5,236,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,108,97,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="111,62,74,100,70,96,107,58"/>
+<area shape="rect" id="Node000003" href="$data__channel__handler_8hpp.html" title=" " alt="" coords="122,108,314,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,58,199,96,195,100,158,62"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="14,343,73,368"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="199,136,169,156,139,183,111,221,87,261,55,331,50,329,82,258,106,218,135,180,165,152,196,131"/>
+<area shape="rect" id="Node000005" href="$log_8hpp.html" title=" " alt="" coords="149,189,287,214"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="221,134,221,175,215,175,215,134"/>
+<area shape="rect" id="Node000012" href="$webrtc__forward__decl_8hpp.html" title=" " alt="" coords="311,181,479,221"/>
+<area shape="poly" id="edge14_Node000003_Node000012" title=" " alt="" coords="245,131,341,173,339,178,243,136"/>
+<area shape="rect" id="Node000006" href="$i__logger_8hpp.html" title=" " alt="" coords="167,269,269,295"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="221,214,221,255,215,255,215,214"/>
+<area shape="rect" id="Node000009" href="$log__service_8hpp.html" title=" " alt="" coords="279,343,403,368"/>
+<area shape="poly" id="edge13_Node000005_Node000009" title=" " alt="" coords="232,212,283,268,328,329,323,332,279,271,228,216"/>
+<area shape="poly" id="edge6_Node000006_Node000004" title=" " alt="" coords="191,297,86,340,84,335,189,292"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="97,343,203,368"/>
+<area shape="poly" id="edge7_Node000006_Node000007" title=" " alt="" coords="209,297,173,334,169,331,205,293"/>
+<area shape="rect" id="Node000008" href="$log__level_8hpp.html" title=" " alt="" coords="178,416,287,441"/>
+<area shape="poly" id="edge8_Node000006_Node000008" title=" " alt="" coords="222,295,233,402,227,403,217,295"/>
+<area shape="poly" id="edge9_Node000006_Node000009" title=" " alt="" coords="239,292,310,333,308,338,236,297"/>
+<area shape="poly" id="edge12_Node000009_Node000008" title=" " alt="" coords="325,370,263,411,260,406,322,366"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="311,416,389,441"/>
+<area shape="poly" id="edge10_Node000009_Node000010" title=" " alt="" coords="345,368,349,402,344,403,340,369"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="413,416,505,441"/>
+<area shape="poly" id="edge11_Node000009_Node000011" title=" " alt="" coords="361,366,429,406,427,411,358,370"/>
+</map>

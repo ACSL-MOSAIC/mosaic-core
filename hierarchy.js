@@ -7,6 +7,10 @@ var hierarchy =
     [ "mosaic::security::AuthenticatorResolver", "classmosaic_1_1security_1_1AuthenticatorResolver.html", null ],
     [ "mosaic::security::AuthTypeConst", "classmosaic_1_1security_1_1AuthTypeConst.html", null ],
     [ "mosaic::auto_configurer::AutoConfigurer", "classmosaic_1_1auto__configurer_1_1AutoConfigurer.html", null ],
+    [ "CheshireCat< T >", "classCheshireCat.html", null ],
+    [ "CheshireCat< WebSocketClientImpl >", "classCheshireCat.html", [
+      [ "mosaic::core_signaling::WebSocketClient", "classmosaic_1_1core__signaling_1_1WebSocketClient.html", null ]
+    ] ],
     [ "mosaic::auto_configurer::ConfigReaderResolver", "classmosaic_1_1auto__configurer_1_1ConfigReaderResolver.html", null ],
     [ "mosaic::core::ConnectorConfig", "structmosaic_1_1core_1_1ConnectorConfig.html", null ],
     [ "mosaic::auto_configurer::ConnectorResolver", "classmosaic_1_1auto__configurer_1_1ConnectorResolver.html", null ],
@@ -31,13 +35,13 @@ var hierarchy =
       [ "mosaic::auto_configurer::ConfigReaderFactory< T >", "classmosaic_1_1auto__configurer_1_1ConfigReaderFactory.html", null ]
     ] ],
     [ "mosaic::auto_configurer::IConfigurableConnector", "classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html", [
-      [ "mosaic::auto_configurer::ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", [
-        [ "mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html", null ]
-      ] ],
+      [ "mosaic::auto_configurer::ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", null ],
       [ "mosaic::auto_configurer::AMTHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html", [
         [ "mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html", null ]
       ] ],
-      [ "mosaic::auto_configurer::AParallelDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer.html", null ]
+      [ "mosaic::auto_configurer::AMultipleDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer.html", [
+        [ "mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html", null ]
+      ] ]
     ] ],
     [ "mosaic::auto_configurer::IConfigurableConnectorFactory", "classmosaic_1_1auto__configurer_1_1IConfigurableConnectorFactory.html", [
       [ "mosaic::auto_configurer::ConfigurableConnectorFactory< T >", "classmosaic_1_1auto__configurer_1_1ConfigurableConnectorFactory.html", null ]
@@ -45,7 +49,7 @@ var hierarchy =
     [ "mosaic::handlers::IDataChannelHandler", "classmosaic_1_1handlers_1_1IDataChannelHandler.html", [
       [ "mosaic::handlers::ADataChannelHandler", "classmosaic_1_1handlers_1_1ADataChannelHandler.html", [
         [ "mosaic::handlers::DataChannelSendable", "classmosaic_1_1handlers_1_1DataChannelSendable.html", [
-          [ "mosaic::auto_configurer::impl::ConnectionCheckDataChannel", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html", null ]
+          [ "mosaic::auto_configurer::impl::ConnectionCheckDataChannelSender", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelSender.html", null ]
         ] ],
         [ "mosaic::handlers::IDataChannelReceivable", "classmosaic_1_1handlers_1_1IDataChannelReceivable.html", [
           [ "mosaic::handlers::DataChannelReceivable< std::vector< uint8_t > >", "classmosaic_1_1handlers_1_1DataChannelReceivable.html", [
@@ -56,7 +60,7 @@ var hierarchy =
           ] ],
           [ "mosaic::handlers::DataChannelReceivable< std::string >", "classmosaic_1_1handlers_1_1DataChannelReceivable.html", [
             [ "mosaic::handlers::DataChannelStringReceivable", "classmosaic_1_1handlers_1_1DataChannelStringReceivable.html", [
-              [ "mosaic::auto_configurer::impl::ConnectionCheckDataChannel", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html", null ]
+              [ "mosaic::auto_configurer::impl::ConnectionCheckDataChannelReceiver", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelReceiver.html", null ]
             ] ]
           ] ],
           [ "mosaic::handlers::DataChannelReceivable< ReceiveT >", "classmosaic_1_1handlers_1_1DataChannelReceivable.html", null ]
@@ -103,5 +107,5 @@ var hierarchy =
     ] ],
     [ "mosaic::handlers::VideoRecorder", "classmosaic_1_1handlers_1_1VideoRecorder.html", null ],
     [ "mosaic::core::WebRtcConfig", "structmosaic_1_1core_1_1WebRtcConfig.html", null ],
-    [ "mosaic::core_signaling::WebSocketClient", "classmosaic_1_1core__signaling_1_1WebSocketClient.html", null ]
+    [ "mosaic::core_signaling::WebSocketClientImpl", "classmosaic_1_1core__signaling_1_1WebSocketClientImpl.html", null ]
 ];

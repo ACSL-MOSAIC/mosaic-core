@@ -1,0 +1,19 @@
+<map id="include/mosaic/logger/log.hpp" name="include/mosaic/logger/log.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="193,5,359,45"/>
+<area shape="rect" id="Node000002" href="$i__logger_8hpp.html" title=" " alt="" coords="181,93,283,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="268,47,248,83,243,80,263,44"/>
+<area shape="rect" id="Node000006" href="$log__service_8hpp.html" title=" " alt="" coords="270,167,394,192"/>
+<area shape="poly" id="edge9_Node000001_Node000006" title=" " alt="" coords="286,45,326,153,321,155,281,47"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,167,64,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="201,121,78,165,76,160,199,116"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="89,167,194,192"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="219,121,169,160,165,156,216,117"/>
+<area shape="rect" id="Node000005" href="$log__level_8hpp.html" title=" " alt="" coords="169,240,279,265"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="234,119,228,226,223,226,229,119"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="250,117,306,156,303,161,247,121"/>
+<area shape="poly" id="edge8_Node000006_Node000005" title=" " alt="" coords="316,194,255,235,252,230,313,190"/>
+<area shape="rect" id="Node000007" title=" " alt="" coords="303,240,380,265"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="336,192,341,226,335,227,331,193"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="405,240,497,265"/>
+<area shape="poly" id="edge7_Node000006_Node000008" title=" " alt="" coords="352,190,421,230,418,235,350,194"/>
+</map>

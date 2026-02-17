@@ -1,0 +1,24 @@
+<map id="include/mosaic/handlers/data_channel/data_channel_handler.hpp" name="include/mosaic/handlers/data_channel/data_channel_handler.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="107,5,311,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,269,64,295"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="178,62,130,110,103,148,80,188,47,258,42,255,75,186,99,145,126,106,174,58"/>
+<area shape="rect" id="Node000003" href="$log_8hpp.html" title=" " alt="" coords="140,115,279,141"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,60,212,101,207,101,207,60"/>
+<area shape="rect" id="Node000010" href="$webrtc__forward__decl_8hpp.html" title=" " alt="" coords="303,108,471,148"/>
+<area shape="poly" id="edge12_Node000001_Node000010" title=" " alt="" coords="260,58,340,99,337,104,258,62"/>
+<area shape="rect" id="Node000004" href="$i__logger_8hpp.html" title=" " alt="" coords="159,196,260,221"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="212,141,212,182,207,182,207,141"/>
+<area shape="rect" id="Node000007" href="$log__service_8hpp.html" title=" " alt="" coords="270,269,394,295"/>
+<area shape="poly" id="edge11_Node000003_Node000007" title=" " alt="" coords="223,139,274,194,319,256,315,259,270,198,219,142"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="182,224,77,266,75,262,180,219"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="89,269,194,295"/>
+<area shape="poly" id="edge5_Node000004_Node000005" title=" " alt="" coords="200,224,164,261,160,257,196,220"/>
+<area shape="rect" id="Node000006" href="$log__level_8hpp.html" title=" " alt="" coords="169,343,279,368"/>
+<area shape="poly" id="edge6_Node000004_Node000006" title=" " alt="" coords="213,222,224,329,219,329,208,222"/>
+<area shape="poly" id="edge7_Node000004_Node000007" title=" " alt="" coords="230,219,302,260,299,265,228,224"/>
+<area shape="poly" id="edge10_Node000007_Node000006" title=" " alt="" coords="316,297,255,337,252,333,313,292"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="303,343,380,368"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="336,295,341,329,335,330,331,295"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="405,343,497,368"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="352,292,421,333,418,338,350,297"/>
+</map>

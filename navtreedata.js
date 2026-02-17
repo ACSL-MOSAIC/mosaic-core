@@ -55,6 +55,7 @@ var NAVTREE =
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
         [ "Functions", "globals_func.html", null ],
+        [ "Typedefs", "globals_type.html", null ],
         [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ],
@@ -64,13 +65,13 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"a__data__channel__handler_8cpp.html",
-"classmosaic_1_1auto__configurer_1_1ConnectorResolver.html#aeab2da3673cf096935d654007c8356ec",
+"annotated.html",
+"classmosaic_1_1auto__configurer_1_1IConfigReader.html#a837e4b894346c9bd2fa8d6f49ad49216",
 "classmosaic_1_1core_1_1PeerConnectionManager.html#ab0257b20b5cc2e5aa89993e364b31036",
-"classmosaic_1_1core__signaling_1_1WebSocketClient.html#a1bcaaf9c0dadfac34d8fd2e453d64184",
-"classmosaic_1_1handlers_1_1IDataChannelHandler.html#a11aea8b84f837393103ec085db62bc03afea1956319cd4bb0a0917aee51f4952f",
-"functions_func_h.html",
-"yaml__config__reader_8h_source.html"
+"classmosaic_1_1core__signaling_1_1WebSocketClient.html#a330d7a5a12b0397622f1c1504b6bfc8c",
+"classmosaic_1_1handlers_1_1DataChannelSendable.html#a4346a082a228bda87dbed194278391a1",
+"data__channel__sendable_8cpp_source.html",
+"structmosaic_1_1core_1_1IceServerConfig.html#a35de79d1afa269f552bf0e9cf9d5454a"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

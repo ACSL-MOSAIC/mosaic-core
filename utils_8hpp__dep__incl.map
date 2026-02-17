@@ -1,0 +1,13 @@
+<map id="include/mosaic/utils.hpp" name="include/mosaic/utils.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="213,5,393,31"/>
+<area shape="rect" id="Node000002" href="$websocket__client_8hpp.html" title=" " alt="" coords="211,79,394,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="305,44,305,79,300,79,300,44"/>
+<area shape="rect" id="Node000003" href="$signaling__client_8hpp.html" title=" " alt="" coords="122,167,289,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="273,130,229,168,225,164,269,126"/>
+<area shape="rect" id="Node000006" href="$websocket__client_8cpp.html" title=" " alt="" coords="313,167,490,207"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="336,126,381,164,378,168,333,130"/>
+<area shape="rect" id="Node000004" href="$mosaic__connector__factory_8cpp.html" title=" " alt="" coords="5,255,200,295"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="174,218,127,256,124,252,170,214"/>
+<area shape="rect" id="Node000005" href="$signaling__client_8cpp.html" title=" " alt="" coords="225,255,391,295"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="240,214,287,252,284,256,237,218"/>
+</map>

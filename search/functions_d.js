@@ -7,7 +7,7 @@ var searchData=
   ['parseserverconfig_4',['ParseServerConfig',['../classYamlConfigReader_1_1Impl.html#a4ae72a0a7b3ebccb6c718b5eb0dad722',1,'YamlConfigReader::Impl']]],
   ['parsewebrtcconfig_5',['ParseWebRtcConfig',['../classYamlConfigReader_1_1Impl.html#a4eef6b5bb843e21febf1286d88301a97',1,'YamlConfigReader::Impl']]],
   ['pauserecording_6',['pauserecording',['../classmosaic_1_1handlers_1_1Recordable.html#acb01a9a0b7c30e9173d2770bbbabaecb',1,'mosaic::handlers::Recordable::PauseRecording()'],['../classRecordable_1_1Impl.html#abdfbf8267fae634d9a03d1a927ec7ee4',1,'mosaic::handlers::Recordable::Impl::PauseRecording()']]],
-  ['peerconnectionmanager_7',['PeerConnectionManager',['../classmosaic_1_1core_1_1PeerConnectionManager.html#a1223efb0cabc6db79e9aa6eb798a8414',1,'mosaic::core::PeerConnectionManager']]],
-  ['peerconnectionobserver_8',['PeerConnectionObserver',['../classmosaic_1_1core_1_1PeerConnectionObserver.html#a1442d6fc1470dc5fadb67d3e282bda08',1,'mosaic::core::PeerConnectionObserver']]],
+  ['peerconnectionmanager_7',['PeerConnectionManager',['../classmosaic_1_1core_1_1PeerConnectionManager.html#aad32fb661e6484b0c19193c5c04155dd',1,'mosaic::core::PeerConnectionManager']]],
+  ['peerconnectionobserver_8',['PeerConnectionObserver',['../classmosaic_1_1core_1_1PeerConnectionObserver.html#aae39de3ad9b6c64c8e0a5da2aaaad4ee',1,'mosaic::core::PeerConnectionObserver']]],
   ['processqueue_9',['ProcessQueue',['../classmosaic_1_1handlers_1_1ADataChannelHandler_1_1Impl.html#ab84d59a64d809b96132e9b27d3b569c2',1,'mosaic::handlers::ADataChannelHandler::Impl']]]
 ];

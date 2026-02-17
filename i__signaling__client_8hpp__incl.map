@@ -1,0 +1,24 @@
+<map id="include/mosaic/signaling/i_signaling_client.hpp" name="include/mosaic/signaling/i_signaling_client.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="79,5,261,45"/>
+<area shape="rect" id="Node000002" href="$webrtc__forward__decl_8hpp.html" title=" " alt="" coords="5,93,161,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="153,48,114,85,110,82,149,44"/>
+<area shape="rect" id="Node000003" href="$mosaic__authenticator_8hpp.html" title=" " alt="" coords="185,93,328,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="191,44,230,82,226,85,187,48"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="25,181,102,207"/>
+<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="211,136,105,179,103,174,209,131"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="127,181,187,207"/>
+<area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="234,136,184,175,181,170,231,131"/>
+<area shape="rect" id="Node000006" title=" " alt="" coords="211,181,303,207"/>
+<area shape="poly" id="edge5_Node000003_Node000006" title=" " alt="" coords="259,134,259,167,254,167,254,134"/>
+<area shape="rect" id="Node000007" href="$configs__decl_8hpp.html" title=" " alt="" coords="467,181,609,207"/>
+<area shape="poly" id="edge6_Node000003_Node000007" title=" " alt="" coords="325,131,485,175,483,180,323,136"/>
+<area shape="rect" id="Node000011" href="$auth__type_8hpp.html" title=" " alt="" coords="327,181,442,207"/>
+<area shape="poly" id="edge10_Node000003_Node000011" title=" " alt="" coords="289,131,356,172,353,176,286,136"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="374,255,433,280"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="518,209,439,250,436,246,515,204"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="467,255,591,280"/>
+<area shape="poly" id="edge8_Node000007_Node000009" title=" " alt="" coords="539,207,535,242,529,241,534,207"/>
+<area shape="rect" id="Node000010" title=" " alt="" coords="615,255,677,280"/>
+<area shape="poly" id="edge9_Node000007_Node000010" title=" " alt="" coords="557,204,618,245,615,249,554,209"/>
+<area shape="poly" id="edge11_Node000011_Node000008" title=" " alt="" coords="390,206,399,241,394,242,385,208"/>
+</map>

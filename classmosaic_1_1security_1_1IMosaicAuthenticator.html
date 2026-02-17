@@ -108,7 +108,7 @@ $(document).ready(function(){initNavTree('classmosaic_1_1security_1_1IMosaicAuth
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i__mosaic__authenticator_8h_source.html">i_mosaic_authenticator.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="mosaic__authenticator_8hpp_source.html">mosaic_authenticator.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for mosaic::security::IMosaicAuthenticator:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -119,8 +119,8 @@ $(document).ready(function(){initNavTree('classmosaic_1_1security_1_1IMosaicAuth
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a050f3c84937058e03e2f19d669d671ad" id="r_a050f3c84937058e03e2f19d669d671ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1security_1_1IMosaicAuthenticator.html#a050f3c84937058e03e2f19d669d671ad">IMosaicAuthenticator</a> (const <a class="el" href="structmosaic_1_1core_1_1AuthConfig.html">core::AuthConfig</a> &amp;auth_config, const std::shared_ptr&lt; <a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html">core_signaling::ISignalingClient</a> &gt; &amp;signaling_client)</td></tr>
-<tr class="separator:a050f3c84937058e03e2f19d669d671ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a44c6f2485ba5f897a52503e9791719ea" id="r_a44c6f2485ba5f897a52503e9791719ea"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1security_1_1IMosaicAuthenticator.html#a44c6f2485ba5f897a52503e9791719ea">IMosaicAuthenticator</a> ()=default</td></tr>
+<tr class="separator:a44c6f2485ba5f897a52503e9791719ea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af3b3297971eddca4e500fe8e6e2738c2" id="r_af3b3297971eddca4e500fe8e6e2738c2"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1security_1_1IMosaicAuthenticator.html#af3b3297971eddca4e500fe8e6e2738c2">~IMosaicAuthenticator</a> ()=default</td></tr>
 <tr class="separator:af3b3297971eddca4e500fe8e6e2738c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7d62ebd203b203c868c28cfe147437bb" id="r_a7d62ebd203b203c868c28cfe147437bb"><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="namespacemosaic_1_1security.html#af6771d552ce38fe26bddd84a41eadb8a">AuthType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1security_1_1IMosaicAuthenticator.html#a7d62ebd203b203c868c28cfe147437bb">GetAuthType</a> ()=0</td></tr>
@@ -138,10 +138,10 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="i__mosaic__authenticator_8h_source.html#l00018">18</a> of file <a class="el" href="i__mosaic__authenticator_8h_source.html">i_mosaic_authenticator.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="mosaic__authenticator_8hpp_source.html#l00021">21</a> of file <a class="el" href="mosaic__authenticator_8hpp_source.html">mosaic_authenticator.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a050f3c84937058e03e2f19d669d671ad" name="a050f3c84937058e03e2f19d669d671ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a050f3c84937058e03e2f19d669d671ad">&#9670;&#160;</a></span>IMosaicAuthenticator()</h2>
+<a id="a44c6f2485ba5f897a52503e9791719ea" name="a44c6f2485ba5f897a52503e9791719ea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a44c6f2485ba5f897a52503e9791719ea">&#9670;&#160;</a></span>IMosaicAuthenticator()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -152,29 +152,16 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">mosaic::security::IMosaicAuthenticator::IMosaicAuthenticator </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="structmosaic_1_1core_1_1AuthConfig.html">core::AuthConfig</a> &amp;&#160;</td>
-          <td class="paramname"><em>auth_config</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">const std::shared_ptr&lt; <a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html">core_signaling::ISignalingClient</a> &gt; &amp;&#160;</td>
-          <td class="paramname"><em>signaling_client</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span></span>  </td>
+<span class="mlabels"><span class="mlabel">default</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="i__mosaic__authenticator_8h_source.html#l00020">20</a> of file <a class="el" href="i__mosaic__authenticator_8h_source.html">i_mosaic_authenticator.h</a>.</p>
 
 </div>
 </div>
@@ -368,7 +355,7 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>include/mosaic/security/<a class="el" href="i__mosaic__authenticator_8h_source.html">i_mosaic_authenticator.h</a></li>
+<li>include/mosaic/security/<a class="el" href="mosaic__authenticator_8hpp_source.html">mosaic_authenticator.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -376,7 +363,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacemosaic.html">mosaic</a></li><li class="navelem"><a class="el" href="namespacemosaic_1_1security.html">security</a></li><li class="navelem"><a class="el" href="classmosaic_1_1security_1_1IMosaicAuthenticator.html">IMosaicAuthenticator</a></li>
-    <li class="footer">Generated on Mon Feb 16 2026 12:17:04 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Feb 17 2026 13:09:28 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

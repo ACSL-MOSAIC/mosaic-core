@@ -3,14 +3,15 @@ var annotated_dup =
     [ "mosaic", "namespacemosaic.html", [
       [ "auto_configurer", "namespacemosaic_1_1auto__configurer.html", [
         [ "impl", "namespacemosaic_1_1auto__configurer_1_1impl.html", [
-          [ "ConnectionCheckDataChannel", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel" ],
+          [ "ConnectionCheckDataChannelReceiver", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelReceiver.html", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelReceiver" ],
+          [ "ConnectionCheckDataChannelSender", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelSender.html", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelSender" ],
           [ "ConnectionCheckDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer" ],
           [ "OpenCVCameraMediaTrack", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack" ],
           [ "OpenCVCameraMediaTrackConfigurer", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html", "classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer" ]
         ] ],
         [ "ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer" ],
         [ "AMTHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer" ],
-        [ "AParallelDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer" ],
+        [ "AMultipleDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer" ],
         [ "AutoConfigurer", "classmosaic_1_1auto__configurer_1_1AutoConfigurer.html", "classmosaic_1_1auto__configurer_1_1AutoConfigurer" ],
         [ "ConfigReaderFactory", "classmosaic_1_1auto__configurer_1_1ConfigReaderFactory.html", "classmosaic_1_1auto__configurer_1_1ConfigReaderFactory" ],
         [ "ConfigReaderResolver", "classmosaic_1_1auto__configurer_1_1ConfigReaderResolver.html", "classmosaic_1_1auto__configurer_1_1ConfigReaderResolver" ],
@@ -46,7 +47,8 @@ var annotated_dup =
       [ "core_signaling", "namespacemosaic_1_1core__signaling.html", [
         [ "ISignalingClient", "classmosaic_1_1core__signaling_1_1ISignalingClient.html", "classmosaic_1_1core__signaling_1_1ISignalingClient" ],
         [ "SignalingClient", "classmosaic_1_1core__signaling_1_1SignalingClient.html", "classmosaic_1_1core__signaling_1_1SignalingClient" ],
-        [ "WebSocketClient", "classmosaic_1_1core__signaling_1_1WebSocketClient.html", "classmosaic_1_1core__signaling_1_1WebSocketClient" ]
+        [ "WebSocketClient", "classmosaic_1_1core__signaling_1_1WebSocketClient.html", "classmosaic_1_1core__signaling_1_1WebSocketClient" ],
+        [ "WebSocketClientImpl", "classmosaic_1_1core__signaling_1_1WebSocketClientImpl.html", "classmosaic_1_1core__signaling_1_1WebSocketClientImpl" ]
       ] ],
       [ "handlers", "namespacemosaic_1_1handlers.html", [
         [ "ActualVideoTrackSource", "classmosaic_1_1handlers_1_1ActualVideoTrackSource.html", "classmosaic_1_1handlers_1_1ActualVideoTrackSource" ],
@@ -74,5 +76,6 @@ var annotated_dup =
         [ "NoAuthAuthenticator", "classmosaic_1_1security_1_1NoAuthAuthenticator.html", "classmosaic_1_1security_1_1NoAuthAuthenticator" ],
         [ "SimpleTokenAuthenticator", "classmosaic_1_1security_1_1SimpleTokenAuthenticator.html", "classmosaic_1_1security_1_1SimpleTokenAuthenticator" ]
       ] ]
-    ] ]
+    ] ],
+    [ "CheshireCat", "classCheshireCat.html", "classCheshireCat" ]
 ];

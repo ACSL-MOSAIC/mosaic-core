@@ -113,10 +113,10 @@ $(document).ready(function(){initNavTree('data__channel__receivable_8cpp_source.
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Created by yhkim on 7/17/25.</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;api/data_channel_interface.h&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;json/reader.h&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;json/value.h&gt;</span></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;<a class="code" href="data__channel__receivable_8h.html">mosaic/handlers/data_channel/data_channel_receivable.h</a>&gt;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="data__channel__receivable_8hpp.html">mosaic/handlers/data_channel/data_channel_receivable.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;api/data_channel_interface.h&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;json/json.h&gt;</span></div>
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacemosaic_1_1handlers.html">mosaic::handlers</a>;</div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
@@ -133,7 +133,7 @@ $(document).ready(function(){initNavTree('data__channel__receivable_8cpp_source.
 <div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>    std::string errors;</div>
 <div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>    <span class="keywordflow">if</span> (std::istringstream message_stream(std::string(buffer.data.data&lt;<span class="keywordtype">char</span>&gt;(), buffer.data.size()));</div>
 <div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>        !Json::parseFromStream(reader_builder, message_stream, &amp;json_data, &amp;errors)) {</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_define" href="log_8h.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a>(<span class="stringliteral">&quot;Failed to parse DataBuffer to JSON: {}&quot;</span>, errors);</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>        <a class="code hl_define" href="log_8hpp.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a>(<span class="stringliteral">&quot;Failed to parse DataBuffer to JSON: {}&quot;</span>, errors);</div>
 <div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>        <span class="keywordflow">throw</span> std::runtime_error(<span class="stringliteral">&quot;JSON parsing failed: &quot;</span> + errors);</div>
 <div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>    }</div>
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>    <span class="keywordflow">return</span> json_data;</div>
@@ -148,16 +148,16 @@ $(document).ready(function(){initNavTree('data__channel__receivable_8cpp_source.
 <div class="ttc" id="aclassmosaic_1_1handlers_1_1DataChannelByteReceivable_html_a44cb2d5e3849121115aefef69ed0eb57"><div class="ttname"><a href="classmosaic_1_1handlers_1_1DataChannelByteReceivable.html#a44cb2d5e3849121115aefef69ed0eb57">mosaic::handlers::DataChannelByteReceivable::ConvertBufferToData</a></div><div class="ttdeci">std::vector&lt; uint8_t &gt; ConvertBufferToData(const webrtc::DataBuffer &amp;buffer) override</div><div class="ttdef"><b>Definition</b> <a href="data__channel__receivable_8cpp_source.html#l00028">data_channel_receivable.cpp:28</a></div></div>
 <div class="ttc" id="aclassmosaic_1_1handlers_1_1DataChannelJsonReceivable_html_ad8a4974f97fdcac4ebe0c6ba56e8073a"><div class="ttname"><a href="classmosaic_1_1handlers_1_1DataChannelJsonReceivable.html#ad8a4974f97fdcac4ebe0c6ba56e8073a">mosaic::handlers::DataChannelJsonReceivable::ConvertBufferToData</a></div><div class="ttdeci">Json::Value ConvertBufferToData(const webrtc::DataBuffer &amp;buffer) override</div><div class="ttdef"><b>Definition</b> <a href="data__channel__receivable_8cpp_source.html#l00016">data_channel_receivable.cpp:16</a></div></div>
 <div class="ttc" id="aclassmosaic_1_1handlers_1_1DataChannelStringReceivable_html_a346fb245367292111bd6a8d70f9f55e7"><div class="ttname"><a href="classmosaic_1_1handlers_1_1DataChannelStringReceivable.html#a346fb245367292111bd6a8d70f9f55e7">mosaic::handlers::DataChannelStringReceivable::ConvertBufferToData</a></div><div class="ttdeci">std::string ConvertBufferToData(const webrtc::DataBuffer &amp;buffer) override</div><div class="ttdef"><b>Definition</b> <a href="data__channel__receivable_8cpp_source.html#l00012">data_channel_receivable.cpp:12</a></div></div>
-<div class="ttc" id="adata__channel__receivable_8h_html"><div class="ttname"><a href="data__channel__receivable_8h.html">data_channel_receivable.h</a></div></div>
-<div class="ttc" id="alog_8h_html_ad91b537c72caf03b8287f79e5b649959"><div class="ttname"><a href="log_8h.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a></div><div class="ttdeci">#define MOSAIC_LOG_ERROR(...)</div><div class="ttdef"><b>Definition</b> <a href="log_8h_source.html#l00018">log.h:18</a></div></div>
-<div class="ttc" id="anamespacemosaic_1_1handlers_html"><div class="ttname"><a href="namespacemosaic_1_1handlers.html">mosaic::handlers</a></div><div class="ttdef"><b>Definition</b> <a href="a__data__channel__handler_8h_source.html#l00010">a_data_channel_handler.h:10</a></div></div>
+<div class="ttc" id="adata__channel__receivable_8hpp_html"><div class="ttname"><a href="data__channel__receivable_8hpp.html">data_channel_receivable.hpp</a></div></div>
+<div class="ttc" id="alog_8hpp_html_ad91b537c72caf03b8287f79e5b649959"><div class="ttname"><a href="log_8hpp.html#ad91b537c72caf03b8287f79e5b649959">MOSAIC_LOG_ERROR</a></div><div class="ttdeci">#define MOSAIC_LOG_ERROR(...)</div><div class="ttdef"><b>Definition</b> <a href="log_8hpp_source.html#l00018">log.hpp:18</a></div></div>
+<div class="ttc" id="anamespacemosaic_1_1handlers_html"><div class="ttname"><a href="namespacemosaic_1_1handlers.html">mosaic::handlers</a></div><div class="ttdef"><b>Definition</b> <a href="data__channel__handler_8hpp_source.html#l00013">data_channel_handler.hpp:13</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_5686efc8b5ddd35b6b727c343c338ca5.html">handlers</a></li><li class="navelem"><a class="el" href="dir_7be19cc2302cfab3fb96702055dd09c2.html">data_channel</a></li><li class="navelem"><a class="el" href="data__channel__receivable_8cpp.html">data_channel_receivable.cpp</a></li>
-    <li class="footer">Generated on Mon Feb 16 2026 12:17:04 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Feb 17 2026 13:09:28 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

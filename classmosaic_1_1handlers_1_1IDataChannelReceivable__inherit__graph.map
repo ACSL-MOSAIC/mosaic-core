@@ -18,7 +18,7 @@
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="1496,114,1532,114,1532,119,1496,119"/>
 <area shape="rect" id="Node000009" href="$classmosaic_1_1handlers_1_1DataChannelStringReceivable.html" title=" " alt="" coords="1532,185,1757,225"/>
 <area shape="poly" id="edge8_Node000008_Node000009" title=" " alt="" coords="1496,202,1532,202,1532,207,1496,207"/>
-<area shape="rect" id="Node000010" href="$classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html" title=" " alt="" coords="1807,185,2071,225"/>
+<area shape="rect" id="Node000010" href="$classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelReceiver.html" title=" " alt="" coords="1807,177,2071,232"/>
 <area shape="poly" id="edge9_Node000009_Node000010" title=" " alt="" coords="1771,202,1807,202,1807,207,1771,207"/>
 <area shape="poly" id="edge11_Node000011_Node000004" title=" " alt="" coords="1076,87,1257,52,1258,57,1077,93"/>
 <area shape="poly" id="edge12_Node000011_Node000006" title=" " alt="" coords="1086,111,1257,113,1257,118,1085,117"/>

@@ -3,7 +3,7 @@ var namespacemosaic_1_1auto__configurer =
     [ "impl", "namespacemosaic_1_1auto__configurer_1_1impl.html", "namespacemosaic_1_1auto__configurer_1_1impl" ],
     [ "ADCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer" ],
     [ "AMTHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer" ],
-    [ "AParallelDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer" ],
+    [ "AMultipleDCHandlerConfigurer", "classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer.html", "classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer" ],
     [ "AutoConfigurer", "classmosaic_1_1auto__configurer_1_1AutoConfigurer.html", "classmosaic_1_1auto__configurer_1_1AutoConfigurer" ],
     [ "ConfigReaderFactory", "classmosaic_1_1auto__configurer_1_1ConfigReaderFactory.html", "classmosaic_1_1auto__configurer_1_1ConfigReaderFactory" ],
     [ "ConfigReaderResolver", "classmosaic_1_1auto__configurer_1_1ConfigReaderResolver.html", "classmosaic_1_1auto__configurer_1_1ConfigReaderResolver" ],

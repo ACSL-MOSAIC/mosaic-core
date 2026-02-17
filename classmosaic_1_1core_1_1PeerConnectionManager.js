@@ -1,7 +1,7 @@
 var classmosaic_1_1core_1_1PeerConnectionManager =
 [
     [ "Impl", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html", "classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl" ],
-    [ "PeerConnectionManager", "classmosaic_1_1core_1_1PeerConnectionManager.html#a1223efb0cabc6db79e9aa6eb798a8414", null ],
+    [ "PeerConnectionManager", "classmosaic_1_1core_1_1PeerConnectionManager.html#aad32fb661e6484b0c19193c5c04155dd", null ],
     [ "AddTrack", "classmosaic_1_1core_1_1PeerConnectionManager.html#a8aff60ccf9a7ce639867f8488d3bc1f2", null ],
     [ "AfterCreateSdpAnswer", "classmosaic_1_1core_1_1PeerConnectionManager.html#aa84525f2eaae3f113e5e334d0b4b39ce", null ],
     [ "AfterSetLocalDescription", "classmosaic_1_1core_1_1PeerConnectionManager.html#ae57604e5571a2f2f85119b54e8bd7a9b", null ],

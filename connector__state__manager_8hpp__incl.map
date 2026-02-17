@@ -1,0 +1,30 @@
+<map id="include/mosaic/core/connector_state_manager.hpp" name="include/mosaic/core/connector_state_manager.hpp">
+<area shape="rect" id="Node000001" title=" " alt="" coords="16,5,238,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="136,269,214,295"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="137,45,152,93,168,182,176,255,171,256,163,183,147,94,132,46"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="23,101,138,126"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="119,47,96,90,91,87,114,44"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="266,343,324,368"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="71,48,38,67,13,95,8,113,14,133,33,185,54,224,83,257,126,292,156,311,190,326,253,344,251,349,188,331,154,316,123,297,79,261,49,227,28,187,9,134,3,113,9,92,35,63,68,43"/>
+<area shape="rect" id="Node000005" href="$i__signaling__client_8hpp.html" title=" " alt="" coords="213,93,380,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="165,43,248,85,246,90,163,48"/>
+<area shape="rect" id="Node000006" href="$webrtc__forward__decl_8hpp.html" title=" " alt="" coords="213,181,369,221"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="298,134,296,168,290,167,293,133"/>
+<area shape="rect" id="Node000007" href="$mosaic__authenticator_8hpp.html" title=" " alt="" coords="393,181,536,221"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="335,131,417,173,414,178,332,136"/>
+<area shape="poly" id="edge7_Node000007_Node000002" title=" " alt="" coords="396,224,228,269,227,264,394,219"/>
+<area shape="rect" id="Node000008" title=" " alt="" coords="544,269,604,295"/>
+<area shape="poly" id="edge8_Node000007_Node000008" title=" " alt="" coords="492,219,548,259,545,263,489,224"/>
+<area shape="rect" id="Node000009" title=" " alt="" coords="628,269,720,295"/>
+<area shape="poly" id="edge9_Node000007_Node000009" title=" " alt="" coords="516,219,631,262,629,267,514,224"/>
+<area shape="rect" id="Node000010" href="$configs__decl_8hpp.html" title=" " alt="" coords="377,269,520,295"/>
+<area shape="poly" id="edge10_Node000007_Node000010" title=" " alt="" coords="463,222,456,256,451,255,458,221"/>
+<area shape="rect" id="Node000013" href="$auth__type_8hpp.html" title=" " alt="" coords="238,269,352,295"/>
+<area shape="poly" id="edge14_Node000007_Node000013" title=" " alt="" coords="425,224,334,266,331,261,423,219"/>
+<area shape="poly" id="edge11_Node000010_Node000004" title=" " alt="" coords="425,297,334,339,331,334,423,292"/>
+<area shape="rect" id="Node000011" title=" " alt="" coords="469,343,593,368"/>
+<area shape="poly" id="edge12_Node000010_Node000011" title=" " alt="" coords="463,293,509,331,505,336,460,297"/>
+<area shape="rect" id="Node000012" title=" " alt="" coords="382,343,445,368"/>
+<area shape="poly" id="edge13_Node000010_Node000012" title=" " alt="" coords="445,296,428,331,423,329,440,294"/>
+<area shape="poly" id="edge15_Node000013_Node000004" title=" " alt="" coords="298,295,298,329,292,329,292,295"/>
+</map>

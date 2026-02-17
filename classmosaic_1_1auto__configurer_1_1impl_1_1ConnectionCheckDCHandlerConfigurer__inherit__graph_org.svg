@@ -22,10 +22,10 @@
 <!-- Node2 -->
 <g id="Node000002" class="node">
 <title>Node2</title>
-<g id="a_Node000002"><a xlink:href="classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html" target="_top" xlink:title=" ">
-<polygon fill="white" stroke="#666666" points="161,-107 27,-107 27,-77 161,-77 161,-107"/>
-<text text-anchor="start" x="35" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">mosaic::auto_configurer</text>
-<text text-anchor="middle" x="94" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">::ADCHandlerConfigurer</text>
+<g id="a_Node000002"><a xlink:href="classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer.html" target="_top" xlink:title=" ">
+<polygon fill="white" stroke="#666666" points="180,-107 8,-107 8,-77 180,-77 180,-107"/>
+<text text-anchor="start" x="16" y="-95" font-family="Helvetica,sans-Serif" font-size="10.00">mosaic::auto_configurer</text>
+<text text-anchor="middle" x="94" y="-84" font-family="Helvetica,sans-Serif" font-size="10.00">::AMultipleDCHandlerConfigurer</text>
 </a>
 </g>
 </g>

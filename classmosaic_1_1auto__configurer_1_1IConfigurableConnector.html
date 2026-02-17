@@ -109,7 +109,7 @@ $(document).ready(function(){initNavTree('classmosaic_1_1auto__configurer_1_1ICo
 </div><!--header-->
 <div class="contents">
 
-<p><code>#include &lt;<a class="el" href="i__configurable__connector_8h_source.html">i_configurable_connector.h</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="configurable__connectors_8hpp_source.html">configurable_connectors.hpp</a>&gt;</code></p>
 <div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Inheritance diagram for mosaic::auto_configurer::IConfigurableConnector:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
@@ -133,8 +133,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a39d55980e658a24306fc3b9167153934"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adf38b3699ab20b1ec5fe6bca06ed0c7c" id="r_adf38b3699ab20b1ec5fe6bca06ed0c7c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html#adf38b3699ab20b1ec5fe6bca06ed0c7c">SetConfig</a> (const std::shared_ptr&lt; <a class="el" href="structmosaic_1_1core_1_1ConnectorConfig.html">core::ConnectorConfig</a> &gt; &amp;connector_config)</td></tr>
 <tr class="separator:adf38b3699ab20b1ec5fe6bca06ed0c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5b6a067c012e796f43f0646fcd308b97" id="r_a5b6a067c012e796f43f0646fcd308b97"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html#a5b6a067c012e796f43f0646fcd308b97">ValidateConfig</a> ()</td></tr>
-<tr class="separator:a5b6a067c012e796f43f0646fcd308b97"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3ae9da29c1c357c9d16b595d887916e" id="r_ad3ae9da29c1c357c9d16b595d887916e"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html#ad3ae9da29c1c357c9d16b595d887916e">ValidateConfig</a> ()</td></tr>
+<tr class="separator:ad3ae9da29c1c357c9d16b595d887916e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a60da889f4a50611c821da1188e427bac" id="r_a60da889f4a50611c821da1188e427bac"><td class="memItemLeft" align="right" valign="top">std::shared_ptr&lt; <a class="el" href="structmosaic_1_1core_1_1ConnectorConfig.html">core::ConnectorConfig</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html#a60da889f4a50611c821da1188e427bac">GetConfig</a> () const</td></tr>
 <tr class="separator:a60da889f4a50611c821da1188e427bac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45771aa605e633f58c480bc6b42f702f" id="r_a45771aa605e633f58c480bc6b42f702f"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html#a45771aa605e633f58c480bc6b42f702f">Configure</a> ()=0</td></tr>
@@ -147,7 +147,7 @@ Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="i__configurable__connector_8h_source.html#l00012">12</a> of file <a class="el" href="i__configurable__connector_8h_source.html">i_configurable_connector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="configurable__connectors_8hpp_source.html#l00012">12</a> of file <a class="el" href="configurable__connectors_8hpp_source.html">configurable_connectors.hpp</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a9e94627082d95446180745a0b284928c" name="a9e94627082d95446180745a0b284928c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a9e94627082d95446180745a0b284928c">&#9670;&#160;</a></span>~IConfigurableConnector()</h2>
@@ -198,7 +198,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html#a61d5457aca719b28db802052f7dd9841">mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html#ac759686ced4012722dcad31a8c1d0ca6">mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html#a2b71f3f0b4a32eeb330e1837f9e0bdcc">mosaic::auto_configurer::ADCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html#a84c66489fa496829e7373298fa3964ca">mosaic::auto_configurer::AMTHandlerConfigurer</a>, and <a class="el" href="classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer.html#a71047f627005782ad9f92bf85fd67b07">mosaic::auto_configurer::AParallelDCHandlerConfigurer</a>.</p>
+<p>Implemented in <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html#a40f37dbb5a4eca42430031179faa21cf">mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html#ac759686ced4012722dcad31a8c1d0ca6">mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html#a2b71f3f0b4a32eeb330e1837f9e0bdcc">mosaic::auto_configurer::ADCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer.html#adc86c0b2acbf9ab3ab1fd100cc62240a">mosaic::auto_configurer::AMultipleDCHandlerConfigurer</a>, and <a class="el" href="classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html#a84c66489fa496829e7373298fa3964ca">mosaic::auto_configurer::AMTHandlerConfigurer</a>.</p>
 
 </div>
 </div>
@@ -225,9 +225,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i__configurable__connector_8h_source.html#l00024">24</a> of file <a class="el" href="i__configurable__connector_8h_source.html">i_configurable_connector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="configurable__connectors_8hpp_source.html#l00024">24</a> of file <a class="el" href="configurable__connectors_8hpp_source.html">configurable_connectors.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="i__configurable__connector_8h_source.html#l00031">connector_config_</a>.</p>
+<p class="reference">References <a class="el" href="configurable__connectors_8hpp_source.html#l00031">connector_config_</a>.</p>
 
 </div>
 </div>
@@ -254,7 +254,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p>Implemented in <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html#afb19ebff801000b74973156fbe6fe1b5">mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html#ae9180d8625ada8bb4765d6521fee5205">mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html#aa3c8fbcea331bd53c9ba90049b5ac413">mosaic::auto_configurer::ADCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html#a7a8e1d3aaba0d50c053ea17a2ff72b27">mosaic::auto_configurer::AMTHandlerConfigurer</a>, and <a class="el" href="classmosaic_1_1auto__configurer_1_1AParallelDCHandlerConfigurer.html#ac4b956fe35f8db80d0d7401f93484a0e">mosaic::auto_configurer::AParallelDCHandlerConfigurer</a>.</p>
+<p>Implemented in <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDCHandlerConfigurer.html#afb19ebff801000b74973156fbe6fe1b5">mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrackConfigurer.html#ae9180d8625ada8bb4765d6521fee5205">mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1ADCHandlerConfigurer.html#aa3c8fbcea331bd53c9ba90049b5ac413">mosaic::auto_configurer::ADCHandlerConfigurer</a>, <a class="el" href="classmosaic_1_1auto__configurer_1_1AMultipleDCHandlerConfigurer.html#a26cd494c7e5b5df836bfbaf234617ed7">mosaic::auto_configurer::AMultipleDCHandlerConfigurer</a>, and <a class="el" href="classmosaic_1_1auto__configurer_1_1AMTHandlerConfigurer.html#a7a8e1d3aaba0d50c053ea17a2ff72b27">mosaic::auto_configurer::AMTHandlerConfigurer</a>.</p>
 
 </div>
 </div>
@@ -282,14 +282,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i__configurable__connector_8h_source.html#l00018">18</a> of file <a class="el" href="i__configurable__connector_8h_source.html">i_configurable_connector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="configurable__connectors_8hpp_source.html#l00018">18</a> of file <a class="el" href="configurable__connectors_8hpp_source.html">configurable_connectors.hpp</a>.</p>
 
-<p class="reference">References <a class="el" href="i__configurable__connector_8h_source.html#l00031">connector_config_</a>.</p>
+<p class="reference">References <a class="el" href="configurable__connectors_8hpp_source.html#l00031">connector_config_</a>.</p>
 
 </div>
 </div>
-<a id="a5b6a067c012e796f43f0646fcd308b97" name="a5b6a067c012e796f43f0646fcd308b97"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b6a067c012e796f43f0646fcd308b97">&#9670;&#160;</a></span>ValidateConfig()</h2>
+<a id="ad3ae9da29c1c357c9d16b595d887916e" name="ad3ae9da29c1c357c9d16b595d887916e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3ae9da29c1c357c9d16b595d887916e">&#9670;&#160;</a></span>ValidateConfig()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -298,7 +298,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void IConfigurableConnector::ValidateConfig </td>
+          <td class="memname">virtual void mosaic::auto_configurer::IConfigurableConnector::ValidateConfig </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -306,12 +306,12 @@ Protected Attributes</h2></td></tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i__configurable__connector_8cpp_source.html#l00009">9</a> of file <a class="el" href="i__configurable__connector_8cpp_source.html">i_configurable_connector.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="configurable__connectors_8hpp_source.html#l00022">22</a> of file <a class="el" href="configurable__connectors_8hpp_source.html">configurable_connectors.hpp</a>.</p>
 
 </div>
 </div>
@@ -336,15 +336,14 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="i__configurable__connector_8h_source.html#l00031">31</a> of file <a class="el" href="i__configurable__connector_8h_source.html">i_configurable_connector.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="configurable__connectors_8hpp_source.html#l00031">31</a> of file <a class="el" href="configurable__connectors_8hpp_source.html">configurable_connectors.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="opencv__camera__mt__handler_8cpp_source.html#l00013">mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer::Configure()</a>, <a class="el" href="i__configurable__connector_8h_source.html#l00024">GetConfig()</a>, and <a class="el" href="i__configurable__connector_8h_source.html#l00018">SetConfig()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="connection__check__dc__handler_8cpp_source.html#l00009">mosaic::auto_configurer::impl::ConnectionCheckDCHandlerConfigurer::Configure()</a>, <a class="el" href="opencv__camera__mt__handler_8cpp_source.html#l00011">mosaic::auto_configurer::impl::OpenCVCameraMediaTrackConfigurer::Configure()</a>, <a class="el" href="configurable__connectors_8hpp_source.html#l00024">GetConfig()</a>, and <a class="el" href="configurable__connectors_8hpp_source.html#l00018">SetConfig()</a>.</p>
 
 </div>
 </div>
-<hr/>The documentation for this class was generated from the following files:<ul>
-<li>include/mosaic/auto_configurer/connector/<a class="el" href="i__configurable__connector_8h_source.html">i_configurable_connector.h</a></li>
-<li>src/auto_configurer/<a class="el" href="i__configurable__connector_8cpp_source.html">i_configurable_connector.cpp</a></li>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>include/mosaic/auto_configurer/connector/<a class="el" href="configurable__connectors_8hpp_source.html">configurable_connectors.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -352,7 +351,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacemosaic.html">mosaic</a></li><li class="navelem"><a class="el" href="namespacemosaic_1_1auto__configurer.html">auto_configurer</a></li><li class="navelem"><a class="el" href="classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html">IConfigurableConnector</a></li>
-    <li class="footer">Generated on Mon Feb 16 2026 12:17:04 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Feb 17 2026 13:09:28 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

@@ -113,27 +113,28 @@ $(document).ready(function(){initNavTree('log__service_8cpp_source.html',''); in
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="comment">// Created by yhkim on 25. 7. 3.</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="comment">//</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;<a class="code" href="console__logger_8h.html">mosaic/logger/console_logger.h</a>&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;<a class="code" href="log__service_8h.html">mosaic/logger/log_service.h</a>&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacemosaic_1_1core__log.html">mosaic::core_log</a>;</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> </div>
-<div class="foldopen" id="foldopen00010" data-start="{" data-end="}">
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno"><a class="line" href="classmosaic_1_1core__log_1_1LogService.html#aa555fc4d617cc24c07825fa20c9a74f0">   10</a></span>std::shared_ptr&lt;ILogger&gt; <a class="code hl_function" href="classmosaic_1_1core__log_1_1LogService.html#aa555fc4d617cc24c07825fa20c9a74f0">LogService::DefaultLogger</a>() {</div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>    <span class="keywordflow">return</span> std::make_shared&lt;ConsoleLogger&gt;();</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>}</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="log__service_8hpp.html">mosaic/logger/log_service.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &quot;<a class="code" href="console__logger_8hpp.html">mosaic/logger/console_logger.hpp</a>&quot;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="keyword">using namespace </span><a class="code hl_namespace" href="namespacemosaic_1_1core__log.html">mosaic::core_log</a>;</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classmosaic_1_1core__log_1_1LogService.html#aa555fc4d617cc24c07825fa20c9a74f0">   11</a></span>std::shared_ptr&lt;ILogger&gt; <a class="code hl_function" href="classmosaic_1_1core__log_1_1LogService.html#aa555fc4d617cc24c07825fa20c9a74f0">LogService::DefaultLogger</a>() {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <span class="keywordflow">return</span> std::make_shared&lt;ConsoleLogger&gt;();</div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>}</div>
 </div>
-<div class="ttc" id="aclassmosaic_1_1core__log_1_1LogService_html_aa555fc4d617cc24c07825fa20c9a74f0"><div class="ttname"><a href="classmosaic_1_1core__log_1_1LogService.html#aa555fc4d617cc24c07825fa20c9a74f0">mosaic::core_log::LogService::DefaultLogger</a></div><div class="ttdeci">static std::shared_ptr&lt; ILogger &gt; DefaultLogger()</div><div class="ttdef"><b>Definition</b> <a href="log__service_8cpp_source.html#l00010">log_service.cpp:10</a></div></div>
-<div class="ttc" id="aconsole__logger_8h_html"><div class="ttname"><a href="console__logger_8h.html">console_logger.h</a></div></div>
-<div class="ttc" id="alog__service_8h_html"><div class="ttname"><a href="log__service_8h.html">log_service.h</a></div></div>
-<div class="ttc" id="anamespacemosaic_1_1core__log_html"><div class="ttname"><a href="namespacemosaic_1_1core__log.html">mosaic::core_log</a></div><div class="ttdef"><b>Definition</b> <a href="console__logger_8h_source.html#l00014">console_logger.h:14</a></div></div>
+<div class="ttc" id="aclassmosaic_1_1core__log_1_1LogService_html_aa555fc4d617cc24c07825fa20c9a74f0"><div class="ttname"><a href="classmosaic_1_1core__log_1_1LogService.html#aa555fc4d617cc24c07825fa20c9a74f0">mosaic::core_log::LogService::DefaultLogger</a></div><div class="ttdeci">static std::shared_ptr&lt; ILogger &gt; DefaultLogger()</div><div class="ttdef"><b>Definition</b> <a href="log__service_8cpp_source.html#l00011">log_service.cpp:11</a></div></div>
+<div class="ttc" id="aconsole__logger_8hpp_html"><div class="ttname"><a href="console__logger_8hpp.html">console_logger.hpp</a></div></div>
+<div class="ttc" id="alog__service_8hpp_html"><div class="ttname"><a href="log__service_8hpp.html">log_service.hpp</a></div></div>
+<div class="ttc" id="anamespacemosaic_1_1core__log_html"><div class="ttname"><a href="namespacemosaic_1_1core__log.html">mosaic::core_log</a></div><div class="ttdef"><b>Definition</b> <a href="console__logger_8hpp_source.html#l00014">console_logger.hpp:14</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_ffde1fbcaa8d6b0d34e29c3bddf7a801.html">logger</a></li><li class="navelem"><a class="el" href="log__service_8cpp.html">log_service.cpp</a></li>
-    <li class="footer">Generated on Mon Feb 16 2026 12:17:04 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Tue Feb 17 2026 13:09:28 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

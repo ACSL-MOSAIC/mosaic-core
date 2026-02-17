@@ -8,5 +8,5 @@ var searchData=
   ['datachannelstringreceivable_5',['DataChannelStringReceivable',['../classmosaic_1_1handlers_1_1DataChannelStringReceivable.html#a8236cb6b3a8829e7b5531560aaff616e',1,'mosaic::handlers::DataChannelStringReceivable']]],
   ['defaultlogger_6',['DefaultLogger',['../classmosaic_1_1core__log_1_1LogService.html#aa555fc4d617cc24c07825fa20c9a74f0',1,'mosaic::core_log::LogService']]],
   ['destroypeerconnectionmanager_7',['destroypeerconnectionmanager',['../classmosaic_1_1core_1_1PeerConnectionManager.html#a1ce50b9a057e1ae4b7232160c45e1105',1,'mosaic::core::PeerConnectionManager::DestroyPeerConnectionManager()'],['../classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#a386682781636c61821db2cba2e0bac69',1,'mosaic::core::PeerConnectionManager::Impl::DestroyPeerConnectionManager()']]],
-  ['disconnect_8',['disconnect',['../classmosaic_1_1core__signaling_1_1WebSocketClient.html#a987b95156290b85d5c37774f9f49a07e',1,'mosaic::core_signaling::WebSocketClient']]]
+  ['disconnect_8',['disconnect',['../classmosaic_1_1core__signaling_1_1WebSocketClient.html#a987b95156290b85d5c37774f9f49a07e',1,'mosaic::core_signaling::WebSocketClient::disconnect()'],['../classmosaic_1_1core__signaling_1_1WebSocketClientImpl.html#aea1ebadfedf6d3646bf9d9a891e087d0',1,'mosaic::core_signaling::WebSocketClientImpl::disconnect()']]]
 ];

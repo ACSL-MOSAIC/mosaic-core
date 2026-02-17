@@ -1,6 +1,6 @@
 <map id="mosaic::handlers::DataChannelSendable" name="mosaic::handlers::DataChannelSendable">
 <area shape="rect" id="Node000001" title=" " alt="" coords="25,181,250,221"/>
-<area shape="rect" id="Node000004" href="$classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannel.html" title=" " alt="" coords="5,269,269,309"/>
+<area shape="rect" id="Node000004" href="$classmosaic_1_1auto__configurer_1_1impl_1_1ConnectionCheckDataChannelSender.html" title=" " alt="" coords="5,269,269,324"/>
 <area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="140,235,140,269,135,269,135,235"/>
 <area shape="rect" id="Node000002" href="$classmosaic_1_1handlers_1_1ADataChannelHandler.html" title=" " alt="" coords="20,93,255,133"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="140,147,140,181,135,181,135,147"/>
