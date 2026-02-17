@@ -4,11 +4,11 @@
 
 #include <pybind11/pybind11.h>
 
-#include "bind_auto_configurer.h"
-#include "bind_configs.h"
-#include "bind_core.h"
-#include "bind_handlers.h"
-#include "bind_logging.h"
+#include "bind_auto_configurer.hpp"
+#include "bind_configs.hpp"
+#include "bind_core.hpp"
+#include "bind_handlers.hpp"
+#include "bind_logging.hpp"
 
 PYBIND11_MODULE(_mosaic_core, m) {
     m.doc() = "MOSAIC core Python bindings";

@@ -2,14 +2,12 @@
 // Created by yhkim on 7/29/25.
 //
 
+#include "mosaic/handlers/media_track/video_recorder.hpp"
+
 #include <chrono>
 #include <filesystem>
 #include <iomanip>
 #include <sstream>
-
-#include <mosaic/handlers/media_track/video_recorder.h>
-
-#include <opencv2/videoio.hpp>
 
 using namespace mosaic::handlers;
 

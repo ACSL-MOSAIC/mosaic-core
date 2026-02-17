@@ -1,5 +1,5 @@
 //
-// Created by 김연혁 on 2025. 7. 16..
+// Created by yhkim on 2025. 7. 16.
 //
 
 #include <chrono>
@@ -7,7 +7,8 @@
 #include <thread>
 
 #include <gtest/gtest.h>
-#include <mosaic/signaling/websocket_client.h>
+
+#include "mosaic/signaling/websocket_client.hpp"
 
 using namespace mosaic::core_signaling;
 
@@ -15,7 +16,7 @@ class WebSocketClientTest : public ::testing::Test {
   protected:
     void SetUp() override {
         // 테스트 시작 전 초기화
-        client = std::make_unique<WebSocketClient>();
+        client = std::make_unique<WebSocketClient>(std::shared_ptr<WebSocketClientImpl>());
     }
 
     void TearDown() override {

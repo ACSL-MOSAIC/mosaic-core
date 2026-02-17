@@ -2,16 +2,15 @@
 // Created by yhkim on 2026. 2. 16.
 //
 
-#ifndef MOSAIC_CORE_CONNECTION_CHECK_DC_HANDLER_H
-#define MOSAIC_CORE_CONNECTION_CHECK_DC_HANDLER_H
+#ifndef MOSAIC_CORE_CONNECTION_CHECK_DC_HANDLER_HPP
+#define MOSAIC_CORE_CONNECTION_CHECK_DC_HANDLER_HPP
 
-#include "mosaic/auto_configurer/connector/a_dc_handler_configurer.h"
-#include "mosaic/handlers/data_channel/data_channel_receivable.h"
-#include "mosaic/handlers/data_channel/data_channel_sendable.h"
-#include "mosaic/handlers/media_track/a_media_track_handler.h"
+#include "../../handlers/data_channel/data_channel_receivable.hpp"
+#include "../../handlers/data_channel/data_channel_sendable.hpp"
+#include "../connector/configurable_connectors.hpp"
 
 namespace mosaic::auto_configurer::impl {
-class ConnectionCheckDCHandlerConfigurer : public ADCHandlerConfigurer {
+class ConnectionCheckDCHandlerConfigurer : public AMultipleDCHandlerConfigurer {
   public:
     ConnectionCheckDCHandlerConfigurer() = default;
 
@@ -21,16 +20,27 @@ class ConnectionCheckDCHandlerConfigurer : public ADCHandlerConfigurer {
     void Configure() override;
 };
 
-class ConnectionCheckDataChannel : public handlers::DataChannelSendable, public handlers::DataChannelStringReceivable {
+class ConnectionCheckDataChannelSender : public handlers::DataChannelSendable {
   public:
-    explicit ConnectionCheckDataChannel(const std::string& label)
-        : DataChannelSendable(label), DataChannelStringReceivable(label) {}
+    explicit ConnectionCheckDataChannelSender(const std::string& label) : DataChannelSendable(label) {}
+};
+
+class ConnectionCheckDataChannelReceiver : public handlers::DataChannelStringReceivable {
+  public:
+    explicit ConnectionCheckDataChannelReceiver(const std::string& label) : DataChannelStringReceivable(label) {}
+
+    void SetSender(const std::shared_ptr<ConnectionCheckDataChannelSender>& sender) {
+        sender_ = sender;
+    }
 
     void HandleData(const std::string& data) override {
-        SendString(data, true);
+        sender_->SendString(data, true);
     }
+
+  private:
+    std::shared_ptr<ConnectionCheckDataChannelSender> sender_;
 };
 
 }  // namespace mosaic::auto_configurer::impl
 
-#endif  // MOSAIC_CORE_CONNECTION_CHECK_DC_HANDLER_H
+#endif  // MOSAIC_CORE_CONNECTION_CHECK_DC_HANDLER_HPP

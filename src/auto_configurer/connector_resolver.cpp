@@ -2,7 +2,7 @@
 // Created by yhkim on 12/28/25.
 //
 
-#include <mosaic/auto_configurer/connector/connector_resolver.h>
+#include "mosaic/auto_configurer/connector/connector_resolver.hpp"
 
 #include "mosaic/auto_configurer/impl/connection_check_dc_handler.hpp"
 #include "mosaic/auto_configurer/impl/opencv_camera_mt_handler.hpp"

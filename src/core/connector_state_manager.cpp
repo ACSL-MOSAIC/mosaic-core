@@ -2,10 +2,11 @@
 // Created by yhkim on 25. 6. 26.
 //
 
+#include "mosaic/core/connector_state_manager.hpp"
+
 #include <mutex>
 
-#include <mosaic/core/connector_state_manager.h>
-#include <mosaic/logger/log.h>
+#include "mosaic/logger/log.hpp"
 
 using namespace mosaic::core;
 

@@ -2,12 +2,12 @@
 // Created by yhkim on 12/28/25.
 //
 
-#include "mosaic/auto_configurer/config_reader/config_reader_resolver.h"
+#include "mosaic/auto_configurer/config_reader/config_reader_resolver.hpp"
 
 #include <filesystem>
 #include <stdexcept>
 
-#include "mosaic/auto_configurer/config_reader/yaml_config_reader.h"
+#include "mosaic/auto_configurer/config_reader/yaml_config_reader.hpp"
 
 using namespace mosaic::auto_configurer;
 

@@ -2,12 +2,11 @@
 // Created by yhkim on 2026. 2. 4.
 //
 
-#include "bind_core.h"
+#include "bind_core.hpp"
 
 #include <memory>
 
-#include "mosaic/core/mosaic_connector.h"
-#include "mosaic/core/mosaic_connector_factory.h"
+#include "mosaic/core/mosaic_connector.hpp"
 
 void bind_core(py::module_& m) {
     using namespace mosaic::core;

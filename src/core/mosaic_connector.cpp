@@ -2,13 +2,15 @@
 // Created by yhkim on 25. 6. 3.
 //
 
+#include "mosaic/core/mosaic_connector.hpp"
+
 #include <utility>
 
 #include <api/audio_codecs/builtin_audio_decoder_factory.h>
 #include <api/video_codecs/video_decoder_factory_template.h>
-#include <mosaic/core/mosaic_connector.h>
-#include <mosaic/core/peer_connection_observer.h>
-#include <mosaic/logger/log.h>
+
+#include "mosaic/core/peer_connection_observer.hpp"
+#include "mosaic/logger/log.hpp"
 
 using namespace mosaic::core;
 

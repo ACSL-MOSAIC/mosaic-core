@@ -2,13 +2,10 @@
 // Created by yhkim on 1/30/26.
 //
 
-#include "mosaic/security/authenticator_resolver.h"
+#include "mosaic/security/authenticator_resolver.hpp"
 
-#include <iostream>
-
-#include "mosaic/logger/log.h"
-#include "mosaic/security/impl/no_auth_authenticator.h"
-#include "mosaic/security/impl/simple_token_authenticator.h"
+#include "mosaic/security/impl/no_auth_authenticator.hpp"
+#include "mosaic/security/impl/simple_token_authenticator.hpp"
 
 using namespace mosaic::security;
 

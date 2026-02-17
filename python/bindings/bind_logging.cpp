@@ -2,12 +2,12 @@
 // Created by yhkim on 2026. 2. 4.
 //
 
-#include "bind_logging.h"
+#include "bind_logging.hpp"
 
 #include <pybind11/stl.h>
 
-#include "mosaic/logger/i_logger.h"
-#include "mosaic/logger/webrtc_log.h"
+#include "mosaic/logger/i_logger.hpp"
+#include "mosaic/logger/webrtc_log.hpp"
 
 namespace {
 
@@ -43,22 +43,25 @@ void bind_logging(py::module_& m) {
     py::class_<mosaic::core_log::ILogger, std::shared_ptr<mosaic::core_log::ILogger>, PyILogger>(m, "ILogger")
         .def(py::init<>())
         .def("log", &mosaic::core_log::ILogger::LOG)
-        .def("log_debug",
-             static_cast<void (mosaic::core_log::ILogger::*)(const std::string&)>(&mosaic::core_log::ILogger::LOG_DEBUG))
+        .def(
+            "log_debug",
+            static_cast<void (mosaic::core_log::ILogger::*)(const std::string&)>(&mosaic::core_log::ILogger::LOG_DEBUG))
         .def("log_warning",
              static_cast<void (mosaic::core_log::ILogger::*)(const std::string&)>(
                  &mosaic::core_log::ILogger::LOG_WARNING))
         .def("log_info",
              static_cast<void (mosaic::core_log::ILogger::*)(const std::string&)>(&mosaic::core_log::ILogger::LOG_INFO))
-        .def("log_error",
-             static_cast<void (mosaic::core_log::ILogger::*)(const std::string&)>(&mosaic::core_log::ILogger::LOG_ERROR))
+        .def(
+            "log_error",
+            static_cast<void (mosaic::core_log::ILogger::*)(const std::string&)>(&mosaic::core_log::ILogger::LOG_ERROR))
         .def_static("get_log_level", &mosaic::core_log::ILogger::GetLogLevel)
         .def_static("is_debug_enabled", &mosaic::core_log::ILogger::IsDebugEnabled)
         .def_static("is_info_enabled", &mosaic::core_log::ILogger::IsInfoEnabled)
         .def_static("is_warning_enabled", &mosaic::core_log::ILogger::IsWarningEnabled)
         .def_static("is_error_enabled", &mosaic::core_log::ILogger::IsErrorEnabled);
 
-    // LogService free functions (LogService itself cannot be bound with py::class_ as it's a singleton with private constructor/destructor)
+    // LogService free functions (LogService itself cannot be bound with py::class_ as it's a singleton with private
+    // constructor/destructor)
     m.def("get_logger", &mosaic::core_log::GetLogger);
     m.def("set_log_level", &mosaic::core_log::SetLogLevel);
     m.def("get_log_level", &mosaic::core_log::GetLogLevel);

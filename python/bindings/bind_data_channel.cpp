@@ -2,15 +2,15 @@
 // Created by yhkim on 2026. 2. 4.
 //
 
-#include "bind_data_channel.h"
+#include "bind_data_channel.hpp"
 
 #include <memory>
 
 #include <json/json.h>
 #include <pybind11/stl.h>
 
-#include "mosaic/handlers/data_channel/data_channel_receivable.h"
-#include "mosaic/handlers/data_channel/data_channel_sendable.h"
+#include "mosaic/handlers/data_channel/data_channel_receivable.hpp"
+#include "mosaic/handlers/data_channel/data_channel_sendable.hpp"
 
 // Json::Value ↔ Python object type caster
 // pybind11::cast is shadowed by the class member cast inside type_caster,
@@ -161,18 +161,24 @@ void bind_data_channel(py::module_& m) {
         .def("close", &ADataChannelHandler::CloseDataChannel);
 
     // Receivable classes (Python subclasses can override handle_data)
-    py::class_<DataChannelStringReceivable, std::shared_ptr<DataChannelStringReceivable>, ADataChannelHandler, PyDataChannelStringReceivable>(
-        m, "DataChannelStringReceivable")
+    py::class_<DataChannelStringReceivable,
+               std::shared_ptr<DataChannelStringReceivable>,
+               ADataChannelHandler,
+               PyDataChannelStringReceivable>(m, "DataChannelStringReceivable")
         .def(py::init<const std::string&>())
         .def("handle_data", [](DataChannelStringReceivable&, py::object) {});
 
-    py::class_<DataChannelJsonReceivable, std::shared_ptr<DataChannelJsonReceivable>, ADataChannelHandler, PyDataChannelJsonReceivable>(m,
-                                                                                            "DataChannelJsonReceivable")
+    py::class_<DataChannelJsonReceivable,
+               std::shared_ptr<DataChannelJsonReceivable>,
+               ADataChannelHandler,
+               PyDataChannelJsonReceivable>(m, "DataChannelJsonReceivable")
         .def(py::init<const std::string&>())
         .def("handle_data", [](DataChannelJsonReceivable&, py::object) {});
 
-    py::class_<DataChannelByteReceivable, std::shared_ptr<DataChannelByteReceivable>, ADataChannelHandler, PyDataChannelByteReceivable>(m,
-                                                                                            "DataChannelByteReceivable")
+    py::class_<DataChannelByteReceivable,
+               std::shared_ptr<DataChannelByteReceivable>,
+               ADataChannelHandler,
+               PyDataChannelByteReceivable>(m, "DataChannelByteReceivable")
         .def(py::init<const std::string&>())
         .def("handle_data", [](DataChannelByteReceivable&, py::object) {});
 

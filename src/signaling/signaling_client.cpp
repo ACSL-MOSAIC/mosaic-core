@@ -2,10 +2,13 @@
 // Created by yhkim on 25. 6. 2.
 //
 
+#include "signaling_client.hpp"
+
 #include <api/jsep.h>
 #include <json/json.h>
-#include <mosaic/logger/log.h>
-#include <mosaic/signaling/signaling_client.h>
+
+#include "mosaic/logger/log.hpp"
+#include "websocket_client_impl.hpp"
 
 using namespace mosaic::core_signaling;
 
@@ -98,7 +101,7 @@ bool SignalingClient::IsAuthenticated() const {
 }
 
 void SignalingClient::StartInternal() {
-    ws_client_ = std::make_unique<WebSocketClient>();
+    ws_client_ = std::make_unique<WebSocketClient>(std::make_shared<WebSocketClientImpl>());
 
     ws_client_->setOnConnected([this]() {
         MOSAIC_LOG_INFO("Connected to WebSocket server.");

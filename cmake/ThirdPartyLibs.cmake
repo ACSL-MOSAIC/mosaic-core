@@ -1,21 +1,4 @@
 ################################################################################
-# Find External Libraries
-################################################################################
-
-if (POLICY CMP0167)
-    cmake_policy(SET CMP0167 NEW)
-endif ()
-if (POLICY CMP0148)
-    cmake_policy(SET CMP0148 NEW)
-endif ()
-
-find_package(cpprestsdk REQUIRED)
-find_package(fmt REQUIRED)
-find_package(yaml-cpp REQUIRED)
-find_package(OpenCV REQUIRED)
-find_package(jsoncpp REQUIRED)
-
-################################################################################
 # WebRTC related Settings
 ################################################################################
 set(WEBRTC_HEADERS_ROOT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/third_party/webrtc/src")

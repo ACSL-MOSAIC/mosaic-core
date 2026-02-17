@@ -1,5 +1,5 @@
 //
-// Created by Yeonhyuk Kim on 2025. 11. 17.
+// Created by yhkim on 2025. 11. 17.
 //
 
 #include <chrono>
@@ -7,9 +7,10 @@
 #include <thread>
 
 #include <gtest/gtest.h>
-#include <mosaic/logger/i_logger.h>
-#include <mosaic/logger/log.h>
-#include <mosaic/signaling/websocket_client.h>
+
+#include "mosaic/logger/i_logger.hpp"
+#include "mosaic/logger/log.hpp"
+#include "mosaic/signaling/websocket_client.hpp"
 
 class LoggingLevelTester : public mosaic::core_log::ILogger {
   public:

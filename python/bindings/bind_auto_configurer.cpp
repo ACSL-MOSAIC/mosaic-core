@@ -2,7 +2,7 @@
 // Created by yhkim on 2026. 2. 4.
 //
 
-#include "bind_auto_configurer.h"
+#include "bind_auto_configurer.hpp"
 
 #include <memory>
 #include <string>
@@ -11,12 +11,10 @@
 
 #include <pybind11/stl.h>
 
-#include "mosaic/auto_configurer/auto_configurer.h"
-#include "mosaic/auto_configurer/connector/a_dc_handler_configurer.h"
-#include "mosaic/auto_configurer/connector/a_mt_handler_configurer.h"
-#include "mosaic/auto_configurer/connector/a_parallel_dc_handler_configurer.h"
-#include "mosaic/auto_configurer/connector/configurable_connector_factory.h"
-#include "mosaic/auto_configurer/connector/connector_resolver.h"
+#include "mosaic/auto_configurer/auto_configurer.hpp"
+#include "mosaic/auto_configurer/connector/configurable_connector_factory.hpp"
+#include "mosaic/auto_configurer/connector/configurable_connectors.hpp"
+#include "mosaic/auto_configurer/connector/connector_resolver.hpp"
 
 namespace {
 
@@ -121,9 +119,9 @@ class PyAMTHandlerConfigurer : public AMTHandlerConfigurer {
 };
 
 // --- Trampoline: AParallelDCHandlerConfigurer ---
-class PyAParallelDCHandlerConfigurer : public AParallelDCHandlerConfigurer {
+class PyAParallelDCHandlerConfigurer : public AMultipleDCHandlerConfigurer {
   public:
-    using AParallelDCHandlerConfigurer::AParallelDCHandlerConfigurer;
+    using AMultipleDCHandlerConfigurer::AMultipleDCHandlerConfigurer;
 
     [[nodiscard]] std::string GetConnectorType() const override {
         py::gil_scoped_acquire gil;
@@ -252,18 +250,18 @@ void bind_auto_configurer(py::module_& m) {
             "Set the media track handler (use this in Python configure() method)");
 
     // AParallelDCHandlerConfigurer (abstract, inherits IConfigurableConnector)
-    py::class_<AParallelDCHandlerConfigurer,
-               std::shared_ptr<AParallelDCHandlerConfigurer>,
+    py::class_<AMultipleDCHandlerConfigurer,
+               std::shared_ptr<AMultipleDCHandlerConfigurer>,
                IConfigurableConnector,
                PyAParallelDCHandlerConfigurer>(m, "AParallelDCHandlerConfigurer")
         .def(py::init<>())
-        .def("get_connector_type", [](AParallelDCHandlerConfigurer&) -> std::string { return {}; })
-        .def("validate_config", [](AParallelDCHandlerConfigurer&) {})
-        .def("configure", [](AParallelDCHandlerConfigurer&) {})
-        .def("get_handlers", &AParallelDCHandlerConfigurer::GetHandlers)
+        .def("get_connector_type", [](AMultipleDCHandlerConfigurer&) -> std::string { return {}; })
+        .def("validate_config", [](AMultipleDCHandlerConfigurer&) {})
+        .def("configure", [](AMultipleDCHandlerConfigurer&) {})
+        .def("get_handlers", &AMultipleDCHandlerConfigurer::GetHandlers)
         .def(
             "set_handlers",
-            [](AParallelDCHandlerConfigurer& self, const std::vector<std::shared_ptr<IDataChannelHandler>>& hs) {
+            [](AMultipleDCHandlerConfigurer& self, const std::vector<std::shared_ptr<IDataChannelHandler>>& hs) {
                 dynamic_cast<PyAParallelDCHandlerConfigurer&>(self).SetHandlers(hs);
             },
             "Set the data channel handlers (use this in Python configure() method)");

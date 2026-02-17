@@ -2,7 +2,8 @@
 // Created by yhkim on 25. 7. 3.
 //
 
-#include <mosaic/logger/webrtc_log.h>
+#include "mosaic/logger/webrtc_log.hpp"
+
 #include <rtc_base/logging.h>
 
 void mosaic::core_log::SetWebRTCLogLevel(const WebRTCLogLevel level) {
