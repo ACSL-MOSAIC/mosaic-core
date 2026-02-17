@@ -26,7 +26,7 @@ setup(
     description="MOSAIC Core Python Bindings",
     long_description=open("@CMAKE_CURRENT_SOURCE_DIR@/README.md").read() if os.path.exists("@CMAKE_CURRENT_SOURCE_DIR@/README.md") else "",
     packages=["mosaic_core"],
-    package_dir={"mosaic_core": "@CMAKE_BINARY_DIR@/mosaic_core"},
+    package_dir={"mosaic_core": "@CMAKE_CURRENT_BINARY_DIR@/mosaic_core"},
     ext_modules=[CMakeExtension("mosaic_core")],
     cmdclass={"build_ext": BuildExt},
     zip_safe=False,
