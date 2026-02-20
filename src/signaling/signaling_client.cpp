@@ -163,6 +163,8 @@ void SignalingClient::OnMessage(Json::Value const& message) const {
         HandleCloseConnection();
     } else if (type.rfind("authorize", 0) == 0) {
         HandleAuthorizationMessage(type, message["data"]);
+    } else if (type == "ping.ping") {
+        HandlePingPong(message);
     } else {
         MOSAIC_LOG_DEBUG("Received unknown message type: {}", type);
     }
@@ -172,6 +174,12 @@ void SignalingClient::SendWsMessage(const Json::Value& message) const {
     if (ws_client_->isConnected()) {
         ws_client_->sendJson(message);
     }
+}
+
+void SignalingClient::HandlePingPong(const Json::Value& message) const {
+    auto responseJson = message;
+    responseJson["type"] = "ping.pong";
+    SendWsMessage(responseJson);
 }
 
 void SignalingClient::HandleSendSdpOffer(const Json::Value& message) const {

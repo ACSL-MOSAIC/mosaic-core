@@ -113,6 +113,7 @@ void WebSocketClientImpl::send(const std::string& message) const {
         MOSAIC_LOG_ERROR("Failed to send message: {}", message);
         throw std::runtime_error("Failed to send message");
     }
+    MOSAIC_LOG_INFO("WS Message Sent: {}", message.substr(0, 100) + (message.size() > 100 ? "..." : ""));
 }
 
 void WebSocketClientImpl::sendJson(const Json::Value& jsonMessage) const {

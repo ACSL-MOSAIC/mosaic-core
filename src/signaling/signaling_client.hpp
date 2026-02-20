@@ -44,6 +44,8 @@ class SignalingClient : public ISignalingClient {
 
     void OnMessage(Json::Value const& message) const;
 
+    void HandlePingPong(Json::Value const& message) const;
+
     void HandleSendSdpOffer(Json::Value const& message) const;
 
     void HandleExchangeIceCandidate(Json::Value const& message) const;
