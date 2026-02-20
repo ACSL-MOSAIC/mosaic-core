@@ -160,6 +160,8 @@ Private Member Functions</h2></td></tr>
 <tr class="separator:aa6c97ccde9ca1d131db4a7cda1136514"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae004600dc921187406a5f4710b365532" id="r_ae004600dc921187406a5f4710b365532"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#ae004600dc921187406a5f4710b365532">OnMessage</a> (Json::Value const &amp;message) const</td></tr>
 <tr class="separator:ae004600dc921187406a5f4710b365532"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab39d85172b0f3269f6667ec09efd4ae8" id="r_ab39d85172b0f3269f6667ec09efd4ae8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#ab39d85172b0f3269f6667ec09efd4ae8">HandlePingPong</a> (Json::Value const &amp;message) const</td></tr>
+<tr class="separator:ab39d85172b0f3269f6667ec09efd4ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1ded64c306cc0b1e9483d8b2c9d91677" id="r_a1ded64c306cc0b1e9483d8b2c9d91677"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a1ded64c306cc0b1e9483d8b2c9d91677">HandleSendSdpOffer</a> (Json::Value const &amp;message) const</td></tr>
 <tr class="separator:a1ded64c306cc0b1e9483d8b2c9d91677"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a33dbc9df49bff4eb16a5225b2dc6efc8" id="r_a33dbc9df49bff4eb16a5225b2dc6efc8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a33dbc9df49bff4eb16a5225b2dc6efc8">HandleExchangeIceCandidate</a> (Json::Value const &amp;message) const</td></tr>
@@ -284,9 +286,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00204">204</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00212">212</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00056">authenticator_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00058">authenticator_</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00153">OnMessage()</a>.</p>
 
@@ -315,9 +317,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00200">200</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00208">208</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00055">mosaic_connector_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00057">mosaic_connector_</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00153">OnMessage()</a>.</p>
 
@@ -347,9 +349,41 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00188">188</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00196">196</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00055">mosaic_connector_</a>, <a class="el" href="log_8hpp_source.html#l00014">MOSAIC_LOG_WARNING</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00216">ResolveIceCandidate()</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00057">mosaic_connector_</a>, <a class="el" href="log_8hpp_source.html#l00014">MOSAIC_LOG_WARNING</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00224">ResolveIceCandidate()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00153">OnMessage()</a>.</p>
+
+</div>
+</div>
+<a id="ab39d85172b0f3269f6667ec09efd4ae8" name="ab39d85172b0f3269f6667ec09efd4ae8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab39d85172b0f3269f6667ec09efd4ae8">&#9670;&#160;</a></span>HandlePingPong()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void SignalingClient::HandlePingPong </td>
+          <td>(</td>
+          <td class="paramtype">Json::Value const &amp;&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00179">179</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
+
+<p class="reference">References <a class="el" href="signaling__client_8cpp_source.html#l00173">SendWsMessage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00153">OnMessage()</a>.</p>
 
@@ -379,9 +413,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00177">177</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00185">185</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00055">mosaic_connector_</a>, <a class="el" href="log_8hpp_source.html#l00014">MOSAIC_LOG_WARNING</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00240">ResolveSdpOffer()</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00057">mosaic_connector_</a>, <a class="el" href="log_8hpp_source.html#l00014">MOSAIC_LOG_WARNING</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00248">ResolveSdpOffer()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00153">OnMessage()</a>.</p>
 
@@ -414,7 +448,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00099">99</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00056">authenticator_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00058">authenticator_</a>.</p>
 
 </div>
 </div>
@@ -444,7 +478,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00153">153</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8cpp_source.html#l00204">HandleAuthorizationMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00200">HandleCloseConnection()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00188">HandleExchangeIceCandidate()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00177">HandleSendSdpOffer()</a>, and <a class="el" href="log_8hpp_source.html#l00012">MOSAIC_LOG_DEBUG</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8cpp_source.html#l00212">HandleAuthorizationMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00208">HandleCloseConnection()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00196">HandleExchangeIceCandidate()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00179">HandlePingPong()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00185">HandleSendSdpOffer()</a>, and <a class="el" href="log_8hpp_source.html#l00012">MOSAIC_LOG_DEBUG</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00136">OnWsMessage()</a>.</p>
 
@@ -510,7 +544,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00053">53</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00061">current_rtc_connection_id_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00057">is_connected_</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00171">SendWsMessage()</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00063">current_rtc_connection_id_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00059">is_connected_</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00173">SendWsMessage()</a>.</p>
 
 </div>
 </div>
@@ -542,7 +576,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00036">36</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00061">current_rtc_connection_id_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00057">is_connected_</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00171">SendWsMessage()</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00063">current_rtc_connection_id_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00059">is_connected_</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00173">SendWsMessage()</a>.</p>
 
 </div>
 </div>
@@ -574,7 +608,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00076">76</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00057">is_connected_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00060">latest_state_</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00171">SendWsMessage()</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00059">is_connected_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00062">latest_state_</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00173">SendWsMessage()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00103">StartInternal()</a>.</p>
 
@@ -606,11 +640,11 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#a5957bc7504725488bb5e499e4705aff0">mosaic::core_signaling::ISignalingClient</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00171">171</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00173">173</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00059">ws_client_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00061">ws_client_</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00053">SendIceCandidate()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00036">SendSdpAnswer()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00076">SendState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00179">HandlePingPong()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00053">SendIceCandidate()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00036">SendSdpAnswer()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00076">SendState()</a>.</p>
 
 </div>
 </div>
@@ -642,7 +676,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00095">95</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00056">authenticator_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00058">authenticator_</a>.</p>
 
 </div>
 </div>
@@ -674,7 +708,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00091">91</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00055">mosaic_connector_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00057">mosaic_connector_</a>.</p>
 
 </div>
 </div>
@@ -734,7 +768,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00103">103</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00057">is_connected_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00060">latest_state_</a>, <a class="el" href="log_8hpp_source.html#l00018">MOSAIC_LOG_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00016">MOSAIC_LOG_INFO</a>, <a class="el" href="signaling__client_8cpp_source.html#l00136">OnWsMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00076">SendState()</a>, <a class="el" href="signaling__client_8hpp_source.html#l00059">ws_client_</a>, and <a class="el" href="signaling__client_8hpp_source.html#l00058">ws_uri_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00059">is_connected_</a>, <a class="el" href="signaling__client_8hpp_source.html#l00062">latest_state_</a>, <a class="el" href="log_8hpp_source.html#l00018">MOSAIC_LOG_ERROR</a>, <a class="el" href="log_8hpp_source.html#l00016">MOSAIC_LOG_INFO</a>, <a class="el" href="signaling__client_8cpp_source.html#l00136">OnWsMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00076">SendState()</a>, <a class="el" href="signaling__client_8hpp_source.html#l00061">ws_client_</a>, and <a class="el" href="signaling__client_8hpp_source.html#l00060">ws_uri_</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00025">Start()</a>.</p>
 
@@ -767,7 +801,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="signaling__client_8cpp_source.html#l00029">29</a> of file <a class="el" href="signaling__client_8cpp_source.html">signaling_client.cpp</a>.</p>
 
-<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00057">is_connected_</a>, and <a class="el" href="signaling__client_8hpp_source.html#l00059">ws_client_</a>.</p>
+<p class="reference">References <a class="el" href="signaling__client_8hpp_source.html#l00059">is_connected_</a>, and <a class="el" href="signaling__client_8hpp_source.html#l00061">ws_client_</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00021">~SignalingClient()</a>.</p>
 
@@ -794,9 +828,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00056">56</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00058">58</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00204">HandleAuthorizationMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00099">IsAuthenticated()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00095">SetAuthenticator()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00212">HandleAuthorizationMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00099">IsAuthenticated()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00095">SetAuthenticator()</a>.</p>
 
 </div>
 </div>
@@ -820,7 +854,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00061">61</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00063">63</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00053">SendIceCandidate()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00036">SendSdpAnswer()</a>.</p>
 
@@ -846,7 +880,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00057">57</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00059">59</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00053">SendIceCandidate()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00036">SendSdpAnswer()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00076">SendState()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00103">StartInternal()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00029">Stop()</a>.</p>
 
@@ -872,7 +906,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00060">60</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00062">62</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00076">SendState()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00103">StartInternal()</a>.</p>
 
@@ -898,9 +932,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00055">55</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00057">57</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00200">HandleCloseConnection()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00188">HandleExchangeIceCandidate()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00177">HandleSendSdpOffer()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00091">SetMosaicConnector()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00208">HandleCloseConnection()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00196">HandleExchangeIceCandidate()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00185">HandleSendSdpOffer()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00091">SetMosaicConnector()</a>.</p>
 
 </div>
 </div>
@@ -924,9 +958,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00059">59</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00061">61</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00171">SendWsMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00103">StartInternal()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00029">Stop()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00173">SendWsMessage()</a>, <a class="el" href="signaling__client_8cpp_source.html#l00103">StartInternal()</a>, and <a class="el" href="signaling__client_8cpp_source.html#l00029">Stop()</a>.</p>
 
 </div>
 </div>
@@ -950,7 +984,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00058">58</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="signaling__client_8hpp_source.html#l00060">60</a> of file <a class="el" href="signaling__client_8hpp_source.html">signaling_client.hpp</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="signaling__client_8cpp_source.html#l00103">StartInternal()</a>.</p>
 
@@ -966,7 +1000,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacemosaic.html">mosaic</a></li><li class="navelem"><a class="el" href="namespacemosaic_1_1core__signaling.html">core_signaling</a></li><li class="navelem"><a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html">SignalingClient</a></li>
-    <li class="footer">Generated on Tue Feb 17 2026 13:15:56 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Fri Feb 20 2026 08:46:07 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

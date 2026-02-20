@@ -5,6 +5,7 @@ var classmosaic_1_1core__signaling_1_1SignalingClient =
     [ "HandleAuthorizationMessage", "classmosaic_1_1core__signaling_1_1SignalingClient.html#a8950ab3377bc47664e3d63e91be2d1eb", null ],
     [ "HandleCloseConnection", "classmosaic_1_1core__signaling_1_1SignalingClient.html#ae89fae7e985b4531d4c27869fdd7d520", null ],
     [ "HandleExchangeIceCandidate", "classmosaic_1_1core__signaling_1_1SignalingClient.html#a33dbc9df49bff4eb16a5225b2dc6efc8", null ],
+    [ "HandlePingPong", "classmosaic_1_1core__signaling_1_1SignalingClient.html#ab39d85172b0f3269f6667ec09efd4ae8", null ],
     [ "HandleSendSdpOffer", "classmosaic_1_1core__signaling_1_1SignalingClient.html#a1ded64c306cc0b1e9483d8b2c9d91677", null ],
     [ "IsAuthenticated", "classmosaic_1_1core__signaling_1_1SignalingClient.html#a70e808edeaa235d163605ece99e438ab", null ],
     [ "OnMessage", "classmosaic_1_1core__signaling_1_1SignalingClient.html#ae004600dc921187406a5f4710b365532", null ],

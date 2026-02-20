@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"data__channel__receivable_8hpp_source.html":[3,0,0,0,2,0,1],
+"data__channel__sendable_8cpp.html":[3,0,1,3,0,2],
 "data__channel__sendable_8cpp_source.html":[3,0,1,3,0,2],
 "data__channel__sendable_8hpp.html":[3,0,0,0,2,0,2],
 "data__channel__sendable_8hpp_source.html":[3,0,0,0,2,0,2],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "structmosaic_1_1core_1_1ConnectorConfig.html#acf8e7f84f545a341c6855f12437d3e18":[2,0,0,1,1,0],
 "structmosaic_1_1core_1_1IceServerConfig.html":[1,0,1,1,4],
 "structmosaic_1_1core_1_1IceServerConfig.html":[2,0,0,1,4],
-"structmosaic_1_1core_1_1IceServerConfig.html#a0de5a304a4c35d47720461f410a53632":[1,0,1,1,4,0],
-"structmosaic_1_1core_1_1IceServerConfig.html#a0de5a304a4c35d47720461f410a53632":[2,0,0,1,4,0],
-"structmosaic_1_1core_1_1IceServerConfig.html#a35de79d1afa269f552bf0e9cf9d5454a":[1,0,1,1,4,1]
+"structmosaic_1_1core_1_1IceServerConfig.html#a0de5a304a4c35d47720461f410a53632":[1,0,1,1,4,0]
 };

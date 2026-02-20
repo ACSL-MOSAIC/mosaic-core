@@ -1,5 +1,7 @@
 var NAVTREEINDEX6 =
 {
+"structmosaic_1_1core_1_1IceServerConfig.html#a0de5a304a4c35d47720461f410a53632":[2,0,0,1,4,0],
+"structmosaic_1_1core_1_1IceServerConfig.html#a35de79d1afa269f552bf0e9cf9d5454a":[1,0,1,1,4,1],
 "structmosaic_1_1core_1_1IceServerConfig.html#a35de79d1afa269f552bf0e9cf9d5454a":[2,0,0,1,4,1],
 "structmosaic_1_1core_1_1IceServerConfig.html#a3e180773d1d8f1deb4b6e82d70abe67c":[2,0,0,1,4,2],
 "structmosaic_1_1core_1_1IceServerConfig.html#a3e180773d1d8f1deb4b6e82d70abe67c":[1,0,1,1,4,2],

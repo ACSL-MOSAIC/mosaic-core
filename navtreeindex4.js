@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"classmosaic_1_1handlers_1_1DataChannelSendable.html#a3ce6491e7f34d16326cc77875c92069d":[1,0,1,4,7,2],
+"classmosaic_1_1handlers_1_1DataChannelSendable.html#a3ce6491e7f34d16326cc77875c92069d":[2,0,0,4,7,2],
 "classmosaic_1_1handlers_1_1DataChannelSendable.html#a4346a082a228bda87dbed194278391a1":[1,0,1,4,7,1],
 "classmosaic_1_1handlers_1_1DataChannelSendable.html#a4346a082a228bda87dbed194278391a1":[2,0,0,4,7,1],
 "classmosaic_1_1handlers_1_1DataChannelSendable.html#a4e4df9eb58301763e9f8a99b348b424d":[1,0,1,4,7,5],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "data__channel__handler_8hpp_source.html":[3,0,0,0,2,0,0],
 "data__channel__receivable_8cpp.html":[3,0,1,3,0,1],
 "data__channel__receivable_8cpp_source.html":[3,0,1,3,0,1],
-"data__channel__receivable_8hpp.html":[3,0,0,0,2,0,1],
-"data__channel__receivable_8hpp_source.html":[3,0,0,0,2,0,1],
-"data__channel__sendable_8cpp.html":[3,0,1,3,0,2]
+"data__channel__receivable_8hpp.html":[3,0,0,0,2,0,1]
 };
