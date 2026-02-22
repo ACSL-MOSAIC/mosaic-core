@@ -9,6 +9,7 @@ var searchData=
   ['simple_5ftoken_6',['SIMPLE_TOKEN',['../classmosaic_1_1security_1_1AuthTypeConst.html#a7cd8f0abd01ab83f7d8213386bbcb319',1,'mosaic::security::AuthTypeConst']]],
   ['start_5ftime_5f_7',['start_time_',['../classmosaic_1_1auto__configurer_1_1impl_1_1OpenCVCameraMediaTrack.html#af65aa32a016e594e32e4cbb7b5722f84',1,'mosaic::auto_configurer::impl::OpenCVCameraMediaTrack']]],
   ['state_5f_8',['state_',['../classmosaic_1_1core_1_1ConnectorStateManager.html#a340155f84ef332df4a5937e8aefd7187',1,'mosaic::core::ConnectorStateManager']]],
-  ['state_5fmanager_5f_9',['state_manager_',['../classmosaic_1_1core_1_1MosaicConnector.html#a114b2196340168134e314a7fcc5be783',1,'mosaic::core::MosaicConnector::state_manager_'],['../classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#ad3146db6b5e77b17361c3d7f1e039fa2',1,'mosaic::core::PeerConnectionManager::Impl::state_manager_']]],
-  ['stop_5fflag_5f_10',['stop_flag_',['../classmosaic_1_1handlers_1_1ActualVideoTrackSource.html#a52d675a8fdf66522caded2ec43fa6d50',1,'mosaic::handlers::ActualVideoTrackSource']]]
+  ['state_5fbroadcast_5fthread_5f_9',['state_broadcast_thread_',['../classmosaic_1_1core_1_1ConnectorStateManager.html#a17b920fa54b0cc44f768d4cf662dcb30',1,'mosaic::core::ConnectorStateManager']]],
+  ['state_5fmanager_5f_10',['state_manager_',['../classmosaic_1_1core_1_1MosaicConnector.html#a114b2196340168134e314a7fcc5be783',1,'mosaic::core::MosaicConnector::state_manager_'],['../classmosaic_1_1core_1_1PeerConnectionManager_1_1Impl.html#ad3146db6b5e77b17361c3d7f1e039fa2',1,'mosaic::core::PeerConnectionManager::Impl::state_manager_']]],
+  ['stop_5fflag_5f_11',['stop_flag_',['../classmosaic_1_1core_1_1ConnectorStateManager.html#a3ed398abb416e62385bc4f0a547a25d9',1,'mosaic::core::ConnectorStateManager::stop_flag_'],['../classmosaic_1_1handlers_1_1ActualVideoTrackSource.html#a52d675a8fdf66522caded2ec43fa6d50',1,'mosaic::handlers::ActualVideoTrackSource::stop_flag_']]]
 ];

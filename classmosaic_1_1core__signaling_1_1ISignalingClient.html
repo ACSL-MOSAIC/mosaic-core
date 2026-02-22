@@ -139,6 +139,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a46c6ea9967bbf628ce89e7ab4071d041"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5957bc7504725488bb5e499e4705aff0" id="r_a5957bc7504725488bb5e499e4705aff0"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#a5957bc7504725488bb5e499e4705aff0">SendWsMessage</a> (const Json::Value &amp;message) const =0</td></tr>
 <tr class="separator:a5957bc7504725488bb5e499e4705aff0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a00ae745d4a8e45d01b995c17a78cd3" id="r_a1a00ae745d4a8e45d01b995c17a78cd3"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#a1a00ae745d4a8e45d01b995c17a78cd3">HandlePingPong</a> (Json::Value const &amp;message) const =0</td></tr>
+<tr class="separator:a1a00ae745d4a8e45d01b995c17a78cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae380cb0bdf6c7fbba0afe5976774d0bf" id="r_ae380cb0bdf6c7fbba0afe5976774d0bf"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#ae380cb0bdf6c7fbba0afe5976774d0bf">HandlePrepareConnection</a> (Json::Value const &amp;message)=0</td></tr>
+<tr class="separator:ae380cb0bdf6c7fbba0afe5976774d0bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaca04a7a9c8ac9a05f144e3de1cd3714" id="r_aaca04a7a9c8ac9a05f144e3de1cd3714"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#aaca04a7a9c8ac9a05f144e3de1cd3714">HandleSendSdpOffer</a> (Json::Value const &amp;message) const =0</td></tr>
+<tr class="separator:aaca04a7a9c8ac9a05f144e3de1cd3714"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadfa8f699392a95be73edac3d4a92452" id="r_aadfa8f699392a95be73edac3d4a92452"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#aadfa8f699392a95be73edac3d4a92452">HandleExchangeIceCandidate</a> (Json::Value const &amp;message) const =0</td></tr>
+<tr class="separator:aadfa8f699392a95be73edac3d4a92452"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad26d8e9f806e646b9750ea617dde5394" id="r_ad26d8e9f806e646b9750ea617dde5394"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#ad26d8e9f806e646b9750ea617dde5394">HandleCloseConnection</a> () const =0</td></tr>
+<tr class="separator:ad26d8e9f806e646b9750ea617dde5394"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57303e10123f60aeecfedcd4b5e1b111" id="r_a57303e10123f60aeecfedcd4b5e1b111"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html#a57303e10123f60aeecfedcd4b5e1b111">HandleAuthorizationMessage</a> (const std::string &amp;type, Json::Value const &amp;message) const =0</td></tr>
+<tr class="separator:a57303e10123f60aeecfedcd4b5e1b111"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
@@ -170,6 +182,183 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a57303e10123f60aeecfedcd4b5e1b111" name="a57303e10123f60aeecfedcd4b5e1b111"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57303e10123f60aeecfedcd4b5e1b111">&#9670;&#160;</a></span>HandleAuthorizationMessage()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mosaic::core_signaling::ISignalingClient::HandleAuthorizationMessage </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>type</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Json::Value const &amp;&#160;</td>
+          <td class="paramname"><em>message</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#aba4b7899916b72743d3d4f54888065bf">mosaic::core_signaling::SignalingClient</a>.</p>
+
+</div>
+</div>
+<a id="ad26d8e9f806e646b9750ea617dde5394" name="ad26d8e9f806e646b9750ea617dde5394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad26d8e9f806e646b9750ea617dde5394">&#9670;&#160;</a></span>HandleCloseConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mosaic::core_signaling::ISignalingClient::HandleCloseConnection </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a4309eaaaabbdc49a3b288bd3775403be">mosaic::core_signaling::SignalingClient</a>.</p>
+
+</div>
+</div>
+<a id="aadfa8f699392a95be73edac3d4a92452" name="aadfa8f699392a95be73edac3d4a92452"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadfa8f699392a95be73edac3d4a92452">&#9670;&#160;</a></span>HandleExchangeIceCandidate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mosaic::core_signaling::ISignalingClient::HandleExchangeIceCandidate </td>
+          <td>(</td>
+          <td class="paramtype">Json::Value const &amp;&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#acde93ab8ac96b692bc57fc13216c469d">mosaic::core_signaling::SignalingClient</a>.</p>
+
+</div>
+</div>
+<a id="a1a00ae745d4a8e45d01b995c17a78cd3" name="a1a00ae745d4a8e45d01b995c17a78cd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a00ae745d4a8e45d01b995c17a78cd3">&#9670;&#160;</a></span>HandlePingPong()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mosaic::core_signaling::ISignalingClient::HandlePingPong </td>
+          <td>(</td>
+          <td class="paramtype">Json::Value const &amp;&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#ad52106390417325fcb50e9e85133f8e4">mosaic::core_signaling::SignalingClient</a>.</p>
+
+</div>
+</div>
+<a id="ae380cb0bdf6c7fbba0afe5976774d0bf" name="ae380cb0bdf6c7fbba0afe5976774d0bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae380cb0bdf6c7fbba0afe5976774d0bf">&#9670;&#160;</a></span>HandlePrepareConnection()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mosaic::core_signaling::ISignalingClient::HandlePrepareConnection </td>
+          <td>(</td>
+          <td class="paramtype">Json::Value const &amp;&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a183da501b7288711ea8a86c1041705de">mosaic::core_signaling::SignalingClient</a>.</p>
+
+</div>
+</div>
+<a id="aaca04a7a9c8ac9a05f144e3de1cd3714" name="aaca04a7a9c8ac9a05f144e3de1cd3714"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaca04a7a9c8ac9a05f144e3de1cd3714">&#9670;&#160;</a></span>HandleSendSdpOffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void mosaic::core_signaling::ISignalingClient::HandleSendSdpOffer </td>
+          <td>(</td>
+          <td class="paramtype">Json::Value const &amp;&#160;</td>
+          <td class="paramname"><em>message</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classmosaic_1_1core__signaling_1_1SignalingClient.html#a2fb8ed0a748a87ebdee7b4489ebad580">mosaic::core_signaling::SignalingClient</a>.</p>
+
+</div>
+</div>
 <a id="a46c6ea9967bbf628ce89e7ab4071d041" name="a46c6ea9967bbf628ce89e7ab4071d041"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a46c6ea9967bbf628ce89e7ab4071d041">&#9670;&#160;</a></span>IsAuthenticated()</h2>
 
@@ -428,7 +617,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespacemosaic.html">mosaic</a></li><li class="navelem"><a class="el" href="namespacemosaic_1_1core__signaling.html">core_signaling</a></li><li class="navelem"><a class="el" href="classmosaic_1_1core__signaling_1_1ISignalingClient.html">ISignalingClient</a></li>
-    <li class="footer">Generated on Fri Feb 20 2026 08:46:07 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
+    <li class="footer">Generated on Sun Feb 22 2026 02:29:26 for MOSAIC RTC Core by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.8 </li>
   </ul>
 </div>
 </body>

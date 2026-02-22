@@ -8,5 +8,6 @@ var searchData=
   ['connector_5fconfig_5f_5',['connector_config_',['../classmosaic_1_1auto__configurer_1_1IConfigurableConnector.html#a0e470e33f2a9087756f3ab86613f777f',1,'mosaic::auto_configurer::IConfigurableConnector']]],
   ['connectors_6',['connectors',['../structmosaic_1_1core_1_1MosaicConfig.html#acf126faff37726768948bf2ed41d30cf',1,'mosaic::core::MosaicConfig']]],
   ['credential_7',['credential',['../structmosaic_1_1core_1_1IceServerConfig.html#a0de5a304a4c35d47720461f410a53632',1,'mosaic::core::IceServerConfig']]],
-  ['current_5frtc_5fconnection_5fid_5f_8',['current_rtc_connection_id_',['../classmosaic_1_1core__signaling_1_1SignalingClient.html#ac0b87cb75329af095833ef62efcffa54',1,'mosaic::core_signaling::SignalingClient']]]
+  ['current_5frtc_5fconnection_5fid_5f_8',['current_rtc_connection_id_',['../classmosaic_1_1core__signaling_1_1SignalingClient.html#ac0b87cb75329af095833ef62efcffa54',1,'mosaic::core_signaling::SignalingClient']]],
+  ['cv_5f_9',['cv_',['../classmosaic_1_1core_1_1ConnectorStateManager.html#a1bb3460b28e30352dc3a807caf86ba09',1,'mosaic::core::ConnectorStateManager']]]
 ];

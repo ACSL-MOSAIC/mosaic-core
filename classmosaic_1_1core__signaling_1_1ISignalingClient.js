@@ -1,6 +1,12 @@
 var classmosaic_1_1core__signaling_1_1ISignalingClient =
 [
     [ "~ISignalingClient", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#a00bacb6264e81b68353bf2f3bc5fbde4", null ],
+    [ "HandleAuthorizationMessage", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#a57303e10123f60aeecfedcd4b5e1b111", null ],
+    [ "HandleCloseConnection", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#ad26d8e9f806e646b9750ea617dde5394", null ],
+    [ "HandleExchangeIceCandidate", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#aadfa8f699392a95be73edac3d4a92452", null ],
+    [ "HandlePingPong", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#a1a00ae745d4a8e45d01b995c17a78cd3", null ],
+    [ "HandlePrepareConnection", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#ae380cb0bdf6c7fbba0afe5976774d0bf", null ],
+    [ "HandleSendSdpOffer", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#aaca04a7a9c8ac9a05f144e3de1cd3714", null ],
     [ "IsAuthenticated", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#a46c6ea9967bbf628ce89e7ab4071d041", null ],
     [ "SendIceCandidate", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#a173f87509d9ce22077f244d37c55b4b8", null ],
     [ "SendSdpAnswer", "classmosaic_1_1core__signaling_1_1ISignalingClient.html#ae42ba95f844f475047e637db094448f1", null ],
