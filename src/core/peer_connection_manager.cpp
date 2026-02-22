@@ -268,7 +268,8 @@ class PeerConnectionManager::Impl {
     }
 
     void ClosePeerConnection() {
-        if (!state_manager_->IsState(ConnectorStateManager::RTC_CONNECTED)) {
+        if (!(state_manager_->IsState(ConnectorStateManager::RTC_CONNECTED) ||
+              state_manager_->IsState(ConnectorStateManager::RTC_CONNECTING))) {
             return;  // 연결 중이 아닌 경우 종료하지 않습니다.
         }
 
