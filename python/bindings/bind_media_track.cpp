@@ -21,19 +21,43 @@ using namespace mosaic::handlers;
 
 // numpy array (HxW, HxWx3, HxWx4) → cv::Mat conversion
 // py::array::c_style | forcecast ensures contiguous memory and uint8 type
-cv::Mat numpy_to_mat(const py::array_t<uint8_t, py::array::c_style | py::array::forcecast>& array) {
-    auto buf = array.request();
-    int type;
-    if (buf.ndim == 2) {
-        type = CV_8UC1;
-    } else if (buf.ndim == 3 && buf.shape[2] == 3) {
-        type = CV_8UC3;
-    } else if (buf.ndim == 3 && buf.shape[2] == 4) {
-        type = CV_8UC4;
-    } else {
-        throw std::runtime_error("Unsupported array shape: expected HxW, HxWx3, or HxWx4");
+cv::Mat numpy_to_mat(const py::array_t<uint8_t, py::array::c_style | py::array::forcecast>& arr) {
+    if (arr.ndim() > 3 || arr.ndim() < 1) {
+        throw std::runtime_error("NumPy array dimensions must be 1, 2, or 3.");
     }
-    return cv::Mat(buf.shape[0], buf.shape[1], type, buf.ptr);
+
+    // Request buffer info
+    py::buffer_info info = arr.request();
+
+    // Determine the OpenCV data type and number of channels
+    int cv_type;
+    if (info.format == py::format_descriptor<unsigned char>::format()) {
+        cv_type = (arr.ndim() == 3) ? CV_8UC(info.shape[2]) : CV_8UC1;
+    } else if (info.format == py::format_descriptor<float>::format()) {
+        cv_type = (arr.ndim() == 3) ? CV_32FC(info.shape[2]) : CV_32FC1;
+    } else if (info.format == py::format_descriptor<double>::format()) {
+        cv_type = (arr.ndim() == 3) ? CV_64FC(info.shape[2]) : CV_64FC1;
+    } else {
+        throw std::runtime_error("Unsupported NumPy data type");
+    }
+
+    // Get shape (rows, cols) and strides
+    std::vector<int> shape;
+    if (arr.ndim() == 3) {
+        shape.push_back(info.shape[0]);  // rows
+        shape.push_back(info.shape[1]);  // cols
+    } else if (arr.ndim() == 2) {
+        shape.push_back(info.shape[0]);  // rows
+        shape.push_back(info.shape[1]);  // cols
+    } else {                             // 1D array treated as single row
+        shape.push_back(1);              // rows
+        shape.push_back(info.shape[0]);  // cols
+    }
+
+    // Create cv::Mat with shared memory
+    // The cv::Mat constructor takes a void* pointer to the data and shape information
+    cv::Mat mat(shape[0], shape[1], cv_type, info.ptr);
+    return mat;
 }
 
 // Trampoline class for AMediaTrackHandler
