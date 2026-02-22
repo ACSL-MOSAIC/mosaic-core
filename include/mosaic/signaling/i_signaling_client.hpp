@@ -35,6 +35,18 @@ class ISignalingClient {
     virtual bool IsAuthenticated() const = 0;
 
     virtual void SendWsMessage(const Json::Value& message) const = 0;
+
+    virtual void HandlePingPong(Json::Value const& message) const = 0;
+
+    virtual void HandlePrepareConnection(Json::Value const& message) = 0;
+
+    virtual void HandleSendSdpOffer(Json::Value const& message) const = 0;
+
+    virtual void HandleExchangeIceCandidate(Json::Value const& message) const = 0;
+
+    virtual void HandleCloseConnection() const = 0;
+
+    virtual void HandleAuthorizationMessage(const std::string& type, Json::Value const& message) const = 0;
 };
 }  // namespace mosaic::core_signaling
 

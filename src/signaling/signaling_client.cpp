@@ -58,7 +58,7 @@ void SignalingClient::SendIceCandidate(const webrtc::IceCandidateInterface* cand
     candidate->ToString(&candidate_str);
 
     Json::Value message;
-    message["type"] = "signaling.send_ice_candidate";
+    message["type"] = "signaling.exchange_ice_candidate";
     Json::Value data;
     data["rtcConnectionId"] = current_rtc_connection_id_;
 
@@ -133,7 +133,7 @@ void SignalingClient::StartInternal() {
     }
 }
 
-void SignalingClient::OnWsMessage(const std::string& msg) const {
+void SignalingClient::OnWsMessage(const std::string& msg) {
     Json::Value message;
     const Json::CharReaderBuilder builder;
     Json::CharReader* reader = builder.newCharReader();
@@ -150,13 +150,15 @@ void SignalingClient::OnWsMessage(const std::string& msg) const {
     OnMessage(message);
 }
 
-void SignalingClient::OnMessage(Json::Value const& message) const {
+void SignalingClient::OnMessage(Json::Value const& message) {
     if (!message["type"]) {
         return;
     }
 
     if (const std::string type = message["type"].asString(); type == "signaling.send_sdp_offer") {
         HandleSendSdpOffer(message["data"]);
+    } else if (type == "signaling.prepare_connection") {
+        HandlePrepareConnection(message["data"]);
     } else if (type == "signaling.exchange_ice_candidate") {
         HandleExchangeIceCandidate(message["data"]);
     } else if (type == "signaling.close_peer_connection") {
@@ -180,6 +182,10 @@ void SignalingClient::HandlePingPong(const Json::Value& message) const {
     auto responseJson = message;
     responseJson["type"] = "ping.pong";
     SendWsMessage(responseJson);
+}
+
+void SignalingClient::HandlePrepareConnection(const Json::Value& message) {
+    current_rtc_connection_id_ = message["rtcConnectionId"].asString();
 }
 
 void SignalingClient::HandleSendSdpOffer(const Json::Value& message) const {

@@ -11,7 +11,28 @@
 using namespace mosaic::core;
 
 ConnectorStateManager::ConnectorStateManager(const std::shared_ptr<core_signaling::ISignalingClient>& signaling_client)
-    : state_(INITIALIZING), signaling_client_(signaling_client) {}
+
+: state_(INITIALIZING), signaling_client_(signaling_client) {
+    state_broadcast_thread_ = std::thread(&ConnectorStateManager::StateBroadcastWorker, this);
+}
+
+ConnectorStateManager::~ConnectorStateManager() {
+    stop_flag_ = true;
+    cv_.notify_all();
+    if (state_broadcast_thread_.joinable()) {
+        state_broadcast_thread_.join();
+    }
+}
+
+void ConnectorStateManager::StateBroadcastWorker() {
+    while (!stop_flag_) {
+        std::unique_lock<std::shared_mutex> lock(mutex_);
+        cv_.wait_for(lock, std::chrono::seconds(1), [this] { return stop_flag_.load(); });
+        if (!stop_flag_) {
+            SendState();
+        }
+    }
+}
 
 void ConnectorStateManager::SetState(const State new_state) {
     std::unique_lock lock(mutex_);

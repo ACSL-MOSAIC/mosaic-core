@@ -39,20 +39,22 @@ class SignalingClient : public ISignalingClient {
 
     void SendWsMessage(const Json::Value& message) const override;
 
+    void HandlePingPong(Json::Value const& message) const override;
+
+    void HandlePrepareConnection(Json::Value const& message) override;
+
+    void HandleSendSdpOffer(Json::Value const& message) const override;
+
+    void HandleExchangeIceCandidate(Json::Value const& message) const override;
+
+    void HandleCloseConnection() const override;
+
+    void HandleAuthorizationMessage(const std::string& type, Json::Value const& message) const override;
+
   private:
-    void OnWsMessage(const std::string& msg) const;
+    void OnWsMessage(const std::string& msg);
 
-    void OnMessage(Json::Value const& message) const;
-
-    void HandlePingPong(Json::Value const& message) const;
-
-    void HandleSendSdpOffer(Json::Value const& message) const;
-
-    void HandleExchangeIceCandidate(Json::Value const& message) const;
-
-    void HandleCloseConnection() const;
-
-    void HandleAuthorizationMessage(const std::string& type, Json::Value const& message) const;
+    void OnMessage(Json::Value const& message);
 
     std::shared_ptr<core::MosaicConnector> mosaic_connector_;
     std::shared_ptr<security::IMosaicAuthenticator> authenticator_;
