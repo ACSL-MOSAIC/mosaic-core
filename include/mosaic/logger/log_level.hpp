@@ -7,10 +7,11 @@
 
 namespace mosaic::core_log {
 enum LogLevel {
-    DEBUG = 0,
-    WARNING = 1,
-    INFO = 2,
-    ERROR = 3,
+    VERBOSE = 10,
+    DEBUG = 20,
+    WARNING = 30,
+    INFO = 40,
+    ERROR = 50,
 };
 }  // namespace mosaic::core_log
 

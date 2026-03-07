@@ -9,6 +9,8 @@
 #include "log_service.hpp"
 
 namespace mosaic::core_log {
+#define MOSAIC_LOG_VERBOSE(...) mosaic::core_log::GetLogger()->LOG_VERBOSE(__VA_ARGS__)
+
 #define MOSAIC_LOG_DEBUG(...) mosaic::core_log::GetLogger()->LOG_DEBUG(__VA_ARGS__)
 
 #define MOSAIC_LOG_WARNING(...) mosaic::core_log::GetLogger()->LOG_WARNING(__VA_ARGS__)

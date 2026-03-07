@@ -57,6 +57,27 @@ class TestLoggingLevel(unittest.TestCase):
         self.tester.log_debug("should pass")
         self.assertEqual(self.tester.counts[logging.LogLevel.DEBUG], 1)
 
+    # --- LevelVerboseLogVerbose: level VERBOSE, log at VERBOSE → passes ---
+    # C++: TEST_F(LoggingLevelTest, LevelVerboseLogVerbose)
+    def test_level_verbose_log_verbose(self):
+        logging.set_log_level(logging.LogLevel.VERBOSE)
+        self.tester.log_verbose("should pass")
+        self.assertEqual(self.tester.counts[logging.LogLevel.VERBOSE], 1)
+
+    # --- LevelVerboseLogDebug: level VERBOSE, log at DEBUG → passes ---
+    # C++: TEST_F(LoggingLevelTest, LevelVerboseLogDebug)
+    def test_level_verbose_log_debug(self):
+        logging.set_log_level(logging.LogLevel.VERBOSE)
+        self.tester.log_debug("should pass")
+        self.assertEqual(self.tester.counts[logging.LogLevel.DEBUG], 1)
+
+    # --- LevelDebugLogVerbose: level DEBUG, log at VERBOSE → filtered out ---
+    # C++: TEST_F(LoggingLevelTest, LevelDebugLogVerbose)
+    def test_level_debug_log_verbose(self):
+        logging.set_log_level(logging.LogLevel.DEBUG)
+        self.tester.log_verbose("should be filtered")
+        self.assertEqual(self.tester.counts[logging.LogLevel.VERBOSE], 0)
+
 
 if __name__ == "__main__":
     unittest.main()

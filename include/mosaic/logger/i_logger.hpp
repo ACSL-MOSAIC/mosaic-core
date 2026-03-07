@@ -20,6 +20,21 @@ class ILogger {
 
     virtual void LOG(const std::string& message, LogLevel log_level) = 0;
 
+    void LOG_VERBOSE(const std::string& message) {
+        if (IsVerboseEnabled()) {
+            LOG(message, VERBOSE);
+        }
+    }
+
+    template <typename... Args>
+    void LOG_VERBOSE(const std::string& format, Args&&... args) {
+        if (IsVerboseEnabled()) {
+            // Assuming a simple string formatting function is available
+            const std::string formatted_message = fmt::format(format, std::forward<Args>(args)...);
+            LOG(formatted_message, VERBOSE);
+        }
+    }
+
     void LOG_DEBUG(const std::string& message) {
         if (IsDebugEnabled()) {
             LOG(message, DEBUG);
@@ -82,6 +97,10 @@ class ILogger {
 
     static LogLevel GetLogLevel() {
         return LogService::GetInstance().GetLogLevel();
+    }
+
+    static bool IsVerboseEnabled() {
+        return LogService::GetInstance().GetLogLevel() <= VERBOSE;
     }
 
     static bool IsDebugEnabled() {

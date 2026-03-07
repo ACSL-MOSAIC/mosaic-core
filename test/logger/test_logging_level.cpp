@@ -16,8 +16,10 @@ class LoggingLevelTester : public mosaic::core_log::ILogger {
   public:
     ~LoggingLevelTester() override = default;
 
-    void LOG(const std::string& message, const mosaic::core_log::LogLevel log_level) {
-        if (log_level == mosaic::core_log::DEBUG) {
+    void LOG(const std::string& message, const mosaic::core_log::LogLevel log_level) override {
+        if (log_level == mosaic::core_log::VERBOSE) {
+            VERBOSE_LOG_COUNT++;
+        } else if (log_level == mosaic::core_log::DEBUG) {
             DEBUG_LOG_COUNT++;
         } else if (log_level == mosaic::core_log::WARNING) {
             WARNING_LOG_COUNT++;
@@ -28,6 +30,7 @@ class LoggingLevelTester : public mosaic::core_log::ILogger {
         }
     }
 
+    int VERBOSE_LOG_COUNT = 0;
     int DEBUG_LOG_COUNT = 0;
     int WARNING_LOG_COUNT = 0;
     int INFO_LOG_COUNT = 0;
@@ -37,20 +40,16 @@ class LoggingLevelTester : public mosaic::core_log::ILogger {
 class LoggingLevelTest : public ::testing::Test {
   protected:
     void SetUp() override {
-        // 테스트 시작 전 초기화
         mosaic::core_log::RegisterLogger<LoggingLevelTester>();
-        auto logger = mosaic::core_log::GetLogger();
+        const auto logger = mosaic::core_log::GetLogger();
         logger_tester_ = std::dynamic_pointer_cast<LoggingLevelTester>(logger);
     }
 
-    void TearDown() override {
-        // 테스트 완료 후 정리
-    }
+    void TearDown() override {}
 
     std::shared_ptr<LoggingLevelTester> logger_tester_;
 };
 
-// 기본 로깅 테스트
 TEST_F(LoggingLevelTest, SimpleLogging) {
     mosaic::core_log::SetLogLevel(mosaic::core_log::INFO);
     MOSAIC_LOG_INFO("Hello!");
@@ -77,4 +76,25 @@ TEST_F(LoggingLevelTest, LevelDebugLogDebug) {
     MOSAIC_LOG_DEBUG("Hello!");
 
     EXPECT_EQ(logger_tester_->DEBUG_LOG_COUNT, 1);
+}
+
+TEST_F(LoggingLevelTest, LevelVerboseLogVerbose) {
+    mosaic::core_log::SetLogLevel(mosaic::core_log::VERBOSE);
+    MOSAIC_LOG_VERBOSE("Hello!");
+
+    EXPECT_EQ(logger_tester_->VERBOSE_LOG_COUNT, 1);
+}
+
+TEST_F(LoggingLevelTest, LevelVerboseLogDebug) {
+    mosaic::core_log::SetLogLevel(mosaic::core_log::VERBOSE);
+    MOSAIC_LOG_DEBUG("Hello!");
+
+    EXPECT_EQ(logger_tester_->DEBUG_LOG_COUNT, 1);
+}
+
+TEST_F(LoggingLevelTest, LevelDebugLogVerbose) {
+    mosaic::core_log::SetLogLevel(mosaic::core_log::DEBUG);
+    MOSAIC_LOG_VERBOSE("Hello!");
+
+    EXPECT_EQ(logger_tester_->VERBOSE_LOG_COUNT, 0);
 }
