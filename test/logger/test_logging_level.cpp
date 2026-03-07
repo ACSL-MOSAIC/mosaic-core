@@ -16,7 +16,7 @@ class LoggingLevelTester : public mosaic::core_log::ILogger {
   public:
     ~LoggingLevelTester() override = default;
 
-    void LOG(const std::string& message, const mosaic::core_log::LogLevel log_level) {
+    void LOG(const std::string& message, const mosaic::core_log::LogLevel log_level) override {
         if (log_level == mosaic::core_log::VERBOSE) {
             VERBOSE_LOG_COUNT++;
         } else if (log_level == mosaic::core_log::DEBUG) {
@@ -40,20 +40,16 @@ class LoggingLevelTester : public mosaic::core_log::ILogger {
 class LoggingLevelTest : public ::testing::Test {
   protected:
     void SetUp() override {
-        // 테스트 시작 전 초기화
         mosaic::core_log::RegisterLogger<LoggingLevelTester>();
-        auto logger = mosaic::core_log::GetLogger();
+        const auto logger = mosaic::core_log::GetLogger();
         logger_tester_ = std::dynamic_pointer_cast<LoggingLevelTester>(logger);
     }
 
-    void TearDown() override {
-        // 테스트 완료 후 정리
-    }
+    void TearDown() override {}
 
     std::shared_ptr<LoggingLevelTester> logger_tester_;
 };
 
-// 기본 로깅 테스트
 TEST_F(LoggingLevelTest, SimpleLogging) {
     mosaic::core_log::SetLogLevel(mosaic::core_log::INFO);
     MOSAIC_LOG_INFO("Hello!");
