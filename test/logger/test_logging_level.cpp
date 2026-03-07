@@ -17,7 +17,9 @@ class LoggingLevelTester : public mosaic::core_log::ILogger {
     ~LoggingLevelTester() override = default;
 
     void LOG(const std::string& message, const mosaic::core_log::LogLevel log_level) {
-        if (log_level == mosaic::core_log::DEBUG) {
+        if (log_level == mosaic::core_log::VERBOSE) {
+            VERBOSE_LOG_COUNT++;
+        } else if (log_level == mosaic::core_log::DEBUG) {
             DEBUG_LOG_COUNT++;
         } else if (log_level == mosaic::core_log::WARNING) {
             WARNING_LOG_COUNT++;
@@ -28,6 +30,7 @@ class LoggingLevelTester : public mosaic::core_log::ILogger {
         }
     }
 
+    int VERBOSE_LOG_COUNT = 0;
     int DEBUG_LOG_COUNT = 0;
     int WARNING_LOG_COUNT = 0;
     int INFO_LOG_COUNT = 0;
@@ -77,4 +80,25 @@ TEST_F(LoggingLevelTest, LevelDebugLogDebug) {
     MOSAIC_LOG_DEBUG("Hello!");
 
     EXPECT_EQ(logger_tester_->DEBUG_LOG_COUNT, 1);
+}
+
+TEST_F(LoggingLevelTest, LevelVerboseLogVerbose) {
+    mosaic::core_log::SetLogLevel(mosaic::core_log::VERBOSE);
+    MOSAIC_LOG_VERBOSE("Hello!");
+
+    EXPECT_EQ(logger_tester_->VERBOSE_LOG_COUNT, 1);
+}
+
+TEST_F(LoggingLevelTest, LevelVerboseLogDebug) {
+    mosaic::core_log::SetLogLevel(mosaic::core_log::VERBOSE);
+    MOSAIC_LOG_DEBUG("Hello!");
+
+    EXPECT_EQ(logger_tester_->DEBUG_LOG_COUNT, 1);
+}
+
+TEST_F(LoggingLevelTest, LevelDebugLogVerbose) {
+    mosaic::core_log::SetLogLevel(mosaic::core_log::DEBUG);
+    MOSAIC_LOG_VERBOSE("Hello!");
+
+    EXPECT_EQ(logger_tester_->VERBOSE_LOG_COUNT, 0);
 }
