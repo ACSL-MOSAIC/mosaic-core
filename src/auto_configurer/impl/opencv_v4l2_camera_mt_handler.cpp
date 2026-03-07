@@ -2,24 +2,26 @@
 // Created by yhkim on 2026. 2. 14.
 //
 
-#include "mosaic/auto_configurer/impl/opencv_camera_mt_handler.hpp"
+#include "mosaic/auto_configurer/impl/opencv_v4l2_camera_mt_handler.hpp"
 
 #include <chrono>
 
 using namespace mosaic::auto_configurer;
 
-void impl::OpenCVCameraMediaTrackConfigurer::Configure() {
+void impl::OpenCV_V4L2_CameraMediaTrackConfigurer::Configure() {
     const auto frame_rate =
-        connector_config_->params["fps"] != "" ? std::stof(connector_config_->params["fps"]) : 30.0f;
+        !connector_config_->params["fps"].empty() ? std::stof(connector_config_->params["fps"]) : 30.0f;
     const auto camera_id =
-        connector_config_->params["camera_id"] != "" ? std::stoi(connector_config_->params["camera_id"]) : 0;
-    const auto width = connector_config_->params["width"] != "" ? std::stoi(connector_config_->params["width"]) : 640;
+        !connector_config_->params["camera_id"].empty() ? std::stoi(connector_config_->params["camera_id"]) : 0;
+    const auto width =
+        !connector_config_->params["width"].empty() ? std::stoi(connector_config_->params["width"]) : 640;
     const auto height =
-        connector_config_->params["height"] != "" ? std::stoi(connector_config_->params["height"]) : 480;
-    handler_ = std::make_shared<OpenCVCameraMediaTrack>(connector_config_->label, frame_rate, camera_id, width, height);
+        !connector_config_->params["height"].empty() ? std::stoi(connector_config_->params["height"]) : 480;
+    handler_ =
+        std::make_shared<OpenCV_V4L2_CameraMediaTrack>(connector_config_->label, frame_rate, camera_id, width, height);
 }
 
-void impl::OpenCVCameraMediaTrack::Start() {
+void impl::OpenCV_V4L2_CameraMediaTrack::Start() {
     if (IsRunning()) {
         return;
     }
@@ -47,7 +49,7 @@ void impl::OpenCVCameraMediaTrack::Start() {
     }));
 }
 
-void impl::OpenCVCameraMediaTrack::Stop() {
+void impl::OpenCV_V4L2_CameraMediaTrack::Stop() {
     if (!IsRunning()) {
         return;
     }
@@ -61,7 +63,7 @@ void impl::OpenCVCameraMediaTrack::Stop() {
     SetRunning(false);
 }
 
-void impl::OpenCVCameraMediaTrack::FrameLoop() {
+void impl::OpenCV_V4L2_CameraMediaTrack::FrameLoop() {
     cv::Mat frame;
     if (!capture_.read(frame)) {
         return;

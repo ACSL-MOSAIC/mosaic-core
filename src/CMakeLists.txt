@@ -42,7 +42,7 @@ add_library(mosaic-core ${LIB_TYPE}
         auto_configurer/connector_resolver.cpp
         config_reader/config_reader_resolver.cpp
         config_reader/yaml_config_reader.cpp
-        auto_configurer/impl/opencv_camera_mt_handler.cpp
+        auto_configurer/impl/opencv_v4l2_camera_mt_handler.cpp
         auto_configurer/impl/connection_check_dc_handler.cpp
 )
 

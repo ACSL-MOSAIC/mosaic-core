@@ -5,7 +5,7 @@
 #include "mosaic/auto_configurer/connector/connector_resolver.hpp"
 
 #include "mosaic/auto_configurer/impl/connection_check_dc_handler.hpp"
-#include "mosaic/auto_configurer/impl/opencv_camera_mt_handler.hpp"
+#include "mosaic/auto_configurer/impl/opencv_v4l2_camera_mt_handler.hpp"
 
 using namespace mosaic::auto_configurer;
 
@@ -28,6 +28,6 @@ std::shared_ptr<IConfigurableConnector> ConnectorResolver::GetConfigurableConnec
 }
 
 ConnectorResolver::ConnectorResolver() {
-    RegisterConfigurableConnector<impl::OpenCVCameraMediaTrackConfigurer>();
+    RegisterConfigurableConnector<impl::OpenCV_V4L2_CameraMediaTrackConfigurer>();
     RegisterConfigurableConnector<impl::ConnectionCheckDCHandlerConfigurer>();
 }

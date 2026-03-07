@@ -16,7 +16,7 @@ using namespace mosaic::handlers;
 namespace mosaic::handlers {
 class ActualVideoTrackSource : public rtc::AdaptedVideoTrackSource {
   public:
-    ActualVideoTrackSource() {}
+    ActualVideoTrackSource() = default;
 
     // rtc::AdaptedVideoTrackSource 인터페이스 구현
     SourceState state() const override {
@@ -61,7 +61,7 @@ class AMediaTrackHandler::Impl {
         }
     }
 
-    bool IsRunning() const {
+    [[nodiscard]] bool IsRunning() const {
         return actual_video_track_source_ && actual_video_track_source_->is_running_;
     }
 
@@ -85,7 +85,7 @@ class AMediaTrackHandler::Impl {
         }
     }
 
-    bool GetStopFlag() const {
+    [[nodiscard]] bool GetStopFlag() const {
         return actual_video_track_source_ && actual_video_track_source_->stop_flag_;
     }
 

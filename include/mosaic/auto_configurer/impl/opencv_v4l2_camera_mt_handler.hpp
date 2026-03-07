@@ -14,32 +14,32 @@
 #include "../connector/configurable_connectors.hpp"
 
 namespace mosaic::auto_configurer::impl {
-class OpenCVCameraMediaTrackConfigurer : public AMTHandlerConfigurer {
+class OpenCV_V4L2_CameraMediaTrackConfigurer : public AMTHandlerConfigurer {
   public:
-    OpenCVCameraMediaTrackConfigurer() = default;
+    OpenCV_V4L2_CameraMediaTrackConfigurer() = default;
 
     std::string GetConnectorType() const override {
-        return "opencv-sender-camera";
+        return "opencv-sender-v4l2-camera";
     }
 
     void Configure() override;
 };
 
-class OpenCVCameraMediaTrack : public handlers::AMediaTrackHandler {
+class OpenCV_V4L2_CameraMediaTrack : public handlers::AMediaTrackHandler {
   public:
-    explicit OpenCVCameraMediaTrack(const std::string& track_name,
-                                    const float frame_rate,
-                                    const int camera_id,
-                                    const int width,
-                                    const int height)
+    explicit OpenCV_V4L2_CameraMediaTrack(const std::string& track_name,
+                                          const float frame_rate,
+                                          const int camera_id,
+                                          const int width,
+                                          const int height)
         : AMediaTrackHandler(track_name, false),
           frame_rate_(frame_rate),
           camera_id_(camera_id),
           width_(width),
           height_(height) {}
 
-    ~OpenCVCameraMediaTrack() override {
-        OpenCVCameraMediaTrack::Stop();
+    ~OpenCV_V4L2_CameraMediaTrack() override {
+        OpenCV_V4L2_CameraMediaTrack::Stop();
     }
 
     void Start() override;
