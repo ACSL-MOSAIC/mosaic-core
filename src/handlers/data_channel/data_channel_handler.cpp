@@ -16,10 +16,15 @@
 
 namespace mosaic::handlers {
 
+static constexpr uint64_t kBufferedAmountHighThreshold = 64 * 1024;  // 64KB: stop sending above this
+static constexpr uint64_t kBufferedAmountLowThreshold = 16 * 1024;   // 16KB: resume sending below this
+
 class DataChannelObserver final : public webrtc::DataChannelObserver {
   public:
-    explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer&)> onMessageCallback)
-        : onMessageCallback_(std::move(onMessageCallback)) {}
+    explicit DataChannelObserver(std::function<void(const webrtc::DataBuffer&)> onMessageCallback,
+                                 std::function<void()> onBufferedAmountChangedCallback)
+        : onMessageCallback_(std::move(onMessageCallback)),
+          onBufferedAmountChangedCallback_(std::move(onBufferedAmountChangedCallback)) {}
 
     void OnStateChange() override {
         // Handle state change events here
@@ -31,8 +36,10 @@ class DataChannelObserver final : public webrtc::DataChannelObserver {
     }
 
     void OnBufferedAmountChange(uint64_t sent_data_size) override {
-        // Handle changes in buffered amount
-        MOSAIC_LOG_DEBUG("DataChannel Buffered amount changed: {}", sent_data_size);
+        // MOSAIC_LOG_INFO("DataChannel Buffered amount changed: {}", sent_data_size);
+        if (onBufferedAmountChangedCallback_) {
+            onBufferedAmountChangedCallback_();
+        }
     }
 
     bool IsOkToCallOnTheNetworkThread() override {
@@ -41,6 +48,7 @@ class DataChannelObserver final : public webrtc::DataChannelObserver {
 
   private:
     std::function<void(const webrtc::DataBuffer&)> onMessageCallback_;
+    std::function<void()> onBufferedAmountChangedCallback_;
 };
 
 class ADataChannelHandler::Impl {
@@ -76,7 +84,13 @@ class ADataChannelHandler::Impl {
             onMessageLambda = [](const webrtc::DataBuffer&) {};
         }
 
-        observer_ = std::make_shared<DataChannelObserver>(onMessageLambda);
+        std::function<void()> onBufferedAmountChangedLambda = [this]() {
+            std::lock_guard<std::mutex> lock(queue_mutex_);
+            // MOSAIC_LOG_INFO("DataChannel buffer changed, resuming send queue for label: {}", label_);
+            ProcessQueue();
+        };
+
+        observer_ = std::make_shared<DataChannelObserver>(onMessageLambda, onBufferedAmountChangedLambda);
         dc_interface_->RegisterObserver(observer_.get());
     }
 
@@ -132,7 +146,12 @@ class ADataChannelHandler::Impl {
         }
 
         is_sending_ = true;
-        auto buffer = send_queue_.front();
+        const auto buffer = send_queue_.front();
+        if (buffer.size() > webrtc::DataChannelInterface::MaxSendQueueSize() - dc_interface_->buffered_amount()) {
+            MOSAIC_LOG_INFO(
+                "DataChannel buffer high ({}B), pausing send for label: {}", dc_interface_->buffered_amount(), label_);
+            return;
+        }
         send_queue_.pop();
 
         MOSAIC_LOG_DEBUG("Buffer Size: {}", buffer.size());
@@ -142,7 +161,11 @@ class ADataChannelHandler::Impl {
             is_sending_ = false;
 
             if (!error.ok()) {
-                MOSAIC_LOG_ERROR("SendAsync failed for label: {}, error: {}", label_, error.message());
+                MOSAIC_LOG_ERROR("SendAsync failed for label: {}, type: {}, detail: {}, error: {}",
+                                 label_,
+                                 static_cast<int>(error.type()),
+                                 static_cast<int>(error.error_detail()),
+                                 error.message());
             }
 
             ProcessQueue();
